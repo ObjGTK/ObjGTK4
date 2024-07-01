@@ -10,9 +10,9 @@
 
 @implementation OGGdkGLTexture
 
-- (instancetype)initWithContext:(OGGdkGLContext*)context id:(guint)id width:(int)width height:(int)height destroy:(GDestroyNotify)destroy data:(gpointer)data
+- (instancetype)initWithContext:(OGGdkGLContext*)context identifier:(guint)identifier width:(int)width height:(int)height destroy:(GDestroyNotify)destroy data:(gpointer)data
 {
-	GdkGLTexture* gobjectValue = GDK_GL_TEXTURE(gdk_gl_texture_new([context castedGObject], id, width, height, destroy, data));
+	GdkGLTexture* gobjectValue = GDK_GL_TEXTURE(gdk_gl_texture_new([context castedGObject], identifier, width, height, destroy, data));
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
