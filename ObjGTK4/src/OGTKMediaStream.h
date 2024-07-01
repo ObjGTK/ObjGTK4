@@ -98,7 +98,7 @@
  *
  * @return %TRUE if playback is finished
  */
-- (bool)ended;
+- (bool)isEnded;
 
 /**
  * If the stream is in an error state, returns the `GError`
@@ -128,7 +128,7 @@
  *
  * @return %TRUE if the stream should loop
  */
-- (bool)loop;
+- (bool)isLoop;
 
 /**
  * Returns whether the audio for the stream is muted.
@@ -137,14 +137,14 @@
  *
  * @return %TRUE if the stream is muted
  */
-- (bool)muted;
+- (bool)isMuted;
 
 /**
  * Return whether the stream is currently playing.
  *
  * @return %TRUE if the stream is playing
  */
-- (bool)playing;
+- (bool)isPlaying;
 
 /**
  * Returns the current presentation timestamp in microseconds.
