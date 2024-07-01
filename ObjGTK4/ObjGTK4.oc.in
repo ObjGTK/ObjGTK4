@@ -1,0 +1,8 @@
+package_format 1
+package_depends_on OGObject
+package_depends_on OGdk4
+package_depends_on OGsk4
+
+CPPFLAGS="$CPPFLAGS @OBJGTK4_CPPFLAGS@"
+LIBS="-lobjgtk4 @OBJGTK4_LIBS@ $LIBS"
+FRAMEWORK_LIBS="-framework ObjGTK4 @OBJGTK4_LIBS@ $FRAMEWORK_LIBS"
