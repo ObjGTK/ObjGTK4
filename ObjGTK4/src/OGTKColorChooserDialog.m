@@ -6,14 +6,17 @@
 
 #import "OGTKColorChooserDialog.h"
 
-#import "OGTKWindow.h"
 #import "OGTKWidget.h"
+#import "OGTKWindow.h"
 
 @implementation OGTKColorChooserDialog
 
 - (instancetype)initWithTitle:(OFString*)title parent:(OGTKWindow*)parent
 {
 	GtkColorChooserDialog* gobjectValue = GTK_COLOR_CHOOSER_DIALOG(gtk_color_chooser_dialog_new([title UTF8String], [parent castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

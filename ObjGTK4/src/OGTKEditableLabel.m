@@ -12,6 +12,9 @@
 {
 	GtkEditableLabel* gobjectValue = GTK_EDITABLE_LABEL(gtk_editable_label_new([str UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

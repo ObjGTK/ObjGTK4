@@ -6,8 +6,8 @@
 
 #import "OGTKDialog.h"
 
-@class OGTKWindow;
 @class OGTKWidget;
+@class OGTKWindow;
 
 /**
  * The `GtkFontChooserDialog` widget is a dialog for selecting a font.

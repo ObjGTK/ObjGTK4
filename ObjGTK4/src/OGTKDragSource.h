@@ -6,8 +6,8 @@
 
 #import "OGTKGestureSingle.h"
 
-@class OGGdkDrag;
 @class OGGdkContentProvider;
+@class OGGdkDrag;
 
 /**
  * `GtkDragSource` is an event controller to initiate Drag-And-Drop operations.

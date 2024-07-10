@@ -8,13 +8,13 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDisplay;
-@class OGGdkVulkanContext;
-@class OGGdkCairoContext;
-@class OGGdkGLContext;
 @class OGGdkFrameClock;
-@class OGGdkDevice;
 @class OGGdkCursor;
+@class OGGdkCairoContext;
+@class OGGdkDisplay;
+@class OGGdkGLContext;
+@class OGGdkDevice;
+@class OGGdkVulkanContext;
 
 /**
  * A `GdkSurface` is a rectangular region on the screen.

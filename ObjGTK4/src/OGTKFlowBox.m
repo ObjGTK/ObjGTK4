@@ -6,14 +6,17 @@
 
 #import "OGTKFlowBox.h"
 
-#import "OGTKFlowBoxChild.h"
 #import "OGTKAdjustment.h"
+#import "OGTKFlowBoxChild.h"
 
 @implementation OGTKFlowBox
 
 - (instancetype)init
 {
 	GtkFlowBox* gobjectValue = GTK_FLOW_BOX(gtk_flow_box_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

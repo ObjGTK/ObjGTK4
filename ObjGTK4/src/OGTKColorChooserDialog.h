@@ -6,8 +6,8 @@
 
 #import "OGTKDialog.h"
 
-@class OGTKWindow;
 @class OGTKWidget;
+@class OGTKWindow;
 
 /**
  * A dialog for choosing a color.

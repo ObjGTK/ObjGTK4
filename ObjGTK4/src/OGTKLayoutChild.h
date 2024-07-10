@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKLayoutManager;
 @class OGTKWidget;
+@class OGTKLayoutManager;
 
 /**
  * `GtkLayoutChild` is the base class for objects that are meant to hold

@@ -6,9 +6,9 @@
 
 #import "OGTKWidget.h"
 
-@class OGMenuModel;
-@class OGTKEntryCompletion;
 @class OGGdkContentProvider;
+@class OGTKEntryCompletion;
+@class OGMenuModel;
 @class OGTKEntryBuffer;
 
 /**

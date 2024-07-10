@@ -6,8 +6,8 @@
 
 #import "OGTKEntryCompletion.h"
 
-#import "OGTKCellArea.h"
 #import "OGTKWidget.h"
+#import "OGTKCellArea.h"
 
 @implementation OGTKEntryCompletion
 

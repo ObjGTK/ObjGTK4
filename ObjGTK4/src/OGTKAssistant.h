@@ -6,8 +6,8 @@
 
 #import "OGTKWindow.h"
 
-@class OGTKAssistantPage;
 @class OGTKWidget;
+@class OGTKAssistantPage;
 
 /**
  * `GtkAssistant` is used to represent a complex as a series of steps.

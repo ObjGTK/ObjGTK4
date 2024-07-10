@@ -6,9 +6,9 @@
 
 #import "OGTKWidget.h"
 
-@class OGTKCellArea;
 @class OGTKCellRenderer;
 @class OGTKTooltip;
+@class OGTKCellArea;
 
 /**
  * `GtkIconView` is a widget which displays data in a grid of icons.

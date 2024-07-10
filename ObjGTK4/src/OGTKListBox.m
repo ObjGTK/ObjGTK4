@@ -6,14 +6,17 @@
 
 #import "OGTKListBox.h"
 
-#import "OGTKAdjustment.h"
 #import "OGTKListBoxRow.h"
+#import "OGTKAdjustment.h"
 
 @implementation OGTKListBox
 
 - (instancetype)init
 {
 	GtkListBox* gobjectValue = GTK_LIST_BOX(gtk_list_box_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

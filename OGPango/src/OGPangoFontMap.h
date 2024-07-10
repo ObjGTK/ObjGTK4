@@ -9,9 +9,9 @@
 #import <OGObject/OGObject.h>
 
 @class OGPangoFont;
+@class OGPangoFontFamily;
 @class OGPangoFontset;
 @class OGPangoContext;
-@class OGPangoFontFamily;
 
 /**
  * A `PangoFontMap` represents the set of fonts available for a

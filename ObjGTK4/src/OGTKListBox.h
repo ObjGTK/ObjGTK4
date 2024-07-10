@@ -6,8 +6,8 @@
 
 #import "OGTKWidget.h"
 
-@class OGTKAdjustment;
 @class OGTKListBoxRow;
+@class OGTKAdjustment;
 
 /**
  * `GtkListBox` is a vertical list.

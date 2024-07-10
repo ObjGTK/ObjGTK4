@@ -6,8 +6,8 @@
 
 #import "OGTKEventController.h"
 
-@class OGTKWidget;
 @class OGTKIMContext;
+@class OGTKWidget;
 
 /**
  * `GtkEventControllerKey` is an event controller that provides access

@@ -7,9 +7,9 @@
 #import "OGTKWindow.h"
 
 #import <OGdk4/OGGdkMonitor.h>
+#import "OGTKWindowGroup.h"
 #import <OGdk4/OGGdkDisplay.h>
 #import "OGTKApplication.h"
-#import "OGTKWindowGroup.h"
 
 @implementation OGTKWindow
 
@@ -53,6 +53,9 @@
 - (instancetype)init
 {
 	GtkWindow* gobjectValue = GTK_WINDOW(gtk_window_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

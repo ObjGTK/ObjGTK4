@@ -8,18 +8,18 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkCursor;
-@class OGPangoFontMap;
-@class OGPangoContext;
-@class OGGdkFrameClock;
-@class OGTKLayoutManager;
-@class OGTKStyleContext;
-@class OGGdkDisplay;
-@class OGPangoLayout;
 @class OGTKSettings;
-@class OGGdkClipboard;
-@class OGTKEventController;
+@class OGTKLayoutManager;
+@class OGGdkDisplay;
+@class OGPangoFontMap;
+@class OGGdkFrameClock;
 @class OGTKSnapshot;
+@class OGTKStyleContext;
+@class OGGdkCursor;
+@class OGTKEventController;
+@class OGPangoContext;
+@class OGGdkClipboard;
+@class OGPangoLayout;
 
 /**
  * The base class for all widgets.

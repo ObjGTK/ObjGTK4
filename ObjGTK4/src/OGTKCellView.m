@@ -16,6 +16,9 @@
 {
 	GtkCellView* gobjectValue = GTK_CELL_VIEW(gtk_cell_view_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -31,6 +34,9 @@
 - (instancetype)initWithContextWithArea:(OGTKCellArea*)area context:(OGTKCellAreaContext*)context
 {
 	GtkCellView* gobjectValue = GTK_CELL_VIEW(gtk_cell_view_new_with_context([area castedGObject], [context castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -48,6 +54,9 @@
 {
 	GtkCellView* gobjectValue = GTK_CELL_VIEW(gtk_cell_view_new_with_markup([markup UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -64,6 +73,9 @@
 {
 	GtkCellView* gobjectValue = GTK_CELL_VIEW(gtk_cell_view_new_with_text([text UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -79,6 +91,9 @@
 - (instancetype)initWithTexture:(OGGdkTexture*)texture
 {
 	GtkCellView* gobjectValue = GTK_CELL_VIEW(gtk_cell_view_new_with_texture([texture castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

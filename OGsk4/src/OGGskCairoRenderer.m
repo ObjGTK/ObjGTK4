@@ -6,6 +6,8 @@
 
 #import "OGGskCairoRenderer.h"
 
+#import "OGGskRenderer.h"
+
 @implementation OGGskCairoRenderer
 
 - (instancetype)init

@@ -9,8 +9,8 @@
 #import <OGObject/OGObject.h>
 
 @class OGTKCellArea;
-@class OGTKCellRenderer;
 @class OGTKWidget;
+@class OGTKCellRenderer;
 
 /**
  * A visible column in a [class@Gtk.TreeView] widget

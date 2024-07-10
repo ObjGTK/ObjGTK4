@@ -6,8 +6,8 @@
 
 #import "OGTKEventControllerKey.h"
 
-#import "OGTKWidget.h"
 #import "OGTKIMContext.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKEventControllerKey
 

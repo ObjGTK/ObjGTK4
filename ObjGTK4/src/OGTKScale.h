@@ -6,9 +6,9 @@
 
 #import "OGTKRange.h"
 
-@class OGTKWidget;
 @class OGPangoLayout;
 @class OGTKAdjustment;
+@class OGTKWidget;
 
 /**
  * A `GtkScale` is a slider control used to select a numeric value.

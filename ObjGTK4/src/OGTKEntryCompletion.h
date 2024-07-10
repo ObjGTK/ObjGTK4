@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKCellArea;
 @class OGTKWidget;
+@class OGTKCellArea;
 
 /**
  * `GtkEntryCompletion` is an auxiliary object to provide completion functionality

@@ -6,10 +6,10 @@
 
 #import "OGGdkDevice.h"
 
+#import "OGGdkSeat.h"
 #import "OGGdkDeviceTool.h"
 #import "OGGdkDisplay.h"
 #import "OGGdkSurface.h"
-#import "OGGdkSeat.h"
 
 @implementation OGGdkDevice
 

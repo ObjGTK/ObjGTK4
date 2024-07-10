@@ -6,8 +6,8 @@
 
 #import "OGTKShortcut.h"
 
-#import "OGTKShortcutAction.h"
 #import "OGTKShortcutTrigger.h"
+#import "OGTKShortcutAction.h"
 
 @implementation OGTKShortcut
 

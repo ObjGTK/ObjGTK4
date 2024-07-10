@@ -8,13 +8,13 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkAppLaunchContext;
-@class OGGdkMonitor;
 @class OGGdkClipboard;
-@class OGGdkDevice;
-@class OGGdkSeat;
 @class OGGdkGLContext;
+@class OGGdkSeat;
+@class OGGdkAppLaunchContext;
+@class OGGdkDevice;
 @class OGGdkSurface;
+@class OGGdkMonitor;
 
 /**
  * `GdkDisplay` objects are the GDK representation of a workstation.

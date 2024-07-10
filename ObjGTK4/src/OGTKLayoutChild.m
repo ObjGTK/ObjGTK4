@@ -6,8 +6,8 @@
 
 #import "OGTKLayoutChild.h"
 
-#import "OGTKLayoutManager.h"
 #import "OGTKWidget.h"
+#import "OGTKLayoutManager.h"
 
 @implementation OGTKLayoutChild
 

@@ -6,10 +6,10 @@
 
 #import "OGGdkPixbufAnimation.h"
 
-#import "OGGdkPixbufAnimationIter.h"
-#import <OGio/OGInputStream.h>
 #import <OGio/OGCancellable.h>
 #import "OGGdkPixbuf.h"
+#import "OGGdkPixbufAnimationIter.h"
+#import <OGio/OGInputStream.h>
 
 @implementation OGGdkPixbufAnimation
 

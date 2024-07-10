@@ -8,10 +8,10 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkSurface;
-@class OGGdkContentProvider;
 @class OGGdkDevice;
+@class OGGdkSurface;
 @class OGGdkDisplay;
+@class OGGdkContentProvider;
 
 /**
  * The `GdkDrag` object represents the source of an ongoing DND operation.

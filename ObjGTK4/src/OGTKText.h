@@ -6,8 +6,8 @@
 
 #import "OGTKWidget.h"
 
-@class OGTKEntryBuffer;
 @class OGMenuModel;
+@class OGTKEntryBuffer;
 
 /**
  * The `GtkText` widget is a single-line text entry widget.

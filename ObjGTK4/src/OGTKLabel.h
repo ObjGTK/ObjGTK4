@@ -6,8 +6,8 @@
 
 #import "OGTKWidget.h"
 
-@class OGPangoLayout;
 @class OGMenuModel;
+@class OGPangoLayout;
 
 /**
  * The `GtkLabel` widget displays a small amount of text.

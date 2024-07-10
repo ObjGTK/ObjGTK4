@@ -8,9 +8,9 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGPangoContext;
-@class OGPangoCoverage;
 @class OGPangoFontFace;
+@class OGPangoCoverage;
+@class OGPangoContext;
 @class OGPangoFontMap;
 
 /**

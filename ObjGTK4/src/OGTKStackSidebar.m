@@ -14,6 +14,9 @@
 {
 	GtkStackSidebar* gobjectValue = GTK_STACK_SIDEBAR(gtk_stack_sidebar_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

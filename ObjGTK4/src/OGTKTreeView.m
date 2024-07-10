@@ -7,15 +7,18 @@
 #import "OGTKTreeView.h"
 
 #import "OGTKTooltip.h"
-#import "OGTKTreeSelection.h"
-#import "OGTKTreeViewColumn.h"
 #import "OGTKCellRenderer.h"
+#import "OGTKTreeViewColumn.h"
+#import "OGTKTreeSelection.h"
 
 @implementation OGTKTreeView
 
 - (instancetype)init
 {
 	GtkTreeView* gobjectValue = GTK_TREE_VIEW(gtk_tree_view_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -32,6 +35,9 @@
 - (instancetype)initWithModel:(GtkTreeModel*)model
 {
 	GtkTreeView* gobjectValue = GTK_TREE_VIEW(gtk_tree_view_new_with_model(model));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

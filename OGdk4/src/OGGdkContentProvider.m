@@ -6,8 +6,8 @@
 
 #import "OGGdkContentProvider.h"
 
-#import <OGio/OGCancellable.h>
 #import <OGio/OGOutputStream.h>
+#import <OGio/OGCancellable.h>
 
 @implementation OGGdkContentProvider
 

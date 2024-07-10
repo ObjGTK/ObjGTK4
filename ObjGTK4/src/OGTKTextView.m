@@ -6,10 +6,10 @@
 
 #import "OGTKTextView.h"
 
-#import "OGTKTextMark.h"
 #import <OGio/OGMenuModel.h>
-#import <OGPango/OGPangoContext.h>
 #import "OGTKTextBuffer.h"
+#import <OGPango/OGPangoContext.h>
+#import "OGTKTextMark.h"
 #import "OGTKTextChildAnchor.h"
 
 @implementation OGTKTextView
@@ -17,6 +17,9 @@
 - (instancetype)init
 {
 	GtkTextView* gobjectValue = GTK_TEXT_VIEW(gtk_text_view_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -33,6 +36,9 @@
 - (instancetype)initWithBuffer:(OGTKTextBuffer*)buffer
 {
 	GtkTextView* gobjectValue = GTK_TEXT_VIEW(gtk_text_view_new_with_buffer([buffer castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

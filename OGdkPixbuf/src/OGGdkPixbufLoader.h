@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkPixbufAnimation;
 @class OGGdkPixbuf;
+@class OGGdkPixbufAnimation;
 
 /**
  * Incremental image loader.

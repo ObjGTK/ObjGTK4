@@ -14,6 +14,9 @@
 {
 	GtkComboBoxText* gobjectValue = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -29,6 +32,9 @@
 - (instancetype)initWithEntry
 {
 	GtkComboBoxText* gobjectValue = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new_with_entry());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

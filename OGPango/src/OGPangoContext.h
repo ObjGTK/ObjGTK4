@@ -8,9 +8,9 @@
 
 #import <OGObject/OGObject.h>
 
+@class OGPangoFontFamily;
 @class OGPangoFontset;
 @class OGPangoFont;
-@class OGPangoFontFamily;
 @class OGPangoFontMap;
 
 /**

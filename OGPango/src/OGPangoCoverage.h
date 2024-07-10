@@ -8,9 +8,6 @@
 
 #import <OGObject/OGObject.h>
 
-//because the decs hate us, we have to manually define the GObject cast thingy
-#define PANGO_COVERAGE(...) G_TYPE_CHECK_INSTANCE_CAST(__VA_ARGS__, pango_coverage_get_type(), PangoCoverage)
-
 /**
  * A `PangoCoverage` structure is a map from Unicode characters
  * to [enum@Pango.CoverageLevel] values.
@@ -32,8 +29,7 @@
  */
 
 /**
- * Convert data generated from [method@Pango.Coverage.to_bytes]
- * back to a `PangoCoverage`.
+ * This returns %NULL
  *
  * @param bytes binary data
  *   representing a `PangoCoverage`

@@ -14,6 +14,9 @@
 {
 	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -29,6 +32,9 @@
 - (instancetype)initFromFile:(OFString*)filename
 {
 	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_file([filename UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -46,6 +52,9 @@
 {
 	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_gicon(icon));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -61,6 +70,9 @@
 - (instancetype)initFromIconName:(OFString*)iconName
 {
 	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_icon_name([iconName UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -78,6 +90,9 @@
 {
 	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_paintable(paintable));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -94,6 +109,9 @@
 {
 	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_pixbuf([pixbuf castedGObject]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -109,6 +127,9 @@
 - (instancetype)initFromResource:(OFString*)resourcePath
 {
 	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_resource([resourcePath UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

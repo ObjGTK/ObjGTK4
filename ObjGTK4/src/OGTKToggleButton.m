@@ -14,6 +14,9 @@
 {
 	GtkToggleButton* gobjectValue = GTK_TOGGLE_BUTTON(gtk_toggle_button_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -30,6 +33,9 @@
 {
 	GtkToggleButton* gobjectValue = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_label([label UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -45,6 +51,9 @@
 - (instancetype)initWithMnemonic:(OFString*)label
 {
 	GtkToggleButton* gobjectValue = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_mnemonic([label UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

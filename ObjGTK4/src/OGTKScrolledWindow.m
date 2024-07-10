@@ -14,6 +14,9 @@
 {
 	GtkScrolledWindow* gobjectValue = GTK_SCROLLED_WINDOW(gtk_scrolled_window_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

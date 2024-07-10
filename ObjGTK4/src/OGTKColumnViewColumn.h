@@ -8,10 +8,10 @@
 
 #import <OGObject/OGObject.h>
 
+@class OGTKColumnView;
+@class OGTKListItemFactory;
 @class OGMenuModel;
 @class OGTKSorter;
-@class OGTKListItemFactory;
-@class OGTKColumnView;
 
 /**
  * `GtkColumnViewColumn` represents the columns being added to `GtkColumnView`.

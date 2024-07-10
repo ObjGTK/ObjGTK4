@@ -14,6 +14,9 @@
 {
 	GtkLinkButton* gobjectValue = GTK_LINK_BUTTON(gtk_link_button_new([uri UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -29,6 +32,9 @@
 - (instancetype)initWithLabelWithUri:(OFString*)uri label:(OFString*)label
 {
 	GtkLinkButton* gobjectValue = GTK_LINK_BUTTON(gtk_link_button_new_with_label([uri UTF8String], [label UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

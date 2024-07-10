@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKWidget;
 @class OGTKSnapshot;
+@class OGTKWidget;
 
 /**
  * An object for rendering a single cell

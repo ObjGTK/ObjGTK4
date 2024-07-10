@@ -6,8 +6,8 @@
 
 #import "OGTKWidget.h"
 
-@class OGTKFlowBoxChild;
 @class OGTKAdjustment;
+@class OGTKFlowBoxChild;
 
 /**
  * A `GtkFlowBox` puts child widgets in reflowing grid.

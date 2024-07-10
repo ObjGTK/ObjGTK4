@@ -12,6 +12,9 @@
 {
 	GtkWindowHandle* gobjectValue = GTK_WINDOW_HANDLE(gtk_window_handle_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

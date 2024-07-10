@@ -6,15 +6,18 @@
 
 #import "OGTKScale.h"
 
-#import "OGTKWidget.h"
 #import <OGPango/OGPangoLayout.h>
 #import "OGTKAdjustment.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKScale
 
 - (instancetype)initWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment
 {
 	GtkScale* gobjectValue = GTK_SCALE(gtk_scale_new(orientation, [adjustment castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -31,6 +34,9 @@
 - (instancetype)initWithRangeWithOrientation:(GtkOrientation)orientation min:(double)min max:(double)max step:(double)step
 {
 	GtkScale* gobjectValue = GTK_SCALE(gtk_scale_new_with_range(orientation, min, max, step));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

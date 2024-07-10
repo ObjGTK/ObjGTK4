@@ -6,14 +6,17 @@
 
 #import "OGTKGridView.h"
 
-#import "OGTKListItemFactory.h"
 #import "OGTKWidget.h"
+#import "OGTKListItemFactory.h"
 
 @implementation OGTKGridView
 
 - (instancetype)initWithModel:(GtkSelectionModel*)model factory:(OGTKListItemFactory*)factory
 {
 	GtkGridView* gobjectValue = GTK_GRID_VIEW(gtk_grid_view_new(model, [factory castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

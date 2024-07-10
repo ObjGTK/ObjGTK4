@@ -12,6 +12,9 @@
 {
 	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -27,6 +30,9 @@
 - (instancetype)initFromIconName:(OFString*)iconName
 {
 	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_from_icon_name([iconName UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -44,6 +50,9 @@
 {
 	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_with_label([label UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -59,6 +68,9 @@
 - (instancetype)initWithMnemonic:(OFString*)label
 {
 	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_with_mnemonic([label UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKShortcutAction;
 @class OGTKShortcutTrigger;
+@class OGTKShortcutAction;
 
 /**
  * A `GtkShortcut` describes a keyboard shortcut.

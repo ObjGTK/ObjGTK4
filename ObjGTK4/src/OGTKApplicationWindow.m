@@ -6,15 +6,18 @@
 
 #import "OGTKApplicationWindow.h"
 
-#import "OGTKShortcutsWindow.h"
-#import "OGTKWidget.h"
 #import "OGTKApplication.h"
+#import "OGTKWidget.h"
+#import "OGTKShortcutsWindow.h"
 
 @implementation OGTKApplicationWindow
 
 - (instancetype)init:(OGTKApplication*)application
 {
 	GtkApplicationWindow* gobjectValue = GTK_APPLICATION_WINDOW(gtk_application_window_new([application castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

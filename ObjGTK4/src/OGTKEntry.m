@@ -6,9 +6,9 @@
 
 #import "OGTKEntry.h"
 
-#import <OGio/OGMenuModel.h>
-#import "OGTKEntryCompletion.h"
 #import <OGdk4/OGGdkContentProvider.h>
+#import "OGTKEntryCompletion.h"
+#import <OGio/OGMenuModel.h>
 #import "OGTKEntryBuffer.h"
 
 @implementation OGTKEntry
@@ -16,6 +16,9 @@
 - (instancetype)init
 {
 	GtkEntry* gobjectValue = GTK_ENTRY(gtk_entry_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -32,6 +35,9 @@
 - (instancetype)initWithBuffer:(OGTKEntryBuffer*)buffer
 {
 	GtkEntry* gobjectValue = GTK_ENTRY(gtk_entry_new_with_buffer([buffer castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

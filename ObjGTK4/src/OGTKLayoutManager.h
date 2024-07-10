@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKWidget;
 @class OGTKLayoutChild;
+@class OGTKWidget;
 
 /**
  * Layout managers are delegate classes that handle the preferred size

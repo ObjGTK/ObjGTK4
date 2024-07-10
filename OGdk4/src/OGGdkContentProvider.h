@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGCancellable;
 @class OGOutputStream;
+@class OGCancellable;
 
 /**
  * A `GdkContentProvider` is used to provide content for the clipboard or

@@ -6,8 +6,8 @@
 
 #import "OGTKGestureSingle.h"
 
-@class OGGdkDeviceTool;
 @class OGTKGesture;
+@class OGGdkDeviceTool;
 
 /**
  * `GtkGestureStylus` is a `GtkGesture` specific to stylus input.

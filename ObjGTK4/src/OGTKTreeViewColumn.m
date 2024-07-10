@@ -7,14 +7,17 @@
 #import "OGTKTreeViewColumn.h"
 
 #import "OGTKCellArea.h"
-#import "OGTKCellRenderer.h"
 #import "OGTKWidget.h"
+#import "OGTKCellRenderer.h"
 
 @implementation OGTKTreeViewColumn
 
 - (instancetype)init
 {
 	GtkTreeViewColumn* gobjectValue = GTK_TREE_VIEW_COLUMN(gtk_tree_view_column_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -31,6 +34,9 @@
 - (instancetype)initWithArea:(OGTKCellArea*)area
 {
 	GtkTreeViewColumn* gobjectValue = GTK_TREE_VIEW_COLUMN(gtk_tree_view_column_new_with_area([area castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

@@ -12,6 +12,9 @@
 {
 	GtkColorButton* gobjectValue = GTK_COLOR_BUTTON(gtk_color_button_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -27,6 +30,9 @@
 - (instancetype)initWithRgba:(const GdkRGBA*)rgba
 {
 	GtkColorButton* gobjectValue = GTK_COLOR_BUTTON(gtk_color_button_new_with_rgba(rgba));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

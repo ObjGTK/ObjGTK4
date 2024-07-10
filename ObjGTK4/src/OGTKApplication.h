@@ -8,9 +8,9 @@
 
 #import <OGio/OGApplication.h>
 
-@class OGMenu;
 @class OGMenuModel;
 @class OGTKWindow;
+@class OGMenu;
 
 /**
  * `GtkApplication` is a high-level API for writing applications.

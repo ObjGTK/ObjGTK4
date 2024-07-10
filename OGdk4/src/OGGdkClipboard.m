@@ -8,8 +8,8 @@
 
 #import <OGio/OGCancellable.h>
 #import <OGio/OGInputStream.h>
-#import "OGGdkDisplay.h"
 #import "OGGdkTexture.h"
+#import "OGGdkDisplay.h"
 #import "OGGdkContentProvider.h"
 
 @implementation OGGdkClipboard

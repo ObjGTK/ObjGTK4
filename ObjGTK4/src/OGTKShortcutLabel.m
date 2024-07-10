@@ -12,6 +12,9 @@
 {
 	GtkShortcutLabel* gobjectValue = GTK_SHORTCUT_LABEL(gtk_shortcut_label_new([accelerator UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

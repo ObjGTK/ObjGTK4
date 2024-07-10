@@ -10,8 +10,8 @@
 
 @class OGCancellable;
 @class OGInputStream;
-@class OGGdkDisplay;
 @class OGGdkTexture;
+@class OGGdkDisplay;
 @class OGGdkContentProvider;
 
 /**

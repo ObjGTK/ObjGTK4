@@ -6,8 +6,8 @@
 
 #import "OGTKListBase.h"
 
-@class OGTKListItemFactory;
 @class OGTKWidget;
+@class OGTKListItemFactory;
 
 /**
  * `GtkListView` presents a large dynamic list of items.

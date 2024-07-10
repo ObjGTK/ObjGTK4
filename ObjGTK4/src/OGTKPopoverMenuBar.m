@@ -14,6 +14,9 @@
 {
 	GtkPopoverMenuBar* gobjectValue = GTK_POPOVER_MENU_BAR(gtk_popover_menu_bar_new_from_model([model castedGObject]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

@@ -6,15 +6,18 @@
 
 #import "OGTKIconView.h"
 
-#import "OGTKCellArea.h"
 #import "OGTKCellRenderer.h"
 #import "OGTKTooltip.h"
+#import "OGTKCellArea.h"
 
 @implementation OGTKIconView
 
 - (instancetype)init
 {
 	GtkIconView* gobjectValue = GTK_ICON_VIEW(gtk_icon_view_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -32,6 +35,9 @@
 {
 	GtkIconView* gobjectValue = GTK_ICON_VIEW(gtk_icon_view_new_with_area([area castedGObject]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -47,6 +53,9 @@
 - (instancetype)initWithModel:(GtkTreeModel*)model
 {
 	GtkIconView* gobjectValue = GTK_ICON_VIEW(gtk_icon_view_new_with_model(model));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

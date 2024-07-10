@@ -14,6 +14,9 @@
 {
 	GtkScaleButton* gobjectValue = GTK_SCALE_BUTTON(gtk_scale_button_new(min, max, step, icons));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

@@ -14,6 +14,9 @@
 {
 	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -29,6 +32,9 @@
 - (instancetype)initForFile:(GFile*)file
 {
 	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_file(file));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -46,6 +52,9 @@
 {
 	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_filename([filename UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -61,6 +70,9 @@
 - (instancetype)initForPaintable:(GdkPaintable*)paintable
 {
 	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_paintable(paintable));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -78,6 +90,9 @@
 {
 	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_pixbuf([pixbuf castedGObject]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -93,6 +108,9 @@
 - (instancetype)initForResource:(OFString*)resourcePath
 {
 	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_resource([resourcePath UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

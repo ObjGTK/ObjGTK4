@@ -8,12 +8,12 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkClipboard;
 @class OGTKTextTagTable;
-@class OGTKTextMark;
-@class OGTKTextChildAnchor;
-@class OGGdkContentProvider;
 @class OGTKTextTag;
+@class OGGdkClipboard;
+@class OGTKTextMark;
+@class OGGdkContentProvider;
+@class OGTKTextChildAnchor;
 
 /**
  * Stores text and attributes for display in a `GtkTextView`.

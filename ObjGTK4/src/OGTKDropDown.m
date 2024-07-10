@@ -14,6 +14,9 @@
 {
 	GtkDropDown* gobjectValue = GTK_DROP_DOWN(gtk_drop_down_new(model, expression));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -29,6 +32,9 @@
 - (instancetype)initFromStrings:(const char* const*)strings
 {
 	GtkDropDown* gobjectValue = GTK_DROP_DOWN(gtk_drop_down_new_from_strings(strings));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

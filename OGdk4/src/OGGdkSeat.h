@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDevice;
 @class OGGdkDisplay;
+@class OGGdkDevice;
 
 /**
  * The `GdkSeat` object represents a collection of input devices

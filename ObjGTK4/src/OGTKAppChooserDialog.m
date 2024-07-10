@@ -15,6 +15,9 @@
 {
 	GtkAppChooserDialog* gobjectValue = GTK_APP_CHOOSER_DIALOG(gtk_app_chooser_dialog_new([parent castedGObject], flags, file));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -30,6 +33,9 @@
 - (instancetype)initForContentTypeWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags contentType:(OFString*)contentType
 {
 	GtkAppChooserDialog* gobjectValue = GTK_APP_CHOOSER_DIALOG(gtk_app_chooser_dialog_new_for_content_type([parent castedGObject], flags, [contentType UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

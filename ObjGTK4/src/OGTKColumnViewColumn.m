@@ -6,10 +6,10 @@
 
 #import "OGTKColumnViewColumn.h"
 
+#import "OGTKColumnView.h"
+#import "OGTKListItemFactory.h"
 #import <OGio/OGMenuModel.h>
 #import "OGTKSorter.h"
-#import "OGTKListItemFactory.h"
-#import "OGTKColumnView.h"
 
 @implementation OGTKColumnViewColumn
 

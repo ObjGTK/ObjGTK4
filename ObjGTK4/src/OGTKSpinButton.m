@@ -14,6 +14,9 @@
 {
 	GtkSpinButton* gobjectValue = GTK_SPIN_BUTTON(gtk_spin_button_new([adjustment castedGObject], climbRate, digits));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -29,6 +32,9 @@
 - (instancetype)initWithRangeWithMin:(double)min max:(double)max step:(double)step
 {
 	GtkSpinButton* gobjectValue = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(min, max, step));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

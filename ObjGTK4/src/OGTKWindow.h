@@ -7,9 +7,9 @@
 #import "OGTKWidget.h"
 
 @class OGGdkMonitor;
+@class OGTKWindowGroup;
 @class OGGdkDisplay;
 @class OGTKApplication;
-@class OGTKWindowGroup;
 
 /**
  * A `GtkWindow` is a toplevel window which can contain other widgets.

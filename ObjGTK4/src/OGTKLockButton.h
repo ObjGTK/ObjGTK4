@@ -6,8 +6,8 @@
 
 #import "OGTKButton.h"
 
-@class OGPermission;
 @class OGTKWidget;
+@class OGPermission;
 
 /**
  * `GtkLockButton` is a widget to obtain and revoke authorizations

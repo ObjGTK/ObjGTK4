@@ -6,10 +6,10 @@
 
 #import "OGTKWidget.h"
 
-@class OGTKTextMark;
 @class OGMenuModel;
-@class OGPangoContext;
 @class OGTKTextBuffer;
+@class OGPangoContext;
+@class OGTKTextMark;
 @class OGTKTextChildAnchor;
 
 /**

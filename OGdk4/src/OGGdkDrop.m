@@ -8,10 +8,10 @@
 
 #import "OGGdkDevice.h"
 #import "OGGdkDisplay.h"
-#import "OGGdkSurface.h"
 #import "OGGdkDrag.h"
-#import <OGio/OGCancellable.h>
 #import <OGio/OGInputStream.h>
+#import <OGio/OGCancellable.h>
+#import "OGGdkSurface.h"
 
 @implementation OGGdkDrop
 

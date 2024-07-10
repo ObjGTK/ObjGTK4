@@ -8,10 +8,10 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkPixbufAnimationIter;
-@class OGInputStream;
 @class OGCancellable;
 @class OGGdkPixbuf;
+@class OGGdkPixbufAnimationIter;
+@class OGInputStream;
 
 /**
  * An opaque object representing an animation.

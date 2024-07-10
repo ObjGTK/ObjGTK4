@@ -8,10 +8,10 @@
 
 #import <OGdk4/OGGdkSnapshot.h>
 
-@class OGGskGLShader;
-@class OGTKStyleContext;
-@class OGPangoLayout;
 @class OGGdkTexture;
+@class OGGskGLShader;
+@class OGPangoLayout;
+@class OGTKStyleContext;
 
 /**
  * `GtkSnapshot` assists in creating [class@Gsk.RenderNode]s for widgets.

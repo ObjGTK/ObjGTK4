@@ -6,14 +6,17 @@
 
 #import "OGTKAssistant.h"
 
-#import "OGTKAssistantPage.h"
 #import "OGTKWidget.h"
+#import "OGTKAssistantPage.h"
 
 @implementation OGTKAssistant
 
 - (instancetype)init
 {
 	GtkAssistant* gobjectValue = GTK_ASSISTANT(gtk_assistant_new());
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

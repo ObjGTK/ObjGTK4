@@ -12,6 +12,9 @@
 {
 	GtkLevelBar* gobjectValue = GTK_LEVEL_BAR(gtk_level_bar_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -27,6 +30,9 @@
 - (instancetype)initForIntervalWithMinValue:(double)minValue maxValue:(double)maxValue
 {
 	GtkLevelBar* gobjectValue = GTK_LEVEL_BAR(gtk_level_bar_new_for_interval(minValue, maxValue));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

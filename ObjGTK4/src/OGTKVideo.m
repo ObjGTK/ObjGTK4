@@ -14,6 +14,9 @@
 {
 	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -29,6 +32,9 @@
 - (instancetype)initForFile:(GFile*)file
 {
 	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_file(file));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -46,6 +52,9 @@
 {
 	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_filename([filename UTF8String]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -62,6 +71,9 @@
 {
 	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_media_stream([stream castedGObject]));
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -77,6 +89,9 @@
 - (instancetype)initForResource:(OFString*)resourcePath
 {
 	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_resource([resourcePath UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

@@ -6,14 +6,17 @@
 
 #import "OGTKLockButton.h"
 
-#import <OGio/OGPermission.h>
 #import "OGTKWidget.h"
+#import <OGio/OGPermission.h>
 
 @implementation OGTKLockButton
 
 - (instancetype)init:(OGPermission*)permission
 {
 	GtkLockButton* gobjectValue = GTK_LOCK_BUTTON(gtk_lock_button_new([permission castedGObject]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

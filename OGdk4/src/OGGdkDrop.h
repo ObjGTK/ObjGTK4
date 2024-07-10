@@ -10,10 +10,10 @@
 
 @class OGGdkDevice;
 @class OGGdkDisplay;
-@class OGGdkSurface;
 @class OGGdkDrag;
-@class OGCancellable;
 @class OGInputStream;
+@class OGCancellable;
+@class OGGdkSurface;
 
 /**
  * The `GdkDrop` object represents the target of an ongoing DND operation.

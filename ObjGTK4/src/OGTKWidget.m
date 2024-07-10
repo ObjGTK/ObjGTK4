@@ -6,18 +6,18 @@
 
 #import "OGTKWidget.h"
 
-#import <OGdk4/OGGdkCursor.h>
-#import <OGPango/OGPangoFontMap.h>
-#import <OGPango/OGPangoContext.h>
-#import <OGdk4/OGGdkFrameClock.h>
-#import "OGTKLayoutManager.h"
-#import "OGTKStyleContext.h"
-#import <OGdk4/OGGdkDisplay.h>
-#import <OGPango/OGPangoLayout.h>
 #import "OGTKSettings.h"
-#import <OGdk4/OGGdkClipboard.h>
-#import "OGTKEventController.h"
+#import "OGTKLayoutManager.h"
+#import <OGdk4/OGGdkDisplay.h>
+#import <OGPango/OGPangoFontMap.h>
+#import <OGdk4/OGGdkFrameClock.h>
 #import "OGTKSnapshot.h"
+#import "OGTKStyleContext.h"
+#import <OGdk4/OGGdkCursor.h>
+#import "OGTKEventController.h"
+#import <OGPango/OGPangoContext.h>
+#import <OGdk4/OGGdkClipboard.h>
+#import <OGPango/OGPangoLayout.h>
 
 @implementation OGTKWidget
 

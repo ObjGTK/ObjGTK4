@@ -12,6 +12,9 @@
 {
 	GtkColorChooserWidget* gobjectValue = GTK_COLOR_CHOOSER_WIDGET(gtk_color_chooser_widget_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

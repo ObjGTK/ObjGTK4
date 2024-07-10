@@ -12,6 +12,9 @@
 {
 	GtkCellRendererText* gobjectValue = GTK_CELL_RENDERER_TEXT(gtk_cell_renderer_text_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

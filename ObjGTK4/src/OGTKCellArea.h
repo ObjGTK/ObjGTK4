@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKSnapshot;
 @class OGTKWidget;
+@class OGTKSnapshot;
 @class OGTKCellRenderer;
 @class OGTKCellAreaContext;
 

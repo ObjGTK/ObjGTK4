@@ -14,6 +14,9 @@
 {
 	GtkVolumeButton* gobjectValue = GTK_VOLUME_BUTTON(gtk_volume_button_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {

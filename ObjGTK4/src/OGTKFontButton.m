@@ -12,6 +12,9 @@
 {
 	GtkFontButton* gobjectValue = GTK_FONT_BUTTON(gtk_font_button_new());
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	@try {
 		self = [super initWithGObject:gobjectValue];
 	} @catch (id e) {
@@ -27,6 +30,9 @@
 - (instancetype)initWithFont:(OFString*)fontname
 {
 	GtkFontButton* gobjectValue = GTK_FONT_BUTTON(gtk_font_button_new_with_font([fontname UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

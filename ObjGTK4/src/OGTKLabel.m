@@ -6,14 +6,17 @@
 
 #import "OGTKLabel.h"
 
-#import <OGPango/OGPangoLayout.h>
 #import <OGio/OGMenuModel.h>
+#import <OGPango/OGPangoLayout.h>
 
 @implementation OGTKLabel
 
 - (instancetype)init:(OFString*)str
 {
 	GtkLabel* gobjectValue = GTK_LABEL(gtk_label_new([str UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -30,6 +33,9 @@
 - (instancetype)initWithMnemonic:(OFString*)str
 {
 	GtkLabel* gobjectValue = GTK_LABEL(gtk_label_new_with_mnemonic([str UTF8String]));
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];

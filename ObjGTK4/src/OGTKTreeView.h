@@ -7,9 +7,9 @@
 #import "OGTKWidget.h"
 
 @class OGTKTooltip;
-@class OGTKTreeSelection;
-@class OGTKTreeViewColumn;
 @class OGTKCellRenderer;
+@class OGTKTreeViewColumn;
+@class OGTKTreeSelection;
 
 /**
  * A widget for displaying both trees and lists

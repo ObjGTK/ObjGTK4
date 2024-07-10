@@ -6,8 +6,8 @@
 
 #import "OGTKListBase.h"
 
-@class OGTKListItemFactory;
 @class OGTKWidget;
+@class OGTKListItemFactory;
 
 /**
  * `GtkGridView` presents a large dynamic grid of items.

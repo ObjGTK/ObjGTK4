@@ -8,10 +8,10 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKPageSetup;
-@class OGPangoContext;
-@class OGPangoLayout;
 @class OGPangoFontMap;
+@class OGPangoLayout;
+@class OGPangoContext;
+@class OGTKPageSetup;
 
 /**
  * A `GtkPrintContext` encapsulates context information that is required when
