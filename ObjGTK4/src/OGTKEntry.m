@@ -7,9 +7,9 @@
 #import "OGTKEntry.h"
 
 #import <OGdk4/OGGdkContentProvider.h>
+#import "OGTKEntryBuffer.h"
 #import "OGTKEntryCompletion.h"
 #import <OGio/OGMenuModel.h>
-#import "OGTKEntryBuffer.h"
 
 @implementation OGTKEntry
 

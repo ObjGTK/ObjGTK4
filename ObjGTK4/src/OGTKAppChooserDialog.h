@@ -6,8 +6,8 @@
 
 #import "OGTKDialog.h"
 
-@class OGTKWidget;
 @class OGTKWindow;
+@class OGTKWidget;
 
 /**
  * `GtkAppChooserDialog` shows a `GtkAppChooserWidget` inside a `GtkDialog`.
@@ -22,6 +22,11 @@
  * 
  * To set the heading that is shown above the `GtkAppChooserWidget`,
  * use [method@Gtk.AppChooserDialog.set_heading].
+ * 
+ * ## CSS nodes
+ * 
+ * `GtkAppChooserDialog` has a single CSS node with the name `window` and style
+ * class `.appchooser`.
  *
  */
 @interface OGTKAppChooserDialog : OGTKDialog

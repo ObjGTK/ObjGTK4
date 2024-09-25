@@ -8,18 +8,18 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKSettings;
-@class OGTKLayoutManager;
-@class OGGdkDisplay;
-@class OGPangoFontMap;
-@class OGGdkFrameClock;
-@class OGTKSnapshot;
-@class OGTKStyleContext;
-@class OGGdkCursor;
-@class OGTKEventController;
-@class OGPangoContext;
-@class OGGdkClipboard;
 @class OGPangoLayout;
+@class OGTKSettings;
+@class OGGdkDisplay;
+@class OGGdkCursor;
+@class OGTKLayoutManager;
+@class OGTKSnapshot;
+@class OGGdkFrameClock;
+@class OGTKStyleContext;
+@class OGPangoFontMap;
+@class OGGdkClipboard;
+@class OGPangoContext;
+@class OGTKEventController;
 
 /**
  * The base class for all widgets.
@@ -62,13 +62,13 @@
  * For example, when queried in the normal %GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH mode:
  * 
  * First, the default minimum and natural width for each widget
- * in the interface will be computed using [id@gtk_widget_measure] with an
+ * in the interface will be computed using [method@Gtk.Widget.measure] with an
  * orientation of %GTK_ORIENTATION_HORIZONTAL and a for_size of -1.
  * Because the preferred widths for each widget depend on the preferred
  * widths of their children, this information propagates up the hierarchy,
  * and finally a minimum and natural width is determined for the entire
  * toplevel. Next, the toplevel will use the minimum width to query for the
- * minimum height contextual to that width using [id@gtk_widget_measure] with an
+ * minimum height contextual to that width using [method@Gtk.Widget.measure] with an
  * orientation of %GTK_ORIENTATION_VERTICAL and a for_size of the just computed
  * width. This will also be a highly recursive operation. The minimum height
  * for the minimum width is normally used to set the minimum size constraint
@@ -159,14 +159,14 @@
  * to do it.
  * 
  * Of course if you are getting the size request for another widget, such
- * as a child widget, you must use [id@gtk_widget_measure]; otherwise, you
+ * as a child widget, you must use [method@Gtk.Widget.measure]; otherwise, you
  * would not properly consider widget margins, [class@Gtk.SizeGroup], and
  * so forth.
  * 
  * GTK also supports baseline vertical alignment of widgets. This
  * means that widgets are positioned such that the typographical baseline of
  * widgets in the same row are aligned. This happens if a widget supports
- * baselines, has a vertical alignment of %GTK_ALIGN_BASELINE, and is inside
+ * baselines, has a vertical alignment using baselines, and is inside
  * a widget that supports baselines and has a natural “row” that it aligns to
  * the baseline, or a baseline assigned to it by the grandparent.
  * 
@@ -176,7 +176,7 @@
  * 
  * If a widget ends up baseline aligned it will be allocated all the space in
  * the parent as if it was %GTK_ALIGN_FILL, but the selected baseline can be
- * found via [id@gtk_widget_get_allocated_baseline]. If the baseline has a
+ * found via [method@Gtk.Widget.get_baseline]. If the baseline has a
  * value other than -1 you need to align the widget such that the baseline
  * appears at the position.
  * 
@@ -251,14 +251,14 @@
  * The interface description semantics expected in composite template descriptions
  * is slightly different from regular [class@Gtk.Builder] XML.
  * 
- * Unlike regular interface descriptions, [method@Gtk.WidgetClass.set_template] will
- * expect a `<template>` tag as a direct child of the toplevel `<interface>`
- * tag. The `<template>` tag must specify the “class” attribute which must be
- * the type name of the widget. Optionally, the “parent” attribute may be
- * specified to specify the direct parent type of the widget type, this is
- * ignored by `GtkBuilder` but required for UI design tools like
- * [Glade](https://glade.gnome.org/) to introspect what kind of properties and
- * internal children exist for a given type when the actual type does not exist.
+ * Unlike regular interface descriptions, [method@Gtk.WidgetClass.set_template]
+ * will expect a `<template>` tag as a direct child of the toplevel
+ * `<interface>` tag. The `<template>` tag must specify the “class” attribute
+ * which must be the type name of the widget. Optionally, the “parent”
+ * attribute may be specified to specify the direct parent type of the widget
+ * type; this is ignored by `GtkBuilder` but can be used by UI design tools to
+ * introspect what kind of properties and internal children exist for a given
+ * type when the actual type does not exist.
  * 
  * The XML which is contained inside the `<template>` tag behaves as if it were
  * added to the `<object>` tag defining the widget itself. You may set properties
@@ -271,7 +271,13 @@
  * which might be referenced by other widgets declared as children of the
  * `<template>` tag.
  * 
- * An example of a template definition:
+ * Since, unlike the `<object>` tag, the `<template>` tag does not contain an
+ * “id” attribute, if you need to refer to the instance of the object itself that
+ * the template will create, simply refer to the template class name in an
+ * applicable element content.
+ * 
+ * Here is an example of a template definition, which includes an example of
+ * this in the `<signal>` tag:
  * 
  * ```xml
  * <interface>
@@ -341,7 +347,7 @@
  * ```
  * 
  * You can access widgets defined in the template using the
- * [id@gtk_widget_get_template_child] function, but you will typically declare
+ * [method@Gtk.Widget.get_template_child] function, but you will typically declare
  * a pointer in the instance private data structure of your type using the same
  * name as the widget in the template definition, and call
  * [method@Gtk.WidgetClass.bind_template_child_full] (or one of its wrapper macros
@@ -512,7 +518,7 @@
 /**
  * Adds a style class to @widget.
  * 
- * After calling this function, the widgets style will match
+ * After calling this function, the widget’s style will match
  * for @css_class, according to CSS matching rules.
  * 
  * Use [method@Gtk.Widget.remove_css_class] to remove the
@@ -617,7 +623,9 @@
 /**
  * Computes the bounds for @widget in the coordinate space of @target.
  * 
- * FIXME: Explain what "bounds" are.
+ * The bounds of widget are (the bounding box of) the region that it is
+ * expected to draw in. See the [coordinate system](coordinates.html)
+ * overview to learn more.
  * 
  * If the operation is successful, %TRUE is returned. If @widget has no
  * bounds or the bounds cannot be expressed in @target's coordinate space
@@ -675,6 +683,9 @@
  * The transform can not be computed in certain cases, for example
  * when @widget and @target do not share a common ancestor. In that
  * case @out_transform gets set to the identity matrix.
+ * 
+ * To learn more about widget coordinate systems, see the coordinate
+ * system [overview](coordinates.html).
  *
  * @param target the target widget that the matrix will transform to
  * @param outTransform location to
@@ -789,6 +800,9 @@
 
 /**
  * Returns the height that has currently been allocated to @widget.
+ * 
+ * To learn more about widget sizes, see the coordinate
+ * system [overview](coordinates.html).
  *
  * @return the height of the @widget
  */
@@ -796,6 +810,9 @@
 
 /**
  * Returns the width that has currently been allocated to @widget.
+ * 
+ * To learn more about widget sizes, see the coordinate
+ * system [overview](coordinates.html).
  *
  * @return the width of the @widget
  */
@@ -839,6 +856,17 @@
 - (OGTKWidget*)ancestor:(GType)widgetType;
 
 /**
+ * Returns the baseline that has currently been allocated to @widget.
+ * 
+ * This function is intended to be used when implementing handlers
+ * for the `GtkWidget`Class.snapshot() function, and when allocating
+ * child widgets in `GtkWidget`Class.size_allocate().
+ *
+ * @return the baseline of the @widget, or -1 if none
+ */
+- (int)baseline;
+
+/**
  * Determines whether the input focus can enter @widget or any
  * of its children.
  * 
@@ -880,6 +908,18 @@
  * @return the appropriate clipboard object
  */
 - (OGGdkClipboard*)clipboard;
+
+/**
+ * Gets the current foreground color for the widget’s
+ * CSS style.
+ * 
+ * This function should only be used in snapshot
+ * implementations that need to do custom
+ * drawing with the foreground color.
+ *
+ * @param color return location for the color
+ */
+- (void)color:(GdkRGBA*)color;
 
 /**
  * Returns the list of style classes applied to @widget.
@@ -933,7 +973,7 @@
 - (OGGdkDisplay*)display;
 
 /**
- * Returns the widgets first child.
+ * Returns the widget’s first child.
  * 
  * This API is primarily meant for widget implementations.
  *
@@ -1020,9 +1060,10 @@
  * Gets the horizontal alignment of @widget.
  * 
  * For backwards compatibility reasons this method will never return
- * %GTK_ALIGN_BASELINE, but instead it will convert it to
- * %GTK_ALIGN_FILL. Baselines are not supported for horizontal
- * alignment.
+ * one of the baseline alignments, but instead it will convert it to
+ * `GTK_ALIGN_FILL` or `GTK_ALIGN_CENTER`.
+ * 
+ * Baselines are not supported for horizontal alignment.
  *
  * @return the horizontal alignment of @widget
  */
@@ -1043,6 +1084,9 @@
  * should be using in [vfunc@Gtk.Widget.snapshot].
  * 
  * For pointer events, see [method@Gtk.Widget.contains].
+ * 
+ * To learn more about widget sizes, see the coordinate
+ * system [overview](coordinates.html).
  *
  * @return The height of @widget
  */
@@ -1087,7 +1131,7 @@
 - (bool)hexpandSet;
 
 /**
- * Returns the widgets last child.
+ * Returns the widget’s last child.
  * 
  * This API is primarily meant for widget implementations.
  *
@@ -1162,7 +1206,7 @@
 - (GtkNative*)native;
 
 /**
- * Returns the widgets next sibling.
+ * Returns the widget’s next sibling.
  * 
  * This API is primarily meant for widget implementations.
  *
@@ -1180,7 +1224,7 @@
 - (double)opacity;
 
 /**
- * Returns the widgets overflow value.
+ * Returns the widget’s overflow value.
  *
  * @return The widget's overflow.
  */
@@ -1222,7 +1266,7 @@
  * the required height for the natural width is generally smaller than the
  * required height for the minimum width.
  * 
- * Use [id@gtk_widget_measure] if you want to support baseline alignment.
+ * Use [method@Gtk.Widget.measure] if you want to support baseline alignment.
  *
  * @param minimumSize location for storing the minimum size
  * @param naturalSize location for storing the natural size
@@ -1230,7 +1274,7 @@
 - (void)preferredSizeWithMinimumSize:(GtkRequisition*)minimumSize naturalSize:(GtkRequisition*)naturalSize;
 
 /**
- * Returns the widgets previous sibling.
+ * Returns the widget’s previous sibling.
  * 
  * This API is primarily meant for widget implementations.
  *
@@ -1344,6 +1388,9 @@
  * for %GTK_ORIENTATION_VERTICAL, but can be used when
  * writing orientation-independent code, such as when
  * implementing [iface@Gtk.Orientable] widgets.
+ * 
+ * To learn more about widget sizes, see the coordinate
+ * system [overview](coordinates.html).
  *
  * @param orientation the orientation to query
  * @return The size of @widget in @orientation.
@@ -1387,7 +1434,7 @@
  * The returned object is guaranteed to be the same
  * for the lifetime of @widget.
  *
- * @return the widgets `GtkStyleContext`
+ * @return the widget’s `GtkStyleContext`
  */
 - (OGTKStyleContext*)styleContext;
 
@@ -1483,6 +1530,9 @@
  * should be using in [vfunc@Gtk.Widget.snapshot].
  * 
  * For pointer events, see [method@Gtk.Widget.contains].
+ * 
+ * To learn more about widget sizes, see the coordinate
+ * system [overview](coordinates.html).
  *
  * @return The width of @widget
  */
@@ -2461,10 +2511,6 @@
  * 
  * Note that setting this to %TRUE doesn’t mean the widget is
  * actually viewable, see [method@Gtk.Widget.get_visible].
- * 
- * This function simply calls [method@Gtk.Widget.show] or
- * [method@Gtk.Widget.hide] but is nicer to use when the
- * visibility of the widget depends on some condition.
  *
  * @param visible whether the widget should be shown or not
  */

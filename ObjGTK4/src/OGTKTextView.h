@@ -6,11 +6,11 @@
 
 #import "OGTKWidget.h"
 
-@class OGMenuModel;
-@class OGTKTextBuffer;
-@class OGPangoContext;
 @class OGTKTextMark;
+@class OGMenuModel;
+@class OGPangoContext;
 @class OGTKTextChildAnchor;
+@class OGTKTextBuffer;
 
 /**
  * A widget that displays the contents of a [class@Gtk.TextBuffer].
@@ -665,6 +665,8 @@
  * If @accepts_tab is %TRUE, a tab character is inserted. If @accepts_tab
  * is %FALSE the keyboard focus is moved to the next widget in the focus
  * chain.
+ * 
+ * Focus can always be moved using <kbd>Ctrl</kbd>+<kbd>Tab</kbd>.
  *
  * @param acceptsTab %TRUE if pressing the Tab key should insert a tab
  *    character, %FALSE, if pressing the Tab key should move the
@@ -701,7 +703,7 @@
  * cursor, so you may want to turn the cursor off.
  * 
  * Note that this property may be overridden by the
- * [property@GtkSettings:gtk-keynav-use-caret] setting.
+ * [property@Gtk.Settings:gtk-keynav-use-caret] setting.
  *
  * @param setting whether to show the insertion cursor
  */

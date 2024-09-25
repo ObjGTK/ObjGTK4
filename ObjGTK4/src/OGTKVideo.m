@@ -124,6 +124,13 @@
 	return returnValue;
 }
 
+- (GtkGraphicsOffloadEnabled)graphicsOffload
+{
+	GtkGraphicsOffloadEnabled returnValue = gtk_video_get_graphics_offload([self castedGObject]);
+
+	return returnValue;
+}
+
 - (bool)loop
 {
 	bool returnValue = gtk_video_get_loop([self castedGObject]);
@@ -152,6 +159,11 @@
 - (void)setFilename:(OFString*)filename
 {
 	gtk_video_set_filename([self castedGObject], [filename UTF8String]);
+}
+
+- (void)setGraphicsOffload:(GtkGraphicsOffloadEnabled)enabled
+{
+	gtk_video_set_graphics_offload([self castedGObject], enabled);
 }
 
 - (void)setLoop:(bool)loop

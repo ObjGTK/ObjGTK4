@@ -50,6 +50,14 @@
 	return returnValue;
 }
 
+- (OGTKListItemFactory*)headerFactory
+{
+	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_list_view_get_header_factory([self castedGObject]));
+
+	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	return returnValue;
+}
+
 - (GtkSelectionModel*)model
 {
 	GtkSelectionModel* returnValue = gtk_list_view_get_model([self castedGObject]);
@@ -71,6 +79,18 @@
 	return returnValue;
 }
 
+- (GtkListTabBehavior)tabBehavior
+{
+	GtkListTabBehavior returnValue = gtk_list_view_get_tab_behavior([self castedGObject]);
+
+	return returnValue;
+}
+
+- (void)scrollToWithPos:(guint)pos flags:(GtkListScrollFlags)flags scroll:(GtkScrollInfo*)scroll
+{
+	gtk_list_view_scroll_to([self castedGObject], pos, flags, scroll);
+}
+
 - (void)setEnableRubberband:(bool)enableRubberband
 {
 	gtk_list_view_set_enable_rubberband([self castedGObject], enableRubberband);
@@ -79,6 +99,11 @@
 - (void)setFactory:(OGTKListItemFactory*)factory
 {
 	gtk_list_view_set_factory([self castedGObject], [factory castedGObject]);
+}
+
+- (void)setHeaderFactory:(OGTKListItemFactory*)factory
+{
+	gtk_list_view_set_header_factory([self castedGObject], [factory castedGObject]);
 }
 
 - (void)setModel:(GtkSelectionModel*)model
@@ -94,6 +119,11 @@
 - (void)setSingleClickActivate:(bool)singleClickActivate
 {
 	gtk_list_view_set_single_click_activate([self castedGObject], singleClickActivate);
+}
+
+- (void)setTabBehavior:(GtkListTabBehavior)tabBehavior
+{
+	gtk_list_view_set_tab_behavior([self castedGObject], tabBehavior);
 }
 
 

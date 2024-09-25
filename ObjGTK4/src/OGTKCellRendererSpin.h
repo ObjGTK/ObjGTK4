@@ -22,8 +22,6 @@
  * also has properties for the `GtkCellRendererSpin:climb-rate` and the number
  * of `GtkCellRendererSpin:digits` to display. Other `GtkSpinButton` properties
  * can be set in a handler for the `GtkCellRenderer::editing-started` signal.
- * 
- * The `GtkCellRendererSpin` cell renderer was added in GTK 2.10.
  *
  */
 @interface OGTKCellRendererSpin : OGTKCellRendererText

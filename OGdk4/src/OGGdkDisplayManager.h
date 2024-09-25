@@ -73,7 +73,7 @@
  * with multiple backends).
  * 
  * Applications can use [func@set_allowed_backends] to limit what
- * backends wil be used.
+ * backends will be used.
  *
  * @return The global `GdkDisplayManager` singleton
  */

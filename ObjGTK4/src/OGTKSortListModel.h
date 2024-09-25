@@ -30,6 +30,13 @@
  * If you run into performance issues with `GtkSortListModel`,
  * it is strongly recommended that you write your own sorting list
  * model.
+ * 
+ * `GtkSortListModel` allows sorting the items into sections. It
+ * implements `GtkSectionModel` and when [property@Gtk.SortListModel:section-sorter]
+ * is set, it will sort all items with that sorter and items comparing
+ * equal with it will be put into the same section.
+ * The [property@Gtk.SortListModel:sorter] will then be used to sort items
+ * inside their sections.
  *
  */
 @interface OGTKSortListModel : OGObject
@@ -89,6 +96,14 @@
 - (guint)pending;
 
 /**
+ * Gets the section sorter that is used to sort items of @self into
+ * sections.
+ *
+ * @return the sorter of #self
+ */
+- (OGTKSorter*)sectionSorter;
+
+/**
  * Gets the sorter that is used to sort @self.
  *
  * @return the sorter of #self
@@ -125,6 +140,13 @@
  * @param model The model to be sorted
  */
 - (void)setModel:(GListModel*)model;
+
+/**
+ * Sets a new section sorter on @self.
+ *
+ * @param sorter the `GtkSorter` to sort @model with
+ */
+- (void)setSectionSorter:(OGTKSorter*)sorter;
 
 /**
  * Sets a new sorter on @self.

@@ -17,12 +17,15 @@ SRCS = OGGdkAppLaunchContext.m \
 	OGGdkDeviceTool.m \
 	OGGdkDisplay.m \
 	OGGdkDisplayManager.m \
+	OGGdkDmabufTexture.m \
+	OGGdkDmabufTextureBuilder.m \
 	OGGdkDrag.m \
 	OGGdkDrawContext.m \
 	OGGdkDrop.m \
 	OGGdkFrameClock.m \
 	OGGdkGLContext.m \
 	OGGdkGLTexture.m \
+	OGGdkGLTextureBuilder.m \
 	OGGdkMemoryTexture.m \
 	OGGdkMonitor.m \
 	OGGdkSeat.m \

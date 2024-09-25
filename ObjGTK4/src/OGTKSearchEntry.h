@@ -71,11 +71,32 @@
 - (GtkSearchEntry*)castedGObject;
 
 /**
+ * Gets the input purpose for @entry.
+ *
+ * @return The input hints
+ */
+- (GtkInputHints)inputHints;
+
+/**
+ * Gets the input purpose of @entry.
+ *
+ * @return The input hints
+ */
+- (GtkInputPurpose)inputPurpose;
+
+/**
  * Gets the widget that @entry is capturing key events from.
  *
  * @return The key capture widget.
  */
 - (OGTKWidget*)keyCaptureWidget;
+
+/**
+ * Gets the placeholder text associated with @entry.
+ *
+ * @return The placeholder text.
+ */
+- (OFString*)placeholderText;
 
 /**
  * Get the delay to be used between the last keypress and the
@@ -84,6 +105,20 @@
  * @return a delay in milliseconds.
  */
 - (guint)searchDelay;
+
+/**
+ * Sets the input hints for @entry.
+ *
+ * @param hints the new input hints
+ */
+- (void)setInputHints:(GtkInputHints)hints;
+
+/**
+ * Sets the input purpose of @entry.
+ *
+ * @param purpose the new input purpose
+ */
+- (void)setInputPurpose:(GtkInputPurpose)purpose;
 
 /**
  * Sets @widget as the widget that @entry will capture key
@@ -107,6 +142,13 @@
  * @param widget a `GtkWidget`
  */
 - (void)setKeyCaptureWidget:(OGTKWidget*)widget;
+
+/**
+ * Sets the placeholder text associated with @entry.
+ *
+ * @param text the text to set as a placeholder
+ */
+- (void)setPlaceholderText:(OFString*)text;
 
 /**
  * Set the delay to be used between the last keypress and the

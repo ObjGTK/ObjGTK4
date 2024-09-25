@@ -2,6 +2,7 @@ package_format 1
 package_depends_on OGObject
 package_depends_on OGio
 
-CPPFLAGS="$CPPFLAGS @OGPANGO_CPPFLAGS@"
-LIBS="-logpango @OGPANGO_LIBS@ $LIBS"
-FRAMEWORK_LIBS="-framework OGPango @OGPANGO_LIBS@ $FRAMEWORK_LIBS"
+CPPFLAGS="$CPPFLAGS -I@includedir@ @OGPANGO_CPPFLAGS@"
+LIBS="-L@libdir@ -logpango @OGPANGO_LIBS@ $LIBS"
+FRAMEWORK_LIBS="-L@libdir@ -logpango @OGPANGO_LIBS@ $FRAMEWORK_LIBS"
+STATIC_LIBS="@libdir@/libogpango.a @OGPANGO_LIBS@ $STATIC_LIBS"

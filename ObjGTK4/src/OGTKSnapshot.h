@@ -94,6 +94,19 @@
 - (void)appendConicGradientWithBounds:(const graphene_rect_t*)bounds center:(const graphene_point_t*)center rotation:(float)rotation stops:(const GskColorStop*)stops nstops:(gsize)nstops;
 
 /**
+ * A convenience method to fill a path with a color.
+ * 
+ * See [method@Gtk.Snapshot.push_fill] if you need
+ * to fill a path with more complex content than
+ * a color.
+ *
+ * @param path The path describing the area to fill
+ * @param fillRule The fill rule to use
+ * @param color the color to fill the path with
+ */
+- (void)appendFillWithPath:(GskPath*)path fillRule:(GskFillRule)fillRule color:(const GdkRGBA*)color;
+
+/**
  * Appends an inset shadow into the box given by @outline.
  *
  * @param outline outline of the region surrounded by shadow
@@ -189,6 +202,38 @@
  * Creates a new render node drawing the @texture
  * into the given @bounds and appends it to the
  * current render node of @snapshot.
+ * 
+ * In contrast to [method@Gtk.Snapshot.append_texture],
+ * this function provides control about how the filter
+ * that is used when scaling.
+ *
+ * @param texture the texture to render
+ * @param filter the filter to use
+ * @param bounds the bounds for the new node
+ */
+- (void)appendScaledTextureWithTexture:(OGGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds;
+
+/**
+ * A convenience method to stroke a path with a color.
+ * 
+ * See [method@Gtk.Snapshot.push_stroke] if you need
+ * to stroke a path with more complex content than
+ * a color.
+ *
+ * @param path The path describing the area to fill
+ * @param stroke The stroke attributes
+ * @param color the color to fill the path with
+ */
+- (void)appendStrokeWithPath:(GskPath*)path stroke:(const GskStroke*)stroke color:(const GdkRGBA*)color;
+
+/**
+ * Creates a new render node drawing the @texture
+ * into the given @bounds and appends it to the
+ * current render node of @snapshot.
+ * 
+ * If the texture needs to be scaled to fill @bounds,
+ * linear filtering is used. See [method@Gtk.Snapshot.append_scaled_texture]
+ * if you need other filtering, such as nearest-neighbour.
  *
  * @param texture the texture to render
  * @param bounds the bounds for the new node
@@ -198,6 +243,8 @@
 /**
  * Returns the node that was constructed by @snapshot
  * and frees @snapshot.
+ * 
+ * See also [method@Gtk.Snapshot.to_node].
  *
  * @return a newly-created [class@Gsk.RenderNode]
  */
@@ -277,6 +324,13 @@
  * Modifies the colors of an image by applying an affine transformation
  * in RGB space.
  * 
+ * In particular, the colors will be transformed by applying
+ * 
+ *     pixel = transpose(color_matrix) * pixel + color_offset
+ * 
+ * for every pixel. The transformation operates on unpremultiplied
+ * colors, with color components ordered R, G, B, A.
+ * 
  * The image is recorded until the next call to [method@Gtk.Snapshot.pop].
  *
  * @param colorMatrix the color matrix to use
@@ -298,6 +352,20 @@
  * @param progress progress between 0.0 and 1.0
  */
 - (void)pushCrossFade:(double)progress;
+
+/**
+ * Fills the area given by @path and @fill_rule with an image and discards everything
+ * outside of it.
+ * 
+ * The image is recorded until the next call to [method@Gtk.Snapshot.pop].
+ * 
+ * If you want to fill the path with a color, [method@Gtk.Snapshot.append_fill]
+ * may be more convenient.
+ *
+ * @param path The path describing the area to fill
+ * @param fillRule The fill rule to use
+ */
+- (void)pushFillWithPath:(GskPath*)path fillRule:(GskFillRule)fillRule;
 
 /**
  * Push a [class@Gsk.GLShaderNode].
@@ -342,6 +410,19 @@
 - (void)pushGlShaderWithShader:(OGGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs;
 
 /**
+ * Until the first call to [method@Gtk.Snapshot.pop], the
+ * mask image for the mask operation will be recorded.
+ * 
+ * After that call, the source image will be recorded until
+ * the second call to [method@Gtk.Snapshot.pop].
+ * 
+ * Calling this function requires 2 subsequent calls to gtk_snapshot_pop().
+ *
+ * @param maskMode mask mode to use
+ */
+- (void)pushMask:(GskMaskMode)maskMode;
+
+/**
  * Modifies the opacity of an image.
  * 
  * The image is recorded until the next call to [method@Gtk.Snapshot.pop].
@@ -379,6 +460,24 @@
  * @param nshadows number of shadow specifications
  */
 - (void)pushShadowWithShadow:(const GskShadow*)shadow nshadows:(gsize)nshadows;
+
+/**
+ * Strokes the given @path with the attributes given by @stroke and
+ * an image.
+ * 
+ * The image is recorded until the next call to [method@Gtk.Snapshot.pop].
+ * 
+ * Note that the strokes are subject to the same transformation as
+ * everything else, so uneven scaling will cause horizontal and vertical
+ * strokes to have different widths.
+ * 
+ * If you want to stroke the path with a color, [method@Gtk.Snapshot.append_stroke]
+ * may be more convenient.
+ *
+ * @param path The path to stroke
+ * @param stroke The stroke attributes
+ */
+- (void)pushStrokeWithPath:(GskPath*)path stroke:(const GskStroke*)stroke;
 
 /**
  * Creates a render node for the CSS background according to @context,
@@ -453,9 +552,10 @@
 
 /**
  * Rotates @@snapshot's coordinate system by @angle degrees in 2D space -
- * or in 3D speak, rotates around the Z axis.
+ * or in 3D speak, rotates around the Z axis. The rotation happens around
+ * the origin point of (0, 0) in the @snapshot's current coordinate system.
  * 
- * To rotate around other axes, use [method@Gsk.Transform.rotate_3d].
+ * To rotate around axes other than the Z axis, use [method@Gsk.Transform.rotate_3d].
  *
  * @param angle the rotation angle, in degrees (clockwise)
  */
@@ -476,9 +576,10 @@
  * on an internal stack.
  * 
  * When [method@Gtk.Snapshot.restore] is called, @snapshot will
- * be restored to the saved state. Multiple calls to
- * [method@Snapshot.save] and [class@Snapshot.restore] can be nested;
- * each call to `gtk_snapshot_restore()` restores the state from
+ * be restored to the saved state.
+ * 
+ * Multiple calls to [method@Gtk.Snapshot.save] and [method@Gtk.Snapshot.restore]
+ * can be nested; each call to `gtk_snapshot_restore()` restores the state from
  * the matching paired `gtk_snapshot_save()`.
  * 
  * It is necessary to clear all saved states with corresponding
@@ -511,11 +612,16 @@
  * Returns the render node that was constructed
  * by @snapshot.
  * 
+ * Note that this function may return %NULL if nothing has been
+ * added to the snapshot or if its content does not produce pixels
+ * to be rendered.
+ * 
  * After calling this function, it is no longer possible to
  * add more nodes to @snapshot. The only function that should
  * be called after this is [method@GObject.Object.unref].
  *
- * @return the constructed `GskRenderNode`
+ * @return the constructed `GskRenderNode` or
+ *   %NULL if there are no nodes to render.
  */
 - (GskRenderNode*)toNode;
 

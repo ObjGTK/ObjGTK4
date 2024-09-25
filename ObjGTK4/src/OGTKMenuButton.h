@@ -6,8 +6,8 @@
 
 #import "OGTKWidget.h"
 
-@class OGMenuModel;
 @class OGTKPopover;
+@class OGMenuModel;
 
 /**
  * The `GtkMenuButton` widget is used to display a popup when clicked.
@@ -92,11 +92,28 @@
 - (GtkMenuButton*)castedGObject;
 
 /**
- * Gets whether to show a dropdown arrow even when using an icon.
+ * Returns whether the menu button is active.
  *
- * @return whether to show a dropdown arrow even when using an icon
+ * @return TRUE if the button is active
+ */
+- (bool)active;
+
+/**
+ * Gets whether to show a dropdown arrow even when using an icon or a custom
+ * child.
+ *
+ * @return whether to show a dropdown arrow even when using an icon or a custom
+ * child.
  */
 - (bool)alwaysShowArrow;
+
+/**
+ * Retrieves whether the button can be smaller than the natural
+ * size of its contents.
+ *
+ * @return true if the button can shrink, and false otherwise
+ */
+- (bool)canShrink;
 
 /**
  * Gets the child widget of @menu_button.
@@ -179,12 +196,32 @@
 - (void)popup;
 
 /**
+ * Sets whether the menu button is active.
+ *
+ * @param active whether the menu button is active
+ */
+- (void)setActive:(bool)active;
+
+/**
  * Sets whether to show a dropdown arrow even when using an icon or a custom
  * child.
  *
- * @param alwaysShowArrow hether to show a dropdown arrow even when using an icon
+ * @param alwaysShowArrow whether to show a dropdown arrow even when using an icon
+ * or a custom child
  */
 - (void)setAlwaysShowArrow:(bool)alwaysShowArrow;
+
+/**
+ * Sets whether the button size can be smaller than the natural size of
+ * its contents.
+ * 
+ * For text buttons, setting @can_shrink to true will ellipsize the label.
+ * 
+ * For icon buttons, this function has no effect.
+ *
+ * @param canShrink whether the button can shrink
+ */
+- (void)setCanShrink:(bool)canShrink;
 
 /**
  * Sets the child widget of @menu_button.

@@ -6,9 +6,9 @@
 
 #import "OGGdkPixbuf.h"
 
+#import <OGio/OGCancellable.h>
 #import <OGio/OGInputStream.h>
 #import <OGio/OGOutputStream.h>
-#import <OGio/OGCancellable.h>
 
 @implementation OGGdkPixbuf
 

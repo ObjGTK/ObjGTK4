@@ -18,6 +18,7 @@
  * `GtkPopoverMenu` treats its children like menus and allows switching
  * between them. It can open submenus as traditional, nested submenus,
  * or in a more touch-friendly sliding fashion.
+ * The property [property@Gtk.PopoverMenu:flags] controls this appearance.
  * 
  * `GtkPopoverMenu` is meant to be used primarily with menu models,
  * using [ctor@Gtk.PopoverMenu.new_from_model]. If you need to put
@@ -96,14 +97,21 @@
  * 
  * Menu items will also show accelerators, which are usually associated
  * with actions via [method@Gtk.Application.set_accels_for_action],
- * [id@gtk_widget_class_add_binding_action] or
+ * [method@WidgetClass.add_binding_action] or
  * [method@Gtk.ShortcutController.add_shortcut].
  * 
  * # CSS Nodes
  * 
  * `GtkPopoverMenu` is just a subclass of `GtkPopover` that adds custom content
  * to it, therefore it has the same CSS nodes. It is one of the cases that add
- * a .menu style class to the popover's main node.
+ * a `.menu` style class to the main `popover` node.
+ * 
+ * Menu items have nodes with name `button` and class `.model`. If a section
+ * display-hint is set, the section gets a node `box` with class `horizontal`
+ * plus a class with the same text as the display hint. Note that said box may
+ * not be the direct ancestor of the item `button`s. Thus, for example, to style
+ * items in an `inline-buttons` section, select `.inline-buttons button.model`.
+ * Other things that may be of interest to style in menus include `label` nodes.
  * 
  * # Accessibility
  * 
@@ -145,6 +153,13 @@
 - (bool)addChildWithChild:(OGTKWidget*)child id:(OFString*)id;
 
 /**
+ * Returns the flags that @popover uses to create/display a menu from its model.
+ *
+ * @return the `GtkPopoverMenuFlags`
+ */
+- (GtkPopoverMenuFlags)flags;
+
+/**
  * Returns the menu model used to populate the popover.
  *
  * @return the menu model of @popover
@@ -153,12 +168,22 @@
 
 /**
  * Removes a widget that has previously been added with
- * gtk_popover_menu_add_child().
+ * [method@Gtk.PopoverMenu.add_child()]
  *
  * @param child the `GtkWidget` to remove
  * @return %TRUE if the widget was removed
  */
 - (bool)removeChild:(OGTKWidget*)child;
+
+/**
+ * Sets the flags that @popover uses to create/display a menu from its model.
+ * 
+ * If a model is set and the flags change, contents are rebuilt, so if setting
+ * properties individually, set flags before model to avoid a redundant rebuild.
+ *
+ * @param flags a set of `GtkPopoverMenuFlags`
+ */
+- (void)setFlags:(GtkPopoverMenuFlags)flags;
 
 /**
  * Sets a new menu model on @popover.

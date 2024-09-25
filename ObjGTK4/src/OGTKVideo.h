@@ -62,6 +62,15 @@
 - (GFile*)file;
 
 /**
+ * Returns whether graphics offload is enabled.
+ * 
+ * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
+ *
+ * @return the graphics offload status
+ */
+- (GtkGraphicsOffloadEnabled)graphicsOffload;
+
+/**
  * Returns %TRUE if videos have been set to loop.
  *
  * @return %TRUE if streams should loop
@@ -98,6 +107,15 @@
  * @param filename the filename to play
  */
 - (void)setFilename:(OFString*)filename;
+
+/**
+ * Sets whether to enable graphics offload.
+ * 
+ * See [class@Gtk.GraphicsOffload] for more information on graphics offload.
+ *
+ * @param enabled the new graphics offload status
+ */
+- (void)setGraphicsOffload:(GtkGraphicsOffloadEnabled)enabled;
 
 /**
  * Sets whether new files loaded by @self should be set to loop.

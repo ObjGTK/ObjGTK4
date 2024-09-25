@@ -11,7 +11,7 @@
 /**
  * Base type for snapshot operations.
  * 
- * The subclass of `GdkSnapshot` used by GTK is [class@Gtk.Snapshot].
+ * The subclass of `GdkSnapshot` used by GTK is [GtkSnapshot](../gtk4/class.Snapshot.html).
  *
  */
 @interface OGGdkSnapshot : OGObject

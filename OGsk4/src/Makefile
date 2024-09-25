@@ -9,6 +9,7 @@ LIB_MINOR = 0
 SRCS = OGGskCairoRenderer.m \
 	OGGskGLShader.m \
 	OGGskRenderer.m \
+	OGGskVulkanRenderer.m \
 	
 
 INCLUDES = ${SRCS:.m=.h} \

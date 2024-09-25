@@ -32,11 +32,33 @@
 	return GTK_SEARCH_ENTRY([self gObject]);
 }
 
+- (GtkInputHints)inputHints
+{
+	GtkInputHints returnValue = gtk_search_entry_get_input_hints([self castedGObject]);
+
+	return returnValue;
+}
+
+- (GtkInputPurpose)inputPurpose
+{
+	GtkInputPurpose returnValue = gtk_search_entry_get_input_purpose([self castedGObject]);
+
+	return returnValue;
+}
+
 - (OGTKWidget*)keyCaptureWidget
 {
 	GtkWidget* gobjectValue = GTK_WIDGET(gtk_search_entry_get_key_capture_widget([self castedGObject]));
 
 	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	return returnValue;
+}
+
+- (OFString*)placeholderText
+{
+	const char* gobjectValue = gtk_search_entry_get_placeholder_text([self castedGObject]);
+
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
 }
 
@@ -47,9 +69,24 @@
 	return returnValue;
 }
 
+- (void)setInputHints:(GtkInputHints)hints
+{
+	gtk_search_entry_set_input_hints([self castedGObject], hints);
+}
+
+- (void)setInputPurpose:(GtkInputPurpose)purpose
+{
+	gtk_search_entry_set_input_purpose([self castedGObject], purpose);
+}
+
 - (void)setKeyCaptureWidget:(OGTKWidget*)widget
 {
 	gtk_search_entry_set_key_capture_widget([self castedGObject], [widget castedGObject]);
+}
+
+- (void)setPlaceholderText:(OFString*)text
+{
+	gtk_search_entry_set_placeholder_text([self castedGObject], [text UTF8String]);
 }
 
 - (void)setSearchDelay:(guint)delay

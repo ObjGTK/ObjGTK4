@@ -75,6 +75,14 @@
 	return returnValue;
 }
 
+- (OGTKListItemFactory*)headerFactory
+{
+	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_drop_down_get_header_factory([self castedGObject]));
+
+	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	return returnValue;
+}
+
 - (OGTKListItemFactory*)listFactory
 {
 	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_drop_down_get_list_factory([self castedGObject]));
@@ -86,6 +94,13 @@
 - (GListModel*)model
 {
 	GListModel* returnValue = gtk_drop_down_get_model([self castedGObject]);
+
+	return returnValue;
+}
+
+- (GtkStringFilterMatchMode)searchMatchMode
+{
+	GtkStringFilterMatchMode returnValue = gtk_drop_down_get_search_match_mode([self castedGObject]);
 
 	return returnValue;
 }
@@ -126,6 +141,11 @@
 	gtk_drop_down_set_factory([self castedGObject], [factory castedGObject]);
 }
 
+- (void)setHeaderFactory:(OGTKListItemFactory*)factory
+{
+	gtk_drop_down_set_header_factory([self castedGObject], [factory castedGObject]);
+}
+
 - (void)setListFactory:(OGTKListItemFactory*)factory
 {
 	gtk_drop_down_set_list_factory([self castedGObject], [factory castedGObject]);
@@ -134,6 +154,11 @@
 - (void)setModel:(GListModel*)model
 {
 	gtk_drop_down_set_model([self castedGObject], model);
+}
+
+- (void)setSearchMatchMode:(GtkStringFilterMatchMode)searchMatchMode
+{
+	gtk_drop_down_set_search_match_mode([self castedGObject], searchMatchMode);
 }
 
 - (void)setSelected:(guint)position

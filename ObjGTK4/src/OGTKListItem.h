@@ -11,13 +11,14 @@
 @class OGTKWidget;
 
 /**
- * `GtkListItem` is used by list widgets to represent items in a `GListModel`.
+ * `GtkListItem` is used by list widgets to represent items in a
+ * [iface@Gio.ListModel].
  * 
- * The `GtkListItem`s are managed by the list widget (with its factory)
+ * `GtkListItem` objects are managed by the list widget (with its factory)
  * and cannot be created by applications, but they need to be populated
  * by application code. This is done by calling [method@Gtk.ListItem.set_child].
  * 
- * `GtkListItem`s exist in 2 stages:
+ * `GtkListItem` objects exist in 2 stages:
  * 
  * 1. The unbound stage where the listitem is not currently connected to
  *    an item in the list. In that case, the [property@Gtk.ListItem:item]
@@ -40,6 +41,20 @@
 - (GtkListItem*)castedGObject;
 
 /**
+ * Gets the accessible description of @self.
+ *
+ * @return the accessible description
+ */
+- (OFString*)accessibleDescription;
+
+/**
+ * Gets the accessible label of @self.
+ *
+ * @return the accessible label
+ */
+- (OFString*)accessibleLabel;
+
+/**
  * Checks if a list item has been set to be activatable via
  * gtk_list_item_set_activatable().
  *
@@ -54,6 +69,14 @@
  * @return The child
  */
 - (OGTKWidget*)child;
+
+/**
+ * Checks if a list item has been set to be focusable via
+ * gtk_list_item_set_focusable().
+ *
+ * @return %TRUE if the item is focusable
+ */
+- (bool)focusable;
 
 /**
  * Gets the model item that associated with @self.
@@ -94,6 +117,22 @@
 - (bool)selected;
 
 /**
+ * Sets the accessible description for the list item,
+ * which may be used by e.g. screen readers.
+ *
+ * @param description the description
+ */
+- (void)setAccessibleDescription:(OFString*)description;
+
+/**
+ * Sets the accessible label for the list item,
+ * which may be used by e.g. screen readers.
+ *
+ * @param label the label
+ */
+- (void)setAccessibleLabel:(OFString*)label;
+
+/**
  * Sets @self to be activatable.
  * 
  * If an item is activatable, double-clicking on the item, using
@@ -118,6 +157,21 @@
  * @param child The list item's child or %NULL to unset
  */
 - (void)setChild:(OGTKWidget*)child;
+
+/**
+ * Sets @self to be focusable.
+ * 
+ * If an item is focusable, it can be focused using the keyboard.
+ * This works similar to [method@Gtk.Widget.set_focusable].
+ * 
+ * Note that if items are not focusable, the keyboard cannot be used to activate
+ * them and selecting only works if one of the listitem's children is focusable.
+ * 
+ * By default, list items are focusable.
+ *
+ * @param focusable if the item should be focusable
+ */
+- (void)setFocusable:(bool)focusable;
 
 /**
  * Sets @self to be selectable.

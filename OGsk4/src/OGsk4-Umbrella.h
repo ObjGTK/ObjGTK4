@@ -11,3 +11,4 @@
 #import "OGGskCairoRenderer.h"
 #import "OGGskGLShader.h"
 #import "OGGskRenderer.h"
+#import "OGGskVulkanRenderer.h"

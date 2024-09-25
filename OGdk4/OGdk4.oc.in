@@ -4,6 +4,7 @@ package_depends_on OGio
 package_depends_on OGdkPixbuf
 package_depends_on OGPango
 
-CPPFLAGS="$CPPFLAGS @OGDK4_CPPFLAGS@"
-LIBS="-logdk4 @OGDK4_LIBS@ $LIBS"
-FRAMEWORK_LIBS="-framework OGdk4 @OGDK4_LIBS@ $FRAMEWORK_LIBS"
+CPPFLAGS="$CPPFLAGS -I@includedir@ @OGDK4_CPPFLAGS@"
+LIBS="-L@libdir@ -logdk4 @OGDK4_LIBS@ $LIBS"
+FRAMEWORK_LIBS="-L@libdir@ -logdk4 @OGDK4_LIBS@ $FRAMEWORK_LIBS"
+STATIC_LIBS="@libdir@/libogdk4.a @OGDK4_LIBS@ $STATIC_LIBS"

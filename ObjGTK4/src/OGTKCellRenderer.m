@@ -6,8 +6,8 @@
 
 #import "OGTKCellRenderer.h"
 
-#import "OGTKSnapshot.h"
 #import "OGTKWidget.h"
+#import "OGTKSnapshot.h"
 
 @implementation OGTKCellRenderer
 

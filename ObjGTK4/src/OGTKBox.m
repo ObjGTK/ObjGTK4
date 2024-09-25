@@ -37,6 +37,13 @@
 	gtk_box_append([self castedGObject], [child castedGObject]);
 }
 
+- (int)baselineChild
+{
+	int returnValue = gtk_box_get_baseline_child([self castedGObject]);
+
+	return returnValue;
+}
+
 - (GtkBaselinePosition)baselinePosition
 {
 	GtkBaselinePosition returnValue = gtk_box_get_baseline_position([self castedGObject]);
@@ -76,6 +83,11 @@
 - (void)reorderChildAfterWithChild:(OGTKWidget*)child sibling:(OGTKWidget*)sibling
 {
 	gtk_box_reorder_child_after([self castedGObject], [child castedGObject], [sibling castedGObject]);
+}
+
+- (void)setBaselineChild:(int)child
+{
+	gtk_box_set_baseline_child([self castedGObject], child);
 }
 
 - (void)setBaselinePosition:(GtkBaselinePosition)position

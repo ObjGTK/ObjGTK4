@@ -27,7 +27,7 @@
  * [signal@Gtk.AppChooserWidget::application-selected] and
  * [signal@Gtk.AppChooserWidget::application-activated] signals.
  * 
- * # CSS nodes
+ * ## CSS nodes
  * 
  * `GtkAppChooserWidget` has a single CSS node with name appchooser.
  *

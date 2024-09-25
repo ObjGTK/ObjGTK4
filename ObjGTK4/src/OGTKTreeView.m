@@ -6,9 +6,9 @@
 
 #import "OGTKTreeView.h"
 
-#import "OGTKTooltip.h"
-#import "OGTKCellRenderer.h"
 #import "OGTKTreeViewColumn.h"
+#import "OGTKCellRenderer.h"
+#import "OGTKTooltip.h"
 #import "OGTKTreeSelection.h"
 
 @implementation OGTKTreeView

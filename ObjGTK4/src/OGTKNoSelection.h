@@ -14,6 +14,8 @@
  * 
  * This model is meant to be used as a simple wrapper around a `GListModel`
  * when a `GtkSelectionModel` is required.
+ * 
+ * `GtkNoSelection` passes through sections from the underlying model.
  *
  */
 @interface OGTKNoSelection : OGObject

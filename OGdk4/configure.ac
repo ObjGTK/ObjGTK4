@@ -56,6 +56,7 @@ AC_MSG_CHECKING(for ObjFW package OGObject)
 AS_IF([$OBJFW_CONFIG --package OGObject], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGObject --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGObject --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGObject --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGObject installed.)
 ])
@@ -63,6 +64,7 @@ AC_MSG_CHECKING(for ObjFW package OGio)
 AS_IF([$OBJFW_CONFIG --package OGio], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGio --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGio --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGio --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGio installed.)
 ])
@@ -71,6 +73,7 @@ AC_MSG_CHECKING(for ObjFW package OGdkPixbuf)
 AS_IF([$OBJFW_CONFIG --package OGdkPixbuf], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGdkPixbuf --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGdkPixbuf --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGdkPixbuf --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGdkPixbuf installed.)
 ])
@@ -79,6 +82,7 @@ AC_MSG_CHECKING(for ObjFW package OGPango)
 AS_IF([$OBJFW_CONFIG --package OGPango], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGPango --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGPango --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGPango --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGPango installed.)
 ])
@@ -100,6 +104,7 @@ PKG_CHECK_MODULES(gt, [gtk4 >= $(pkg-config --modversion gtk4)], [
 	OGDK4_LIBS="$OGDK4_LIBS $gt_LIBS"
 	CPPFLAGS="$CPPFLAGS $gt_CFLAGS"
 	LIBS="$LIBS $gt_LIBS"
+	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $gt_LIBS"
 ], [
 	AC_MSG_ERROR(You need gtk4 >= $(pkg-config --modversion gtk4) installed!)
 ])
@@ -118,5 +123,5 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(OGDK4_CPPFLAGS)
 AC_SUBST(OGDK4_LIBS)
 
-AC_CONFIG_FILES([buildsys.mk extra.mk OGdk4.oc])
+AC_CONFIG_FILES([buildsys.mk extra.mk OGdk4.oc src/Info.plist])
 AC_OUTPUT

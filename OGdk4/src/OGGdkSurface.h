@@ -9,18 +9,18 @@
 #import <OGObject/OGObject.h>
 
 @class OGGdkFrameClock;
-@class OGGdkCursor;
-@class OGGdkCairoContext;
 @class OGGdkDisplay;
-@class OGGdkGLContext;
 @class OGGdkDevice;
+@class OGGdkCairoContext;
 @class OGGdkVulkanContext;
+@class OGGdkGLContext;
+@class OGGdkCursor;
 
 /**
  * A `GdkSurface` is a rectangular region on the screen.
  * 
  * It’s a low-level object, used to implement high-level objects
- * such as [class@Gtk.Window] or [class@Gtk.Dialog] in GTK.
+ * such as [GtkWindow](../gtk4/class.Window.html).
  * 
  * The surfaces you see in practice are either [iface@Gdk.Toplevel] or
  * [iface@Gdk.Popup], and those interfaces provide much of the required
@@ -101,12 +101,9 @@
 - (cairo_surface_t*)createSimilarSurfaceWithContent:(cairo_content_t)content width:(int)width height:(int)height;
 
 /**
- * Creates a new `GdkVulkanContext` for rendering on @surface.
- * 
- * If the creation of the `GdkVulkanContext` failed, @error will be set.
+ * Sets an error and returns %NULL.
  *
- * @return the newly created `GdkVulkanContext`, or
- *   %NULL on error
+ * @return %NULL
  */
 - (OGGdkVulkanContext*)createVulkanContext;
 
@@ -203,6 +200,23 @@
 - (bool)mapped;
 
 /**
+ * Returns the internal scale that maps from surface coordinates
+ * to the actual device pixels.
+ * 
+ * When the scale is bigger than 1, the windowing system prefers to get
+ * buffers with a resolution that is bigger than the surface size (e.g.
+ * to show the surface on a high-resolution display, or in a magnifier).
+ * 
+ * Compare with [method@Gdk.Surface.get_scale_factor], which returns the
+ * next larger integer.
+ * 
+ * The scale may change during the lifetime of the surface.
+ *
+ * @return the scale
+ */
+- (double)scale;
+
+/**
  * Returns the internal scale factor that maps from surface coordinates
  * to the actual device pixels.
  * 
@@ -213,7 +227,7 @@
  * pixel-based data the scale value can be used to determine whether to
  * use a pixel resource with higher resolution data.
  * 
- * The scale of a surface may change during runtime.
+ * The scale factor may change during the lifetime of the surface.
  *
  * @return the scale factor
  */
@@ -235,7 +249,7 @@
  * For toplevel surfaces, withdraws them, so they will no longer be
  * known to the window manager; for all surfaces, unmaps them, so
  * they won’t be displayed. Normally done automatically as
- * part of [method@Gtk.Widget.hide].
+ * part of [gtk_widget_hide()](../gtk4/method.Widget.hide.html).
  *
  */
 - (void)hide;
@@ -328,7 +342,7 @@
  * GTK will update this property automatically if the @surface background
  * is opaque, as we know where the opaque regions are. If your surface
  * background is not opaque, please update this property in your
- * [vfunc@Gtk.Widget.css_changed] handler.
+ * [GtkWidgetClass.css_changed](../gtk4/vfunc.Widget.css_changed.html) handler.
  *
  * @param region a region, or %NULL to make the entire
  *   surface opaque

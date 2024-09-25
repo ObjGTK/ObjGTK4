@@ -8,8 +8,8 @@
 
 #import <OGdk4/OGGdkMonitor.h>
 #import "OGTKWindowGroup.h"
-#import <OGdk4/OGGdkDisplay.h>
 #import "OGTKApplication.h"
+#import <OGdk4/OGGdkDisplay.h>
 
 @implementation OGTKWindow
 
@@ -258,6 +258,13 @@
 - (bool)isMaximized
 {
 	bool returnValue = gtk_window_is_maximized([self castedGObject]);
+
+	return returnValue;
+}
+
+- (bool)isSuspended
+{
+	bool returnValue = gtk_window_is_suspended([self castedGObject]);
 
 	return returnValue;
 }

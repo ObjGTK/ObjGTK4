@@ -62,7 +62,8 @@
  * of zero, rows corresponding to items of models of direct children
  * of the root model have a depth of 1 and so on.
  * 
- * The depth of a row never changes until the row is destroyed.
+ * The depth of a row never changes until the row is removed from its model
+ * at which point it will forever return 0.
  *
  * @return The depth of this row
  */
@@ -77,12 +78,10 @@
 
 /**
  * Gets the item corresponding to this row,
- * 
- * The value returned by this function never changes until the
- * row is destroyed.
  *
  * @return The item
- *   of this row or %NULL when the row was destroyed
+ *   of this row. This function is only marked as nullable for backwards
+ *   compatibility reasons.
  */
 - (gpointer)item;
 
@@ -96,7 +95,8 @@
  * %NULL is returned.
  * 
  * The value returned by this function never changes
- * until the row is destroyed.
+ * until the row is removed from its model at which point
+ * it will forever return %NULL.
  *
  * @return The parent of @self
  */
@@ -116,7 +116,8 @@
  * This does not mean that the row is actually expanded,
  * this can be checked with [method@Gtk.TreeListRow.get_expanded].
  * 
- * If a row is expandable never changes until the row is destroyed.
+ * If a row is expandable never changes until the row is removed
+ * from its model at which point it will forever return %FALSE.
  *
  * @return %TRUE if the row is expandable
  */

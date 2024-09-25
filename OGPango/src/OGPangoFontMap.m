@@ -6,10 +6,10 @@
 
 #import "OGPangoFontMap.h"
 
-#import "OGPangoFont.h"
-#import "OGPangoFontFamily.h"
-#import "OGPangoFontset.h"
 #import "OGPangoContext.h"
+#import "OGPangoFontFamily.h"
+#import "OGPangoFont.h"
+#import "OGPangoFontset.h"
 
 @implementation OGPangoFontMap
 
@@ -68,6 +68,16 @@
 	PangoFontset* gobjectValue = PANGO_FONTSET(pango_font_map_load_fontset([self castedGObject], [context castedGObject], desc, language));
 
 	OGPangoFontset* returnValue = [OGPangoFontset withGObject:gobjectValue];
+	g_object_unref(gobjectValue);
+
+	return returnValue;
+}
+
+- (OGPangoFont*)reloadFontWithFont:(OGPangoFont*)font scale:(double)scale context:(OGPangoContext*)context variations:(OFString*)variations
+{
+	PangoFont* gobjectValue = PANGO_FONT(pango_font_map_reload_font([self castedGObject], [font castedGObject], scale, [context castedGObject], [variations UTF8String]));
+
+	OGPangoFont* returnValue = [OGPangoFont withGObject:gobjectValue];
 	g_object_unref(gobjectValue);
 
 	return returnValue;

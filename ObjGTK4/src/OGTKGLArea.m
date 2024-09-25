@@ -39,6 +39,20 @@
 	gtk_gl_area_attach_buffers([self castedGObject]);
 }
 
+- (GdkGLAPI)allowedApis
+{
+	GdkGLAPI returnValue = gtk_gl_area_get_allowed_apis([self castedGObject]);
+
+	return returnValue;
+}
+
+- (GdkGLAPI)api
+{
+	GdkGLAPI returnValue = gtk_gl_area_get_api([self castedGObject]);
+
+	return returnValue;
+}
+
 - (bool)autoRender
 {
 	bool returnValue = gtk_gl_area_get_auto_render([self castedGObject]);
@@ -95,6 +109,11 @@
 - (void)queueRender
 {
 	gtk_gl_area_queue_render([self castedGObject]);
+}
+
+- (void)setAllowedApis:(GdkGLAPI)apis
+{
+	gtk_gl_area_set_allowed_apis([self castedGObject], apis);
 }
 
 - (void)setAutoRender:(bool)autoRender

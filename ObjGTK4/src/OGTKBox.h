@@ -38,7 +38,9 @@
  * 
  * # Accessibility
  * 
- * `GtkBox` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkBox` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * 
+ * Starting from GTK 4.12, `GtkBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
  */
 @interface OGTKBox : OGTKWidget
@@ -64,6 +66,13 @@
  * @param child the `GtkWidget` to append
  */
 - (void)append:(OGTKWidget*)child;
+
+/**
+ * Gets the value set by gtk_box_set_baseline_child().
+ *
+ * @return the baseline child
+ */
+- (int)baselineChild;
 
 /**
  * Gets the value set by gtk_box_set_baseline_position().
@@ -126,6 +135,15 @@
  * @param sibling the sibling to move @child after
  */
 - (void)reorderChildAfterWithChild:(OGTKWidget*)child sibling:(OGTKWidget*)sibling;
+
+/**
+ * Sets the baseline child of a box.
+ * 
+ * This affects only vertical boxes.
+ *
+ * @param child a child, or -1
+ */
+- (void)setBaselineChild:(int)child;
 
 /**
  * Sets the baseline position of a box.

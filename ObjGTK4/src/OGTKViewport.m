@@ -49,6 +49,11 @@
 	return returnValue;
 }
 
+- (void)scrollToWithDescendant:(OGTKWidget*)descendant scroll:(GtkScrollInfo*)scroll
+{
+	gtk_viewport_scroll_to([self castedGObject], [descendant castedGObject], scroll);
+}
+
 - (void)setChild:(OGTKWidget*)child
 {
 	gtk_viewport_set_child([self castedGObject], [child castedGObject]);

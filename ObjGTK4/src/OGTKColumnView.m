@@ -8,6 +8,7 @@
 
 #import "OGTKSorter.h"
 #import "OGTKColumnViewColumn.h"
+#import "OGTKListItemFactory.h"
 
 @implementation OGTKColumnView
 
@@ -54,6 +55,14 @@
 	return returnValue;
 }
 
+- (OGTKListItemFactory*)headerFactory
+{
+	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_column_view_get_header_factory([self castedGObject]));
+
+	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	return returnValue;
+}
+
 - (GtkSelectionModel*)model
 {
 	GtkSelectionModel* returnValue = gtk_column_view_get_model([self castedGObject]);
@@ -65,6 +74,14 @@
 {
 	bool returnValue = gtk_column_view_get_reorderable([self castedGObject]);
 
+	return returnValue;
+}
+
+- (OGTKListItemFactory*)rowFactory
+{
+	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_column_view_get_row_factory([self castedGObject]));
+
+	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
 	return returnValue;
 }
 
@@ -97,6 +114,13 @@
 	return returnValue;
 }
 
+- (GtkListTabBehavior)tabBehavior
+{
+	GtkListTabBehavior returnValue = gtk_column_view_get_tab_behavior([self castedGObject]);
+
+	return returnValue;
+}
+
 - (void)insertColumnWithPosition:(guint)position column:(OGTKColumnViewColumn*)column
 {
 	gtk_column_view_insert_column([self castedGObject], position, [column castedGObject]);
@@ -107,9 +131,19 @@
 	gtk_column_view_remove_column([self castedGObject], [column castedGObject]);
 }
 
+- (void)scrollToWithPos:(guint)pos column:(OGTKColumnViewColumn*)column flags:(GtkListScrollFlags)flags scroll:(GtkScrollInfo*)scroll
+{
+	gtk_column_view_scroll_to([self castedGObject], pos, [column castedGObject], flags, scroll);
+}
+
 - (void)setEnableRubberband:(bool)enableRubberband
 {
 	gtk_column_view_set_enable_rubberband([self castedGObject], enableRubberband);
+}
+
+- (void)setHeaderFactory:(OGTKListItemFactory*)factory
+{
+	gtk_column_view_set_header_factory([self castedGObject], [factory castedGObject]);
 }
 
 - (void)setModel:(GtkSelectionModel*)model
@@ -120,6 +154,11 @@
 - (void)setReorderable:(bool)reorderable
 {
 	gtk_column_view_set_reorderable([self castedGObject], reorderable);
+}
+
+- (void)setRowFactory:(OGTKListItemFactory*)factory
+{
+	gtk_column_view_set_row_factory([self castedGObject], [factory castedGObject]);
 }
 
 - (void)setShowColumnSeparators:(bool)showColumnSeparators
@@ -135,6 +174,11 @@
 - (void)setSingleClickActivate:(bool)singleClickActivate
 {
 	gtk_column_view_set_single_click_activate([self castedGObject], singleClickActivate);
+}
+
+- (void)setTabBehavior:(GtkListTabBehavior)tabBehavior
+{
+	gtk_column_view_set_tab_behavior([self castedGObject], tabBehavior);
 }
 
 - (void)sortByColumnWithColumn:(OGTKColumnViewColumn*)column direction:(GtkSortType)direction

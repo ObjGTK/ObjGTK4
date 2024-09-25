@@ -17,7 +17,8 @@
  * multiple frames, and will be used for a long time.
  * 
  * There are various ways to create `GdkTexture` objects from a
- * [class@GdkPixbuf.Pixbuf], or a Cairo surface, or other pixel data.
+ * [class@GdkPixbuf.Pixbuf], or from bytes stored in memory, a file, or a
+ * [struct@Gio.Resource].
  * 
  * The ownership of the pixel data is transferred to the `GdkTexture`
  * instance; you can only make a copy of it, via [method@Gdk.Texture.download].
@@ -68,12 +69,30 @@
  *                       cairo_image_surface_get_stride (surface));
  * cairo_surface_mark_dirty (surface);
  * ```
+ * 
+ * For more flexible download capabilities, see
+ * [struct@Gdk.TextureDownloader].
  *
  * @param data pointer to enough memory to be filled with the
  *   downloaded data of @texture
  * @param stride rowstride in bytes
  */
 - (void)downloadWithData:(guchar*)data stride:(gsize)stride;
+
+/**
+ * Gets the memory format most closely associated with the data of
+ * the texture.
+ * 
+ * Note that it may not be an exact match for texture data
+ * stored on the GPU or with compression.
+ * 
+ * The format can give an indication about the bit depth and opacity
+ * of the texture and is useful to determine the best format for
+ * downloading the texture.
+ *
+ * @return the preferred format for the texture's data
+ */
+- (GdkMemoryFormat)format;
 
 /**
  * Returns the height of the @texture, in pixels.

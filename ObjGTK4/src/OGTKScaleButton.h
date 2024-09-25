@@ -17,8 +17,14 @@
  * 
  * # CSS nodes
  * 
- * `GtkScaleButton` has a single CSS node with name button. To differentiate
- * it from a plain `GtkButton`, it gets the .scale style class.
+ * ```
+ * scalebutton.scale
+ * ╰── button.toggle
+ *     ╰── <icon>
+ * ```
+ * 
+ * `GtkScaleButton` has a single CSS node with name scalebutton and `.scale`
+ * style class, and contains a `button` node with a `.toggle` style class.
  *
  */
 @interface OGTKScaleButton : OGTKWidget
@@ -39,6 +45,16 @@
 - (GtkScaleButton*)castedGObject;
 
 /**
+ * Queries a `GtkScaleButton` and returns its current state.
+ * 
+ * Returns %TRUE if the scale button is pressed in and %FALSE
+ * if it is raised.
+ *
+ * @return whether the button is pressed
+ */
+- (bool)active;
+
+/**
  * Gets the `GtkAdjustment` associated with the `GtkScaleButton`’s scale.
  * 
  * See [method@Gtk.Range.get_adjustment] for details.
@@ -46,6 +62,13 @@
  * @return the adjustment associated with the scale
  */
 - (OGTKAdjustment*)adjustment;
+
+/**
+ * Returns whether the button has a frame.
+ *
+ * @return %TRUE if the button has a frame
+ */
+- (bool)hasFrame;
 
 /**
  * Retrieves the minus button of the `GtkScaleButton`.
@@ -86,6 +109,13 @@
  * @param adjustment a `GtkAdjustment`
  */
 - (void)setAdjustment:(OGTKAdjustment*)adjustment;
+
+/**
+ * Sets the style of the button.
+ *
+ * @param hasFrame whether the button should have a visible frame
+ */
+- (void)setHasFrame:(bool)hasFrame;
 
 /**
  * Sets the icons to be used by the scale button.

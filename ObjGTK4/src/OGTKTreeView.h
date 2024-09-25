@@ -6,9 +6,9 @@
 
 #import "OGTKWidget.h"
 
-@class OGTKTooltip;
-@class OGTKCellRenderer;
 @class OGTKTreeViewColumn;
+@class OGTKCellRenderer;
+@class OGTKTooltip;
 @class OGTKTreeSelection;
 
 /**

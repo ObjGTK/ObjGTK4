@@ -61,6 +61,13 @@
 	return returnValue;
 }
 
+- (GtkPopoverMenuFlags)flags
+{
+	GtkPopoverMenuFlags returnValue = gtk_popover_menu_get_flags([self castedGObject]);
+
+	return returnValue;
+}
+
 - (OGMenuModel*)menuModel
 {
 	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_popover_menu_get_menu_model([self castedGObject]));
@@ -74,6 +81,11 @@
 	bool returnValue = gtk_popover_menu_remove_child([self castedGObject], [child castedGObject]);
 
 	return returnValue;
+}
+
+- (void)setFlags:(GtkPopoverMenuFlags)flags
+{
+	gtk_popover_menu_set_flags([self castedGObject], flags);
 }
 
 - (void)setMenuModel:(OGMenuModel*)model

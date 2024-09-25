@@ -14,11 +14,17 @@
  * 
  * ![An example GtkDropDown](drop-down.png)
  * 
- * The `GtkDropDown` displays the selected choice.
+ * The `GtkDropDown` displays the [selected][property@Gtk.DropDown:selected]
+ * choice.
  * 
  * The options are given to `GtkDropDown` in the form of `GListModel`
  * and how the individual options are represented is determined by
- * a [class@Gtk.ListItemFactory]. The default factory displays simple strings.
+ * a [class@Gtk.ListItemFactory]. The default factory displays simple strings,
+ * and adds a checkmark to the selected item in the popup.
+ * 
+ * To set your own factory, use [method@Gtk.DropDown.set_factory]. It is
+ * possible to use a separate factory for the items in the popup, with
+ * [method@Gtk.DropDown.set_list_factory].
  * 
  * `GtkDropDown` knows how to obtain strings from the items in a
  * [class@Gtk.StringList]; for other models, you have to provide an expression
@@ -29,6 +35,7 @@
  * use [method@Gtk.DropDown.set_enable_search].
  * 
  * Here is a UI definition example for `GtkDropDown` with a simple model:
+ * 
  * ```xml
  * <object class="GtkDropDown">
  *   <property name="model">
@@ -43,12 +50,19 @@
  * </object>
  * ```
  * 
- * # CSS nodes
+ * If a `GtkDropDown` is created in this manner, or with
+ * [ctor@Gtk.DropDown.new_from_strings], for instance, the object returned from
+ * [method@Gtk.DropDown.get_selected_item] will be a [class@Gtk.StringObject].
+ * 
+ * To learn more about the list widget framework, see the
+ * [overview](section-list-widget.html).
+ * 
+ * ## CSS nodes
  * 
  * `GtkDropDown` has a single CSS node with name dropdown,
  * with the button and popover nodes as children.
  * 
- * # Accessibility
+ * ## Accessibility
  * 
  * `GtkDropDown` uses the %GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
  *
@@ -99,6 +113,13 @@
 - (OGTKListItemFactory*)factory;
 
 /**
+ * Gets the factory that's currently used to create header widgets for the popup.
+ *
+ * @return The factory in use
+ */
+- (OGTKListItemFactory*)headerFactory;
+
+/**
  * Gets the factory that's currently used to populate list items in the popup.
  *
  * @return The factory in use
@@ -111,6 +132,13 @@
  * @return The model in use
  */
 - (GListModel*)model;
+
+/**
+ * Returns the match mode that the search filter is using.
+ *
+ * @return the match mode of the search filter
+ */
+- (GtkStringFilterMatchMode)searchMatchMode;
 
 /**
  * Gets the position of the selected item.
@@ -163,6 +191,13 @@
 - (void)setFactory:(OGTKListItemFactory*)factory;
 
 /**
+ * Sets the `GtkListItemFactory` to use for creating header widgets for the popup.
+ *
+ * @param factory the factory to use
+ */
+- (void)setHeaderFactory:(OGTKListItemFactory*)factory;
+
+/**
  * Sets the `GtkListItemFactory` to use for populating list items in the popup.
  *
  * @param factory the factory to use
@@ -175,6 +210,13 @@
  * @param model the model to use
  */
 - (void)setModel:(GListModel*)model;
+
+/**
+ * Sets the match mode for the search filter.
+ *
+ * @param searchMatchMode the new match mode
+ */
+- (void)setSearchMatchMode:(GtkStringFilterMatchMode)searchMatchMode;
 
 /**
  * Selects the item at the given position.

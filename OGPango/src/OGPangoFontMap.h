@@ -8,10 +8,10 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGPangoFont;
-@class OGPangoFontFamily;
-@class OGPangoFontset;
 @class OGPangoContext;
+@class OGPangoFontFamily;
+@class OGPangoFont;
+@class OGPangoFontset;
 
 /**
  * A `PangoFontMap` represents the set of fonts available for a
@@ -123,5 +123,19 @@
  *   `PangoFontset` loaded, or %NULL if no font matched.
  */
 - (OGPangoFontset*)loadFontsetWithContext:(OGPangoContext*)context desc:(const PangoFontDescription*)desc language:(PangoLanguage*)language;
+
+/**
+ * Returns a new font that is like @font, except that its size
+ * is multiplied by @scale, its backend-dependent configuration
+ * (e.g. cairo font options) is replaced by the one in @context,
+ * and its variations are replaced by @variations.
+ *
+ * @param font a font in @fontmap
+ * @param scale the scale factor to apply
+ * @param context a `PangoContext`
+ * @param variations font variations to use
+ * @return the modified font
+ */
+- (OGPangoFont*)reloadFontWithFont:(OGPangoFont*)font scale:(double)scale context:(OGPangoContext*)context variations:(OFString*)variations;
 
 @end

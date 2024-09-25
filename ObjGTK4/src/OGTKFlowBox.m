@@ -142,6 +142,11 @@
 	gtk_flow_box_remove([self castedGObject], [widget castedGObject]);
 }
 
+- (void)removeAll
+{
+	gtk_flow_box_remove_all([self castedGObject]);
+}
+
 - (void)selectAll
 {
 	gtk_flow_box_select_all([self castedGObject]);

@@ -23,7 +23,7 @@
  * 
  * The `GtkCenterBox` implementation of the `GtkBuildable` interface
  * supports placing children in the 3 positions by specifying “start”, “center”
- * or “end” as the “type” attribute of a <child> element.
+ * or “end” as the “type” attribute of a `<child>` element.
  * 
  * # CSS nodes
  * 
@@ -38,7 +38,9 @@
  * 
  * # Accessibility
  * 
- * `GtkCenterBox` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkCenterBox` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * 
+ * Starting from GTK 4.12, `GtkCenterBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
  */
 @interface OGTKCenterBox : OGTKWidget
@@ -80,6 +82,13 @@
 - (OGTKWidget*)endWidget;
 
 /**
+ * Gets whether @self shrinks the center widget after other children.
+ *
+ * @return whether to shrink the center widget after others
+ */
+- (bool)shrinkCenterLast;
+
+/**
  * Gets the start widget, or %NULL if there is none.
  *
  * @return the start widget.
@@ -102,7 +111,7 @@
 /**
  * Sets the center widget.
  * 
- * To remove the existing center widget, pas %NULL.
+ * To remove the existing center widget, pass %NULL.
  *
  * @param child the new center widget
  */
@@ -116,6 +125,20 @@
  * @param child the new end widget
  */
 - (void)setEndWidget:(OGTKWidget*)child;
+
+/**
+ * Sets whether to shrink the center widget after other children.
+ * 
+ * By default, when there's no space to give all three children their
+ * natural widths, the start and end widgets start shrinking and the
+ * center child keeps natural width until they reach minimum width.
+ * 
+ * If set to `FALSE`, start and end widgets keep natural width and the
+ * center widget starts shrinking instead.
+ *
+ * @param shrinkCenterLast whether to shrink the center widget after others
+ */
+- (void)setShrinkCenterLast:(bool)shrinkCenterLast;
 
 /**
  * Sets the start widget.

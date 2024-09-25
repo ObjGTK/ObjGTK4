@@ -42,6 +42,20 @@
 	return returnValue;
 }
 
+- (bool)hideExpander
+{
+	bool returnValue = gtk_tree_expander_get_hide_expander([self castedGObject]);
+
+	return returnValue;
+}
+
+- (bool)indentForDepth
+{
+	bool returnValue = gtk_tree_expander_get_indent_for_depth([self castedGObject]);
+
+	return returnValue;
+}
+
 - (bool)indentForIcon
 {
 	bool returnValue = gtk_tree_expander_get_indent_for_icon([self castedGObject]);
@@ -67,6 +81,16 @@
 - (void)setChild:(OGTKWidget*)child
 {
 	gtk_tree_expander_set_child([self castedGObject], [child castedGObject]);
+}
+
+- (void)setHideExpander:(bool)hideExpander
+{
+	gtk_tree_expander_set_hide_expander([self castedGObject], hideExpander);
+}
+
+- (void)setIndentForDepth:(bool)indentForDepth
+{
+	gtk_tree_expander_set_indent_for_depth([self castedGObject], indentForDepth);
 }
 
 - (void)setIndentForIcon:(bool)indentForIcon

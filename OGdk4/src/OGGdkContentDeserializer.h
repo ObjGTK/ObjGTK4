@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGInputStream;
 @class OGCancellable;
+@class OGInputStream;
 
 /**
  * A `GdkContentDeserializer` is used to deserialize content received via

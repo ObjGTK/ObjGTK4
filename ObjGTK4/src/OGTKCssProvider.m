@@ -29,6 +29,11 @@
 	return GTK_CSS_PROVIDER([self gObject]);
 }
 
+- (void)loadFromBytes:(GBytes*)data
+{
+	gtk_css_provider_load_from_bytes([self castedGObject], data);
+}
+
 - (void)loadFromDataWithData:(OFString*)data length:(gssize)length
 {
 	gtk_css_provider_load_from_data([self castedGObject], [data UTF8String], length);
@@ -47,6 +52,11 @@
 - (void)loadFromResource:(OFString*)resourcePath
 {
 	gtk_css_provider_load_from_resource([self castedGObject], [resourcePath UTF8String]);
+}
+
+- (void)loadFromString:(OFString*)string
+{
+	gtk_css_provider_load_from_string([self castedGObject], [string UTF8String]);
 }
 
 - (void)loadNamedWithName:(OFString*)name variant:(OFString*)variant

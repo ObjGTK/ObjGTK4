@@ -22,7 +22,7 @@
  * The URI bound to a `GtkLinkButton` can be set specifically using
  * [method@Gtk.LinkButton.set_uri].
  * 
- * By default, `GtkLinkButton` calls [func@Gtk.show_uri] when the button
+ * By default, `GtkLinkButton` calls [method@Gtk.FileLauncher.launch] when the button
  * is clicked. This behaviour can be overridden by connecting to the
  * [signal@Gtk.LinkButton::activate-link] signal and returning %TRUE from
  * the signal handler.

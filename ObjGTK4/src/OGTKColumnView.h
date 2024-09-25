@@ -8,6 +8,7 @@
 
 @class OGTKSorter;
 @class OGTKColumnViewColumn;
+@class OGTKListItemFactory;
 
 /**
  * `GtkColumnView` presents a large dynamic list of items using multiple columns
@@ -121,6 +122,13 @@
 - (bool)enableRubberband;
 
 /**
+ * Gets the factory that's currently used to populate section headers.
+ *
+ * @return The factory in use
+ */
+- (OGTKListItemFactory*)headerFactory;
+
+/**
  * Gets the model that's currently used to read the items displayed.
  *
  * @return The model in use
@@ -133,6 +141,13 @@
  * @return %TRUE if columns are reorderable
  */
 - (bool)reorderable;
+
+/**
+ * Gets the factory set via [method@Gtk.ColumnView.set_row_factory].
+ *
+ * @return The factory
+ */
+- (OGTKListItemFactory*)rowFactory;
 
 /**
  * Returns whether the list should show separators
@@ -184,6 +199,13 @@
 - (OGTKSorter*)sorter;
 
 /**
+ * Gets the behavior set for the <kbd>Tab</kbd> key.
+ *
+ * @return The behavior of the <kbd>Tab</kbd> key
+ */
+- (GtkListTabBehavior)tabBehavior;
+
+/**
  * Inserts a column at the given position in the columns of @self.
  * 
  * If @column is already a column of @self, it will be repositioned.
@@ -201,11 +223,38 @@
 - (void)removeColumn:(OGTKColumnViewColumn*)column;
 
 /**
+ * Scroll to the row at the given position - or cell if a column is
+ * given - and performs the actions specified in @flags.
+ * 
+ * This function works no matter if the listview is shown or focused.
+ * If it isn't, then the changes will take effect once that happens.
+ *
+ * @param pos position of the item
+ * @param column The column to scroll to
+ *   or %NULL to not scroll columns.
+ * @param flags actions to perform
+ * @param scroll details of how to perform
+ *   the scroll operation or %NULL to scroll into view
+ */
+- (void)scrollToWithPos:(guint)pos column:(OGTKColumnViewColumn*)column flags:(GtkListScrollFlags)flags scroll:(GtkScrollInfo*)scroll;
+
+/**
  * Sets whether selections can be changed by dragging with the mouse.
  *
  * @param enableRubberband %TRUE to enable rubberband selection
  */
 - (void)setEnableRubberband:(bool)enableRubberband;
+
+/**
+ * Sets the `GtkListItemFactory` to use for populating the
+ * [class@Gtk.ListHeader] objects used in section headers.
+ * 
+ * If this factory is set to %NULL, the list will not show
+ * section headers.
+ *
+ * @param factory the factory to use
+ */
+- (void)setHeaderFactory:(OGTKListItemFactory*)factory;
 
 /**
  * Sets the model to use.
@@ -222,6 +271,19 @@
  * @param reorderable whether columns should be reorderable
  */
 - (void)setReorderable:(bool)reorderable;
+
+/**
+ * Sets the factory used for configuring rows. The factory must be for configuring
+ * [class@Gtk.ColumnViewRow] objects.
+ * 
+ * If this factory is not set - which is the default - then the defaults will be used.
+ * 
+ * This factory is not used to set the widgets displayed in the individual cells. For
+ * that see [method@GtkColumnViewColumn.set_factory] and [class@GtkColumnViewCell].
+ *
+ * @param factory The row factory
+ */
+- (void)setRowFactory:(OGTKListItemFactory*)factory;
 
 /**
  * Sets whether the list should show separators
@@ -246,6 +308,13 @@
  * @param singleClickActivate %TRUE to activate items on single click
  */
 - (void)setSingleClickActivate:(bool)singleClickActivate;
+
+/**
+ * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+ *
+ * @param tabBehavior The desired tab behavior
+ */
+- (void)setTabBehavior:(GtkListTabBehavior)tabBehavior;
 
 /**
  * Sets the sorting of the view.

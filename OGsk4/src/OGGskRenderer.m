@@ -6,6 +6,7 @@
 
 #import "OGGskRenderer.h"
 
+#import <OGdk4/OGGdkDisplay.h>
 #import <OGdk4/OGGdkSurface.h>
 #import <OGdk4/OGGdkTexture.h>
 
@@ -52,6 +53,21 @@
 	GError* err = NULL;
 
 	bool returnValue = gsk_renderer_realize([self castedGObject], [surface castedGObject], &err);
+
+	if(err != NULL) {
+		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
+		g_error_free(err);
+		@throw exception;
+	}
+
+	return returnValue;
+}
+
+- (bool)realizeForDisplay:(OGGdkDisplay*)display
+{
+	GError* err = NULL;
+
+	bool returnValue = gsk_renderer_realize_for_display([self castedGObject], [display castedGObject], &err);
 
 	if(err != NULL) {
 		OGErrorException* exception = [OGErrorException exceptionWithGError:err];

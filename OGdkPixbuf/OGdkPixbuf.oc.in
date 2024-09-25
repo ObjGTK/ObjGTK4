@@ -2,6 +2,7 @@ package_format 1
 package_depends_on OGObject
 package_depends_on OGio
 
-CPPFLAGS="$CPPFLAGS @OGDKPIXBUF_CPPFLAGS@"
-LIBS="-logdkpixbuf @OGDKPIXBUF_LIBS@ $LIBS"
-FRAMEWORK_LIBS="-framework OGdkPixbuf @OGDKPIXBUF_LIBS@ $FRAMEWORK_LIBS"
+CPPFLAGS="$CPPFLAGS -I@includedir@ @OGDKPIXBUF_CPPFLAGS@"
+LIBS="-L@libdir@ -logdkpixbuf @OGDKPIXBUF_LIBS@ $LIBS"
+FRAMEWORK_LIBS="-L@libdir@ -logdkpixbuf @OGDKPIXBUF_LIBS@ $FRAMEWORK_LIBS"
+STATIC_LIBS="@libdir@/libogdkpixbuf.a @OGDKPIXBUF_LIBS@ $STATIC_LIBS"

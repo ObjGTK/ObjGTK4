@@ -61,7 +61,7 @@
  *                                         GTK_RESPONSE_ACCEPT,
  *                                         NULL);
  * 
- *   gtk_widget_show (dialog);
+ *   gtk_window_present (GTK_WINDOW (dialog));
  * 
  *   g_signal_connect (dialog, "response",
  *                     G_CALLBACK (on_open_response),
@@ -107,7 +107,7 @@
  *   else
  *     gtk_file_chooser_set_file (chooser, existing_filename);
  * 
- *   gtk_widget_show (dialog);
+ *   gtk_window_present (GTK_WINDOW (dialog));
  * 
  *   g_signal_connect (dialog, "response",
  *                     G_CALLBACK (on_save_response),
@@ -174,6 +174,11 @@
  * 
  * To summarize, make sure you use a predefined response code
  * when you use `GtkFileChooserDialog` to ensure proper operation.
+ * 
+ * ## CSS nodes
+ * 
+ * `GtkFileChooserDialog` has a single CSS node with the name `window` and style
+ * class `.filechooser`.
  *
  */
 @interface OGTKFileChooserDialog : OGTKDialog

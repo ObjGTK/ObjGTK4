@@ -16,6 +16,8 @@
  * `GtkGLArea` sets up its own [class@Gdk.GLContext], and creates a custom
  * GL framebuffer that the widget will do GL rendering onto. It also ensures
  * that this framebuffer is the default GL rendering target when rendering.
+ * The completed rendering is integrated into the larger GTK scene graph as
+ * a texture.
  * 
  * In order to draw, you have to connect to the [signal@Gtk.GLArea::render]
  * signal, or subclass `GtkGLArea` and override the GtkGLAreaClass.render
@@ -32,6 +34,8 @@
  * 
  * The `render()` function will be called when the `GtkGLArea` is ready
  * for you to draw its content:
+ * 
+ * The initial contents of the framebuffer are transparent.
  * 
  * ```c
  * static gboolean
@@ -145,6 +149,24 @@
 - (void)attachBuffers;
 
 /**
+ * Gets the allowed APIs.
+ * 
+ * See [method@Gtk.GLArea.set_allowed_apis].
+ *
+ * @return the allowed APIs
+ */
+- (GdkGLAPI)allowedApis;
+
+/**
+ * Gets the API that is currently in use.
+ * 
+ * If the GL area has not been realized yet, 0 is returned.
+ *
+ * @return the currently used API
+ */
+- (GdkGLAPI)api;
+
+/**
  * Returns whether the area is in auto render mode or not.
  *
  * @return %TRUE if the @area is auto rendering, %FALSE otherwise
@@ -223,6 +245,18 @@
  *
  */
 - (void)queueRender;
+
+/**
+ * Sets the allowed APIs to create a context with.
+ * 
+ * You should check [property@Gtk.GLArea:api] before drawing
+ * with either API.
+ * 
+ * By default, all APIs are allowed.
+ *
+ * @param apis the allowed APIs
+ */
+- (void)setAllowedApis:(GdkGLAPI)apis;
 
 /**
  * Sets whether the `GtkGLArea` is in auto render mode.

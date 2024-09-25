@@ -81,7 +81,11 @@
  * }
  * ```
  * 
- * # Performance Considerations
+ * `GtkListStore` is deprecated since GTK 4.10, and should not be used in newly
+ * written code. You should use [class@Gio.ListStore] instead, and the various
+ * list models provided by GTK.
+ * 
+ * ## Performance Considerations
  * 
  * Internally, the `GtkListStore` was originally implemented with a linked list
  * with a tail pointer.  As a result, it was fast at data insertion and deletion,
@@ -91,7 +95,7 @@
  * often and your code is expected to run on older versions of GTK, it is worth
  * keeping the iter around.
  * 
- * # Atomic Operations
+ * ## Atomic Operations
  * 
  * It is important to note that only the methods
  * gtk_list_store_insert_with_values() and gtk_list_store_insert_with_valuesv()
@@ -108,7 +112,7 @@
  * `GtkTreeModel`FilterVisibleFunc to be visited with an empty row first; the
  * function must be prepared for that.
  * 
- * # GtkListStore as GtkBuildable
+ * ## GtkListStore as GtkBuildable
  * 
  * The GtkListStore implementation of the [iface@Gtk.Buildable] interface allows
  * to specify the model columns with a `<columns>` element that may contain
@@ -293,10 +297,14 @@
 - (void)reorder:(int*)newOrder;
 
 /**
- * This function is meant primarily for `GObject`s that inherit from `GtkListStore`,
- * and should only be used when constructing a new `GtkListStore`.  It will not
- * function after a row has been added, or a method on the `GtkTreeModel`
- * interface is called.
+ * Sets the types of the columns of a list store.
+ * 
+ * This function is meant primarily for objects that inherit
+ * from `GtkListStore`, and should only be used when constructing
+ * a new instance.
+ * 
+ * This function cannot be called after a row has been added, or
+ * a method on the `GtkTreeModel` interface is called.
  *
  * @param ncolumns Number of columns for the list store
  * @param types An array length n of `GType`s

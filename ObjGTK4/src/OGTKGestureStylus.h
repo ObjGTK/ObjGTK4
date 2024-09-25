@@ -6,8 +6,8 @@
 
 #import "OGTKGestureSingle.h"
 
-@class OGTKGesture;
 @class OGGdkDeviceTool;
+@class OGTKGesture;
 
 /**
  * `GtkGestureStylus` is a `GtkGesture` specific to stylus input.
@@ -93,5 +93,25 @@
  * @return The current stylus tool
  */
 - (OGGdkDeviceTool*)deviceTool;
+
+/**
+ * Checks whether the gesture is for styluses only.
+ * 
+ * Stylus-only gestures will signal events exclusively from stylus
+ * input devices.
+ *
+ * @return %TRUE if the gesture is only for stylus events
+ */
+- (bool)stylusOnly;
+
+/**
+ * Sets the state of stylus-only
+ * 
+ * If true, the gesture will exclusively handle events from stylus input devices,
+ * otherwise it'll handle events from any pointing device.
+ *
+ * @param stylusOnly whether the gesture is used exclusively for stylus events
+ */
+- (void)setStylusOnly:(bool)stylusOnly;
 
 @end

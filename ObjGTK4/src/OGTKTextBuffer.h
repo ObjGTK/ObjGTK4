@@ -8,12 +8,12 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKTextTagTable;
-@class OGTKTextTag;
-@class OGGdkClipboard;
 @class OGTKTextMark;
 @class OGGdkContentProvider;
+@class OGTKTextTag;
 @class OGTKTextChildAnchor;
+@class OGGdkClipboard;
+@class OGTKTextTagTable;
 
 /**
  * Stores text and attributes for display in a `GtkTextView`.
@@ -324,7 +324,7 @@
 /**
  * Gets whether there is a redoable action in the history.
  *
- * @return %TRUE if there is an redoable action
+ * @return %TRUE if there is a redoable action
  */
 - (bool)canRedo;
 
@@ -356,7 +356,7 @@
  * [method@Gtk.TextBuffer.end_irreversible_action] to create
  * changes to the buffer that cannot be undone.
  *
- * @return
+ * @return %TRUE if undoing and redoing changes to the buffer is allowed.
  */
 - (bool)enableUndo;
 
@@ -492,7 +492,7 @@
  * have a memory usage impact as it requires storing an additional
  * copy of the inserted or removed text within the text buffer.
  *
- * @return
+ * @return The max number of undo levels allowed (0 indicates unlimited).
  */
 - (guint)maxUndoLevels;
 
@@ -828,7 +828,7 @@
 
 /**
  * Removes a `GdkClipboard` added with
- * gtk_text_buffer_add_selection_clipboard().
+ * [method@Gtk.TextBuffer.add_selection_clipboard]
  *
  * @param clipboard a `GdkClipboard` added to @buffer by
  *   [method@Gtk.TextBuffer.add_selection_clipboard]
@@ -912,7 +912,7 @@
  * Whenever the buffer is saved to disk, call
  * `gtk_text_buffer_set_modified (@buffer, FALSE)`.
  * When the buffer is modified, it will automatically
- * toggled on the modified bit again. When the modified
+ * toggle on the modified bit again. When the modified
  * bit flips, the buffer emits the
  * [signal@Gtk.TextBuffer::modified-changed] signal.
  *

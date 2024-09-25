@@ -22,6 +22,13 @@
  * To change the initially selected color, use
  * [method@Gtk.ColorChooser.set_rgba]. To get the selected color use
  * [method@Gtk.ColorChooser.get_rgba].
+ * 
+ * `GtkColorChooserDialog` has been deprecated in favor of [class@Gtk.ColorDialog].
+ * 
+ * ## CSS nodes
+ * 
+ * `GtkColorChooserDialog` has a single CSS node with the name `window` and style
+ * class `.colorchooser`.
  *
  */
 @interface OGTKColorChooserDialog : OGTKDialog

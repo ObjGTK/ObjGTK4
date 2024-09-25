@@ -6,8 +6,8 @@
 
 #import "OGTKEventController.h"
 
-#import "OGTKWidget.h"
 #import <OGdk4/OGGdkDevice.h>
+#import "OGTKWidget.h"
 
 @implementation OGTKEventController
 

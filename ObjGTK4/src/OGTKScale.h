@@ -6,9 +6,9 @@
 
 #import "OGTKRange.h"
 
+@class OGTKWidget;
 @class OGPangoLayout;
 @class OGTKAdjustment;
-@class OGTKWidget;
 
 /**
  * A `GtkScale` is a slider control used to select a numeric value.
@@ -16,7 +16,7 @@
  * ![An example GtkScale](scales.png)
  * 
  * To use it, you’ll probably want to investigate the methods on its base
- * class, [class@GtkRange], in addition to the methods for `GtkScale` itself.
+ * class, [class@Gtk.Range], in addition to the methods for `GtkScale` itself.
  * To set the value of a scale, you would normally use [method@Gtk.Range.set_value].
  * To detect changes to the value, you would normally use the
  * [signal@Gtk.Range::value-changed] signal.
@@ -28,8 +28,8 @@
  * 
  * # GtkScale as GtkBuildable
  * 
- * `GtkScale` supports a custom <marks> element, which can contain multiple
- * <mark\> elements. The “value” and “position” attributes have the same
+ * `GtkScale` supports a custom `<marks>` element, which can contain multiple
+ * `<mark\>` elements. The “value” and “position” attributes have the same
  * meaning as [method@Gtk.Scale.add_mark] parameters of the same name. If
  * the element is not empty, its content is taken as the markup to show at
  * the mark. It can be translated with the usual ”translatable” and
@@ -167,7 +167,7 @@
  * to be freed by the caller.
  *
  * @return the [class@Pango.Layout]
- *   for this scale, or %NULL if the [property@GtkScale:draw-value]
+ *   for this scale, or %NULL if the [property@Gtk.Scale:draw-value]
  *   property is %FALSE.
  */
 - (OGPangoLayout*)layout;
@@ -179,7 +179,7 @@
  * Remember when using the `PangoLayout` function you need to
  * convert to and from pixels using `PANGO_PIXELS()` or `PANGO_SCALE`.
  * 
- * If the [property@GtkScale:draw-value] property is %FALSE, the return
+ * If the [property@Gtk.Scale:draw-value] property is %FALSE, the return
  * values are undefined.
  *
  * @param x location to store X offset of layout
@@ -199,9 +199,9 @@
  * 
  * Also causes the value of the adjustment to be rounded to this number
  * of digits, so the retrieved value matches the displayed one, if
- * [property@GtkScale:draw-value] is %TRUE when the value changes. If
- * you want to enforce rounding the value when [property@GtkScale:draw-value]
- * is %FALSE, you can set [property@GtkRange:round-digits] instead.
+ * [property@Gtk.Scale:draw-value] is %TRUE when the value changes. If
+ * you want to enforce rounding the value when [property@Gtk.Scale:draw-value]
+ * is %FALSE, you can set [property@Gtk.Range:round-digits] instead.
  * 
  * Note that rounding to a small number of digits can interfere with
  * the smooth autoscrolling that is built into `GtkScale`. As an alternative,
@@ -229,7 +229,7 @@
  * 
  * If #NULL is passed as @func, the value will be displayed on
  * its own, rounded according to the value of the
- * [property@GtkScale:digits] property.
+ * [property@Gtk.Scale:digits] property.
  *
  * @param func function that formats the value
  * @param userData user data to pass to @func
@@ -240,7 +240,7 @@
 /**
  * Sets whether the scale has an origin.
  * 
- * If [property@GtkScale:has-origin] is set to %TRUE (the default),
+ * If [property@Gtk.Scale:has-origin] is set to %TRUE (the default),
  * the scale will highlight the part of the trough between the origin
  * (bottom or left side) and the current value.
  *

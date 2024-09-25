@@ -22,7 +22,7 @@
  * ![An example GtkAboutDialog](aboutdialog.png)
  * 
  * About dialogs often contain links and email addresses. `GtkAboutDialog`
- * displays these as clickable links. By default, it calls [func@Gtk.show_uri]
+ * displays these as clickable links. By default, it calls [method@Gtk.FileLauncher.launch]
  * when a user clicks one. The behaviour can be overridden with the
  * [signal@Gtk.AboutDialog::activate-link] signal.
  * 

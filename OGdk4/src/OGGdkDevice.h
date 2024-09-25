@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkSeat;
 @class OGGdkDeviceTool;
+@class OGGdkSeat;
 @class OGGdkDisplay;
 @class OGGdkSurface;
 

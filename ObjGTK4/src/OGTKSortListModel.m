@@ -52,6 +52,14 @@
 	return returnValue;
 }
 
+- (OGTKSorter*)sectionSorter
+{
+	GtkSorter* gobjectValue = GTK_SORTER(gtk_sort_list_model_get_section_sorter([self castedGObject]));
+
+	OGTKSorter* returnValue = [OGTKSorter withGObject:gobjectValue];
+	return returnValue;
+}
+
 - (OGTKSorter*)sorter
 {
 	GtkSorter* gobjectValue = GTK_SORTER(gtk_sort_list_model_get_sorter([self castedGObject]));
@@ -68,6 +76,11 @@
 - (void)setModel:(GListModel*)model
 {
 	gtk_sort_list_model_set_model([self castedGObject], model);
+}
+
+- (void)setSectionSorter:(OGTKSorter*)sorter
+{
+	gtk_sort_list_model_set_section_sorter([self castedGObject], [sorter castedGObject]);
 }
 
 - (void)setSorter:(OGTKSorter*)sorter

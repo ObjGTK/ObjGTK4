@@ -6,8 +6,8 @@
 
 #import "OGPangoRenderer.h"
 
-#import "OGPangoLayout.h"
 #import "OGPangoFont.h"
+#import "OGPangoLayout.h"
 
 @implementation OGPangoRenderer
 

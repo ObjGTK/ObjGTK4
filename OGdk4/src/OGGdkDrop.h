@@ -8,11 +8,11 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDevice;
-@class OGGdkDisplay;
 @class OGGdkDrag;
-@class OGInputStream;
 @class OGCancellable;
+@class OGGdkDevice;
+@class OGInputStream;
+@class OGGdkDisplay;
 @class OGGdkSurface;
 
 /**

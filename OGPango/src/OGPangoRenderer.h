@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGPangoLayout;
 @class OGPangoFont;
+@class OGPangoLayout;
 
 /**
  * `PangoRenderer` is a base class for objects that can render text

@@ -14,7 +14,7 @@
  * It presents a `GListModel` and fills it asynchronously with the `GFileInfo`s
  * returned from that function.
  * 
- * Enumeration will start automatically when a the
+ * Enumeration will start automatically when the
  * [property@Gtk.DirectoryList:file] property is set.
  * 
  * While the `GtkDirectoryList` is being filled, the
@@ -109,8 +109,8 @@
 /**
  * Sets the @attributes to be enumerated and starts the enumeration.
  * 
- * If @attributes is %NULL, no attributes will be queried, but a list
- * of `GFileInfo`s will still be created.
+ * If @attributes is %NULL, the list of file infos will still be created, it will just
+ * not contain any extra attributes.
  *
  * @param attributes the attributes to enumerate
  */

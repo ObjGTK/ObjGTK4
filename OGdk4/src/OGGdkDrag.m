@@ -6,10 +6,10 @@
 
 #import "OGGdkDrag.h"
 
-#import "OGGdkDevice.h"
-#import "OGGdkSurface.h"
-#import "OGGdkDisplay.h"
 #import "OGGdkContentProvider.h"
+#import "OGGdkDisplay.h"
+#import "OGGdkSurface.h"
+#import "OGGdkDevice.h"
 
 @implementation OGGdkDrag
 

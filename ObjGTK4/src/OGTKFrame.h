@@ -23,8 +23,8 @@
  * 
  * The `GtkFrame` implementation of the `GtkBuildable` interface supports
  * placing a child in the label position by specifying “label” as the
- * “type” attribute of a <child> element. A normal content child can
- * be specified without specifying a <child> type attribute.
+ * “type” attribute of a `<child>` element. A normal content child can
+ * be specified without specifying a `<child>` type attribute.
  * 
  * An example of a UI definition fragment with GtkFrame:
  * ```xml
@@ -49,6 +49,10 @@
  * `GtkFrame` has a main CSS node with name “frame”, which is used to draw the
  * visible border. You can set the appearance of the border using CSS properties
  * like “border-style” on this node.
+ * 
+ * # Accessibility
+ * 
+ * `GtkFrame` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  *
  */
 @interface OGTKFrame : OGTKWidget

@@ -21,7 +21,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithContext:(OGGdkGLContext*)context identifier:(guint)identifier width:(int)width height:(int)height destroy:(GDestroyNotify)destroy data:(gpointer)data;
+- (instancetype)initWithContext:(OGGdkGLContext*)context id:(guint)id width:(int)width height:(int)height destroy:(GDestroyNotify)destroy data:(gpointer)data;
 
 /**
  * Methods

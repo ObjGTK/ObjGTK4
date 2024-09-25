@@ -34,10 +34,23 @@
 
 /**
  * Gets the name of the monitor's connector, if available.
+ * 
+ * These are strings such as "eDP-1", or "HDMI-2". They depend
+ * on software and hardware configuration, and should not be
+ * relied on as stable identifiers of a specific monitor.
  *
  * @return the name of the connector
  */
 - (OFString*)connector;
+
+/**
+ * Gets a string describing the monitor, if available.
+ * 
+ * This can be used to identify a monitor in the UI.
+ *
+ * @return the monitor description
+ */
+- (OFString*)description;
 
 /**
  * Gets the display that this monitor belongs to.
@@ -51,7 +64,7 @@
  * display coordinate space.
  * 
  * The returned geometry is in  ”application pixels”, not in
- * ”device pixels” (see [method@Gdk.Monitor.get_scale_factor]).
+ * ”device pixels” (see [method@Gdk.Monitor.get_scale]).
  *
  * @param geometry a `GdkRectangle` to be filled with the monitor geometry
  */
@@ -93,6 +106,18 @@
  * @return the refresh rate in milli-Hertz, or 0
  */
 - (int)refreshRate;
+
+/**
+ * Gets the internal scale factor that maps from monitor coordinates
+ * to device pixels.
+ * 
+ * This can be used if you want to create pixel based data for a
+ * particular monitor, but most of the time you’re drawing to a surface
+ * where it is better to use [method@Gdk.Surface.get_scale] instead.
+ *
+ * @return the scale
+ */
+- (double)scale;
 
 /**
  * Gets the internal scale factor that maps from monitor coordinates

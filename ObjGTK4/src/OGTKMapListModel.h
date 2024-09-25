@@ -36,6 +36,8 @@
  * 
  * `GtkMapListModel` will attempt to discard the mapped objects as soon as
  * they are no longer needed and recreate them if necessary.
+ * 
+ * `GtkMapListModel` passes through sections from the underlying model.
  *
  */
 @interface OGTKMapListModel : OGObject

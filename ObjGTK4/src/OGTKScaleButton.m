@@ -34,11 +34,25 @@
 	return GTK_SCALE_BUTTON([self gObject]);
 }
 
+- (bool)active
+{
+	bool returnValue = gtk_scale_button_get_active([self castedGObject]);
+
+	return returnValue;
+}
+
 - (OGTKAdjustment*)adjustment
 {
 	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_scale_button_get_adjustment([self castedGObject]));
 
 	OGTKAdjustment* returnValue = [OGTKAdjustment withGObject:gobjectValue];
+	return returnValue;
+}
+
+- (bool)hasFrame
+{
+	bool returnValue = gtk_scale_button_get_has_frame([self castedGObject]);
+
 	return returnValue;
 }
 
@@ -76,6 +90,11 @@
 - (void)setAdjustment:(OGTKAdjustment*)adjustment
 {
 	gtk_scale_button_set_adjustment([self castedGObject], [adjustment castedGObject]);
+}
+
+- (void)setHasFrame:(bool)hasFrame
+{
+	gtk_scale_button_set_has_frame([self castedGObject], hasFrame);
 }
 
 - (void)setIcons:(const char**)icons

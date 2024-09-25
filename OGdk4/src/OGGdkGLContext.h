@@ -176,9 +176,6 @@
  * Retrieves the OpenGL version of the @context.
  * 
  * The @context must be realized prior to calling this function.
- * 
- * If the @context has never been made current, the version cannot
- * be known and it will return 0 for both @major and @minor.
  *
  * @param major return location for the major version
  * @param minor return location for the minor version

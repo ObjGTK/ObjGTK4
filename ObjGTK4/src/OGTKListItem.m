@@ -15,6 +15,22 @@
 	return GTK_LIST_ITEM([self gObject]);
 }
 
+- (OFString*)accessibleDescription
+{
+	const char* gobjectValue = gtk_list_item_get_accessible_description([self castedGObject]);
+
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
+	return returnValue;
+}
+
+- (OFString*)accessibleLabel
+{
+	const char* gobjectValue = gtk_list_item_get_accessible_label([self castedGObject]);
+
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
+	return returnValue;
+}
+
 - (bool)activatable
 {
 	bool returnValue = gtk_list_item_get_activatable([self castedGObject]);
@@ -27,6 +43,13 @@
 	GtkWidget* gobjectValue = GTK_WIDGET(gtk_list_item_get_child([self castedGObject]));
 
 	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	return returnValue;
+}
+
+- (bool)focusable
+{
+	bool returnValue = gtk_list_item_get_focusable([self castedGObject]);
+
 	return returnValue;
 }
 
@@ -58,6 +81,16 @@
 	return returnValue;
 }
 
+- (void)setAccessibleDescription:(OFString*)description
+{
+	gtk_list_item_set_accessible_description([self castedGObject], [description UTF8String]);
+}
+
+- (void)setAccessibleLabel:(OFString*)label
+{
+	gtk_list_item_set_accessible_label([self castedGObject], [label UTF8String]);
+}
+
 - (void)setActivatable:(bool)activatable
 {
 	gtk_list_item_set_activatable([self castedGObject], activatable);
@@ -66,6 +99,11 @@
 - (void)setChild:(OGTKWidget*)child
 {
 	gtk_list_item_set_child([self castedGObject], [child castedGObject]);
+}
+
+- (void)setFocusable:(bool)focusable
+{
+	gtk_list_item_set_focusable([self castedGObject], focusable);
 }
 
 - (void)setSelectable:(bool)selectable

@@ -6,18 +6,18 @@
 
 #import "OGTKWidget.h"
 
-#import "OGTKSettings.h"
-#import "OGTKLayoutManager.h"
-#import <OGdk4/OGGdkDisplay.h>
-#import <OGPango/OGPangoFontMap.h>
-#import <OGdk4/OGGdkFrameClock.h>
-#import "OGTKSnapshot.h"
-#import "OGTKStyleContext.h"
-#import <OGdk4/OGGdkCursor.h>
-#import "OGTKEventController.h"
-#import <OGPango/OGPangoContext.h>
-#import <OGdk4/OGGdkClipboard.h>
 #import <OGPango/OGPangoLayout.h>
+#import "OGTKSettings.h"
+#import <OGdk4/OGGdkDisplay.h>
+#import <OGdk4/OGGdkCursor.h>
+#import "OGTKLayoutManager.h"
+#import "OGTKSnapshot.h"
+#import <OGdk4/OGGdkFrameClock.h>
+#import "OGTKStyleContext.h"
+#import <OGPango/OGPangoFontMap.h>
+#import <OGdk4/OGGdkClipboard.h>
+#import <OGPango/OGPangoContext.h>
+#import "OGTKEventController.h"
 
 @implementation OGTKWidget
 
@@ -202,6 +202,13 @@
 	return returnValue;
 }
 
+- (int)baseline
+{
+	int returnValue = gtk_widget_get_baseline([self castedGObject]);
+
+	return returnValue;
+}
+
 - (bool)canFocus
 {
 	bool returnValue = gtk_widget_get_can_focus([self castedGObject]);
@@ -229,6 +236,11 @@
 
 	OGGdkClipboard* returnValue = [OGGdkClipboard withGObject:gobjectValue];
 	return returnValue;
+}
+
+- (void)color:(GdkRGBA*)color
+{
+	gtk_widget_get_color([self castedGObject], color);
 }
 
 - (char**)cssClasses

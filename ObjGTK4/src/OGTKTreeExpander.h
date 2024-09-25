@@ -20,6 +20,11 @@
  * "listitem.toggle-expand" actions are provided to allow adding custom
  * UI for managing expanded state.
  * 
+ * It is important to mention that you want to set the
+ * [property@Gtk.ListItem:focusable] property to FALSE when using this
+ * widget, as you want the keyboard focus to be in the treexpander, and not
+ * inside the list to make use of the keybindings.
+ * 
  * The `GtkTreeListModel` must be set to not be passthrough. Then it
  * will provide [class@Gtk.TreeListRow] items which can be set via
  * [method@Gtk.TreeExpander.set_list_row] on the expander.
@@ -27,7 +32,16 @@
  * [method@Gtk.TreeExpander.set_child] sets the widget that displays
  * the actual row contents.
  * 
- * # CSS nodes
+ * `GtkTreeExpander` can be modified with properties such as
+ * [property@Gtk.TreeExpander:indent-for-icon],
+ * [property@Gtk.TreeExpander:indent-for-depth], and
+ * [property@Gtk.TreeExpander:hide-expander] to achieve a different appearance.
+ * This can even be done to influence individual rows, for example by binding
+ * the [property@Gtk.TreeExpander:hide-expander] property to the item count of
+ * the model of the treelistrow, to hide the expander for rows without children,
+ * even if the row is expandable.
+ * 
+ * ## CSS nodes
  * 
  * ```
  * treeexpander
@@ -43,11 +57,12 @@
  * 
  * For every level of depth, another "indent" node is prepended.
  * 
- * # Accessibility
+ * ## Accessibility
  * 
- * `GtkTreeExpander` uses the %GTK_ACCESSIBLE_ROLE_GROUP role. The expander icon
- * is represented as a %GTK_ACCESSIBLE_ROLE_BUTTON, labelled by the expander's
- * child, and toggling it will change the %GTK_ACCESSIBLE_STATE_EXPANDED state.
+ * Until GTK 4.10, `GtkTreeExpander` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * 
+ * Since GTK 4.12, `GtkTreeExpander` uses the `GTK_ACCESSIBLE_ROLE_BUTTON` role.
+ * Toggling it will change the `GTK_ACCESSIBLE_STATE_EXPANDED` state.
  *
  */
 @interface OGTKTreeExpander : OGTKWidget
@@ -73,6 +88,20 @@
  * @return The child displayed by @self
  */
 - (OGTKWidget*)child;
+
+/**
+ * Gets whether the TreeExpander should be hidden in a GtkTreeListRow.
+ *
+ * @return TRUE if the expander icon should be hidden. Otherwise FALSE.
+ */
+- (bool)hideExpander;
+
+/**
+ * TreeExpander indents each level of depth with an additional indent.
+ *
+ * @return TRUE if the child should be indented . Otherwise FALSE.
+ */
+- (bool)indentForDepth;
 
 /**
  * TreeExpander indents the child by the width of an expander-icon if it is not expandable.
@@ -107,6 +136,20 @@
  * @param child a `GtkWidget`
  */
 - (void)setChild:(OGTKWidget*)child;
+
+/**
+ * Sets whether the expander icon should be visible in a GtkTreeListRow.
+ *
+ * @param hideExpander TRUE if the expander should be hidden. Otherwise FALSE.
+ */
+- (void)setHideExpander:(bool)hideExpander;
+
+/**
+ * Sets if the TreeExpander should indent the child according to its depth.
+ *
+ * @param indentForDepth TRUE if the child should be indented. Otherwise FALSE.
+ */
+- (void)setIndentForDepth:(bool)indentForDepth;
 
 /**
  * Sets if the TreeExpander should indent the child by the width of an expander-icon when it is not expandable.

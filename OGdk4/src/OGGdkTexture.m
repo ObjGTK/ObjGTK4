@@ -130,6 +130,13 @@
 	gdk_texture_download([self castedGObject], data, stride);
 }
 
+- (GdkMemoryFormat)format
+{
+	GdkMemoryFormat returnValue = gdk_texture_get_format([self castedGObject]);
+
+	return returnValue;
+}
+
 - (int)height
 {
 	int returnValue = gdk_texture_get_height([self castedGObject]);

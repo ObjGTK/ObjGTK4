@@ -14,6 +14,8 @@
  * This is useful when implementing paging by setting the size to the number
  * of elements per page and updating the offset whenever a different page is
  * opened.
+ * 
+ * `GtkSliceListModel` passes through sections from the underlying model.
  *
  */
 @interface OGTKSliceListModel : OGObject

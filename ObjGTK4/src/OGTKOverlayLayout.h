@@ -7,12 +7,12 @@
 #import "OGTKLayoutManager.h"
 
 /**
- * `GtkOverlayLayout` is the layout manager used by `GtkOverlay`.
+ * `GtkOverlayLayout` is the layout manager used by [class@Gtk.Overlay].
  * 
  * It places widgets as overlays on top of the main child.
  * 
  * This is not a reusable layout manager, since it expects its widget
- * to be a `GtkOverlay`. It only listed here so that its layout
+ * to be a `GtkOverlay`. It is only listed here so that its layout
  * properties get documented.
  *
  */

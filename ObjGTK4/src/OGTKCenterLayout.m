@@ -61,6 +61,13 @@
 	return returnValue;
 }
 
+- (bool)shrinkCenterLast
+{
+	bool returnValue = gtk_center_layout_get_shrink_center_last([self castedGObject]);
+
+	return returnValue;
+}
+
 - (OGTKWidget*)startWidget
 {
 	GtkWidget* gobjectValue = GTK_WIDGET(gtk_center_layout_get_start_widget([self castedGObject]));
@@ -87,6 +94,11 @@
 - (void)setOrientation:(GtkOrientation)orientation
 {
 	gtk_center_layout_set_orientation([self castedGObject], orientation);
+}
+
+- (void)setShrinkCenterLast:(bool)shrinkCenterLast
+{
+	gtk_center_layout_set_shrink_center_last([self castedGObject], shrinkCenterLast);
 }
 
 - (void)setStartWidget:(OGTKWidget*)widget

@@ -6,8 +6,8 @@
 
 #import "OGTKGridView.h"
 
-#import "OGTKWidget.h"
 #import "OGTKListItemFactory.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKGridView
 
@@ -78,6 +78,18 @@
 	return returnValue;
 }
 
+- (GtkListTabBehavior)tabBehavior
+{
+	GtkListTabBehavior returnValue = gtk_grid_view_get_tab_behavior([self castedGObject]);
+
+	return returnValue;
+}
+
+- (void)scrollToWithPos:(guint)pos flags:(GtkListScrollFlags)flags scroll:(GtkScrollInfo*)scroll
+{
+	gtk_grid_view_scroll_to([self castedGObject], pos, flags, scroll);
+}
+
 - (void)setEnableRubberband:(bool)enableRubberband
 {
 	gtk_grid_view_set_enable_rubberband([self castedGObject], enableRubberband);
@@ -106,6 +118,11 @@
 - (void)setSingleClickActivate:(bool)singleClickActivate
 {
 	gtk_grid_view_set_single_click_activate([self castedGObject], singleClickActivate);
+}
+
+- (void)setTabBehavior:(GtkListTabBehavior)tabBehavior
+{
+	gtk_grid_view_set_tab_behavior([self castedGObject], tabBehavior);
 }
 
 

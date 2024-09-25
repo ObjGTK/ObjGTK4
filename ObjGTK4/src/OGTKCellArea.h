@@ -10,8 +10,8 @@
 
 @class OGTKWidget;
 @class OGTKSnapshot;
-@class OGTKCellRenderer;
 @class OGTKCellAreaContext;
+@class OGTKCellRenderer;
 
 /**
  * An abstract class for laying out `GtkCellRenderer`s
@@ -27,7 +27,7 @@
  * Usually users dont have to interact with the `GtkCellArea` directly
  * unless they are implementing a cell-layouting widget themselves.
  * 
- * # Requesting area sizes
+ * ## Requesting area sizes
  * 
  * As outlined in
  * [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management),
@@ -178,7 +178,7 @@
  * values while more and more height is required for the row heights
  * that are calculated in the background.
  * 
- * # Rendering Areas
+ * ## Rendering Areas
  * 
  * Once area sizes have been acquired at least for the rows in the
  * visible area of the layouting widget they can be rendered at
@@ -219,15 +219,15 @@
  * would make sense to calculate the allocation for each row at
  * the time the widget is allocated using [func@Gtk.distribute_natural_allocation].
  * 
- * # Handling Events and Driving Keyboard Focus
+ * ## Handling Events and Driving Keyboard Focus
  * 
  * Passing events to the area is as simple as handling events on any
  * normal widget and then passing them to the [method@Gtk.CellArea.event]
  * API as they come in. Usually `GtkCellArea` is only interested in
  * button events, however some customized derived areas can be implemented
  * who are interested in handling other events. Handling an event can
- * trigger the [`signal@Gtk.CellArea::focus-changed`] signal to fire; as well
- * as [`signal@GtkCellArea::add-editable`] in the case that an editable cell
+ * trigger the [signal@Gtk.CellArea::focus-changed] signal to fire; as well
+ * as [signal@Gtk.CellArea::add-editable] in the case that an editable cell
  * was clicked and needs to start editing. You can call
  * [method@Gtk.CellArea.stop_editing] at any time to cancel any cell editing
  * that is currently in progress.
@@ -308,7 +308,7 @@
  * Note that the layouting widget is responsible for matching the
  * `GtkDirectionType` values to the way it lays out its cells.
  * 
- * # Cell Properties
+ * ## Cell Properties
  * 
  * The `GtkCellArea` introduces cell properties for `GtkCellRenderer`s.
  * This provides some general interfaces for defining the relationship
@@ -551,7 +551,7 @@
 
 /**
  * Derives the allocation of @renderer inside @area if @area
- * were to be renderered in @cell_area.
+ * were to be rendered in @cell_area.
  *
  * @param context the `GtkCellArea`Context used to hold sizes for @area.
  * @param widget the `GtkWidget` that @area is rendering on

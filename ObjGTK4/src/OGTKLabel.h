@@ -6,8 +6,8 @@
 
 #import "OGTKWidget.h"
 
-@class OGMenuModel;
 @class OGPangoLayout;
+@class OGMenuModel;
 
 /**
  * The `GtkLabel` widget displays a small amount of text.
@@ -17,7 +17,7 @@
  * 
  * ![An example GtkLabel](label.png)
  * 
- * # CSS nodes
+ * ## CSS nodes
  * 
  * ```
  * label
@@ -38,15 +38,16 @@
  * carry the link or visited state depending on whether they have been
  * visited. In this case, label node also gets a .link style class.
  * 
- * # GtkLabel as GtkBuildable
+ * ## GtkLabel as GtkBuildable
  * 
  * The GtkLabel implementation of the GtkBuildable interface supports a
- * custom <attributes> element, which supports any number of <attribute>
- * elements. The <attribute> element has attributes named “name“, “value“,
+ * custom `<attributes>` element, which supports any number of `<attribute>`
+ * elements. The `<attribute>` element has attributes named “name“, “value“,
  * “start“ and “end“ and allows you to specify [struct@Pango.Attribute]
  * values for this label.
  * 
  * An example of a UI definition fragment specifying Pango attributes:
+ * 
  * ```xml
  * <object class="GtkLabel">
  *   <attributes>
@@ -62,11 +63,11 @@
  * sense with translatable attributes. Use markup embedded in the translatable
  * content instead.
  * 
- * # Accessibility
+ * ## Accessibility
  * 
  * `GtkLabel` uses the %GTK_ACCESSIBLE_ROLE_LABEL role.
  * 
- * # Mnemonics
+ * ## Mnemonics
  * 
  * Labels may contain “mnemonics”. Mnemonics are underlined characters in the
  * label, used for keyboard navigation. Mnemonics are created by providing a
@@ -77,8 +78,9 @@
  * Mnemonics automatically activate any activatable widget the label is
  * inside, such as a [class@Gtk.Button]; if the label is not inside the
  * mnemonic’s target widget, you have to tell the label about the target
- * using [class@Gtk.Label.set_mnemonic_widget]. Here’s a simple example where
- * the label is inside a button:
+ * using [method@Gtk.Label.set_mnemonic_widget].
+ * 
+ * Here’s a simple example where the label is inside a button:
  * 
  * ```c
  * // Pressing Alt+H will activate this button
@@ -106,7 +108,7 @@
  * gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
  * ```
  * 
- * # Markup (styled text)
+ * ## Markup (styled text)
  * 
  * To make it easy to format text in a label (changing colors,
  * fonts, etc.), label text can be provided in a simple
@@ -121,11 +123,11 @@
  * (See the Pango manual for complete documentation] of available
  * tags, [func@Pango.parse_markup])
  * 
- * The markup passed to gtk_label_set_markup() must be valid; for example,
- * literal <, > and & characters must be escaped as &lt;, &gt;, and &amp;.
+ * The markup passed to [method@Gtk.Label.set_markup] must be valid; for example,
+ * literal `<`, `>` and `&` characters must be escaped as `&lt;`, `&gt;`, and `&amp;`.
  * If you pass text obtained from the user, file, or a network to
  * [method@Gtk.Label.set_markup], you’ll want to escape it with
- * g_markup_escape_text() or g_markup_printf_escaped().
+ * [func@GLib.markup_escape_text] or [func@GLib.markup_printf_escaped].
  * 
  * Markup strings are just a convenient way to set the [struct@Pango.AttrList]
  * on a label; [method@Gtk.Label.set_attributes] may be a simpler way to set
@@ -136,14 +138,14 @@
  * end_index for a [struct@Pango.Attribute] requires knowledge of the exact
  * string being displayed, so translations will cause problems.
  * 
- * # Selectable labels
+ * ## Selectable labels
  * 
  * Labels can be made selectable with [method@Gtk.Label.set_selectable].
  * Selectable labels allow the user to copy the label contents to
- * the clipboard. Only labels that contain useful-to-copy information
- * — such as error messages — should be made selectable.
+ * the clipboard. Only labels that contain useful-to-copy information—such
+ * as error messages—should be made selectable.
  * 
- * # Text layout
+ * ## Text layout
  * 
  * A label can contain any number of paragraphs, but will have
  * performance problems if it contains more than a small number.
@@ -166,7 +168,7 @@
  * is used as the natural width. Even if max-width-chars specified, wrapping
  * labels will be rewrapped to use all of the available width.
  * 
- * # Links
+ * ## Links
  * 
  * GTK supports markup for clickable hyperlinks in addition to regular Pango
  * markup. The markup for links is borrowed from HTML, using the `<a>` with
@@ -175,12 +177,12 @@
  * attribute is displayed as a tooltip on the link. The “class“ attribute is
  * used as style class on the CSS node for the link.
  * 
- * An example looks like this:
+ * An example of inline links looks like this:
  * 
  * ```c
  * const char *text =
- * "Go to the"
- * "<a href=\"http://www.gtk.org title=\"&lt;i&gt;Our&lt;/i&gt; website\">"
+ * "Go to the "
+ * "<a href=\"https://www.gtk.org\" title=\"&lt;i&gt;Our&lt;/i&gt; website\">"
  * "GTK website</a> for more...";
  * GtkWidget *label = gtk_label_new (NULL);
  * gtk_label_set_markup (GTK_LABEL (label), text);
@@ -210,14 +212,14 @@
 - (GtkLabel*)castedGObject;
 
 /**
- * Gets the labels attribute list.
+ * Gets the label's attribute list.
  * 
  * This is the [struct@Pango.AttrList] that was set on the label using
  * [method@Gtk.Label.set_attributes], if any. This function does not
- * reflect attributes that come from the labels markup (see
+ * reflect attributes that come from the label's markup (see
  * [method@Gtk.Label.set_markup]). If you want to get the effective
  * attributes for the label, use
- * `pango_layout_get_attribute (gtk_label_get_layout (self))`.
+ * `pango_layout_get_attributes (gtk_label_get_layout (self))`.
  *
  * @return the attribute list
  */
@@ -490,7 +492,7 @@
 - (void)setAttributes:(PangoAttrList*)attrs;
 
 /**
- * Sets the mode used to ellipsizei the text.
+ * Sets the mode used to ellipsize the text.
  * 
  * The text will be ellipsized if there is not enough space
  * to render the entire string.
@@ -613,7 +615,7 @@
  * the label) you need to set it explicitly using this function.
  * 
  * The target widget will be accelerated by emitting the
- * [signal@GtkWidget::mnemonic-activate] signal on it. The default handler for
+ * [signal@Gtk.Widget::mnemonic-activate] signal on it. The default handler for
  * this signal will activate the widget if there are no mnemonic collisions
  * and toggle focus between the colliding widgets otherwise.
  *
@@ -661,7 +663,7 @@
  * It overwrites any text that was there before.
  * 
  * This function will clear any previously set mnemonic accelerators,
- * and set the [property@Gtk.Label:use-underline property] to %FALSE as
+ * and set the [property@Gtk.Label:use-underline] property to %FALSE as
  * a side effect.
  * 
  * This function will set the [property@Gtk.Label:use-markup] property

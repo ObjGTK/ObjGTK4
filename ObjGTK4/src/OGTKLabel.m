@@ -6,8 +6,8 @@
 
 #import "OGTKLabel.h"
 
-#import <OGio/OGMenuModel.h>
 #import <OGPango/OGPangoLayout.h>
+#import <OGio/OGMenuModel.h>
 
 @implementation OGTKLabel
 

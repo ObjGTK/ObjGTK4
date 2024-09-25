@@ -6,9 +6,9 @@
 
 #import "OGTKPrintContext.h"
 
-#import <OGPango/OGPangoFontMap.h>
 #import <OGPango/OGPangoLayout.h>
 #import <OGPango/OGPangoContext.h>
+#import <OGPango/OGPangoFontMap.h>
 #import "OGTKPageSetup.h"
 
 @implementation OGTKPrintContext

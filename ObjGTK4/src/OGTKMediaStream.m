@@ -37,7 +37,7 @@
 	return returnValue;
 }
 
-- (bool)isEnded
+- (bool)ended
 {
 	bool returnValue = gtk_media_stream_get_ended([self castedGObject]);
 
@@ -51,21 +51,21 @@
 	return returnValue;
 }
 
-- (bool)isLoop
+- (bool)loop
 {
 	bool returnValue = gtk_media_stream_get_loop([self castedGObject]);
 
 	return returnValue;
 }
 
-- (bool)isMuted
+- (bool)muted
 {
 	bool returnValue = gtk_media_stream_get_muted([self castedGObject]);
 
 	return returnValue;
 }
 
-- (bool)isPlaying
+- (bool)playing
 {
 	bool returnValue = gtk_media_stream_get_playing([self castedGObject]);
 

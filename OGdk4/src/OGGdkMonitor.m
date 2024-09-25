@@ -23,6 +23,14 @@
 	return returnValue;
 }
 
+- (OFString*)description
+{
+	const char* gobjectValue = gdk_monitor_get_description([self castedGObject]);
+
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
+	return returnValue;
+}
+
 - (OGGdkDisplay*)display
 {
 	GdkDisplay* gobjectValue = GDK_DISPLAY(gdk_monitor_get_display([self castedGObject]));
@@ -62,6 +70,13 @@
 - (int)refreshRate
 {
 	int returnValue = gdk_monitor_get_refresh_rate([self castedGObject]);
+
+	return returnValue;
+}
+
+- (double)scale
+{
+	double returnValue = gdk_monitor_get_scale([self castedGObject]);
 
 	return returnValue;
 }

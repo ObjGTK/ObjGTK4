@@ -7,9 +7,9 @@
 #import "OGTKWidget.h"
 
 @class OGGdkContentProvider;
+@class OGTKEntryBuffer;
 @class OGTKEntryCompletion;
 @class OGMenuModel;
-@class OGTKEntryBuffer;
 
 /**
  * `GtkEntry` is a single line text entry widget.
@@ -75,8 +75,8 @@
  * # GtkEntry as GtkBuildable
  * 
  * The `GtkEntry` implementation of the `GtkBuildable` interface supports a
- * custom <attributes> element, which supports any number of <attribute>
- * elements. The <attribute> element has attributes named “name“, “value“,
+ * custom `<attributes>` element, which supports any number of `<attribute>`
+ * elements. The `<attribute>` element has attributes named “name“, “value“,
  * “start“ and “end“ and allows you to specify `PangoAttribute` values for
  * this label.
  * 
@@ -364,7 +364,7 @@
 - (double)progressPulseStep;
 
 /**
- * Gets the tabstops of the `GtkEntry.
+ * Gets the tabstops of the `GtkEntry`.
  * 
  * See [method@Gtk.Entry.set_tabs].
  *
@@ -455,7 +455,7 @@
  * 
  * The attributes in the list are applied to the entry text.
  * 
- * Since the attributes will be applies to text that changes
+ * Since the attributes will be applied to text that changes
  * as the user types, it makes most sense to use attributes
  * with unlimited extent.
  *
@@ -643,7 +643,7 @@
  * Sets the maximum allowed length of the contents of the widget.
  * 
  * If the current contents are longer than the given length, then
- * they will be truncated to fit. The length is is in characters.
+ * they will be truncated to fit. The length is in characters.
  * 
  * This is equivalent to getting @entry's `GtkEntryBuffer` and
  * calling [method@Gtk.EntryBuffer.set_max_length] on it.

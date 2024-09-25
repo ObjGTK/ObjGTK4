@@ -6,11 +6,11 @@
 
 #import "OGTKTextView.h"
 
-#import <OGio/OGMenuModel.h>
-#import "OGTKTextBuffer.h"
-#import <OGPango/OGPangoContext.h>
 #import "OGTKTextMark.h"
+#import <OGio/OGMenuModel.h>
+#import <OGPango/OGPangoContext.h>
 #import "OGTKTextChildAnchor.h"
+#import "OGTKTextBuffer.h"
 
 @implementation OGTKTextView
 

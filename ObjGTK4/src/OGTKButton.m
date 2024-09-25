@@ -89,6 +89,13 @@
 	return GTK_BUTTON([self gObject]);
 }
 
+- (bool)canShrink
+{
+	bool returnValue = gtk_button_get_can_shrink([self castedGObject]);
+
+	return returnValue;
+}
+
 - (OGTKWidget*)child
 {
 	GtkWidget* gobjectValue = GTK_WIDGET(gtk_button_get_child([self castedGObject]));
@@ -125,6 +132,11 @@
 	bool returnValue = gtk_button_get_use_underline([self castedGObject]);
 
 	return returnValue;
+}
+
+- (void)setCanShrink:(bool)canShrink
+{
+	gtk_button_set_can_shrink([self castedGObject], canShrink);
 }
 
 - (void)setChild:(OGTKWidget*)child

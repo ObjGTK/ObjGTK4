@@ -8,6 +8,7 @@
 
 #import <OGObject/OGObject.h>
 
+@class OGGdkDisplay;
 @class OGGdkSurface;
 @class OGGdkTexture;
 
@@ -64,6 +65,8 @@
  * 
  * Since GTK 4.6, the surface may be `NULL`, which allows using
  * renderers without having to create a surface.
+ * Since GTK 4.14, it is recommended to use [method@Gsk.Renderer.realize_for_display]
+ * instead.
  * 
  * Note that it is mandatory to call [method@Gsk.Renderer.unrealize] before
  * destroying the renderer.
@@ -72,6 +75,18 @@
  * @return Whether the renderer was successfully realized
  */
 - (bool)realize:(OGGdkSurface*)surface;
+
+/**
+ * Creates the resources needed by the @renderer to render the scene
+ * graph.
+ * 
+ * Note that it is mandatory to call [method@Gsk.Renderer.unrealize] before
+ * destroying the renderer.
+ *
+ * @param display the `GdkDisplay` renderer will be used on
+ * @return Whether the renderer was successfully realized
+ */
+- (bool)realizeForDisplay:(OGGdkDisplay*)display;
 
 /**
  * Renders the scene graph, described by a tree of `GskRenderNode` instances

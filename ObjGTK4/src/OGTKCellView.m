@@ -6,9 +6,9 @@
 
 #import "OGTKCellView.h"
 
+#import "OGTKCellAreaContext.h"
 #import "OGTKCellArea.h"
 #import <OGdk4/OGGdkTexture.h>
-#import "OGTKCellAreaContext.h"
 
 @implementation OGTKCellView
 

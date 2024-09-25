@@ -11,6 +11,7 @@ SRCS = OGTKATContext.m \
 	OGTKActionBar.m \
 	OGTKActivateAction.m \
 	OGTKAdjustment.m \
+	OGTKAlertDialog.m \
 	OGTKAlternativeTrigger.m \
 	OGTKAnyFilter.m \
 	OGTKAppChooserButton.m \
@@ -51,8 +52,13 @@ SRCS = OGTKATContext.m \
 	OGTKColorButton.m \
 	OGTKColorChooserDialog.m \
 	OGTKColorChooserWidget.m \
+	OGTKColorDialog.m \
+	OGTKColorDialogButton.m \
 	OGTKColumnView.m \
+	OGTKColumnViewCell.m \
 	OGTKColumnViewColumn.m \
+	OGTKColumnViewRow.m \
+	OGTKColumnViewSorter.m \
 	OGTKComboBox.m \
 	OGTKComboBoxText.m \
 	OGTKConstraint.m \
@@ -88,7 +94,9 @@ SRCS = OGTKATContext.m \
 	OGTKFileChooserDialog.m \
 	OGTKFileChooserNative.m \
 	OGTKFileChooserWidget.m \
+	OGTKFileDialog.m \
 	OGTKFileFilter.m \
+	OGTKFileLauncher.m \
 	OGTKFilter.m \
 	OGTKFilterListModel.m \
 	OGTKFixed.m \
@@ -100,6 +108,8 @@ SRCS = OGTKATContext.m \
 	OGTKFontButton.m \
 	OGTKFontChooserDialog.m \
 	OGTKFontChooserWidget.m \
+	OGTKFontDialog.m \
+	OGTKFontDialogButton.m \
 	OGTKFrame.m \
 	OGTKGLArea.m \
 	OGTKGesture.m \
@@ -112,6 +122,7 @@ SRCS = OGTKATContext.m \
 	OGTKGestureStylus.m \
 	OGTKGestureSwipe.m \
 	OGTKGestureZoom.m \
+	OGTKGraphicsOffload.m \
 	OGTKGrid.m \
 	OGTKGridLayout.m \
 	OGTKGridLayoutChild.m \
@@ -135,6 +146,7 @@ SRCS = OGTKATContext.m \
 	OGTKListBase.m \
 	OGTKListBox.m \
 	OGTKListBoxRow.m \
+	OGTKListHeader.m \
 	OGTKListItem.m \
 	OGTKListItemFactory.m \
 	OGTKListStore.m \
@@ -173,6 +185,7 @@ SRCS = OGTKATContext.m \
 	OGTKPopoverMenu.m \
 	OGTKPopoverMenuBar.m \
 	OGTKPrintContext.m \
+	OGTKPrintDialog.m \
 	OGTKPrintOperation.m \
 	OGTKPrintSettings.m \
 	OGTKProgressBar.m \
@@ -237,6 +250,7 @@ SRCS = OGTKATContext.m \
 	OGTKTreeStore.m \
 	OGTKTreeView.m \
 	OGTKTreeViewColumn.m \
+	OGTKUriLauncher.m \
 	OGTKVideo.m \
 	OGTKViewport.m \
 	OGTKVolumeButton.m \

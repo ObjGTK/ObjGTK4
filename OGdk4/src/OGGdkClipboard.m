@@ -6,9 +6,9 @@
 
 #import "OGGdkClipboard.h"
 
+#import "OGGdkTexture.h"
 #import <OGio/OGCancellable.h>
 #import <OGio/OGInputStream.h>
-#import "OGGdkTexture.h"
 #import "OGGdkDisplay.h"
 #import "OGGdkContentProvider.h"
 

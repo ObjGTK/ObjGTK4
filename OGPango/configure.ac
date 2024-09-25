@@ -56,6 +56,7 @@ AC_MSG_CHECKING(for ObjFW package OGObject)
 AS_IF([$OBJFW_CONFIG --package OGObject], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGObject --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGObject --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGObject --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGObject installed.)
 ])
@@ -63,6 +64,7 @@ AC_MSG_CHECKING(for ObjFW package OGio)
 AS_IF([$OBJFW_CONFIG --package OGio], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGio --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGio --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGio --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGio installed.)
 ])
@@ -84,6 +86,7 @@ PKG_CHECK_MODULES(pango, [pango >= $(pkg-config --modversion pango)], [
 	OGPANGO_LIBS="$OGPANGO_LIBS $pango_LIBS"
 	CPPFLAGS="$CPPFLAGS $pango_CFLAGS"
 	LIBS="$LIBS $pango_LIBS"
+	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $pango_LIBS"
 ], [
 	AC_MSG_ERROR(You need pango >= $(pkg-config --modversion pango) installed!)
 ])
@@ -102,5 +105,5 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(OGPANGO_CPPFLAGS)
 AC_SUBST(OGPANGO_LIBS)
 
-AC_CONFIG_FILES([buildsys.mk extra.mk OGPango.oc])
+AC_CONFIG_FILES([buildsys.mk extra.mk OGPango.oc src/Info.plist])
 AC_OUTPUT

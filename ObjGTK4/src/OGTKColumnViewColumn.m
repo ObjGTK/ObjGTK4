@@ -6,10 +6,10 @@
 
 #import "OGTKColumnViewColumn.h"
 
+#import "OGTKSorter.h"
+#import <OGio/OGMenuModel.h>
 #import "OGTKColumnView.h"
 #import "OGTKListItemFactory.h"
-#import <OGio/OGMenuModel.h>
-#import "OGTKSorter.h"
 
 @implementation OGTKColumnViewColumn
 
@@ -72,6 +72,14 @@
 	return returnValue;
 }
 
+- (OFString*)id
+{
+	const char* gobjectValue = gtk_column_view_column_get_id([self castedGObject]);
+
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
+	return returnValue;
+}
+
 - (bool)resizable
 {
 	bool returnValue = gtk_column_view_column_get_resizable([self castedGObject]);
@@ -120,6 +128,11 @@
 - (void)setHeaderMenu:(OGMenuModel*)menu
 {
 	gtk_column_view_column_set_header_menu([self castedGObject], [menu castedGObject]);
+}
+
+- (void)setId:(OFString*)id
+{
+	gtk_column_view_column_set_id([self castedGObject], [id UTF8String]);
 }
 
 - (void)setResizable:(bool)resizable

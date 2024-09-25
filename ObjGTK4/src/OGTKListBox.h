@@ -37,13 +37,13 @@
  * 
  * The `GtkListBox` implementation of the `GtkBuildable` interface supports
  * setting a child as the placeholder by specifying “placeholder” as the “type”
- * attribute of a <child> element. See [method@Gtk.ListBox.set_placeholder]
+ * attribute of a `<child>` element. See [method@Gtk.ListBox.set_placeholder]
  * for info.
  * 
  * # CSS nodes
  * 
  * |[<!-- language="plain" -->
- * list[.separators][.rich-list][.navigation-sidebar]
+ * list[.separators][.rich-list][.navigation-sidebar][.boxed-list]
  * ╰── row[.activatable]
  * ]|
  * 
@@ -51,6 +51,9 @@
  * style class, when the [property@Gtk.ListBox:show-separators] property is set.
  * Each `GtkListBoxRow` uses a single CSS node named row. The row nodes get the
  * .activatable style class added when appropriate.
+ * 
+ * It may also carry the .boxed-list style class. In this case, the list will be
+ * automatically surrounded by a frame and have separators.
  * 
  * The main list node may also carry style classes to select
  * the style of [list presentation](section-list-widget.html#list-styles):
@@ -268,6 +271,14 @@
 - (void)remove:(OGTKWidget*)child;
 
 /**
+ * Removes all rows from @box.
+ * 
+ * This function does nothing if @box is backed by a model.
+ *
+ */
+- (void)removeAll;
+
+/**
  * Select all children of @box, if the selection mode allows it.
  *
  */
@@ -420,7 +431,7 @@
 /**
  * Unselects a single row of @box, if the selection mode allows it.
  *
- * @param row the row to unselected
+ * @param row the row to unselect
  */
 - (void)unselectRow:(OGTKListBoxRow*)row;
 

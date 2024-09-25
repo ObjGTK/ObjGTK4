@@ -24,7 +24,9 @@
  * 
  * # Accessibility
  * 
- * `GtkViewport` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkViewport` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * 
+ * Starting from GTK 4.12, `GtkViewport` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
  */
 @interface OGTKViewport : OGTKWidget
@@ -58,6 +60,18 @@
  * @return %TRUE if the viewport keeps the focus child scrolled to view
  */
 - (bool)scrollToFocus;
+
+/**
+ * Scrolls a descendant of the viewport into view.
+ * 
+ * The viewport and the descendant must be visible and mapped for
+ * this function to work, otherwise no scrolling will be performed.
+ *
+ * @param descendant a descendant widget of the viewport
+ * @param scroll details of how to perform
+ *   the scroll operation or NULL to scroll into view
+ */
+- (void)scrollToWithDescendant:(OGTKWidget*)descendant scroll:(GtkScrollInfo*)scroll;
 
 /**
  * Sets the child widget of @viewport.

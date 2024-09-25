@@ -141,6 +141,13 @@
 - (OGTKListItemFactory*)factory;
 
 /**
+ * Gets the factory that's currently used to populate section headers.
+ *
+ * @return The factory in use
+ */
+- (OGTKListItemFactory*)headerFactory;
+
+/**
  * Gets the model that's currently used to read the items displayed.
  *
  * @return The model in use
@@ -164,6 +171,27 @@
 - (bool)singleClickActivate;
 
 /**
+ * Gets the behavior set for the <kbd>Tab</kbd> key.
+ *
+ * @return The behavior of the <kbd>Tab</kbd> key
+ */
+- (GtkListTabBehavior)tabBehavior;
+
+/**
+ * Scrolls to the item at the given position and performs the actions
+ * specified in @flags.
+ * 
+ * This function works no matter if the listview is shown or focused.
+ * If it isn't, then the changes will take effect once that happens.
+ *
+ * @param pos position of the item
+ * @param flags actions to perform
+ * @param scroll details of how to perform
+ *   the scroll operation or %NULL to scroll into view
+ */
+- (void)scrollToWithPos:(guint)pos flags:(GtkListScrollFlags)flags scroll:(GtkScrollInfo*)scroll;
+
+/**
  * Sets whether selections can be changed by dragging with the mouse.
  *
  * @param enableRubberband %TRUE to enable rubberband selection
@@ -176,6 +204,16 @@
  * @param factory the factory to use
  */
 - (void)setFactory:(OGTKListItemFactory*)factory;
+
+/**
+ * Sets the `GtkListItemFactory` to use for populating the
+ * [class@Gtk.ListHeader] objects used in section headers.
+ * 
+ * If this factory is set to %NULL, the list will not show section headers.
+ *
+ * @param factory the factory to use
+ */
+- (void)setHeaderFactory:(OGTKListItemFactory*)factory;
 
 /**
  * Sets the model to use.
@@ -201,5 +239,12 @@
  * @param singleClickActivate %TRUE to activate items on single click
  */
 - (void)setSingleClickActivate:(bool)singleClickActivate;
+
+/**
+ * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+ *
+ * @param tabBehavior The desired tab behavior
+ */
+- (void)setTabBehavior:(GtkListTabBehavior)tabBehavior;
 
 @end

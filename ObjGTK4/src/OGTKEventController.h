@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKWidget;
 @class OGGdkDevice;
+@class OGTKWidget;
 
 /**
  * `GtkEventController` is the base class for event controllers.
@@ -23,7 +23,7 @@
  * 
  * See the chapter on [input handling](input-handling.html) for
  * an overview of the basic concepts, such as the capture and bubble
- * phases of even propagation.
+ * phases of event propagation.
  *
  */
 @interface OGTKEventController : OGObject

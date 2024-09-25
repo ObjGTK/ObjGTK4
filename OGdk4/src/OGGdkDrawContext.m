@@ -6,8 +6,8 @@
 
 #import "OGGdkDrawContext.h"
 
-#import "OGGdkDisplay.h"
 #import "OGGdkSurface.h"
+#import "OGGdkDisplay.h"
 
 @implementation OGGdkDrawContext
 

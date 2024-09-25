@@ -6,8 +6,8 @@
 
 #import "OGTKApplication.h"
 
-#import <OGio/OGMenuModel.h>
 #import "OGTKWindow.h"
+#import <OGio/OGMenuModel.h>
 #import <OGio/OGMenu.h>
 
 @implementation OGTKApplication

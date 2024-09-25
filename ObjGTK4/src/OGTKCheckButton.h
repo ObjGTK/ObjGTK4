@@ -42,6 +42,11 @@
  * 
  * To add a `GtkCheckButton` to a group, use [method@Gtk.CheckButton.set_group].
  * 
+ * When the code must keep track of the state of a group of radio buttons, it
+ * is recommended to keep track of such state through a stateful
+ * `GAction` with a target for each button. Using the `toggled` signals to keep
+ * track of the group changes and state is discouraged.
+ * 
  * # CSS nodes
  * 
  * ```
@@ -163,7 +168,7 @@
 /**
  * Sets the `GtkCheckButton` to inconsistent state.
  * 
- * You shoud turn off the inconsistent state again if the user checks
+ * You should turn off the inconsistent state again if the user checks
  * the check button. This has to be done manually.
  *
  * @param inconsistent %TRUE if state is inconsistent

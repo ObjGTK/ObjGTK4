@@ -8,10 +8,10 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGPangoFontFace;
-@class OGPangoCoverage;
 @class OGPangoContext;
+@class OGPangoCoverage;
 @class OGPangoFontMap;
+@class OGPangoFontFace;
 
 /**
  * A `PangoFont` is used to represent a font in a

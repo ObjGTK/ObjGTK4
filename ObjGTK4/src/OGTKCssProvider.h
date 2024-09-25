@@ -62,10 +62,17 @@
  * 
  * This clears any previously loaded information.
  *
- * @param data CSS data loaded in memory
- * @param length the length of @data in bytes, or -1 for NUL terminated strings. If
- *   @length is not -1, the code will assume it is not NUL terminated and will
- *   potentially do a copy.
+ * @param data `GBytes` containing the data to load
+ */
+- (void)loadFromBytes:(GBytes*)data;
+
+/**
+ * Loads @data into @css_provider.
+ * 
+ * This clears any previously loaded information.
+ *
+ * @param data CSS data to be parsed
+ * @param length the length of @data in bytes, or -1 for NUL terminated strings
  */
 - (void)loadFromDataWithData:(OFString*)data length:(gssize)length;
 
@@ -98,6 +105,15 @@
 - (void)loadFromResource:(OFString*)resourcePath;
 
 /**
+ * Loads @string into @css_provider.
+ * 
+ * This clears any previously loaded information.
+ *
+ * @param string the CSS to load
+ */
+- (void)loadFromString:(OFString*)string;
+
+/**
  * Loads a theme from the usual theme paths.
  * 
  * The actual process of finding the theme might change between
@@ -114,7 +130,7 @@
  * Converts the @provider into a string representation in CSS
  * format.
  * 
- * Using [method@Gtk.CssProvider.load_from_data] with the return
+ * Using [method@Gtk.CssProvider.load_from_string] with the return
  * value from this function on a new provider created with
  * [ctor@Gtk.CssProvider.new] will basically create a duplicate
  * of this @provider.

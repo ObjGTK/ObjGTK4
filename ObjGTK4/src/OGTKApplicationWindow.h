@@ -6,9 +6,9 @@
 
 #import "OGTKWindow.h"
 
-@class OGTKApplication;
-@class OGTKWidget;
 @class OGTKShortcutsWindow;
+@class OGTKWidget;
+@class OGTKApplication;
 
 /**
  * `GtkApplicationWindow` is a `GtkWindow` subclass that integrates with

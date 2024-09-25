@@ -8,7 +8,7 @@
 
 /**
  * `GtkSignalListItemFactory` is a `GtkListItemFactory` that emits signals
- * to to manage listitems.
+ * to manage listitems.
  * 
  * Signals are emitted for every listitem in the same order:
  * 
@@ -40,10 +40,10 @@
  * was emitted on a listitem, the listitem will be destroyed and not be used again.
  * 
  * Note that during the signal emissions, changing properties on the
- * `GtkListItem`s passed will not trigger notify signals as the listitem's
+ * listitems passed will not trigger notify signals as the listitem's
  * notifications are frozen. See g_object_freeze_notify() for details.
  * 
- * For tracking changes in other properties in the `GtkListItem`, the
+ * For tracking changes in other properties in the listitem, the
  * ::notify signal is recommended. The signal can be connected in the
  * [signal@Gtk.SignalListItemFactory::setup] signal and removed again during
  * [signal@Gtk.SignalListItemFactory::teardown].

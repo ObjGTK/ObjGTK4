@@ -7,12 +7,12 @@
 #import "OGGdkSurface.h"
 
 #import "OGGdkFrameClock.h"
-#import "OGGdkCursor.h"
-#import "OGGdkCairoContext.h"
 #import "OGGdkDisplay.h"
-#import "OGGdkGLContext.h"
 #import "OGGdkDevice.h"
+#import "OGGdkCairoContext.h"
 #import "OGGdkVulkanContext.h"
+#import "OGGdkGLContext.h"
+#import "OGGdkCursor.h"
 
 @implementation OGGdkSurface
 
@@ -169,6 +169,13 @@
 - (bool)mapped
 {
 	bool returnValue = gdk_surface_get_mapped([self castedGObject]);
+
+	return returnValue;
+}
+
+- (double)scale
+{
+	double returnValue = gdk_surface_get_scale([self castedGObject]);
 
 	return returnValue;
 }

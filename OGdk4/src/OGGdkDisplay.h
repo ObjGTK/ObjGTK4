@@ -8,13 +8,13 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkClipboard;
-@class OGGdkGLContext;
-@class OGGdkSeat;
-@class OGGdkAppLaunchContext;
-@class OGGdkDevice;
-@class OGGdkSurface;
 @class OGGdkMonitor;
+@class OGGdkSurface;
+@class OGGdkGLContext;
+@class OGGdkClipboard;
+@class OGGdkSeat;
+@class OGGdkDevice;
+@class OGGdkAppLaunchContext;
 
 /**
  * `GdkDisplay` objects are the GDK representation of a workstation.
@@ -148,11 +148,23 @@
 - (OGGdkSeat*)defaultSeat;
 
 /**
+ * Returns the dma-buf formats that are supported on this display.
+ * 
+ * GTK may use OpenGL or Vulkan to support some formats.
+ * Calling this function will then initialize them if they aren't yet.
+ * 
+ * The formats returned by this function can be used for negotiating
+ * buffer formats with producers such as v4l, pipewire or GStreamer.
+ * 
+ * To learn more about dma-bufs, see [class@Gdk.DmabufTextureBuilder].
+ *
+ * @return a `GdkDmabufFormats` object
+ */
+- (GdkDmabufFormats*)dmabufFormats;
+
+/**
  * Gets the monitor in which the largest area of @surface
  * resides.
- * 
- * Returns a monitor close to @surface if it is outside
- * of all monitors.
  *
  * @param surface a `GdkSurface`
  * @return the monitor with the largest
@@ -311,9 +323,9 @@
  * Indicates to the GUI environment that the application has
  * finished loading, using a given identifier.
  * 
- * GTK will call this function automatically for [class@Gtk.Window]
+ * GTK will call this function automatically for [GtkWindow](../gtk4/class.Window.html)
  * with custom startup-notification identifier unless
- * [method@Gtk.Window.set_auto_startup_notification]
+ * [gtk_window_set_auto_startup_notification()](../gtk4/method.Window.set_auto_startup_notification.html)
  * is called to disable that feature.
  *
  * @param startupId a startup-notification identifier, for which
@@ -342,11 +354,7 @@
 - (bool)prepareGl;
 
 /**
- * Appends the given event onto the front of the event
- * queue for @display.
- * 
- * This function is only useful in very special situations
- * and should not be used by applications.
+ * Adds the given event to the event queue for @display.
  *
  * @param event a `GdkEvent`
  */
@@ -363,6 +371,17 @@
  * @return %TRUE if surfaces with modified input shape are supported
  */
 - (bool)supportsInputShapes;
+
+/**
+ * Returns whether it's possible for a surface to draw outside of the window area.
+ * 
+ * If %TRUE is returned the application decides if it wants to draw shadows.
+ * If %FALSE is returned, the compositor decides if it wants to draw shadows.
+ *
+ * @return %TRUE if surfaces can draw shadows or
+ *   %FALSE if the display does not support this functionality.
+ */
+- (bool)supportsShadowWidth;
 
 /**
  * Flushes any requests queued for the windowing system and waits until all

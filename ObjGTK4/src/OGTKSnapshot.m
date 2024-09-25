@@ -56,6 +56,11 @@
 	gtk_snapshot_append_conic_gradient([self castedGObject], bounds, center, rotation, stops, nstops);
 }
 
+- (void)appendFillWithPath:(GskPath*)path fillRule:(GskFillRule)fillRule color:(const GdkRGBA*)color
+{
+	gtk_snapshot_append_fill([self castedGObject], path, fillRule, color);
+}
+
 - (void)appendInsetShadowWithOutline:(const GskRoundedRect*)outline color:(const GdkRGBA*)color dx:(float)dx dy:(float)dy spread:(float)spread blurRadius:(float)blurRadius
 {
 	gtk_snapshot_append_inset_shadow([self castedGObject], outline, color, dx, dy, spread, blurRadius);
@@ -94,6 +99,16 @@
 - (void)appendRepeatingRadialGradientWithBounds:(const graphene_rect_t*)bounds center:(const graphene_point_t*)center hradius:(float)hradius vradius:(float)vradius start:(float)start end:(float)end stops:(const GskColorStop*)stops nstops:(gsize)nstops
 {
 	gtk_snapshot_append_repeating_radial_gradient([self castedGObject], bounds, center, hradius, vradius, start, end, stops, nstops);
+}
+
+- (void)appendScaledTextureWithTexture:(OGGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds
+{
+	gtk_snapshot_append_scaled_texture([self castedGObject], [texture castedGObject], filter, bounds);
+}
+
+- (void)appendStrokeWithPath:(GskPath*)path stroke:(const GskStroke*)stroke color:(const GdkRGBA*)color
+{
+	gtk_snapshot_append_stroke([self castedGObject], path, stroke, color);
 }
 
 - (void)appendTextureWithTexture:(OGGdkTexture*)texture bounds:(const graphene_rect_t*)bounds
@@ -155,9 +170,19 @@
 	gtk_snapshot_push_cross_fade([self castedGObject], progress);
 }
 
+- (void)pushFillWithPath:(GskPath*)path fillRule:(GskFillRule)fillRule
+{
+	gtk_snapshot_push_fill([self castedGObject], path, fillRule);
+}
+
 - (void)pushGlShaderWithShader:(OGGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs
 {
 	gtk_snapshot_push_gl_shader([self castedGObject], [shader castedGObject], bounds, takeArgs);
+}
+
+- (void)pushMask:(GskMaskMode)maskMode
+{
+	gtk_snapshot_push_mask([self castedGObject], maskMode);
 }
 
 - (void)pushOpacity:(double)opacity
@@ -178,6 +203,11 @@
 - (void)pushShadowWithShadow:(const GskShadow*)shadow nshadows:(gsize)nshadows
 {
 	gtk_snapshot_push_shadow([self castedGObject], shadow, nshadows);
+}
+
+- (void)pushStrokeWithPath:(GskPath*)path stroke:(const GskStroke*)stroke
+{
+	gtk_snapshot_push_stroke([self castedGObject], path, stroke);
 }
 
 - (void)renderBackgroundWithContext:(OGTKStyleContext*)context x:(double)x y:(double)y width:(double)width height:(double)height

@@ -6,8 +6,8 @@
 
 #import "OGTKDragSource.h"
 
-#import <OGdk4/OGGdkContentProvider.h>
 #import <OGdk4/OGGdkDrag.h>
+#import <OGdk4/OGGdkContentProvider.h>
 
 @implementation OGTKDragSource
 

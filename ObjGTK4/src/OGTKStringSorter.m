@@ -29,6 +29,13 @@
 	return GTK_STRING_SORTER([self gObject]);
 }
 
+- (GtkCollation)collation
+{
+	GtkCollation returnValue = gtk_string_sorter_get_collation([self castedGObject]);
+
+	return returnValue;
+}
+
 - (GtkExpression*)expression
 {
 	GtkExpression* returnValue = gtk_string_sorter_get_expression([self castedGObject]);
@@ -41,6 +48,11 @@
 	bool returnValue = gtk_string_sorter_get_ignore_case([self castedGObject]);
 
 	return returnValue;
+}
+
+- (void)setCollation:(GtkCollation)collation
+{
+	gtk_string_sorter_set_collation([self castedGObject], collation);
 }
 
 - (void)setExpression:(GtkExpression*)expression

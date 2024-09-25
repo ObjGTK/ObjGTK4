@@ -56,23 +56,26 @@ AC_MSG_CHECKING(for ObjFW package OGObject)
 AS_IF([$OBJFW_CONFIG --package OGObject], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGObject --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGObject --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGObject --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGObject installed.)
 ])
-AC_MSG_CHECKING(for ObjFW package OGsk4)
-AS_IF([$OBJFW_CONFIG --package OGsk4], [AC_MSG_RESULT(yes)
-	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGsk4 --cppflags)"
-	LIBS="$LIBS $($OBJFW_CONFIG --package OGsk4 --libs)"
-], [
-	AC_MSG_ERROR(You need ObjFW package OGsk4 installed.)
-])
-
 AC_MSG_CHECKING(for ObjFW package OGdk4)
 AS_IF([$OBJFW_CONFIG --package OGdk4], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGdk4 --cppflags)"
 	LIBS="$LIBS $($OBJFW_CONFIG --package OGdk4 --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGdk4 --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGdk4 installed.)
+])
+
+AC_MSG_CHECKING(for ObjFW package OGsk4)
+AS_IF([$OBJFW_CONFIG --package OGsk4], [AC_MSG_RESULT(yes)
+	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGsk4 --cppflags)"
+	LIBS="$LIBS $($OBJFW_CONFIG --package OGsk4 --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGsk4 --framework-libs) $FRAMEWORK_LIBS"
+], [
+	AC_MSG_ERROR(You need ObjFW package OGsk4 installed.)
 ])
 
 
@@ -92,6 +95,7 @@ PKG_CHECK_MODULES(gt, [gtk4 >= $(pkg-config --modversion gtk4)], [
 	OBJGTK4_LIBS="$OBJGTK4_LIBS $gt_LIBS"
 	CPPFLAGS="$CPPFLAGS $gt_CFLAGS"
 	LIBS="$LIBS $gt_LIBS"
+	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $gt_LIBS"
 ], [
 	AC_MSG_ERROR(You need gtk4 >= $(pkg-config --modversion gtk4) installed!)
 ])
@@ -110,5 +114,5 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(OBJGTK4_CPPFLAGS)
 AC_SUBST(OBJGTK4_LIBS)
 
-AC_CONFIG_FILES([buildsys.mk extra.mk ObjGTK4.oc])
+AC_CONFIG_FILES([buildsys.mk extra.mk ObjGTK4.oc src/Info.plist])
 AC_OUTPUT

@@ -41,6 +41,14 @@
 - (GtkBoxLayout*)castedGObject;
 
 /**
+ * Gets the value set by gtk_box_layout_set_baseline_child().
+ *
+ * @return the index of the child that determines the baseline
+ *     in vertical layout, or -1
+ */
+- (int)baselineChild;
+
+/**
  * Gets the value set by gtk_box_layout_set_baseline_position().
  *
  * @return the baseline position
@@ -60,6 +68,14 @@
  * @return the spacing of the layout
  */
 - (guint)spacing;
+
+/**
+ * Sets the index of the child that determines the baseline
+ * in vertical layout.
+ *
+ * @param child the child position, or -1
+ */
+- (void)setBaselineChild:(int)child;
 
 /**
  * Sets the baseline position of a box layout.

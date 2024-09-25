@@ -6,8 +6,8 @@
 
 #import "OGTKIMContext.h"
 
-#import "OGTKWidget.h"
 #import <OGdk4/OGGdkSurface.h>
+#import "OGTKWidget.h"
 #import <OGdk4/OGGdkDevice.h>
 
 @implementation OGTKIMContext
@@ -15,6 +15,13 @@
 - (GtkIMContext*)castedGObject
 {
 	return GTK_IM_CONTEXT([self gObject]);
+}
+
+- (bool)activateOsk:(GdkEvent*)event
+{
+	bool returnValue = gtk_im_context_activate_osk([self castedGObject], event);
+
+	return returnValue;
 }
 
 - (bool)deleteSurroundingWithOffset:(int)offset nchars:(int)nchars

@@ -6,13 +6,13 @@
 
 #import "OGGdkDisplay.h"
 
-#import "OGGdkClipboard.h"
-#import "OGGdkGLContext.h"
-#import "OGGdkSeat.h"
-#import "OGGdkAppLaunchContext.h"
-#import "OGGdkDevice.h"
-#import "OGGdkSurface.h"
 #import "OGGdkMonitor.h"
+#import "OGGdkSurface.h"
+#import "OGGdkGLContext.h"
+#import "OGGdkClipboard.h"
+#import "OGGdkSeat.h"
+#import "OGGdkDevice.h"
+#import "OGGdkAppLaunchContext.h"
 
 @implementation OGGdkDisplay
 
@@ -102,6 +102,13 @@
 	GdkSeat* gobjectValue = GDK_SEAT(gdk_display_get_default_seat([self castedGObject]));
 
 	OGGdkSeat* returnValue = [OGGdkSeat withGObject:gobjectValue];
+	return returnValue;
+}
+
+- (GdkDmabufFormats*)dmabufFormats
+{
+	GdkDmabufFormats* returnValue = gdk_display_get_dmabuf_formats([self castedGObject]);
+
 	return returnValue;
 }
 
@@ -221,6 +228,13 @@
 - (bool)supportsInputShapes
 {
 	bool returnValue = gdk_display_supports_input_shapes([self castedGObject]);
+
+	return returnValue;
+}
+
+- (bool)supportsShadowWidth
+{
+	bool returnValue = gdk_display_supports_shadow_width([self castedGObject]);
 
 	return returnValue;
 }

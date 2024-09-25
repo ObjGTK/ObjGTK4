@@ -88,7 +88,9 @@
  * 
  * # Accessibility
  * 
- * `GtkGrid` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
+ * Until GTK 4.10, `GtkGrid` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * 
+ * Starting from GTK 4.12, `GtkGrid` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
  */
 @interface OGTKGrid : OGTKWidget

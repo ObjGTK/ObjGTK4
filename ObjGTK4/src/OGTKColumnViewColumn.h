@@ -8,13 +8,13 @@
 
 #import <OGObject/OGObject.h>
 
+@class OGTKSorter;
+@class OGMenuModel;
 @class OGTKColumnView;
 @class OGTKListItemFactory;
-@class OGMenuModel;
-@class OGTKSorter;
 
 /**
- * `GtkColumnViewColumn` represents the columns being added to `GtkColumnView`.
+ * `GtkColumnViewColumn` represents the columns being added to a `GtkColumnView`.
  * 
  * The main ingredient for a `GtkColumnViewColumn` is the `GtkListItemFactory`
  * that tells the columnview how to create cells for this column from items in
@@ -85,6 +85,13 @@
 - (OGMenuModel*)headerMenu;
 
 /**
+ * Returns the ID set with gtk_column_view_column_set_id().
+ *
+ * @return The column's ID
+ */
+- (OFString*)id;
+
+/**
  * Returns whether this column is resizable.
  *
  * @return %TRUE if this column is resizable
@@ -148,6 +155,18 @@
  * @param menu a `GMenuModel`
  */
 - (void)setHeaderMenu:(OGMenuModel*)menu;
+
+/**
+ * Sets the id of this column.
+ * 
+ * GTK makes no use of this, but applications can use it when
+ * storing column view configuration.
+ * 
+ * It is up to callers to ensure uniqueness of IDs.
+ *
+ * @param id ID to use for this column
+ */
+- (void)setId:(OFString*)id;
 
 /**
  * Sets whether this column should be resizable by dragging.

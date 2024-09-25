@@ -6,9 +6,9 @@
 
 #import "OGTKPrintOperation.h"
 
+#import "OGTKPrintSettings.h"
 #import "OGTKWindow.h"
 #import "OGTKPageSetup.h"
-#import "OGTKPrintSettings.h"
 
 @implementation OGTKPrintOperation
 

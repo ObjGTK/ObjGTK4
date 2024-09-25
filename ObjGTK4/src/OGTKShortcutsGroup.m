@@ -6,11 +6,18 @@
 
 #import "OGTKShortcutsGroup.h"
 
+#import "OGTKShortcutsShortcut.h"
+
 @implementation OGTKShortcutsGroup
 
 - (GtkShortcutsGroup*)castedGObject
 {
 	return GTK_SHORTCUTS_GROUP([self gObject]);
+}
+
+- (void)addShortcut:(OGTKShortcutsShortcut*)shortcut
+{
+	gtk_shortcuts_group_add_shortcut([self castedGObject], [shortcut castedGObject]);
 }
 
 

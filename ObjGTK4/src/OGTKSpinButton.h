@@ -57,7 +57,7 @@
  *   button = gtk_spin_button_new (adjustment, 1.0, 0);
  *   gtk_window_set_child (GTK_WINDOW (window), button);
  * 
- *   gtk_widget_show (window);
+ *   gtk_window_present (GTK_WINDOW (window));
  * }
  * ```
  * 
@@ -88,7 +88,7 @@
  *   button = gtk_spin_button_new (adjustment, 0.001, 3);
  *   gtk_window_set_child (GTK_WINDOW (window), button);
  * 
- *   gtk_widget_show (window);
+ *   gtk_window_present (GTK_WINDOW (window));
  * }
  * ```
  * 
@@ -118,7 +118,7 @@
  * below the text node. The orientation of the spin button is reflected in
  * the .vertical or .horizontal style class on the main node.
  * 
- * # Accessiblity
+ * # Accessibility
  * 
  * `GtkSpinButton` uses the %GTK_ACCESSIBLE_ROLE_SPIN_BUTTON role.
  *
@@ -153,6 +153,13 @@
  * @param digits the number of decimal places to display in the spin button
  */
 - (void)configureWithAdjustment:(OGTKAdjustment*)adjustment climbRate:(double)climbRate digits:(guint)digits;
+
+/**
+ * Retrieves the value set by [method@Gtk.SpinButton.set_activates_default].
+ *
+ * @return %TRUE if the spin button will activate the default widget
+ */
+- (bool)activatesDefault;
 
 /**
  * Get the adjustment associated with a `GtkSpinButton`.
@@ -241,6 +248,16 @@
  * @return %TRUE if the spin button wraps around
  */
 - (bool)wrap;
+
+/**
+ * Sets whether activating the spin button will activate the default
+ * widget for the window containing the spin button.
+ * 
+ * See [signal@Gtk.SpinButton::activate] for what counts as activation.
+ *
+ * @param activatesDefault %TRUE to activate window’s default widget on activation
+ */
+- (void)setActivatesDefault:(bool)activatesDefault;
 
 /**
  * Replaces the `GtkAdjustment` associated with @spin_button.

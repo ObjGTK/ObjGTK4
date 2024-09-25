@@ -56,7 +56,7 @@
 
 - (GtkWidget**)widgets:(guint*)outLen
 {
-	GtkWidget** returnValue = gtk_text_child_anchor_get_widgets([self castedGObject], outLen);
+	GtkWidget** returnValue = GTK_WIDGET(gtk_text_child_anchor_get_widgets([self castedGObject], outLen));
 
 	return returnValue;
 }

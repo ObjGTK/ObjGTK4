@@ -6,9 +6,9 @@
 
 #import "OGTKApplicationWindow.h"
 
-#import "OGTKApplication.h"
-#import "OGTKWidget.h"
 #import "OGTKShortcutsWindow.h"
+#import "OGTKWidget.h"
+#import "OGTKApplication.h"
 
 @implementation OGTKApplicationWindow
 

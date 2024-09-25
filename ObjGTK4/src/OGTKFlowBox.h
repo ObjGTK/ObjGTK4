@@ -210,7 +210,7 @@
  * Updates the filtering for all children.
  * 
  * Call this function when the result of the filter
- * function on the @box is changed due ot an external
+ * function on the @box is changed due to an external
  * factor. For instance, this would be used if the
  * filter function just looked for a specific search
  * term, and the entry with the string has changed.
@@ -245,6 +245,14 @@
  * @param widget the child widget to remove
  */
 - (void)remove:(OGTKWidget*)widget;
+
+/**
+ * Removes all children from @box.
+ * 
+ * This function does nothing if @box is backed by a model.
+ *
+ */
+- (void)removeAll;
 
 /**
  * Select all children of @box, if the selection

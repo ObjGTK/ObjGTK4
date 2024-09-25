@@ -8,9 +8,9 @@
 
 #import <OGObject/OGObject.h>
 
+@class OGCancellable;
 @class OGInputStream;
 @class OGOutputStream;
-@class OGCancellable;
 
 /**
  * A pixel buffer.

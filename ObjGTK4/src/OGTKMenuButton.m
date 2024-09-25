@@ -6,8 +6,8 @@
 
 #import "OGTKMenuButton.h"
 
-#import <OGio/OGMenuModel.h>
 #import "OGTKPopover.h"
+#import <OGio/OGMenuModel.h>
 
 @implementation OGTKMenuButton
 
@@ -35,9 +35,23 @@
 	return GTK_MENU_BUTTON([self gObject]);
 }
 
+- (bool)active
+{
+	bool returnValue = gtk_menu_button_get_active([self castedGObject]);
+
+	return returnValue;
+}
+
 - (bool)alwaysShowArrow
 {
 	bool returnValue = gtk_menu_button_get_always_show_arrow([self castedGObject]);
+
+	return returnValue;
+}
+
+- (bool)canShrink
+{
+	bool returnValue = gtk_menu_button_get_can_shrink([self castedGObject]);
 
 	return returnValue;
 }
@@ -120,9 +134,19 @@
 	gtk_menu_button_popup([self castedGObject]);
 }
 
+- (void)setActive:(bool)active
+{
+	gtk_menu_button_set_active([self castedGObject], active);
+}
+
 - (void)setAlwaysShowArrow:(bool)alwaysShowArrow
 {
 	gtk_menu_button_set_always_show_arrow([self castedGObject], alwaysShowArrow);
+}
+
+- (void)setCanShrink:(bool)canShrink
+{
+	gtk_menu_button_set_can_shrink([self castedGObject], canShrink);
 }
 
 - (void)setChild:(OGTKWidget*)child

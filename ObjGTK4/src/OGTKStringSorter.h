@@ -35,6 +35,13 @@
 - (GtkStringSorter*)castedGObject;
 
 /**
+ * Gets which collation method the sorter uses.
+ *
+ * @return The collation method
+ */
+- (GtkCollation)collation;
+
+/**
  * Gets the expression that is evaluated to obtain strings from items.
  *
  * @return a `GtkExpression`
@@ -47,6 +54,13 @@
  * @return %TRUE if @self is ignoring case differences
  */
 - (bool)ignoreCase;
+
+/**
+ * Sets the collation method to use for sorting.
+ *
+ * @param collation the collation method
+ */
+- (void)setCollation:(GtkCollation)collation;
 
 /**
  * Sets the expression that is evaluated to obtain strings from items.

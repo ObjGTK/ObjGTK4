@@ -60,6 +60,14 @@
 - (GtkButton*)castedGObject;
 
 /**
+ * Retrieves whether the button can be smaller than the natural
+ * size of its contents.
+ *
+ * @return true if the button can shrink, and false otherwise
+ */
+- (bool)canShrink;
+
+/**
  * Gets the child widget of @button.
  *
  * @return the child widget of @button
@@ -107,6 +115,18 @@
 - (bool)useUnderline;
 
 /**
+ * Sets whether the button size can be smaller than the natural size of
+ * its contents.
+ * 
+ * For text buttons, setting @can_shrink to true will ellipsize the label.
+ * 
+ * For icons and custom children, this function has no effect.
+ *
+ * @param canShrink whether the button can shrink
+ */
+- (void)setCanShrink:(bool)canShrink;
+
+/**
  * Sets the child widget of @button.
  * 
  * Note that by using this API, you take full responsibility for setting
@@ -122,7 +142,7 @@
 /**
  * Sets the style of the button.
  * 
- * Buttons can has a flat appearance or have a frame drawn around them.
+ * Buttons can have a flat appearance or have a frame drawn around them.
  *
  * @param hasFrame whether the button should have a visible frame
  */

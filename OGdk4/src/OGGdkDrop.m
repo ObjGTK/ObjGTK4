@@ -6,11 +6,11 @@
 
 #import "OGGdkDrop.h"
 
-#import "OGGdkDevice.h"
-#import "OGGdkDisplay.h"
 #import "OGGdkDrag.h"
-#import <OGio/OGInputStream.h>
 #import <OGio/OGCancellable.h>
+#import "OGGdkDevice.h"
+#import <OGio/OGInputStream.h>
+#import "OGGdkDisplay.h"
 #import "OGGdkSurface.h"
 
 @implementation OGGdkDrop

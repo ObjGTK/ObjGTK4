@@ -29,6 +29,13 @@
 	return GTK_BOX_LAYOUT([self gObject]);
 }
 
+- (int)baselineChild
+{
+	int returnValue = gtk_box_layout_get_baseline_child([self castedGObject]);
+
+	return returnValue;
+}
+
 - (GtkBaselinePosition)baselinePosition
 {
 	GtkBaselinePosition returnValue = gtk_box_layout_get_baseline_position([self castedGObject]);
@@ -48,6 +55,11 @@
 	guint returnValue = gtk_box_layout_get_spacing([self castedGObject]);
 
 	return returnValue;
+}
+
+- (void)setBaselineChild:(int)child
+{
+	gtk_box_layout_set_baseline_child([self castedGObject], child);
 }
 
 - (void)setBaselinePosition:(GtkBaselinePosition)position

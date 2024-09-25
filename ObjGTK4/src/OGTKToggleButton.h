@@ -39,6 +39,10 @@
  * `GtkToggleButton` has a single CSS node with name button. To differentiate
  * it from a plain `GtkButton`, it gets the `.toggle` style class.
  * 
+ * ## Accessibility
+ * 
+ * `GtkToggleButton` uses the %GTK_ACCESSIBLE_ROLE_TOGGLE_BUTTON role.
+ * 
  * ## Creating two `GtkToggleButton` widgets.
  * 
  * ```c
@@ -77,7 +81,7 @@
  *   gtk_box_append (GTK_BOX (box), toggle2);
  * 
  *   gtk_window_set_child (GTK_WINDOW (window), box);
- *   gtk_widget_show (window);
+ *   gtk_window_present (GTK_WINDOW (window));
  * }
  * ```
  *
@@ -118,7 +122,7 @@
  * and %FALSE to raise it.
  * 
  * If the status of the button changes, this action causes the
- * [signal@GtkToggleButton::toggled] signal to be emitted.
+ * [signal@Gtk.ToggleButton::toggled] signal to be emitted.
  *
  * @param isActive %TRUE or %FALSE.
  */
@@ -144,8 +148,6 @@
 
 /**
  * Emits the ::toggled signal on the `GtkToggleButton`.
- * 
- * There is no good reason for an application ever to call this function.
  *
  */
 - (void)toggled;

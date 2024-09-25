@@ -6,8 +6,8 @@
 
 #import "OGTKGestureStylus.h"
 
-#import "OGTKGesture.h"
 #import <OGdk4/OGGdkDeviceTool.h>
+#import "OGTKGesture.h"
 
 @implementation OGTKGestureStylus
 
@@ -59,6 +59,18 @@
 
 	OGGdkDeviceTool* returnValue = [OGGdkDeviceTool withGObject:gobjectValue];
 	return returnValue;
+}
+
+- (bool)stylusOnly
+{
+	bool returnValue = gtk_gesture_stylus_get_stylus_only([self castedGObject]);
+
+	return returnValue;
+}
+
+- (void)setStylusOnly:(bool)stylusOnly
+{
+	gtk_gesture_stylus_set_stylus_only([self castedGObject], stylusOnly);
 }
 
 

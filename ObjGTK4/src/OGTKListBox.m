@@ -145,6 +145,11 @@
 	gtk_list_box_remove([self castedGObject], [child castedGObject]);
 }
 
+- (void)removeAll
+{
+	gtk_list_box_remove_all([self castedGObject]);
+}
+
 - (void)selectAll
 {
 	gtk_list_box_select_all([self castedGObject]);

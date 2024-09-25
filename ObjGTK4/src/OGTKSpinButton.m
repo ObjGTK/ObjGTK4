@@ -58,6 +58,13 @@
 	gtk_spin_button_configure([self castedGObject], [adjustment castedGObject], climbRate, digits);
 }
 
+- (bool)activatesDefault
+{
+	bool returnValue = gtk_spin_button_get_activates_default([self castedGObject]);
+
+	return returnValue;
+}
+
 - (OGTKAdjustment*)adjustment
 {
 	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_spin_button_get_adjustment([self castedGObject]));
@@ -130,6 +137,11 @@
 	bool returnValue = gtk_spin_button_get_wrap([self castedGObject]);
 
 	return returnValue;
+}
+
+- (void)setActivatesDefault:(bool)activatesDefault
+{
+	gtk_spin_button_set_activates_default([self castedGObject], activatesDefault);
 }
 
 - (void)setAdjustment:(OGTKAdjustment*)adjustment

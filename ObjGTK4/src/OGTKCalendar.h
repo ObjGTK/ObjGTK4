@@ -87,9 +87,16 @@
  * 
  * The returned date is in the local time zone.
  *
- * @return the `GDate` representing the shown date
+ * @return the `GDateTime` representing the shown date
  */
 - (GDateTime*)date;
+
+/**
+ * Gets the day of the selected date.
+ *
+ * @return the day of the selected date.
+ */
+- (int)day;
 
 /**
  * Returns if the @day of the @calendar is already marked.
@@ -98,6 +105,13 @@
  * @return whether the day is marked.
  */
 - (bool)dayIsMarked:(guint)day;
+
+/**
+ * Gets the month of the selected date.
+ *
+ * @return The month of the selected date (as a number between 0 and 11).
+ */
+- (int)month;
 
 /**
  * Returns whether @self is currently showing the names
@@ -132,7 +146,14 @@
 - (bool)showWeekNumbers;
 
 /**
- * Places a visual marker on a particular day.
+ * Gets the year of the selected date.
+ *
+ * @return the year of the selected date.
+ */
+- (int)year;
+
+/**
+ * Places a visual marker on a particular day of the current month.
  *
  * @param day the day number to mark between 1 and 31.
  */
@@ -144,6 +165,26 @@
  * @param date a `GDateTime` representing the day to select
  */
 - (void)selectDay:(GDateTime*)date;
+
+/**
+ * Sets the day for the selected date.
+ * 
+ * The new date must be valid. For example, setting 31 for the day when the
+ * month is February, fails.
+ *
+ * @param day The desired day for the selected date (as a number between 1 and 31).
+ */
+- (void)setDay:(int)day;
+
+/**
+ * Sets the month for the selected date.
+ * 
+ * The new date must be valid. For example, setting 1 (February) for the month
+ * when the day is 31, fails.
+ *
+ * @param month The desired month for the selected date (as a number between 0 and 11).
+ */
+- (void)setMonth:(int)month;
 
 /**
  * Sets whether the calendar shows day names.
@@ -168,6 +209,17 @@
  * @param value whether to show week numbers on the left of the days
  */
 - (void)setShowWeekNumbers:(bool)value;
+
+/**
+ * Sets the year for the selected date.
+ * 
+ * The new date must be valid. For example, setting 2023 for the year when then
+ * the date is 2024-02-29, fails.
+ *
+ * @param year The desired year for the selected date (within [struct@GLib.DateTime]
+ *   limits, i.e. from 0001 to 9999).
+ */
+- (void)setYear:(int)year;
 
 /**
  * Removes the visual marker from a particular day.

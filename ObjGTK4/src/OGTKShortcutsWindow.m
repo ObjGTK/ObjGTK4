@@ -6,11 +6,18 @@
 
 #import "OGTKShortcutsWindow.h"
 
+#import "OGTKShortcutsSection.h"
+
 @implementation OGTKShortcutsWindow
 
 - (GtkShortcutsWindow*)castedGObject
 {
 	return GTK_SHORTCUTS_WINDOW([self gObject]);
+}
+
+- (void)addSection:(OGTKShortcutsSection*)section
+{
+	gtk_shortcuts_window_add_section([self castedGObject], [section castedGObject]);
 }
 
 

@@ -6,8 +6,8 @@
 
 #import "OGTKListBase.h"
 
-@class OGTKWidget;
 @class OGTKListItemFactory;
+@class OGTKWidget;
 
 /**
  * `GtkGridView` presents a large dynamic grid of items.
@@ -108,6 +108,27 @@
 - (bool)singleClickActivate;
 
 /**
+ * Gets the behavior set for the <kbd>Tab</kbd> key.
+ *
+ * @return The behavior of the <kbd>Tab</kbd> key
+ */
+- (GtkListTabBehavior)tabBehavior;
+
+/**
+ * Scrolls to the item at the given position and performs the actions
+ * specified in @flags.
+ * 
+ * This function works no matter if the gridview is shown or focused.
+ * If it isn't, then the changes will take effect once that happens.
+ *
+ * @param pos position of the item
+ * @param flags actions to perform
+ * @param scroll details of how to perform
+ *   the scroll operation or %NULL to scroll into view
+ */
+- (void)scrollToWithPos:(guint)pos flags:(GtkListScrollFlags)flags scroll:(GtkScrollInfo*)scroll;
+
+/**
  * Sets whether selections can be changed by dragging with the mouse.
  *
  * @param enableRubberband %TRUE to enable rubberband selection
@@ -146,7 +167,7 @@
 - (void)setMinColumns:(guint)minColumns;
 
 /**
- * Sets the imodel to use.
+ * Sets the model to use.
  * 
  * This must be a [iface@Gtk.SelectionModel].
  *
@@ -161,5 +182,12 @@
  * @param singleClickActivate %TRUE to activate items on single click
  */
 - (void)setSingleClickActivate:(bool)singleClickActivate;
+
+/**
+ * Sets the behavior of the <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> keys.
+ *
+ * @param tabBehavior The desired tab behavior
+ */
+- (void)setTabBehavior:(GtkListTabBehavior)tabBehavior;
 
 @end

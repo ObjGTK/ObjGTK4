@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDisplay;
 @class OGGdkSurface;
+@class OGGdkDisplay;
 
 /**
  * Base class for objects implementing different rendering methods.
@@ -58,8 +58,8 @@
  * 
  * When using GTK, the widget system automatically places calls to
  * gdk_draw_context_begin_frame() and gdk_draw_context_end_frame() via the
- * use of [class@Gsk.Renderer]s, so application code does not need to call
- * these functions explicitly.
+ * use of [GskRenderer](../gsk4/class.Renderer.html)s, so application code
+ * does not need to call these functions explicitly.
  *
  * @param region minimum region that should be drawn
  */

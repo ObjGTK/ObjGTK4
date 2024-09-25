@@ -15,6 +15,12 @@
  * # CSS nodes
  * 
  * `GtkAspectFrame` uses a CSS node with name `frame`.
+ * 
+ * # Accessibility
+ * 
+ * Until GTK 4.10, `GtkAspectFrame` used the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ * 
+ * Starting from GTK 4.12, `GtkAspectFrame` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
  *
  */
 @interface OGTKAspectFrame : OGTKWidget
@@ -37,7 +43,7 @@
 /**
  * Gets the child widget of @self.
  *
- * @return the child widget of self@
+ * @return the child widget of @self
  */
 - (OGTKWidget*)child;
 
@@ -85,7 +91,7 @@
  * the `GtkAspectFrame`.
  *
  * @param obeyChild If %TRUE, @ratio is ignored, and the aspect
- *    ratio is taken from the requistion of the child.
+ *    ratio is taken from the requisition of the child.
  */
 - (void)setObeyChild:(bool)obeyChild;
 

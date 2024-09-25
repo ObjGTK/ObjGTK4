@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKWidget;
 @class OGGdkSurface;
+@class OGTKWidget;
 @class OGGdkDevice;
 
 /**
@@ -57,6 +57,18 @@
 - (GtkIMContext*)castedGObject;
 
 /**
+ * Requests the platform to show an on-screen keyboard for user input.
+ * 
+ * This method will return %TRUE if this request was actually performed
+ * to the platform, other environmental factors may result in an on-screen
+ * keyboard effectively not showing up.
+ *
+ * @param event a [class@Gdk.Event]
+ * @return %TRUE if an on-screen keyboard could be requested to the platform.
+ */
+- (bool)activateOsk:(GdkEvent*)event;
+
+/**
  * Asks the widget that the input context is attached to delete
  * characters around the cursor position by emitting the
  * `::delete_surrounding` signal.
@@ -72,7 +84,7 @@
  * have deleted all the characters that were requested to be deleted.
  * 
  * This function is used by an input method that wants to make
- * subsitutions in the existing text in response to new input.
+ * substitutions in the existing text in response to new input.
  * It is not useful for applications.
  *
  * @param offset offset from cursor position in chars;

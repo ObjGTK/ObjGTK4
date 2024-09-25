@@ -6,8 +6,8 @@
 
 #import "OGTKAssistant.h"
 
-#import "OGTKWidget.h"
 #import "OGTKAssistantPage.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKAssistant
 
