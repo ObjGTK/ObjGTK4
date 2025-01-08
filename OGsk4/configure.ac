@@ -70,23 +70,23 @@ AS_IF([$OBJFW_CONFIG --package OGdk4], [AC_MSG_RESULT(yes)
 ])
 
 
-AC_ARG_WITH(gt, AS_HELP_STRING([--with-gt=PREFIX],
+AC_ARG_WITH(gtk, AS_HELP_STRING([--with-gtk=PREFIX],
 	[build with gtk4 in the specified prefix]))
-AS_IF([test x"$with_gt" != x"no" -a x"$with_gt" != x""], [
-       OGSK4_CPPFLAGS="$OGSK4_CPPFLAGS -I$with_gt/include"
-       OGSK4_LIBS="$OGSK4_LIBS -L$with_gt/lib"
-       CPPFLAGS="-I$with_gt/include $CPPFLAGS"
-       LIBS="-L$with_gt/lib $LIBS"
-       FRAMEWORK_LIBS="-L$with_gt/lib $FRAMEWORK_LIBS"
+AS_IF([test x"$with_gtk" != x"no" -a x"$with_gtk" != x""], [
+       OGSK4_CPPFLAGS="$OGSK4_CPPFLAGS -I$with_gtk/include"
+       OGSK4_LIBS="$OGSK4_LIBS -L$with_gtk/lib"
+       CPPFLAGS="-I$with_gtk/include $CPPFLAGS"
+       LIBS="-L$with_gtk/lib $LIBS"
+       FRAMEWORK_LIBS="-L$with_gtk/lib $FRAMEWORK_LIBS"
 ])
 
 
-PKG_CHECK_MODULES(GTK4, [gtk4 >= 4.14.2], [
-	OGSK4_CPPFLAGS="$OGSK4_CPPFLAGS $gt_CFLAGS"
-	OGSK4_LIBS="$OGSK4_LIBS $gt_LIBS"
-	CPPFLAGS="$CPPFLAGS $gt_CFLAGS"
-	LIBS="$LIBS $gt_LIBS"
-	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $gt_LIBS"
+PKG_CHECK_MODULES(gtk, [gtk4 >= 4.14.2], [
+	OGSK4_CPPFLAGS="$OGSK4_CPPFLAGS $gtk_CFLAGS"
+	OGSK4_LIBS="$OGSK4_LIBS $gtk_LIBS"
+	CPPFLAGS="$CPPFLAGS $gtk_CFLAGS"
+	LIBS="$LIBS $gtk_LIBS"
+	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $gtk_LIBS"
 ], [
 	AC_MSG_ERROR(You need gtk4 >= 4.14.2 installed!)
 ])

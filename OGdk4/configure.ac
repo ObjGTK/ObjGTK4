@@ -60,13 +60,13 @@ AS_IF([$OBJFW_CONFIG --package OGObject], [AC_MSG_RESULT(yes)
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGObject installed.)
 ])
-AC_MSG_CHECKING(for ObjFW package OGio)
-AS_IF([$OBJFW_CONFIG --package OGio], [AC_MSG_RESULT(yes)
-	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGio --cppflags)"
-	LIBS="$LIBS $($OBJFW_CONFIG --package OGio --libs)"
-	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGio --framework-libs) $FRAMEWORK_LIBS"
+AC_MSG_CHECKING(for ObjFW package OGPango)
+AS_IF([$OBJFW_CONFIG --package OGPango], [AC_MSG_RESULT(yes)
+	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGPango --cppflags)"
+	LIBS="$LIBS $($OBJFW_CONFIG --package OGPango --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGPango --framework-libs) $FRAMEWORK_LIBS"
 ], [
-	AC_MSG_ERROR(You need ObjFW package OGio installed.)
+	AC_MSG_ERROR(You need ObjFW package OGPango installed.)
 ])
 
 AC_MSG_CHECKING(for ObjFW package OGdkPixbuf)
@@ -78,35 +78,35 @@ AS_IF([$OBJFW_CONFIG --package OGdkPixbuf], [AC_MSG_RESULT(yes)
 	AC_MSG_ERROR(You need ObjFW package OGdkPixbuf installed.)
 ])
 
-AC_MSG_CHECKING(for ObjFW package OGPango)
-AS_IF([$OBJFW_CONFIG --package OGPango], [AC_MSG_RESULT(yes)
-	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGPango --cppflags)"
-	LIBS="$LIBS $($OBJFW_CONFIG --package OGPango --libs)"
-	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGPango --framework-libs) $FRAMEWORK_LIBS"
+AC_MSG_CHECKING(for ObjFW package OGio)
+AS_IF([$OBJFW_CONFIG --package OGio], [AC_MSG_RESULT(yes)
+	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGio --cppflags)"
+	LIBS="$LIBS $($OBJFW_CONFIG --package OGio --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGio --framework-libs) $FRAMEWORK_LIBS"
 ], [
-	AC_MSG_ERROR(You need ObjFW package OGPango installed.)
+	AC_MSG_ERROR(You need ObjFW package OGio installed.)
 ])
 
 
-AC_ARG_WITH(gt, AS_HELP_STRING([--with-gt=PREFIX],
+AC_ARG_WITH(gtk, AS_HELP_STRING([--with-gtk=PREFIX],
 	[build with gtk4 in the specified prefix]))
-AS_IF([test x"$with_gt" != x"no" -a x"$with_gt" != x""], [
-       OGDK4_CPPFLAGS="$OGDK4_CPPFLAGS -I$with_gt/include"
-       OGDK4_LIBS="$OGDK4_LIBS -L$with_gt/lib"
-       CPPFLAGS="-I$with_gt/include $CPPFLAGS"
-       LIBS="-L$with_gt/lib $LIBS"
-       FRAMEWORK_LIBS="-L$with_gt/lib $FRAMEWORK_LIBS"
+AS_IF([test x"$with_gtk" != x"no" -a x"$with_gtk" != x""], [
+       OGDK4_CPPFLAGS="$OGDK4_CPPFLAGS -I$with_gtk/include"
+       OGDK4_LIBS="$OGDK4_LIBS -L$with_gtk/lib"
+       CPPFLAGS="-I$with_gtk/include $CPPFLAGS"
+       LIBS="-L$with_gtk/lib $LIBS"
+       FRAMEWORK_LIBS="-L$with_gtk/lib $FRAMEWORK_LIBS"
 ])
 
 
-PKG_CHECK_MODULES(gt, [gtk4 >= $(pkg-config --modversion gtk4)], [
-	OGDK4_CPPFLAGS="$OGDK4_CPPFLAGS $gt_CFLAGS"
-	OGDK4_LIBS="$OGDK4_LIBS $gt_LIBS"
-	CPPFLAGS="$CPPFLAGS $gt_CFLAGS"
-	LIBS="$LIBS $gt_LIBS"
-	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $gt_LIBS"
+PKG_CHECK_MODULES(gtk, [gtk4 >= 4.14.2], [
+	OGDK4_CPPFLAGS="$OGDK4_CPPFLAGS $gtk_CFLAGS"
+	OGDK4_LIBS="$OGDK4_LIBS $gtk_LIBS"
+	CPPFLAGS="$CPPFLAGS $gtk_CFLAGS"
+	LIBS="$LIBS $gtk_LIBS"
+	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $gtk_LIBS"
 ], [
-	AC_MSG_ERROR(You need gtk4 >= $(pkg-config --modversion gtk4) installed!)
+	AC_MSG_ERROR(You need gtk4 >= 4.14.2 installed!)
 ])
 
 AS_IF([test x"$GOBJC" = x"yes"], [
