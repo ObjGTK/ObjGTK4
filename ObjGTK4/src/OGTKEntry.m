@@ -1,21 +1,31 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKEntry.h"
 
-#import <OGdk4/OGGdkContentProvider.h>
+#import <OGio/OGMenuModel.h>
+#import <OGdk4/OGdkContentProvider.h>
 #import "OGTKEntryBuffer.h"
 #import "OGTKEntryCompletion.h"
-#import <OGio/OGMenuModel.h>
 
 @implementation OGTKEntry
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_ENTRY;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkEntry* gobjectValue = GTK_ENTRY(gtk_entry_new());
+	GtkEntry* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_new(), GtkEntry, GtkEntry);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -34,7 +44,7 @@
 
 - (instancetype)initWithBuffer:(OGTKEntryBuffer*)buffer
 {
-	GtkEntry* gobjectValue = GTK_ENTRY(gtk_entry_new_with_buffer([buffer castedGObject]));
+	GtkEntry* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_new_with_buffer([buffer castedGObject]), GtkEntry, GtkEntry);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -53,71 +63,71 @@
 
 - (GtkEntry*)castedGObject
 {
-	return GTK_ENTRY([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEntry, GtkEntry);
 }
 
 - (bool)activatesDefault
 {
-	bool returnValue = gtk_entry_get_activates_default([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_get_activates_default([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)alignment
 {
-	float returnValue = gtk_entry_get_alignment([self castedGObject]);
+	float returnValue = (float)gtk_entry_get_alignment([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoAttrList*)attributes
 {
-	PangoAttrList* returnValue = gtk_entry_get_attributes([self castedGObject]);
+	PangoAttrList* returnValue = (PangoAttrList*)gtk_entry_get_attributes([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKEntryBuffer*)buffer
 {
-	GtkEntryBuffer* gobjectValue = GTK_ENTRY_BUFFER(gtk_entry_get_buffer([self castedGObject]));
+	GtkEntryBuffer* gobjectValue = gtk_entry_get_buffer([self castedGObject]);
 
-	OGTKEntryBuffer* returnValue = [OGTKEntryBuffer withGObject:gobjectValue];
+	OGTKEntryBuffer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKEntryCompletion*)completion
 {
-	GtkEntryCompletion* gobjectValue = GTK_ENTRY_COMPLETION(gtk_entry_get_completion([self castedGObject]));
+	GtkEntryCompletion* gobjectValue = gtk_entry_get_completion([self castedGObject]);
 
-	OGTKEntryCompletion* returnValue = [OGTKEntryCompletion withGObject:gobjectValue];
+	OGTKEntryCompletion* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)currentIconDragSource
 {
-	int returnValue = gtk_entry_get_current_icon_drag_source([self castedGObject]);
+	int returnValue = (int)gtk_entry_get_current_icon_drag_source([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)extraMenu
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_entry_get_extra_menu([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_entry_get_extra_menu([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)hasFrame
 {
-	bool returnValue = gtk_entry_get_has_frame([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_get_has_frame([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)iconActivatable:(GtkEntryIconPosition)iconPos
 {
-	bool returnValue = gtk_entry_get_icon_activatable([self castedGObject], iconPos);
+	bool returnValue = (bool)gtk_entry_get_icon_activatable([self castedGObject], iconPos);
 
 	return returnValue;
 }
@@ -129,14 +139,14 @@
 
 - (int)iconAtPosWithX:(int)x y:(int)y
 {
-	int returnValue = gtk_entry_get_icon_at_pos([self castedGObject], x, y);
+	int returnValue = (int)gtk_entry_get_icon_at_pos([self castedGObject], x, y);
 
 	return returnValue;
 }
 
 - (GIcon*)iconGicon:(GtkEntryIconPosition)iconPos
 {
-	GIcon* returnValue = gtk_entry_get_icon_gicon([self castedGObject], iconPos);
+	GIcon* returnValue = (GIcon*)gtk_entry_get_icon_gicon([self castedGObject], iconPos);
 
 	return returnValue;
 }
@@ -151,21 +161,21 @@
 
 - (GdkPaintable*)iconPaintable:(GtkEntryIconPosition)iconPos
 {
-	GdkPaintable* returnValue = gtk_entry_get_icon_paintable([self castedGObject], iconPos);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_entry_get_icon_paintable([self castedGObject], iconPos);
 
 	return returnValue;
 }
 
 - (bool)iconSensitive:(GtkEntryIconPosition)iconPos
 {
-	bool returnValue = gtk_entry_get_icon_sensitive([self castedGObject], iconPos);
+	bool returnValue = (bool)gtk_entry_get_icon_sensitive([self castedGObject], iconPos);
 
 	return returnValue;
 }
 
 - (GtkImageType)iconStorageType:(GtkEntryIconPosition)iconPos
 {
-	GtkImageType returnValue = gtk_entry_get_icon_storage_type([self castedGObject], iconPos);
+	GtkImageType returnValue = (GtkImageType)gtk_entry_get_icon_storage_type([self castedGObject], iconPos);
 
 	return returnValue;
 }
@@ -188,35 +198,35 @@
 
 - (GtkInputHints)inputHints
 {
-	GtkInputHints returnValue = gtk_entry_get_input_hints([self castedGObject]);
+	GtkInputHints returnValue = (GtkInputHints)gtk_entry_get_input_hints([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkInputPurpose)inputPurpose
 {
-	GtkInputPurpose returnValue = gtk_entry_get_input_purpose([self castedGObject]);
+	GtkInputPurpose returnValue = (GtkInputPurpose)gtk_entry_get_input_purpose([self castedGObject]);
 
 	return returnValue;
 }
 
 - (gunichar)invisibleChar
 {
-	gunichar returnValue = gtk_entry_get_invisible_char([self castedGObject]);
+	gunichar returnValue = (gunichar)gtk_entry_get_invisible_char([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)maxLength
 {
-	int returnValue = gtk_entry_get_max_length([self castedGObject]);
+	int returnValue = (int)gtk_entry_get_max_length([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)overwriteMode
 {
-	bool returnValue = gtk_entry_get_overwrite_mode([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_get_overwrite_mode([self castedGObject]);
 
 	return returnValue;
 }
@@ -231,42 +241,42 @@
 
 - (double)progressFraction
 {
-	double returnValue = gtk_entry_get_progress_fraction([self castedGObject]);
+	double returnValue = (double)gtk_entry_get_progress_fraction([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)progressPulseStep
 {
-	double returnValue = gtk_entry_get_progress_pulse_step([self castedGObject]);
+	double returnValue = (double)gtk_entry_get_progress_pulse_step([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoTabArray*)tabs
 {
-	PangoTabArray* returnValue = gtk_entry_get_tabs([self castedGObject]);
+	PangoTabArray* returnValue = (PangoTabArray*)gtk_entry_get_tabs([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint16)textLength
 {
-	guint16 returnValue = gtk_entry_get_text_length([self castedGObject]);
+	guint16 returnValue = (guint16)gtk_entry_get_text_length([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)visibility
 {
-	bool returnValue = gtk_entry_get_visibility([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_get_visibility([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)grabFocusWithoutSelecting
 {
-	bool returnValue = gtk_entry_grab_focus_without_selecting([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_grab_focus_without_selecting([self castedGObject]);
 
 	return returnValue;
 }
@@ -321,7 +331,7 @@
 	gtk_entry_set_icon_activatable([self castedGObject], iconPos, activatable);
 }
 
-- (void)setIconDragSourceWithIconPos:(GtkEntryIconPosition)iconPos provider:(OGGdkContentProvider*)provider actions:(GdkDragAction)actions
+- (void)setIconDragSourceWithIconPos:(GtkEntryIconPosition)iconPos provider:(OGdkContentProvider*)provider actions:(GdkDragAction)actions
 {
 	gtk_entry_set_icon_drag_source([self castedGObject], iconPos, [provider castedGObject], actions);
 }

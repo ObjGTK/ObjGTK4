@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,10 +8,10 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKSorter;
 @class OGMenuModel;
 @class OGTKColumnView;
 @class OGTKListItemFactory;
+@class OGTKSorter;
 
 /**
  * `GtkColumnViewColumn` represents the columns being added to a `GtkColumnView`.
@@ -164,9 +164,9 @@
  * 
  * It is up to callers to ensure uniqueness of IDs.
  *
- * @param id ID to use for this column
+ * @param identifier ID to use for this column
  */
-- (void)setId:(OFString*)id;
+- (void)setId:(OFString*)identifier;
 
 /**
  * Sets whether this column should be resizable by dragging.

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,11 +8,21 @@
 
 @implementation OGPangoCoverage
 
++ (void)load
+{
+	GType gtypeToAssociate = pango_coverage_get_type();
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 + (OGPangoCoverage*)fromBytesWithBytes:(guchar*)bytes nbytes:(int)nbytes
 {
-	PangoCoverage* gobjectValue = PANGO_COVERAGE(pango_coverage_from_bytes(bytes, nbytes));
+	PangoCoverage* gobjectValue = pango_coverage_from_bytes(bytes, nbytes);
 
-	OGPangoCoverage* returnValue = [OGPangoCoverage withGObject:gobjectValue];
+	OGPangoCoverage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -20,7 +30,7 @@
 
 - (instancetype)init
 {
-	PangoCoverage* gobjectValue = PANGO_COVERAGE(pango_coverage_new());
+	PangoCoverage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_coverage_new(), PangoCoverage, PangoCoverage);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -36,14 +46,14 @@
 
 - (PangoCoverage*)castedGObject
 {
-	return PANGO_COVERAGE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoCoverage, PangoCoverage);
 }
 
 - (OGPangoCoverage*)copy
 {
-	PangoCoverage* gobjectValue = PANGO_COVERAGE(pango_coverage_copy([self castedGObject]));
+	PangoCoverage* gobjectValue = pango_coverage_copy([self castedGObject]);
 
-	OGPangoCoverage* returnValue = [OGPangoCoverage withGObject:gobjectValue];
+	OGPangoCoverage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -51,7 +61,7 @@
 
 - (PangoCoverageLevel)get:(int)index
 {
-	PangoCoverageLevel returnValue = pango_coverage_get([self castedGObject], index);
+	PangoCoverageLevel returnValue = (PangoCoverageLevel)pango_coverage_get([self castedGObject], index);
 
 	return returnValue;
 }

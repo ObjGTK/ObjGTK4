@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKShortcutController
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_SHORTCUT_CONTROLLER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkShortcutController* gobjectValue = GTK_SHORTCUT_CONTROLLER(gtk_shortcut_controller_new());
+	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new(), GtkShortcutController, GtkShortcutController);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,9 +36,9 @@
 	return self;
 }
 
-- (instancetype)initForModel:(GListModel*)model
+- (instancetype)initWithModelForModel:(GListModel*)model
 {
-	GtkShortcutController* gobjectValue = GTK_SHORTCUT_CONTROLLER(gtk_shortcut_controller_new_for_model(model));
+	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new_for_model(model), GtkShortcutController, GtkShortcutController);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -44,7 +54,7 @@
 
 - (GtkShortcutController*)castedGObject
 {
-	return GTK_SHORTCUT_CONTROLLER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkShortcutController, GtkShortcutController);
 }
 
 - (void)addShortcut:(OGTKShortcut*)shortcut
@@ -54,14 +64,14 @@
 
 - (GdkModifierType)mnemonicsModifiers
 {
-	GdkModifierType returnValue = gtk_shortcut_controller_get_mnemonics_modifiers([self castedGObject]);
+	GdkModifierType returnValue = (GdkModifierType)gtk_shortcut_controller_get_mnemonics_modifiers([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkShortcutScope)scope
 {
-	GtkShortcutScope returnValue = gtk_shortcut_controller_get_scope([self castedGObject]);
+	GtkShortcutScope returnValue = (GtkShortcutScope)gtk_shortcut_controller_get_scope([self castedGObject]);
 
 	return returnValue;
 }

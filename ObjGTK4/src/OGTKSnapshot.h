@@ -1,17 +1,17 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #include <gtk/gtk.h>
 
-#import <OGdk4/OGGdkSnapshot.h>
+#import <OGdk4/OGdkSnapshot.h>
 
-@class OGGdkTexture;
-@class OGGskGLShader;
-@class OGPangoLayout;
+@class OGdkTexture;
+@class OGskGLShader;
 @class OGTKStyleContext;
+@class OGPangoLayout;
 
 /**
  * `GtkSnapshot` assists in creating [class@Gsk.RenderNode]s for widgets.
@@ -28,7 +28,7 @@
  * `GtkSnapshot`, use [ctor@Gtk.Snapshot.new].
  *
  */
-@interface OGTKSnapshot : OGGdkSnapshot
+@interface OGTKSnapshot : OGdkSnapshot
 {
 
 }
@@ -211,7 +211,7 @@
  * @param filter the filter to use
  * @param bounds the bounds for the new node
  */
-- (void)appendScaledTextureWithTexture:(OGGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds;
+- (void)appendScaledTextureWithTexture:(OGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds;
 
 /**
  * A convenience method to stroke a path with a color.
@@ -238,7 +238,7 @@
  * @param texture the texture to render
  * @param bounds the bounds for the new node
  */
-- (void)appendTextureWithTexture:(OGGdkTexture*)texture bounds:(const graphene_rect_t*)bounds;
+- (void)appendTextureWithTexture:(OGdkTexture*)texture bounds:(const graphene_rect_t*)bounds;
 
 /**
  * Returns the node that was constructed by @snapshot
@@ -407,7 +407,7 @@
  * @param bounds the rectangle to render into
  * @param takeArgs Data block with arguments for the shader.
  */
-- (void)pushGlShaderWithShader:(OGGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs;
+- (void)pushGlShaderWithShader:(OGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs;
 
 /**
  * Until the first call to [method@Gtk.Snapshot.pop], the

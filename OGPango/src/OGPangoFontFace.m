@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,14 +10,24 @@
 
 @implementation OGPangoFontFace
 
++ (void)load
+{
+	GType gtypeToAssociate = PANGO_TYPE_FONT_FACE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (PangoFontFace*)castedGObject
 {
-	return PANGO_FONT_FACE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoFontFace, PangoFontFace);
 }
 
 - (PangoFontDescription*)describe
 {
-	PangoFontDescription* returnValue = pango_font_face_describe([self castedGObject]);
+	PangoFontDescription* returnValue = (PangoFontDescription*)pango_font_face_describe([self castedGObject]);
 
 	return returnValue;
 }
@@ -32,15 +42,15 @@
 
 - (OGPangoFontFamily*)family
 {
-	PangoFontFamily* gobjectValue = PANGO_FONT_FAMILY(pango_font_face_get_family([self castedGObject]));
+	PangoFontFamily* gobjectValue = pango_font_face_get_family([self castedGObject]);
 
-	OGPangoFontFamily* returnValue = [OGPangoFontFamily withGObject:gobjectValue];
+	OGPangoFontFamily* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)isSynthesized
 {
-	bool returnValue = pango_font_face_is_synthesized([self castedGObject]);
+	bool returnValue = (bool)pango_font_face_is_synthesized([self castedGObject]);
 
 	return returnValue;
 }

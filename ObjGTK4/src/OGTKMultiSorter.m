@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKMultiSorter
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_MULTI_SORTER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkMultiSorter* gobjectValue = GTK_MULTI_SORTER(gtk_multi_sorter_new());
+	GtkMultiSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_multi_sorter_new(), GtkMultiSorter, GtkMultiSorter);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkMultiSorter*)castedGObject
 {
-	return GTK_MULTI_SORTER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMultiSorter, GtkMultiSorter);
 }
 
 - (void)append:(OGTKSorter*)sorter

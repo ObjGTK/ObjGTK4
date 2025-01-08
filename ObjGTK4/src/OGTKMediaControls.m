@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKMediaControls
 
-- (instancetype)init:(OGTKMediaStream*)stream
++ (void)load
 {
-	GtkMediaControls* gobjectValue = GTK_MEDIA_CONTROLS(gtk_media_controls_new([stream castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_MEDIA_CONTROLS;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithStream:(OGTKMediaStream*)stream
+{
+	GtkMediaControls* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_controls_new([stream castedGObject]), GtkMediaControls, GtkMediaControls);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,14 +41,14 @@
 
 - (GtkMediaControls*)castedGObject
 {
-	return GTK_MEDIA_CONTROLS([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMediaControls, GtkMediaControls);
 }
 
 - (OGTKMediaStream*)mediaStream
 {
-	GtkMediaStream* gobjectValue = GTK_MEDIA_STREAM(gtk_media_controls_get_media_stream([self castedGObject]));
+	GtkMediaStream* gobjectValue = gtk_media_controls_get_media_stream([self castedGObject]);
 
-	OGTKMediaStream* returnValue = [OGTKMediaStream withGObject:gobjectValue];
+	OGTKMediaStream* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

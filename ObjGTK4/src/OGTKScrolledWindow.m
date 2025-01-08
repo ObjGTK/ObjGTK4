@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKScrolledWindow
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_SCROLLED_WINDOW;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkScrolledWindow* gobjectValue = GTK_SCROLLED_WINDOW(gtk_scrolled_window_new());
+	GtkScrolledWindow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_scrolled_window_new(), GtkScrolledWindow, GtkScrolledWindow);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,85 +41,85 @@
 
 - (GtkScrolledWindow*)castedGObject
 {
-	return GTK_SCROLLED_WINDOW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkScrolledWindow, GtkScrolledWindow);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_scrolled_window_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_scrolled_window_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKAdjustment*)hadjustment
 {
-	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_scrolled_window_get_hadjustment([self castedGObject]));
+	GtkAdjustment* gobjectValue = gtk_scrolled_window_get_hadjustment([self castedGObject]);
 
-	OGTKAdjustment* returnValue = [OGTKAdjustment withGObject:gobjectValue];
+	OGTKAdjustment* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)hasFrame
 {
-	bool returnValue = gtk_scrolled_window_get_has_frame([self castedGObject]);
+	bool returnValue = (bool)gtk_scrolled_window_get_has_frame([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)hscrollbar
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_scrolled_window_get_hscrollbar([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_scrolled_window_get_hscrollbar([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)kineticScrolling
 {
-	bool returnValue = gtk_scrolled_window_get_kinetic_scrolling([self castedGObject]);
+	bool returnValue = (bool)gtk_scrolled_window_get_kinetic_scrolling([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)maxContentHeight
 {
-	int returnValue = gtk_scrolled_window_get_max_content_height([self castedGObject]);
+	int returnValue = (int)gtk_scrolled_window_get_max_content_height([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)maxContentWidth
 {
-	int returnValue = gtk_scrolled_window_get_max_content_width([self castedGObject]);
+	int returnValue = (int)gtk_scrolled_window_get_max_content_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)minContentHeight
 {
-	int returnValue = gtk_scrolled_window_get_min_content_height([self castedGObject]);
+	int returnValue = (int)gtk_scrolled_window_get_min_content_height([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)minContentWidth
 {
-	int returnValue = gtk_scrolled_window_get_min_content_width([self castedGObject]);
+	int returnValue = (int)gtk_scrolled_window_get_min_content_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)overlayScrolling
 {
-	bool returnValue = gtk_scrolled_window_get_overlay_scrolling([self castedGObject]);
+	bool returnValue = (bool)gtk_scrolled_window_get_overlay_scrolling([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkCornerType)placement
 {
-	GtkCornerType returnValue = gtk_scrolled_window_get_placement([self castedGObject]);
+	GtkCornerType returnValue = (GtkCornerType)gtk_scrolled_window_get_placement([self castedGObject]);
 
 	return returnValue;
 }
@@ -121,31 +131,31 @@
 
 - (bool)propagateNaturalHeight
 {
-	bool returnValue = gtk_scrolled_window_get_propagate_natural_height([self castedGObject]);
+	bool returnValue = (bool)gtk_scrolled_window_get_propagate_natural_height([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)propagateNaturalWidth
 {
-	bool returnValue = gtk_scrolled_window_get_propagate_natural_width([self castedGObject]);
+	bool returnValue = (bool)gtk_scrolled_window_get_propagate_natural_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKAdjustment*)vadjustment
 {
-	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_scrolled_window_get_vadjustment([self castedGObject]));
+	GtkAdjustment* gobjectValue = gtk_scrolled_window_get_vadjustment([self castedGObject]);
 
-	OGTKAdjustment* returnValue = [OGTKAdjustment withGObject:gobjectValue];
+	OGTKAdjustment* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)vscrollbar
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_scrolled_window_get_vscrollbar([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_scrolled_window_get_vscrollbar([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

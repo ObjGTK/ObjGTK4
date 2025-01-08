@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKButton
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new());
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new(), GtkButton, GtkButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -27,9 +37,9 @@
 	return self;
 }
 
-- (instancetype)initFromIconName:(OFString*)iconName
+- (instancetype)initWithIconNameFromIconName:(OFString*)iconName
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_from_icon_name([iconName UTF8String]));
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new_from_icon_name([iconName UTF8String]), GtkButton, GtkButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -48,7 +58,7 @@
 
 - (instancetype)initWithLabel:(OFString*)label
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_with_label([label UTF8String]));
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new_with_label([label UTF8String]), GtkButton, GtkButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -65,9 +75,9 @@
 	return self;
 }
 
-- (instancetype)initWithMnemonic:(OFString*)label
+- (instancetype)initWithLabelWithMnemonic:(OFString*)label
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_with_mnemonic([label UTF8String]));
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new_with_mnemonic([label UTF8String]), GtkButton, GtkButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -86,27 +96,27 @@
 
 - (GtkButton*)castedGObject
 {
-	return GTK_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkButton, GtkButton);
 }
 
 - (bool)canShrink
 {
-	bool returnValue = gtk_button_get_can_shrink([self castedGObject]);
+	bool returnValue = (bool)gtk_button_get_can_shrink([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_button_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_button_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)hasFrame
 {
-	bool returnValue = gtk_button_get_has_frame([self castedGObject]);
+	bool returnValue = (bool)gtk_button_get_has_frame([self castedGObject]);
 
 	return returnValue;
 }
@@ -129,7 +139,7 @@
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_button_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_button_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }

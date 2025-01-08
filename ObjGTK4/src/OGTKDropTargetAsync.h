@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKEventController.h"
 
-@class OGGdkDrop;
+@class OGdkDrop;
 
 /**
  * `GtkDropTargetAsync` is an event controller to receive Drag-and-Drop
@@ -87,7 +87,7 @@
  *
  * @param drop the `GdkDrop` of an ongoing drag operation
  */
-- (void)rejectDrop:(OGGdkDrop*)drop;
+- (void)rejectDrop:(OGdkDrop*)drop;
 
 /**
  * Sets the actions that this drop target supports.

@@ -1,29 +1,39 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-#import <OGPango/OGPangoLayout.h>
-#import "OGTKSettings.h"
-#import <OGdk4/OGGdkDisplay.h>
-#import <OGdk4/OGGdkCursor.h>
-#import "OGTKLayoutManager.h"
-#import "OGTKSnapshot.h"
-#import <OGdk4/OGGdkFrameClock.h>
-#import "OGTKStyleContext.h"
-#import <OGPango/OGPangoFontMap.h>
-#import <OGdk4/OGGdkClipboard.h>
-#import <OGPango/OGPangoContext.h>
+#import <OGdk4/OGdkClipboard.h>
+#import <OGdk4/OGdkCursor.h>
+#import <OGdk4/OGdkDisplay.h>
+#import <OGdk4/OGdkFrameClock.h>
 #import "OGTKEventController.h"
+#import "OGTKLayoutManager.h"
+#import "OGTKSettings.h"
+#import "OGTKSnapshot.h"
+#import "OGTKStyleContext.h"
+#import <OGPango/OGPangoContext.h>
+#import <OGPango/OGPangoFontMap.h>
+#import <OGPango/OGPangoLayout.h>
 
 @implementation OGTKWidget
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_WIDGET;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 + (GtkTextDirection)defaultDirection
 {
-	GtkTextDirection returnValue = gtk_widget_get_default_direction();
+	GtkTextDirection returnValue = (GtkTextDirection)gtk_widget_get_default_direction();
 
 	return returnValue;
 }
@@ -35,7 +45,7 @@
 
 - (GtkWidget*)castedGObject
 {
-	return GTK_WIDGET([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWidget, GtkWidget);
 }
 
 - (void)actionSetEnabledWithActionName:(OFString*)actionName enabled:(bool)enabled
@@ -45,14 +55,14 @@
 
 - (bool)activate
 {
-	bool returnValue = gtk_widget_activate([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_activate([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)activateActionVariantWithName:(OFString*)name args:(GVariant*)args
 {
-	bool returnValue = gtk_widget_activate_action_variant([self castedGObject], [name UTF8String], args);
+	bool returnValue = (bool)gtk_widget_activate_action_variant([self castedGObject], [name UTF8String], args);
 
 	return returnValue;
 }
@@ -79,7 +89,7 @@
 
 - (guint)addTickCallbackWithCallback:(GtkTickCallback)callback userData:(gpointer)userData notify:(GDestroyNotify)notify
 {
-	guint returnValue = gtk_widget_add_tick_callback([self castedGObject], callback, userData, notify);
+	guint returnValue = (guint)gtk_widget_add_tick_callback([self castedGObject], callback, userData, notify);
 
 	return returnValue;
 }
@@ -91,51 +101,51 @@
 
 - (bool)childFocus:(GtkDirectionType)direction
 {
-	bool returnValue = gtk_widget_child_focus([self castedGObject], direction);
+	bool returnValue = (bool)gtk_widget_child_focus([self castedGObject], direction);
 
 	return returnValue;
 }
 
 - (bool)computeBoundsWithTarget:(OGTKWidget*)target outBounds:(graphene_rect_t*)outBounds
 {
-	bool returnValue = gtk_widget_compute_bounds([self castedGObject], [target castedGObject], outBounds);
+	bool returnValue = (bool)gtk_widget_compute_bounds([self castedGObject], [target castedGObject], outBounds);
 
 	return returnValue;
 }
 
 - (bool)computeExpand:(GtkOrientation)orientation
 {
-	bool returnValue = gtk_widget_compute_expand([self castedGObject], orientation);
+	bool returnValue = (bool)gtk_widget_compute_expand([self castedGObject], orientation);
 
 	return returnValue;
 }
 
 - (bool)computePointWithTarget:(OGTKWidget*)target point:(const graphene_point_t*)point outPoint:(graphene_point_t*)outPoint
 {
-	bool returnValue = gtk_widget_compute_point([self castedGObject], [target castedGObject], point, outPoint);
+	bool returnValue = (bool)gtk_widget_compute_point([self castedGObject], [target castedGObject], point, outPoint);
 
 	return returnValue;
 }
 
 - (bool)computeTransformWithTarget:(OGTKWidget*)target outTransform:(graphene_matrix_t*)outTransform
 {
-	bool returnValue = gtk_widget_compute_transform([self castedGObject], [target castedGObject], outTransform);
+	bool returnValue = (bool)gtk_widget_compute_transform([self castedGObject], [target castedGObject], outTransform);
 
 	return returnValue;
 }
 
 - (bool)containsWithX:(double)x y:(double)y
 {
-	bool returnValue = gtk_widget_contains([self castedGObject], x, y);
+	bool returnValue = (bool)gtk_widget_contains([self castedGObject], x, y);
 
 	return returnValue;
 }
 
 - (OGPangoContext*)createPangoContext
 {
-	PangoContext* gobjectValue = PANGO_CONTEXT(gtk_widget_create_pango_context([self castedGObject]));
+	PangoContext* gobjectValue = gtk_widget_create_pango_context([self castedGObject]);
 
-	OGPangoContext* returnValue = [OGPangoContext withGObject:gobjectValue];
+	OGPangoContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -143,9 +153,9 @@
 
 - (OGPangoLayout*)createPangoLayout:(OFString*)text
 {
-	PangoLayout* gobjectValue = PANGO_LAYOUT(gtk_widget_create_pango_layout([self castedGObject], [text UTF8String]));
+	PangoLayout* gobjectValue = gtk_widget_create_pango_layout([self castedGObject], [text UTF8String]);
 
-	OGPangoLayout* returnValue = [OGPangoLayout withGObject:gobjectValue];
+	OGPangoLayout* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -158,7 +168,7 @@
 
 - (bool)dragCheckThresholdWithStartX:(int)startX startY:(int)startY currentX:(int)currentX currentY:(int)currentY
 {
-	bool returnValue = gtk_drag_check_threshold([self castedGObject], startX, startY, currentX, currentY);
+	bool returnValue = (bool)gtk_drag_check_threshold([self castedGObject], startX, startY, currentX, currentY);
 
 	return returnValue;
 }
@@ -170,21 +180,21 @@
 
 - (int)allocatedBaseline
 {
-	int returnValue = gtk_widget_get_allocated_baseline([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_allocated_baseline([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)allocatedHeight
 {
-	int returnValue = gtk_widget_get_allocated_height([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_allocated_height([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)allocatedWidth
 {
-	int returnValue = gtk_widget_get_allocated_width([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_allocated_width([self castedGObject]);
 
 	return returnValue;
 }
@@ -196,45 +206,45 @@
 
 - (OGTKWidget*)ancestor:(GType)widgetType
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_get_ancestor([self castedGObject], widgetType));
+	GtkWidget* gobjectValue = gtk_widget_get_ancestor([self castedGObject], widgetType);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)baseline
 {
-	int returnValue = gtk_widget_get_baseline([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_baseline([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)canFocus
 {
-	bool returnValue = gtk_widget_get_can_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_can_focus([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)canTarget
 {
-	bool returnValue = gtk_widget_get_can_target([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_can_target([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)childVisible
 {
-	bool returnValue = gtk_widget_get_child_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_child_visible([self castedGObject]);
 
 	return returnValue;
 }
 
-- (OGGdkClipboard*)clipboard
+- (OGdkClipboard*)clipboard
 {
-	GdkClipboard* gobjectValue = GDK_CLIPBOARD(gtk_widget_get_clipboard([self castedGObject]));
+	GdkClipboard* gobjectValue = gtk_widget_get_clipboard([self castedGObject]);
 
-	OGGdkClipboard* returnValue = [OGGdkClipboard withGObject:gobjectValue];
+	OGdkClipboard* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -245,7 +255,7 @@
 
 - (char**)cssClasses
 {
-	char** returnValue = gtk_widget_get_css_classes([self castedGObject]);
+	char** returnValue = (char**)gtk_widget_get_css_classes([self castedGObject]);
 
 	return returnValue;
 }
@@ -258,164 +268,164 @@
 	return returnValue;
 }
 
-- (OGGdkCursor*)cursor
+- (OGdkCursor*)cursor
 {
-	GdkCursor* gobjectValue = GDK_CURSOR(gtk_widget_get_cursor([self castedGObject]));
+	GdkCursor* gobjectValue = gtk_widget_get_cursor([self castedGObject]);
 
-	OGGdkCursor* returnValue = [OGGdkCursor withGObject:gobjectValue];
+	OGdkCursor* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkTextDirection)direction
 {
-	GtkTextDirection returnValue = gtk_widget_get_direction([self castedGObject]);
+	GtkTextDirection returnValue = (GtkTextDirection)gtk_widget_get_direction([self castedGObject]);
 
 	return returnValue;
 }
 
-- (OGGdkDisplay*)display
+- (OGdkDisplay*)display
 {
-	GdkDisplay* gobjectValue = GDK_DISPLAY(gtk_widget_get_display([self castedGObject]));
+	GdkDisplay* gobjectValue = gtk_widget_get_display([self castedGObject]);
 
-	OGGdkDisplay* returnValue = [OGGdkDisplay withGObject:gobjectValue];
+	OGdkDisplay* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)firstChild
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_get_first_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_widget_get_first_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)focusChild
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_get_focus_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_widget_get_focus_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)focusOnClick
 {
-	bool returnValue = gtk_widget_get_focus_on_click([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_focus_on_click([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)focusable
 {
-	bool returnValue = gtk_widget_get_focusable([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_focusable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGPangoFontMap*)fontMap
 {
-	PangoFontMap* gobjectValue = PANGO_FONT_MAP(gtk_widget_get_font_map([self castedGObject]));
+	PangoFontMap* gobjectValue = gtk_widget_get_font_map([self castedGObject]);
 
-	OGPangoFontMap* returnValue = [OGPangoFontMap withGObject:gobjectValue];
+	OGPangoFontMap* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (const cairo_font_options_t*)fontOptions
 {
-	const cairo_font_options_t* returnValue = gtk_widget_get_font_options([self castedGObject]);
+	const cairo_font_options_t* returnValue = (const cairo_font_options_t*)gtk_widget_get_font_options([self castedGObject]);
 
 	return returnValue;
 }
 
-- (OGGdkFrameClock*)frameClock
+- (OGdkFrameClock*)frameClock
 {
-	GdkFrameClock* gobjectValue = GDK_FRAME_CLOCK(gtk_widget_get_frame_clock([self castedGObject]));
+	GdkFrameClock* gobjectValue = gtk_widget_get_frame_clock([self castedGObject]);
 
-	OGGdkFrameClock* returnValue = [OGGdkFrameClock withGObject:gobjectValue];
+	OGdkFrameClock* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkAlign)halign
 {
-	GtkAlign returnValue = gtk_widget_get_halign([self castedGObject]);
+	GtkAlign returnValue = (GtkAlign)gtk_widget_get_halign([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasTooltip
 {
-	bool returnValue = gtk_widget_get_has_tooltip([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_has_tooltip([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)height
 {
-	int returnValue = gtk_widget_get_height([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_height([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hexpand
 {
-	bool returnValue = gtk_widget_get_hexpand([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_hexpand([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hexpandSet
 {
-	bool returnValue = gtk_widget_get_hexpand_set([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_hexpand_set([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)lastChild
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_get_last_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_widget_get_last_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKLayoutManager*)layoutManager
 {
-	GtkLayoutManager* gobjectValue = GTK_LAYOUT_MANAGER(gtk_widget_get_layout_manager([self castedGObject]));
+	GtkLayoutManager* gobjectValue = gtk_widget_get_layout_manager([self castedGObject]);
 
-	OGTKLayoutManager* returnValue = [OGTKLayoutManager withGObject:gobjectValue];
+	OGTKLayoutManager* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)mapped
 {
-	bool returnValue = gtk_widget_get_mapped([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_mapped([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)marginBottom
 {
-	int returnValue = gtk_widget_get_margin_bottom([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_margin_bottom([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)marginEnd
 {
-	int returnValue = gtk_widget_get_margin_end([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_margin_end([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)marginStart
 {
-	int returnValue = gtk_widget_get_margin_start([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_margin_start([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)marginTop
 {
-	int returnValue = gtk_widget_get_margin_top([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_margin_top([self castedGObject]);
 
 	return returnValue;
 }
@@ -430,46 +440,46 @@
 
 - (GtkNative*)native
 {
-	GtkNative* returnValue = gtk_widget_get_native([self castedGObject]);
+	GtkNative* returnValue = (GtkNative*)gtk_widget_get_native([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)nextSibling
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_get_next_sibling([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_widget_get_next_sibling([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (double)opacity
 {
-	double returnValue = gtk_widget_get_opacity([self castedGObject]);
+	double returnValue = (double)gtk_widget_get_opacity([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkOverflow)overflow
 {
-	GtkOverflow returnValue = gtk_widget_get_overflow([self castedGObject]);
+	GtkOverflow returnValue = (GtkOverflow)gtk_widget_get_overflow([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGPangoContext*)pangoContext
 {
-	PangoContext* gobjectValue = PANGO_CONTEXT(gtk_widget_get_pango_context([self castedGObject]));
+	PangoContext* gobjectValue = gtk_widget_get_pango_context([self castedGObject]);
 
-	OGPangoContext* returnValue = [OGPangoContext withGObject:gobjectValue];
+	OGPangoContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)parent
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_get_parent([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_widget_get_parent([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -480,73 +490,73 @@
 
 - (OGTKWidget*)prevSibling
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_get_prev_sibling([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_widget_get_prev_sibling([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
-- (OGGdkClipboard*)primaryClipboard
+- (OGdkClipboard*)primaryClipboard
 {
-	GdkClipboard* gobjectValue = GDK_CLIPBOARD(gtk_widget_get_primary_clipboard([self castedGObject]));
+	GdkClipboard* gobjectValue = gtk_widget_get_primary_clipboard([self castedGObject]);
 
-	OGGdkClipboard* returnValue = [OGGdkClipboard withGObject:gobjectValue];
+	OGdkClipboard* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)realized
 {
-	bool returnValue = gtk_widget_get_realized([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_realized([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)receivesDefault
 {
-	bool returnValue = gtk_widget_get_receives_default([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_receives_default([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSizeRequestMode)requestMode
 {
-	GtkSizeRequestMode returnValue = gtk_widget_get_request_mode([self castedGObject]);
+	GtkSizeRequestMode returnValue = (GtkSizeRequestMode)gtk_widget_get_request_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkRoot*)root
 {
-	GtkRoot* returnValue = gtk_widget_get_root([self castedGObject]);
+	GtkRoot* returnValue = (GtkRoot*)gtk_widget_get_root([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)scaleFactor
 {
-	int returnValue = gtk_widget_get_scale_factor([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_scale_factor([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)sensitive
 {
-	bool returnValue = gtk_widget_get_sensitive([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_sensitive([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKSettings*)settings
 {
-	GtkSettings* gobjectValue = GTK_SETTINGS(gtk_widget_get_settings([self castedGObject]));
+	GtkSettings* gobjectValue = gtk_widget_get_settings([self castedGObject]);
 
-	OGTKSettings* returnValue = [OGTKSettings withGObject:gobjectValue];
+	OGTKSettings* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)size:(GtkOrientation)orientation
 {
-	int returnValue = gtk_widget_get_size([self castedGObject], orientation);
+	int returnValue = (int)gtk_widget_get_size([self castedGObject], orientation);
 
 	return returnValue;
 }
@@ -558,22 +568,22 @@
 
 - (GtkStateFlags)stateFlags
 {
-	GtkStateFlags returnValue = gtk_widget_get_state_flags([self castedGObject]);
+	GtkStateFlags returnValue = (GtkStateFlags)gtk_widget_get_state_flags([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKStyleContext*)styleContext
 {
-	GtkStyleContext* gobjectValue = GTK_STYLE_CONTEXT(gtk_widget_get_style_context([self castedGObject]));
+	GtkStyleContext* gobjectValue = gtk_widget_get_style_context([self castedGObject]);
 
-	OGTKStyleContext* returnValue = [OGTKStyleContext withGObject:gobjectValue];
+	OGTKStyleContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GObject*)templateChildWithWidgetType:(GType)widgetType name:(OFString*)name
 {
-	GObject* returnValue = gtk_widget_get_template_child([self castedGObject], widgetType, [name UTF8String]);
+	GObject* returnValue = (GObject*)gtk_widget_get_template_child([self castedGObject], widgetType, [name UTF8String]);
 
 	return returnValue;
 }
@@ -596,70 +606,70 @@
 
 - (GtkAlign)valign
 {
-	GtkAlign returnValue = gtk_widget_get_valign([self castedGObject]);
+	GtkAlign returnValue = (GtkAlign)gtk_widget_get_valign([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)vexpand
 {
-	bool returnValue = gtk_widget_get_vexpand([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_vexpand([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)vexpandSet
 {
-	bool returnValue = gtk_widget_get_vexpand_set([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_vexpand_set([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)visible
 {
-	bool returnValue = gtk_widget_get_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_get_visible([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)width
 {
-	int returnValue = gtk_widget_get_width([self castedGObject]);
+	int returnValue = (int)gtk_widget_get_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)grabFocus
 {
-	bool returnValue = gtk_widget_grab_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_grab_focus([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasCssClass:(OFString*)cssClass
 {
-	bool returnValue = gtk_widget_has_css_class([self castedGObject], [cssClass UTF8String]);
+	bool returnValue = (bool)gtk_widget_has_css_class([self castedGObject], [cssClass UTF8String]);
 
 	return returnValue;
 }
 
 - (bool)hasDefault
 {
-	bool returnValue = gtk_widget_has_default([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_has_default([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasFocus
 {
-	bool returnValue = gtk_widget_has_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_has_focus([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasVisibleFocus
 {
-	bool returnValue = gtk_widget_has_visible_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_has_visible_focus([self castedGObject]);
 
 	return returnValue;
 }
@@ -671,7 +681,7 @@
 
 - (bool)inDestruction
 {
-	bool returnValue = gtk_widget_in_destruction([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_in_destruction([self castedGObject]);
 
 	return returnValue;
 }
@@ -698,49 +708,49 @@
 
 - (bool)isAncestor:(OGTKWidget*)ancestor
 {
-	bool returnValue = gtk_widget_is_ancestor([self castedGObject], [ancestor castedGObject]);
+	bool returnValue = (bool)gtk_widget_is_ancestor([self castedGObject], [ancestor castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isDrawable
 {
-	bool returnValue = gtk_widget_is_drawable([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_is_drawable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isFocus
 {
-	bool returnValue = gtk_widget_is_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_is_focus([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isSensitive
 {
-	bool returnValue = gtk_widget_is_sensitive([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_is_sensitive([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isVisible
 {
-	bool returnValue = gtk_widget_is_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_is_visible([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)keynavFailed:(GtkDirectionType)direction
 {
-	bool returnValue = gtk_widget_keynav_failed([self castedGObject], direction);
+	bool returnValue = (bool)gtk_widget_keynav_failed([self castedGObject], direction);
 
 	return returnValue;
 }
 
 - (GList*)listMnemonicLabels
 {
-	GList* returnValue = gtk_widget_list_mnemonic_labels([self castedGObject]);
+	GList* returnValue = (GList*)gtk_widget_list_mnemonic_labels([self castedGObject]);
 
 	return returnValue;
 }
@@ -757,30 +767,30 @@
 
 - (bool)mnemonicActivate:(bool)groupCycling
 {
-	bool returnValue = gtk_widget_mnemonic_activate([self castedGObject], groupCycling);
+	bool returnValue = (bool)gtk_widget_mnemonic_activate([self castedGObject], groupCycling);
 
 	return returnValue;
 }
 
 - (GListModel*)observeChildren
 {
-	GListModel* returnValue = gtk_widget_observe_children([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_widget_observe_children([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)observeControllers
 {
-	GListModel* returnValue = gtk_widget_observe_controllers([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_widget_observe_controllers([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)pickWithX:(double)x y:(double)y flags:(GtkPickFlags)flags
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_pick([self castedGObject], x, y, flags));
+	GtkWidget* gobjectValue = gtk_widget_pick([self castedGObject], x, y, flags);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -819,9 +829,9 @@
 	gtk_widget_remove_mnemonic_label([self castedGObject], [label castedGObject]);
 }
 
-- (void)removeTickCallback:(guint)id
+- (void)removeTickCallback:(guint)identifier
 {
-	gtk_widget_remove_tick_callback([self castedGObject], id);
+	gtk_widget_remove_tick_callback([self castedGObject], identifier);
 }
 
 - (void)setCanFocus:(bool)canFocus
@@ -844,7 +854,7 @@
 	gtk_widget_set_css_classes([self castedGObject], classes);
 }
 
-- (void)setCursor:(OGGdkCursor*)cursor
+- (void)setCursor:(OGdkCursor*)cursor
 {
 	gtk_widget_set_cursor([self castedGObject], [cursor castedGObject]);
 }
@@ -1001,7 +1011,7 @@
 
 - (bool)shouldLayout
 {
-	bool returnValue = gtk_widget_should_layout([self castedGObject]);
+	bool returnValue = (bool)gtk_widget_should_layout([self castedGObject]);
 
 	return returnValue;
 }
@@ -1023,7 +1033,7 @@
 
 - (bool)translateCoordinatesWithDestWidget:(OGTKWidget*)destWidget srcX:(double)srcX srcY:(double)srcY destX:(double*)destX destY:(double*)destY
 {
-	bool returnValue = gtk_widget_translate_coordinates([self castedGObject], [destWidget castedGObject], srcX, srcY, destX, destY);
+	bool returnValue = (bool)gtk_widget_translate_coordinates([self castedGObject], [destWidget castedGObject], srcX, srcY, destX, destY);
 
 	return returnValue;
 }

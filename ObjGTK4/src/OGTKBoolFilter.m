@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKBoolFilter
 
-- (instancetype)init:(GtkExpression*)expression
++ (void)load
 {
-	GtkBoolFilter* gobjectValue = GTK_BOOL_FILTER(gtk_bool_filter_new(expression));
+	GType gtypeToAssociate = GTK_TYPE_BOOL_FILTER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithExpression:(GtkExpression*)expression
+{
+	GtkBoolFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bool_filter_new(expression), GtkBoolFilter, GtkBoolFilter);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,19 +36,19 @@
 
 - (GtkBoolFilter*)castedGObject
 {
-	return GTK_BOOL_FILTER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBoolFilter, GtkBoolFilter);
 }
 
 - (GtkExpression*)expression
 {
-	GtkExpression* returnValue = gtk_bool_filter_get_expression([self castedGObject]);
+	GtkExpression* returnValue = (GtkExpression*)gtk_bool_filter_get_expression([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)invert
 {
-	bool returnValue = gtk_bool_filter_get_invert([self castedGObject]);
+	bool returnValue = (bool)gtk_bool_filter_get_invert([self castedGObject]);
 
 	return returnValue;
 }

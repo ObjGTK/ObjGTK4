@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKAboutDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_ABOUT_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkAboutDialog* gobjectValue = GTK_ABOUT_DIALOG(gtk_about_dialog_new());
+	GtkAboutDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_about_dialog_new(), GtkAboutDialog, GtkAboutDialog);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,7 +41,7 @@
 
 - (GtkAboutDialog*)castedGObject
 {
-	return GTK_ABOUT_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAboutDialog, GtkAboutDialog);
 }
 
 - (void)addCreditSectionWithSectionName:(OFString*)sectionName people:(const char**)people
@@ -41,14 +51,14 @@
 
 - (const char* const*)artists
 {
-	const char* const* returnValue = gtk_about_dialog_get_artists([self castedGObject]);
+	const char* const* returnValue = (const char* const*)gtk_about_dialog_get_artists([self castedGObject]);
 
 	return returnValue;
 }
 
 - (const char* const*)authors
 {
-	const char* const* returnValue = gtk_about_dialog_get_authors([self castedGObject]);
+	const char* const* returnValue = (const char* const*)gtk_about_dialog_get_authors([self castedGObject]);
 
 	return returnValue;
 }
@@ -71,7 +81,7 @@
 
 - (const char* const*)documenters
 {
-	const char* const* returnValue = gtk_about_dialog_get_documenters([self castedGObject]);
+	const char* const* returnValue = (const char* const*)gtk_about_dialog_get_documenters([self castedGObject]);
 
 	return returnValue;
 }
@@ -86,14 +96,14 @@
 
 - (GtkLicense)licenseType
 {
-	GtkLicense returnValue = gtk_about_dialog_get_license_type([self castedGObject]);
+	GtkLicense returnValue = (GtkLicense)gtk_about_dialog_get_license_type([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkPaintable*)logo
 {
-	GdkPaintable* returnValue = gtk_about_dialog_get_logo([self castedGObject]);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_about_dialog_get_logo([self castedGObject]);
 
 	return returnValue;
 }
@@ -156,7 +166,7 @@
 
 - (bool)wrapLicense
 {
-	bool returnValue = gtk_about_dialog_get_wrap_license([self castedGObject]);
+	bool returnValue = (bool)gtk_about_dialog_get_wrap_license([self castedGObject]);
 
 	return returnValue;
 }

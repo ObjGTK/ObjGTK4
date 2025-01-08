@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,16 +10,26 @@
 
 @implementation OGTKStackPage
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_STACK_PAGE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkStackPage*)castedGObject
 {
-	return GTK_STACK_PAGE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStackPage, GtkStackPage);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_stack_page_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_stack_page_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -41,7 +51,7 @@
 
 - (bool)needsAttention
 {
-	bool returnValue = gtk_stack_page_get_needs_attention([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_page_get_needs_attention([self castedGObject]);
 
 	return returnValue;
 }
@@ -56,14 +66,14 @@
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_stack_page_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_page_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)visible
 {
-	bool returnValue = gtk_stack_page_get_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_page_get_visible([self castedGObject]);
 
 	return returnValue;
 }

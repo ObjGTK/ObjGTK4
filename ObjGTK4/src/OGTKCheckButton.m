@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKCheckButton
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_CHECK_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkCheckButton* gobjectValue = GTK_CHECK_BUTTON(gtk_check_button_new());
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new(), GtkCheckButton, GtkCheckButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,7 +39,7 @@
 
 - (instancetype)initWithLabel:(OFString*)label
 {
-	GtkCheckButton* gobjectValue = GTK_CHECK_BUTTON(gtk_check_button_new_with_label([label UTF8String]));
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_label([label UTF8String]), GtkCheckButton, GtkCheckButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -46,9 +56,9 @@
 	return self;
 }
 
-- (instancetype)initWithMnemonic:(OFString*)label
+- (instancetype)initWithLabelWithMnemonic:(OFString*)label
 {
-	GtkCheckButton* gobjectValue = GTK_CHECK_BUTTON(gtk_check_button_new_with_mnemonic([label UTF8String]));
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_mnemonic([label UTF8String]), GtkCheckButton, GtkCheckButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -67,27 +77,27 @@
 
 - (GtkCheckButton*)castedGObject
 {
-	return GTK_CHECK_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCheckButton, GtkCheckButton);
 }
 
 - (bool)active
 {
-	bool returnValue = gtk_check_button_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_active([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_check_button_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_check_button_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)inconsistent
 {
-	bool returnValue = gtk_check_button_get_inconsistent([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_inconsistent([self castedGObject]);
 
 	return returnValue;
 }
@@ -102,7 +112,7 @@
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_check_button_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }

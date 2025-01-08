@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,12 +8,19 @@
 
 @implementation OGTKListBoxRow
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_LIST_BOX_ROW;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkListBoxRow* gobjectValue = GTK_LIST_BOX_ROW(gtk_list_box_row_new());
-
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	GtkListBoxRow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_list_box_row_new(), GtkListBoxRow, GtkListBoxRow);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -29,7 +36,7 @@
 
 - (GtkListBoxRow*)castedGObject
 {
-	return GTK_LIST_BOX_ROW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkListBoxRow, GtkListBoxRow);
 }
 
 - (void)changed
@@ -39,44 +46,44 @@
 
 - (bool)activatable
 {
-	bool returnValue = gtk_list_box_row_get_activatable([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_row_get_activatable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_list_box_row_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_list_box_row_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)header
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_list_box_row_get_header([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_list_box_row_get_header([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)index
 {
-	int returnValue = gtk_list_box_row_get_index([self castedGObject]);
+	int returnValue = (int)gtk_list_box_row_get_index([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)selectable
 {
-	bool returnValue = gtk_list_box_row_get_selectable([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_row_get_selectable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isSelected
 {
-	bool returnValue = gtk_list_box_row_is_selected([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_row_is_selected([self castedGObject]);
 
 	return returnValue;
 }

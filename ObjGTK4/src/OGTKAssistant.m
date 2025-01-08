@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,9 +11,19 @@
 
 @implementation OGTKAssistant
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_ASSISTANT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkAssistant* gobjectValue = GTK_ASSISTANT(gtk_assistant_new());
+	GtkAssistant* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_assistant_new(), GtkAssistant, GtkAssistant);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -32,7 +42,7 @@
 
 - (GtkAssistant*)castedGObject
 {
-	return GTK_ASSISTANT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAssistant, GtkAssistant);
 }
 
 - (void)addActionWidget:(OGTKWidget*)child
@@ -42,7 +52,7 @@
 
 - (int)appendPage:(OGTKWidget*)page
 {
-	int returnValue = gtk_assistant_append_page([self castedGObject], [page castedGObject]);
+	int returnValue = (int)gtk_assistant_append_page([self castedGObject], [page castedGObject]);
 
 	return returnValue;
 }
@@ -54,37 +64,37 @@
 
 - (int)currentPage
 {
-	int returnValue = gtk_assistant_get_current_page([self castedGObject]);
+	int returnValue = (int)gtk_assistant_get_current_page([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)npages
 {
-	int returnValue = gtk_assistant_get_n_pages([self castedGObject]);
+	int returnValue = (int)gtk_assistant_get_n_pages([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)nthPage:(int)pageNum
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_assistant_get_nth_page([self castedGObject], pageNum));
+	GtkWidget* gobjectValue = gtk_assistant_get_nth_page([self castedGObject], pageNum);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKAssistantPage*)page:(OGTKWidget*)child
 {
-	GtkAssistantPage* gobjectValue = GTK_ASSISTANT_PAGE(gtk_assistant_get_page([self castedGObject], [child castedGObject]));
+	GtkAssistantPage* gobjectValue = gtk_assistant_get_page([self castedGObject], [child castedGObject]);
 
-	OGTKAssistantPage* returnValue = [OGTKAssistantPage withGObject:gobjectValue];
+	OGTKAssistantPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)pageComplete:(OGTKWidget*)page
 {
-	bool returnValue = gtk_assistant_get_page_complete([self castedGObject], [page castedGObject]);
+	bool returnValue = (bool)gtk_assistant_get_page_complete([self castedGObject], [page castedGObject]);
 
 	return returnValue;
 }
@@ -99,21 +109,21 @@
 
 - (GtkAssistantPageType)pageType:(OGTKWidget*)page
 {
-	GtkAssistantPageType returnValue = gtk_assistant_get_page_type([self castedGObject], [page castedGObject]);
+	GtkAssistantPageType returnValue = (GtkAssistantPageType)gtk_assistant_get_page_type([self castedGObject], [page castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)pages
 {
-	GListModel* returnValue = gtk_assistant_get_pages([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_assistant_get_pages([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)insertPageWithPage:(OGTKWidget*)page position:(int)position
 {
-	int returnValue = gtk_assistant_insert_page([self castedGObject], [page castedGObject], position);
+	int returnValue = (int)gtk_assistant_insert_page([self castedGObject], [page castedGObject], position);
 
 	return returnValue;
 }
@@ -125,7 +135,7 @@
 
 - (int)prependPage:(OGTKWidget*)page
 {
-	int returnValue = gtk_assistant_prepend_page([self castedGObject], [page castedGObject]);
+	int returnValue = (int)gtk_assistant_prepend_page([self castedGObject], [page castedGObject]);
 
 	return returnValue;
 }

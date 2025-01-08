@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKAdjustment
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_ADJUSTMENT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithValue:(double)value lower:(double)lower upper:(double)upper stepIncrement:(double)stepIncrement pageIncrement:(double)pageIncrement pageSize:(double)pageSize
 {
-	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_adjustment_new(value, lower, upper, stepIncrement, pageIncrement, pageSize));
+	GtkAdjustment* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_adjustment_new(value, lower, upper, stepIncrement, pageIncrement, pageSize), GtkAdjustment, GtkAdjustment);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,7 +39,7 @@
 
 - (GtkAdjustment*)castedGObject
 {
-	return GTK_ADJUSTMENT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAdjustment, GtkAdjustment);
 }
 
 - (void)clampPageWithLower:(double)lower upper:(double)upper
@@ -44,49 +54,49 @@
 
 - (double)lower
 {
-	double returnValue = gtk_adjustment_get_lower([self castedGObject]);
+	double returnValue = (double)gtk_adjustment_get_lower([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)minimumIncrement
 {
-	double returnValue = gtk_adjustment_get_minimum_increment([self castedGObject]);
+	double returnValue = (double)gtk_adjustment_get_minimum_increment([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)pageIncrement
 {
-	double returnValue = gtk_adjustment_get_page_increment([self castedGObject]);
+	double returnValue = (double)gtk_adjustment_get_page_increment([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)pageSize
 {
-	double returnValue = gtk_adjustment_get_page_size([self castedGObject]);
+	double returnValue = (double)gtk_adjustment_get_page_size([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)stepIncrement
 {
-	double returnValue = gtk_adjustment_get_step_increment([self castedGObject]);
+	double returnValue = (double)gtk_adjustment_get_step_increment([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)upper
 {
-	double returnValue = gtk_adjustment_get_upper([self castedGObject]);
+	double returnValue = (double)gtk_adjustment_get_upper([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)value
 {
-	double returnValue = gtk_adjustment_get_value([self castedGObject]);
+	double returnValue = (double)gtk_adjustment_get_value([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,22 +1,32 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKPrintDialog.h"
 
 #import <OGio/OGCancellable.h>
-#import "OGTKWindow.h"
-#import "OGTKPrintSettings.h"
 #import <OGio/OGOutputStream.h>
 #import "OGTKPageSetup.h"
+#import "OGTKPrintSettings.h"
+#import "OGTKWindow.h"
 
 @implementation OGTKPrintDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_PRINT_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkPrintDialog* gobjectValue = GTK_PRINT_DIALOG(gtk_print_dialog_new());
+	GtkPrintDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_dialog_new(), GtkPrintDialog, GtkPrintDialog);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -32,7 +42,7 @@
 
 - (GtkPrintDialog*)castedGObject
 {
-	return GTK_PRINT_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPrintDialog, GtkPrintDialog);
 }
 
 - (OFString*)acceptLabel
@@ -45,24 +55,24 @@
 
 - (bool)modal
 {
-	bool returnValue = gtk_print_dialog_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_print_dialog_get_modal([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKPageSetup*)pageSetup
 {
-	GtkPageSetup* gobjectValue = GTK_PAGE_SETUP(gtk_print_dialog_get_page_setup([self castedGObject]));
+	GtkPageSetup* gobjectValue = gtk_print_dialog_get_page_setup([self castedGObject]);
 
-	OGTKPageSetup* returnValue = [OGTKPageSetup withGObject:gobjectValue];
+	OGTKPageSetup* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKPrintSettings*)printSettings
 {
-	GtkPrintSettings* gobjectValue = GTK_PRINT_SETTINGS(gtk_print_dialog_get_print_settings([self castedGObject]));
+	GtkPrintSettings* gobjectValue = gtk_print_dialog_get_print_settings([self castedGObject]);
 
-	OGTKPrintSettings* returnValue = [OGTKPrintSettings withGObject:gobjectValue];
+	OGTKPrintSettings* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -88,13 +98,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_print_dialog_print_file_finish([self castedGObject], result, &err);
+	bool returnValue = (bool)gtk_print_dialog_print_file_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -103,17 +109,11 @@
 {
 	GError* err = NULL;
 
-	GOutputStream* gobjectValue = G_OUTPUT_STREAM(gtk_print_dialog_print_finish([self castedGObject], result, &err));
+	GOutputStream* gobjectValue = gtk_print_dialog_print_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
-	OGOutputStream* returnValue = [OGOutputStream withGObject:gobjectValue];
+	OGOutputStream* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -153,13 +153,9 @@
 {
 	GError* err = NULL;
 
-	GtkPrintSetup* returnValue = gtk_print_dialog_setup_finish([self castedGObject], result, &err);
+	GtkPrintSetup* returnValue = (GtkPrintSetup*)gtk_print_dialog_setup_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }

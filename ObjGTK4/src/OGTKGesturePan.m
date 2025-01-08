@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKGesturePan
 
-- (instancetype)init:(GtkOrientation)orientation
++ (void)load
 {
-	GtkGesturePan* gobjectValue = GTK_GESTURE_PAN(gtk_gesture_pan_new(orientation));
+	GType gtypeToAssociate = GTK_TYPE_GESTURE_PAN;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithOrientation:(GtkOrientation)orientation
+{
+	GtkGesturePan* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_pan_new(orientation), GtkGesturePan, GtkGesturePan);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,12 +38,12 @@
 
 - (GtkGesturePan*)castedGObject
 {
-	return GTK_GESTURE_PAN([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGesturePan, GtkGesturePan);
 }
 
 - (GtkOrientation)orientation
 {
-	GtkOrientation returnValue = gtk_gesture_pan_get_orientation([self castedGObject]);
+	GtkOrientation returnValue = (GtkOrientation)gtk_gesture_pan_get_orientation([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,19 +1,29 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKListBox.h"
 
-#import "OGTKListBoxRow.h"
 #import "OGTKAdjustment.h"
+#import "OGTKListBoxRow.h"
 
 @implementation OGTKListBox
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_LIST_BOX;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkListBox* gobjectValue = GTK_LIST_BOX(gtk_list_box_new());
+	GtkListBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_list_box_new(), GtkListBox, GtkListBox);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -32,7 +42,7 @@
 
 - (GtkListBox*)castedGObject
 {
-	return GTK_LIST_BOX([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkListBox, GtkListBox);
 }
 
 - (void)append:(OGTKWidget*)child
@@ -57,60 +67,60 @@
 
 - (bool)activateOnSingleClick
 {
-	bool returnValue = gtk_list_box_get_activate_on_single_click([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_get_activate_on_single_click([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKAdjustment*)adjustment
 {
-	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_list_box_get_adjustment([self castedGObject]));
+	GtkAdjustment* gobjectValue = gtk_list_box_get_adjustment([self castedGObject]);
 
-	OGTKAdjustment* returnValue = [OGTKAdjustment withGObject:gobjectValue];
+	OGTKAdjustment* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKListBoxRow*)rowAtIndex:(int)index
 {
-	GtkListBoxRow* gobjectValue = GTK_LIST_BOX_ROW(gtk_list_box_get_row_at_index([self castedGObject], index));
+	GtkListBoxRow* gobjectValue = gtk_list_box_get_row_at_index([self castedGObject], index);
 
-	OGTKListBoxRow* returnValue = [OGTKListBoxRow withGObject:gobjectValue];
+	OGTKListBoxRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKListBoxRow*)rowAtY:(int)y
 {
-	GtkListBoxRow* gobjectValue = GTK_LIST_BOX_ROW(gtk_list_box_get_row_at_y([self castedGObject], y));
+	GtkListBoxRow* gobjectValue = gtk_list_box_get_row_at_y([self castedGObject], y);
 
-	OGTKListBoxRow* returnValue = [OGTKListBoxRow withGObject:gobjectValue];
+	OGTKListBoxRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKListBoxRow*)selectedRow
 {
-	GtkListBoxRow* gobjectValue = GTK_LIST_BOX_ROW(gtk_list_box_get_selected_row([self castedGObject]));
+	GtkListBoxRow* gobjectValue = gtk_list_box_get_selected_row([self castedGObject]);
 
-	OGTKListBoxRow* returnValue = [OGTKListBoxRow withGObject:gobjectValue];
+	OGTKListBoxRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GList*)selectedRows
 {
-	GList* returnValue = gtk_list_box_get_selected_rows([self castedGObject]);
+	GList* returnValue = (GList*)gtk_list_box_get_selected_rows([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSelectionMode)selectionMode
 {
-	GtkSelectionMode returnValue = gtk_list_box_get_selection_mode([self castedGObject]);
+	GtkSelectionMode returnValue = (GtkSelectionMode)gtk_list_box_get_selection_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showSeparators
 {
-	bool returnValue = gtk_list_box_get_show_separators([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_get_show_separators([self castedGObject]);
 
 	return returnValue;
 }

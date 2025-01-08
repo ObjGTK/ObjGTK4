@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKAppChooserWidget
 
-- (instancetype)init:(OFString*)contentType
++ (void)load
 {
-	GtkAppChooserWidget* gobjectValue = GTK_APP_CHOOSER_WIDGET(gtk_app_chooser_widget_new([contentType UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_APP_CHOOSER_WIDGET;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithContentType:(OFString*)contentType
+{
+	GtkAppChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_widget_new([contentType UTF8String]), GtkAppChooserWidget, GtkAppChooserWidget);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,7 +39,7 @@
 
 - (GtkAppChooserWidget*)castedGObject
 {
-	return GTK_APP_CHOOSER_WIDGET([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAppChooserWidget, GtkAppChooserWidget);
 }
 
 - (OFString*)defaultText
@@ -42,35 +52,35 @@
 
 - (bool)showAll
 {
-	bool returnValue = gtk_app_chooser_widget_get_show_all([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_widget_get_show_all([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showDefault
 {
-	bool returnValue = gtk_app_chooser_widget_get_show_default([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_widget_get_show_default([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showFallback
 {
-	bool returnValue = gtk_app_chooser_widget_get_show_fallback([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_widget_get_show_fallback([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showOther
 {
-	bool returnValue = gtk_app_chooser_widget_get_show_other([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_widget_get_show_other([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showRecommended
 {
-	bool returnValue = gtk_app_chooser_widget_get_show_recommended([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_widget_get_show_recommended([self castedGObject]);
 
 	return returnValue;
 }

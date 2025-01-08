@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,9 +11,19 @@
 
 @implementation OGTKLayoutManager
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_LAYOUT_MANAGER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkLayoutManager*)castedGObject
 {
-	return GTK_LAYOUT_MANAGER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkLayoutManager, GtkLayoutManager);
 }
 
 - (void)allocateWithWidget:(OGTKWidget*)widget width:(int)width height:(int)height baseline:(int)baseline
@@ -23,24 +33,24 @@
 
 - (OGTKLayoutChild*)layoutChild:(OGTKWidget*)child
 {
-	GtkLayoutChild* gobjectValue = GTK_LAYOUT_CHILD(gtk_layout_manager_get_layout_child([self castedGObject], [child castedGObject]));
+	GtkLayoutChild* gobjectValue = gtk_layout_manager_get_layout_child([self castedGObject], [child castedGObject]);
 
-	OGTKLayoutChild* returnValue = [OGTKLayoutChild withGObject:gobjectValue];
+	OGTKLayoutChild* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkSizeRequestMode)requestMode
 {
-	GtkSizeRequestMode returnValue = gtk_layout_manager_get_request_mode([self castedGObject]);
+	GtkSizeRequestMode returnValue = (GtkSizeRequestMode)gtk_layout_manager_get_request_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)widget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_layout_manager_get_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_layout_manager_get_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

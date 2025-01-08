@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKEventController.h"
 
-@class OGGdkDrop;
+@class OGdkDrop;
 
 /**
  * `GtkDropControllerMotion` is an event controller tracking
@@ -51,7 +51,7 @@
  * @return The `GdkDrop` currently
  *   happening within @self
  */
-- (OGGdkDrop*)drop;
+- (OGdkDrop*)drop;
 
 /**
  * Returns if a Drag-and-Drop operation is within the widget

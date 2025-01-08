@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,9 +11,19 @@
 
 @implementation OGTKColorDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_COLOR_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkColorDialog* gobjectValue = GTK_COLOR_DIALOG(gtk_color_dialog_new());
+	GtkColorDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_dialog_new(), GtkColorDialog, GtkColorDialog);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -29,7 +39,7 @@
 
 - (GtkColorDialog*)castedGObject
 {
-	return GTK_COLOR_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColorDialog, GtkColorDialog);
 }
 
 - (void)chooseRgbaWithParent:(OGTKWindow*)parent initialColor:(const GdkRGBA*)initialColor cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
@@ -41,20 +51,16 @@
 {
 	GError* err = NULL;
 
-	GdkRGBA* returnValue = gtk_color_dialog_choose_rgba_finish([self castedGObject], result, &err);
+	GdkRGBA* returnValue = (GdkRGBA*)gtk_color_dialog_choose_rgba_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
 
 - (bool)modal
 {
-	bool returnValue = gtk_color_dialog_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_color_dialog_get_modal([self castedGObject]);
 
 	return returnValue;
 }
@@ -69,7 +75,7 @@
 
 - (bool)withAlpha
 {
-	bool returnValue = gtk_color_dialog_get_with_alpha([self castedGObject]);
+	bool returnValue = (bool)gtk_color_dialog_get_with_alpha([self castedGObject]);
 
 	return returnValue;
 }

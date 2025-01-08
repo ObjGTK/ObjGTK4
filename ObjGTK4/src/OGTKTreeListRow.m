@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,16 +8,26 @@
 
 @implementation OGTKTreeListRow
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_TREE_LIST_ROW;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkTreeListRow*)castedGObject
 {
-	return GTK_TREE_LIST_ROW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeListRow, GtkTreeListRow);
 }
 
 - (OGTKTreeListRow*)childRow:(guint)position
 {
-	GtkTreeListRow* gobjectValue = GTK_TREE_LIST_ROW(gtk_tree_list_row_get_child_row([self castedGObject], position));
+	GtkTreeListRow* gobjectValue = gtk_tree_list_row_get_child_row([self castedGObject], position);
 
-	OGTKTreeListRow* returnValue = [OGTKTreeListRow withGObject:gobjectValue];
+	OGTKTreeListRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -25,37 +35,37 @@
 
 - (GListModel*)children
 {
-	GListModel* returnValue = gtk_tree_list_row_get_children([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_tree_list_row_get_children([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)depth
 {
-	guint returnValue = gtk_tree_list_row_get_depth([self castedGObject]);
+	guint returnValue = (guint)gtk_tree_list_row_get_depth([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)expanded
 {
-	bool returnValue = gtk_tree_list_row_get_expanded([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_list_row_get_expanded([self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)item
 {
-	gpointer returnValue = gtk_tree_list_row_get_item([self castedGObject]);
+	gpointer returnValue = (gpointer)gtk_tree_list_row_get_item([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTreeListRow*)parent
 {
-	GtkTreeListRow* gobjectValue = GTK_TREE_LIST_ROW(gtk_tree_list_row_get_parent([self castedGObject]));
+	GtkTreeListRow* gobjectValue = gtk_tree_list_row_get_parent([self castedGObject]);
 
-	OGTKTreeListRow* returnValue = [OGTKTreeListRow withGObject:gobjectValue];
+	OGTKTreeListRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -63,14 +73,14 @@
 
 - (guint)position
 {
-	guint returnValue = gtk_tree_list_row_get_position([self castedGObject]);
+	guint returnValue = (guint)gtk_tree_list_row_get_position([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isExpandable
 {
-	bool returnValue = gtk_tree_list_row_is_expandable([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_list_row_is_expandable([self castedGObject]);
 
 	return returnValue;
 }

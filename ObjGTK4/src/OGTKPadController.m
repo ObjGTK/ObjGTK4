@@ -1,18 +1,28 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKPadController.h"
 
-#import <OGdk4/OGGdkDevice.h>
+#import <OGdk4/OGdkDevice.h>
 
 @implementation OGTKPadController
 
-- (instancetype)initWithGroup:(GActionGroup*)group pad:(OGGdkDevice*)pad
++ (void)load
 {
-	GtkPadController* gobjectValue = GTK_PAD_CONTROLLER(gtk_pad_controller_new(group, [pad castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_PAD_CONTROLLER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithGroup:(GActionGroup*)group pad:(OGdkDevice*)pad
+{
+	GtkPadController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_pad_controller_new(group, [pad castedGObject]), GtkPadController, GtkPadController);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,7 +38,7 @@
 
 - (GtkPadController*)castedGObject
 {
-	return GTK_PAD_CONTROLLER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPadController, GtkPadController);
 }
 
 - (void)setActionWithType:(GtkPadActionType)type index:(int)index mode:(int)mode label:(OFString*)label actionName:(OFString*)actionName

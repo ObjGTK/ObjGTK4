@@ -1,18 +1,28 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKImage.h"
 
-#import <OGdkPixbuf/OGGdkPixbuf.h>
+#import <OGdkPixbuf/OGdkPixbuf.h>
 
 @implementation OGTKImage
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_IMAGE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new());
+	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new(), GtkImage, GtkImage);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,9 +39,9 @@
 	return self;
 }
 
-- (instancetype)initFromFile:(OFString*)filename
+- (instancetype)initWithFilenameFromFile:(OFString*)filename
 {
-	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_file([filename UTF8String]));
+	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_file([filename UTF8String]), GtkImage, GtkImage);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -48,9 +58,9 @@
 	return self;
 }
 
-- (instancetype)initFromGicon:(GIcon*)icon
+- (instancetype)initWithIconFromGicon:(GIcon*)icon
 {
-	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_gicon(icon));
+	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_gicon(icon), GtkImage, GtkImage);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -67,9 +77,9 @@
 	return self;
 }
 
-- (instancetype)initFromIconName:(OFString*)iconName
+- (instancetype)initWithIconNameFromIconName:(OFString*)iconName
 {
-	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_icon_name([iconName UTF8String]));
+	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_icon_name([iconName UTF8String]), GtkImage, GtkImage);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -86,9 +96,9 @@
 	return self;
 }
 
-- (instancetype)initFromPaintable:(GdkPaintable*)paintable
+- (instancetype)initWithPaintableFromPaintable:(GdkPaintable*)paintable
 {
-	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_paintable(paintable));
+	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_paintable(paintable), GtkImage, GtkImage);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -105,9 +115,9 @@
 	return self;
 }
 
-- (instancetype)initFromPixbuf:(OGGdkPixbuf*)pixbuf
+- (instancetype)initWithPixbufFromPixbuf:(OGdkPixbuf*)pixbuf
 {
-	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_pixbuf([pixbuf castedGObject]));
+	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_pixbuf([pixbuf castedGObject]), GtkImage, GtkImage);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -124,9 +134,9 @@
 	return self;
 }
 
-- (instancetype)initFromResource:(OFString*)resourcePath
+- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath
 {
-	GtkImage* gobjectValue = GTK_IMAGE(gtk_image_new_from_resource([resourcePath UTF8String]));
+	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_resource([resourcePath UTF8String]), GtkImage, GtkImage);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -145,7 +155,7 @@
 
 - (GtkImage*)castedGObject
 {
-	return GTK_IMAGE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkImage, GtkImage);
 }
 
 - (void)clear
@@ -155,7 +165,7 @@
 
 - (GIcon*)gicon
 {
-	GIcon* returnValue = gtk_image_get_gicon([self castedGObject]);
+	GIcon* returnValue = (GIcon*)gtk_image_get_gicon([self castedGObject]);
 
 	return returnValue;
 }
@@ -170,28 +180,28 @@
 
 - (GtkIconSize)iconSize
 {
-	GtkIconSize returnValue = gtk_image_get_icon_size([self castedGObject]);
+	GtkIconSize returnValue = (GtkIconSize)gtk_image_get_icon_size([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkPaintable*)paintable
 {
-	GdkPaintable* returnValue = gtk_image_get_paintable([self castedGObject]);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_image_get_paintable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)pixelSize
 {
-	int returnValue = gtk_image_get_pixel_size([self castedGObject]);
+	int returnValue = (int)gtk_image_get_pixel_size([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkImageType)storageType
 {
-	GtkImageType returnValue = gtk_image_get_storage_type([self castedGObject]);
+	GtkImageType returnValue = (GtkImageType)gtk_image_get_storage_type([self castedGObject]);
 
 	return returnValue;
 }
@@ -216,7 +226,7 @@
 	gtk_image_set_from_paintable([self castedGObject], paintable);
 }
 
-- (void)setFromPixbuf:(OGGdkPixbuf*)pixbuf
+- (void)setFromPixbuf:(OGdkPixbuf*)pixbuf
 {
 	gtk_image_set_from_pixbuf([self castedGObject], [pixbuf castedGObject]);
 }

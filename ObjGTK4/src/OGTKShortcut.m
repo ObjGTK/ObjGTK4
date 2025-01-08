@@ -1,19 +1,29 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKShortcut.h"
 
-#import "OGTKShortcutTrigger.h"
 #import "OGTKShortcutAction.h"
+#import "OGTKShortcutTrigger.h"
 
 @implementation OGTKShortcut
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_SHORTCUT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithTrigger:(OGTKShortcutTrigger*)trigger action:(OGTKShortcutAction*)action
 {
-	GtkShortcut* gobjectValue = GTK_SHORTCUT(gtk_shortcut_new([trigger castedGObject], [action castedGObject]));
+	GtkShortcut* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_new([trigger castedGObject], [action castedGObject]), GtkShortcut, GtkShortcut);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -29,29 +39,29 @@
 
 - (GtkShortcut*)castedGObject
 {
-	return GTK_SHORTCUT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkShortcut, GtkShortcut);
 }
 
 - (OGTKShortcutAction*)action
 {
-	GtkShortcutAction* gobjectValue = GTK_SHORTCUT_ACTION(gtk_shortcut_get_action([self castedGObject]));
+	GtkShortcutAction* gobjectValue = gtk_shortcut_get_action([self castedGObject]);
 
-	OGTKShortcutAction* returnValue = [OGTKShortcutAction withGObject:gobjectValue];
+	OGTKShortcutAction* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GVariant*)arguments
 {
-	GVariant* returnValue = gtk_shortcut_get_arguments([self castedGObject]);
+	GVariant* returnValue = (GVariant*)gtk_shortcut_get_arguments([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKShortcutTrigger*)trigger
 {
-	GtkShortcutTrigger* gobjectValue = GTK_SHORTCUT_TRIGGER(gtk_shortcut_get_trigger([self castedGObject]));
+	GtkShortcutTrigger* gobjectValue = gtk_shortcut_get_trigger([self castedGObject]);
 
-	OGTKShortcutTrigger* returnValue = [OGTKShortcutTrigger withGObject:gobjectValue];
+	OGTKShortcutTrigger* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

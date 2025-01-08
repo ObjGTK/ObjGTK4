@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,9 @@
 
 #import <OGio/OGApplication.h>
 
-@class OGTKWindow;
-@class OGMenuModel;
 @class OGMenu;
+@class OGMenuModel;
+@class OGTKWindow;
 
 /**
  * `GtkApplication` is a high-level API for writing applications.
@@ -172,11 +172,11 @@
  * See [the section on Automatic resources](class.Application.html#automatic-resources)
  * for more information.
  *
- * @param id the id of the menu to look up
+ * @param identifier the id of the menu to look up
  * @return Gets the menu with the
  *   given id from the automatically loaded resources
  */
-- (OGMenu*)menuById:(OFString*)id;
+- (OGMenu*)menuById:(OFString*)identifier;
 
 /**
  * Returns the menu model that has been set with
@@ -192,10 +192,10 @@
  * The ID of a `GtkApplicationWindow` can be retrieved with
  * [method@Gtk.ApplicationWindow.get_id].
  *
- * @param id an identifier number
+ * @param identifier an identifier number
  * @return the window for the given `id`
  */
-- (OGTKWindow*)windowById:(guint)id;
+- (OGTKWindow*)windowById:(guint)identifier;
 
 /**
  * Gets a list of the [class@Gtk.Window] instances associated with `application`.

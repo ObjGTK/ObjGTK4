@@ -81,14 +81,14 @@ AS_IF([test x"$with_pango" != x"no" -a x"$with_pango" != x""], [
 ])
 
 
-PKG_CHECK_MODULES(pango, [pango >= $(pkg-config --modversion pango)], [
+PKG_CHECK_MODULES(pango, [pango >= 1.52.1], [
 	OGPANGO_CPPFLAGS="$OGPANGO_CPPFLAGS $pango_CFLAGS"
 	OGPANGO_LIBS="$OGPANGO_LIBS $pango_LIBS"
 	CPPFLAGS="$CPPFLAGS $pango_CFLAGS"
 	LIBS="$LIBS $pango_LIBS"
 	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $pango_LIBS"
 ], [
-	AC_MSG_ERROR(You need pango >= $(pkg-config --modversion pango) installed!)
+	AC_MSG_ERROR(You need pango >= 1.52.1 installed!)
 ])
 
 AS_IF([test x"$GOBJC" = x"yes"], [

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKColorDialogButton
 
-- (instancetype)init:(OGTKColorDialog*)dialog
++ (void)load
 {
-	GtkColorDialogButton* gobjectValue = GTK_COLOR_DIALOG_BUTTON(gtk_color_dialog_button_new([dialog castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_COLOR_DIALOG_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithDialog:(OGTKColorDialog*)dialog
+{
+	GtkColorDialogButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_dialog_button_new([dialog castedGObject]), GtkColorDialogButton, GtkColorDialogButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,20 +41,20 @@
 
 - (GtkColorDialogButton*)castedGObject
 {
-	return GTK_COLOR_DIALOG_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColorDialogButton, GtkColorDialogButton);
 }
 
 - (OGTKColorDialog*)dialog
 {
-	GtkColorDialog* gobjectValue = GTK_COLOR_DIALOG(gtk_color_dialog_button_get_dialog([self castedGObject]));
+	GtkColorDialog* gobjectValue = gtk_color_dialog_button_get_dialog([self castedGObject]);
 
-	OGTKColorDialog* returnValue = [OGTKColorDialog withGObject:gobjectValue];
+	OGTKColorDialog* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (const GdkRGBA*)rgba
 {
-	const GdkRGBA* returnValue = gtk_color_dialog_button_get_rgba([self castedGObject]);
+	const GdkRGBA* returnValue = (const GdkRGBA*)gtk_color_dialog_button_get_rgba([self castedGObject]);
 
 	return returnValue;
 }

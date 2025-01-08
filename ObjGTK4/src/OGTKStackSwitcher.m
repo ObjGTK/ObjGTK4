@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKStackSwitcher
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_STACK_SWITCHER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkStackSwitcher* gobjectValue = GTK_STACK_SWITCHER(gtk_stack_switcher_new());
+	GtkStackSwitcher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_stack_switcher_new(), GtkStackSwitcher, GtkStackSwitcher);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,14 +41,14 @@
 
 - (GtkStackSwitcher*)castedGObject
 {
-	return GTK_STACK_SWITCHER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStackSwitcher, GtkStackSwitcher);
 }
 
 - (OGTKStack*)stack
 {
-	GtkStack* gobjectValue = GTK_STACK(gtk_stack_switcher_get_stack([self castedGObject]));
+	GtkStack* gobjectValue = gtk_stack_switcher_get_stack([self castedGObject]);
 
-	OGTKStack* returnValue = [OGTKStack withGObject:gobjectValue];
+	OGTKStack* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

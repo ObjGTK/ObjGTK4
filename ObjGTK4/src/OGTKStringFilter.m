@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKStringFilter
 
-- (instancetype)init:(GtkExpression*)expression
++ (void)load
 {
-	GtkStringFilter* gobjectValue = GTK_STRING_FILTER(gtk_string_filter_new(expression));
+	GType gtypeToAssociate = GTK_TYPE_STRING_FILTER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithExpression:(GtkExpression*)expression
+{
+	GtkStringFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_filter_new(expression), GtkStringFilter, GtkStringFilter);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,26 +36,26 @@
 
 - (GtkStringFilter*)castedGObject
 {
-	return GTK_STRING_FILTER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStringFilter, GtkStringFilter);
 }
 
 - (GtkExpression*)expression
 {
-	GtkExpression* returnValue = gtk_string_filter_get_expression([self castedGObject]);
+	GtkExpression* returnValue = (GtkExpression*)gtk_string_filter_get_expression([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)ignoreCase
 {
-	bool returnValue = gtk_string_filter_get_ignore_case([self castedGObject]);
+	bool returnValue = (bool)gtk_string_filter_get_ignore_case([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStringFilterMatchMode)matchMode
 {
-	GtkStringFilterMatchMode returnValue = gtk_string_filter_get_match_mode([self castedGObject]);
+	GtkStringFilterMatchMode returnValue = (GtkStringFilterMatchMode)gtk_string_filter_get_match_mode([self castedGObject]);
 
 	return returnValue;
 }

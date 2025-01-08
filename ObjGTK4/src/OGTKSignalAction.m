@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKSignalAction
 
-- (instancetype)init:(OFString*)signalName
++ (void)load
 {
-	GtkSignalAction* gobjectValue = GTK_SIGNAL_ACTION(gtk_signal_action_new([signalName UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_SIGNAL_ACTION;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithSignalName:(OFString*)signalName
+{
+	GtkSignalAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_signal_action_new([signalName UTF8String]), GtkSignalAction, GtkSignalAction);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkSignalAction*)castedGObject
 {
-	return GTK_SIGNAL_ACTION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSignalAction, GtkSignalAction);
 }
 
 - (OFString*)signalName

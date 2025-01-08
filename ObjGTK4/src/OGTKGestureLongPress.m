@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKGestureLongPress
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_GESTURE_LONG_PRESS;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkGestureLongPress* gobjectValue = GTK_GESTURE_LONG_PRESS(gtk_gesture_long_press_new());
+	GtkGestureLongPress* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_long_press_new(), GtkGestureLongPress, GtkGestureLongPress);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,12 +38,12 @@
 
 - (GtkGestureLongPress*)castedGObject
 {
-	return GTK_GESTURE_LONG_PRESS([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureLongPress, GtkGestureLongPress);
 }
 
 - (double)delayFactor
 {
-	double returnValue = gtk_gesture_long_press_get_delay_factor([self castedGObject]);
+	double returnValue = (double)gtk_gesture_long_press_get_delay_factor([self castedGObject]);
 
 	return returnValue;
 }

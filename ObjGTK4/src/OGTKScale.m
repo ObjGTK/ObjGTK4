@@ -1,20 +1,30 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKScale.h"
 
+#import "OGTKAdjustment.h"
 #import "OGTKWidget.h"
 #import <OGPango/OGPangoLayout.h>
-#import "OGTKAdjustment.h"
 
 @implementation OGTKScale
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_SCALE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment
 {
-	GtkScale* gobjectValue = GTK_SCALE(gtk_scale_new(orientation, [adjustment castedGObject]));
+	GtkScale* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_scale_new(orientation, [adjustment castedGObject]), GtkScale, GtkScale);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -33,7 +43,7 @@
 
 - (instancetype)initWithRangeWithOrientation:(GtkOrientation)orientation min:(double)min max:(double)max step:(double)step
 {
-	GtkScale* gobjectValue = GTK_SCALE(gtk_scale_new_with_range(orientation, min, max, step));
+	GtkScale* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_scale_new_with_range(orientation, min, max, step), GtkScale, GtkScale);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -52,7 +62,7 @@
 
 - (GtkScale*)castedGObject
 {
-	return GTK_SCALE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkScale, GtkScale);
 }
 
 - (void)addMarkWithValue:(double)value position:(GtkPositionType)position markup:(OFString*)markup
@@ -67,30 +77,30 @@
 
 - (int)digits
 {
-	int returnValue = gtk_scale_get_digits([self castedGObject]);
+	int returnValue = (int)gtk_scale_get_digits([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)drawValue
 {
-	bool returnValue = gtk_scale_get_draw_value([self castedGObject]);
+	bool returnValue = (bool)gtk_scale_get_draw_value([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasOrigin
 {
-	bool returnValue = gtk_scale_get_has_origin([self castedGObject]);
+	bool returnValue = (bool)gtk_scale_get_has_origin([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGPangoLayout*)layout
 {
-	PangoLayout* gobjectValue = PANGO_LAYOUT(gtk_scale_get_layout([self castedGObject]));
+	PangoLayout* gobjectValue = gtk_scale_get_layout([self castedGObject]);
 
-	OGPangoLayout* returnValue = [OGPangoLayout withGObject:gobjectValue];
+	OGPangoLayout* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -101,7 +111,7 @@
 
 - (GtkPositionType)valuePos
 {
-	GtkPositionType returnValue = gtk_scale_get_value_pos([self castedGObject]);
+	GtkPositionType returnValue = (GtkPositionType)gtk_scale_get_value_pos([self castedGObject]);
 
 	return returnValue;
 }

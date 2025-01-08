@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKDropDown
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_DROP_DOWN;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithModel:(GListModel*)model expression:(GtkExpression*)expression
 {
-	GtkDropDown* gobjectValue = GTK_DROP_DOWN(gtk_drop_down_new(model, expression));
+	GtkDropDown* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drop_down_new(model, expression), GtkDropDown, GtkDropDown);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,9 +39,9 @@
 	return self;
 }
 
-- (instancetype)initFromStrings:(const char* const*)strings
+- (instancetype)initWithStringsFromStrings:(const char* const*)strings
 {
-	GtkDropDown* gobjectValue = GTK_DROP_DOWN(gtk_drop_down_new_from_strings(strings));
+	GtkDropDown* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drop_down_new_from_strings(strings), GtkDropDown, GtkDropDown);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -50,78 +60,78 @@
 
 - (GtkDropDown*)castedGObject
 {
-	return GTK_DROP_DOWN([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDropDown, GtkDropDown);
 }
 
 - (bool)enableSearch
 {
-	bool returnValue = gtk_drop_down_get_enable_search([self castedGObject]);
+	bool returnValue = (bool)gtk_drop_down_get_enable_search([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkExpression*)expression
 {
-	GtkExpression* returnValue = gtk_drop_down_get_expression([self castedGObject]);
+	GtkExpression* returnValue = (GtkExpression*)gtk_drop_down_get_expression([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKListItemFactory*)factory
 {
-	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_drop_down_get_factory([self castedGObject]));
+	GtkListItemFactory* gobjectValue = gtk_drop_down_get_factory([self castedGObject]);
 
-	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	OGTKListItemFactory* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKListItemFactory*)headerFactory
 {
-	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_drop_down_get_header_factory([self castedGObject]));
+	GtkListItemFactory* gobjectValue = gtk_drop_down_get_header_factory([self castedGObject]);
 
-	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	OGTKListItemFactory* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKListItemFactory*)listFactory
 {
-	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_drop_down_get_list_factory([self castedGObject]));
+	GtkListItemFactory* gobjectValue = gtk_drop_down_get_list_factory([self castedGObject]);
 
-	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	OGTKListItemFactory* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = gtk_drop_down_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_drop_down_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStringFilterMatchMode)searchMatchMode
 {
-	GtkStringFilterMatchMode returnValue = gtk_drop_down_get_search_match_mode([self castedGObject]);
+	GtkStringFilterMatchMode returnValue = (GtkStringFilterMatchMode)gtk_drop_down_get_search_match_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)selected
 {
-	guint returnValue = gtk_drop_down_get_selected([self castedGObject]);
+	guint returnValue = (guint)gtk_drop_down_get_selected([self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)selectedItem
 {
-	gpointer returnValue = gtk_drop_down_get_selected_item([self castedGObject]);
+	gpointer returnValue = (gpointer)gtk_drop_down_get_selected_item([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showArrow
 {
-	bool returnValue = gtk_drop_down_get_show_arrow([self castedGObject]);
+	bool returnValue = (bool)gtk_drop_down_get_show_arrow([self castedGObject]);
 
 	return returnValue;
 }

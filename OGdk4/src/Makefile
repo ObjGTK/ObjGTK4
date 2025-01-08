@@ -6,33 +6,33 @@ FRAMEWORK = ${OGDK4_FRAMEWORK}
 LIB_MAJOR = 4
 LIB_MINOR = 0
 
-SRCS = OGGdkAppLaunchContext.m \
-	OGGdkCairoContext.m \
-	OGGdkClipboard.m \
-	OGGdkContentDeserializer.m \
-	OGGdkContentProvider.m \
-	OGGdkContentSerializer.m \
-	OGGdkCursor.m \
-	OGGdkDevice.m \
-	OGGdkDeviceTool.m \
-	OGGdkDisplay.m \
-	OGGdkDisplayManager.m \
-	OGGdkDmabufTexture.m \
-	OGGdkDmabufTextureBuilder.m \
-	OGGdkDrag.m \
-	OGGdkDrawContext.m \
-	OGGdkDrop.m \
-	OGGdkFrameClock.m \
-	OGGdkGLContext.m \
-	OGGdkGLTexture.m \
-	OGGdkGLTextureBuilder.m \
-	OGGdkMemoryTexture.m \
-	OGGdkMonitor.m \
-	OGGdkSeat.m \
-	OGGdkSnapshot.m \
-	OGGdkSurface.m \
-	OGGdkTexture.m \
-	OGGdkVulkanContext.m \
+SRCS = OGdkAppLaunchContext.m \
+	OGdkCairoContext.m \
+	OGdkClipboard.m \
+	OGdkContentDeserializer.m \
+	OGdkContentProvider.m \
+	OGdkContentSerializer.m \
+	OGdkCursor.m \
+	OGdkDevice.m \
+	OGdkDeviceTool.m \
+	OGdkDisplay.m \
+	OGdkDisplayManager.m \
+	OGdkDmabufTexture.m \
+	OGdkDmabufTextureBuilder.m \
+	OGdkDrag.m \
+	OGdkDrawContext.m \
+	OGdkDrop.m \
+	OGdkFrameClock.m \
+	OGdkGLContext.m \
+	OGdkGLTexture.m \
+	OGdkGLTextureBuilder.m \
+	OGdkMemoryTexture.m \
+	OGdkMonitor.m \
+	OGdkSeat.m \
+	OGdkSnapshot.m \
+	OGdkSurface.m \
+	OGdkTexture.m \
+	OGdkVulkanContext.m \
 	
 
 INCLUDES = ${SRCS:.m=.h} \

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKMediaFile
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_MEDIA_FILE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkMediaFile* gobjectValue = GTK_MEDIA_FILE(gtk_media_file_new());
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new(), GtkMediaFile, GtkMediaFile);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,9 +36,9 @@
 	return self;
 }
 
-- (instancetype)initForFile:(GFile*)file
+- (instancetype)initWithFileForFile:(GFile*)file
 {
-	GtkMediaFile* gobjectValue = GTK_MEDIA_FILE(gtk_media_file_new_for_file(file));
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_file(file), GtkMediaFile, GtkMediaFile);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -42,9 +52,9 @@
 	return self;
 }
 
-- (instancetype)initForFilename:(OFString*)filename
+- (instancetype)initWithFilenameForFilename:(OFString*)filename
 {
-	GtkMediaFile* gobjectValue = GTK_MEDIA_FILE(gtk_media_file_new_for_filename([filename UTF8String]));
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_filename([filename UTF8String]), GtkMediaFile, GtkMediaFile);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -58,9 +68,9 @@
 	return self;
 }
 
-- (instancetype)initForInputStream:(OGInputStream*)stream
+- (instancetype)initWithStreamForInputStream:(OGInputStream*)stream
 {
-	GtkMediaFile* gobjectValue = GTK_MEDIA_FILE(gtk_media_file_new_for_input_stream([stream castedGObject]));
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_input_stream([stream castedGObject]), GtkMediaFile, GtkMediaFile);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -74,9 +84,9 @@
 	return self;
 }
 
-- (instancetype)initForResource:(OFString*)resourcePath
+- (instancetype)initWithResourcePathForResource:(OFString*)resourcePath
 {
-	GtkMediaFile* gobjectValue = GTK_MEDIA_FILE(gtk_media_file_new_for_resource([resourcePath UTF8String]));
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_resource([resourcePath UTF8String]), GtkMediaFile, GtkMediaFile);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -92,7 +102,7 @@
 
 - (GtkMediaFile*)castedGObject
 {
-	return GTK_MEDIA_FILE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMediaFile, GtkMediaFile);
 }
 
 - (void)clear
@@ -102,16 +112,16 @@
 
 - (GFile*)file
 {
-	GFile* returnValue = gtk_media_file_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_media_file_get_file([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGInputStream*)inputStream
 {
-	GInputStream* gobjectValue = G_INPUT_STREAM(gtk_media_file_get_input_stream([self castedGObject]));
+	GInputStream* gobjectValue = gtk_media_file_get_input_stream([self castedGObject]);
 
-	OGInputStream* returnValue = [OGInputStream withGObject:gobjectValue];
+	OGInputStream* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

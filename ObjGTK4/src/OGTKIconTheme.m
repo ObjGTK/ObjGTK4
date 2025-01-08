@@ -1,27 +1,37 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKIconTheme.h"
 
+#import <OGdk4/OGdkDisplay.h>
 #import "OGTKIconPaintable.h"
-#import <OGdk4/OGGdkDisplay.h>
 
 @implementation OGTKIconTheme
 
-+ (OGTKIconTheme*)forDisplay:(OGGdkDisplay*)display
++ (void)load
 {
-	GtkIconTheme* gobjectValue = GTK_ICON_THEME(gtk_icon_theme_get_for_display([display castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_ICON_THEME;
 
-	OGTKIconTheme* returnValue = [OGTKIconTheme withGObject:gobjectValue];
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (OGTKIconTheme*)forDisplay:(OGdkDisplay*)display
+{
+	GtkIconTheme* gobjectValue = gtk_icon_theme_get_for_display([display castedGObject]);
+
+	OGTKIconTheme* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (instancetype)init
 {
-	GtkIconTheme* gobjectValue = GTK_ICON_THEME(gtk_icon_theme_new());
+	GtkIconTheme* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_theme_new(), GtkIconTheme, GtkIconTheme);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -37,7 +47,7 @@
 
 - (GtkIconTheme*)castedGObject
 {
-	return GTK_ICON_THEME([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIconTheme, GtkIconTheme);
 }
 
 - (void)addResourcePath:(OFString*)path
@@ -50,38 +60,38 @@
 	gtk_icon_theme_add_search_path([self castedGObject], [path UTF8String]);
 }
 
-- (OGGdkDisplay*)display
+- (OGdkDisplay*)display
 {
-	GdkDisplay* gobjectValue = GDK_DISPLAY(gtk_icon_theme_get_display([self castedGObject]));
+	GdkDisplay* gobjectValue = gtk_icon_theme_get_display([self castedGObject]);
 
-	OGGdkDisplay* returnValue = [OGGdkDisplay withGObject:gobjectValue];
+	OGdkDisplay* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (char**)iconNames
 {
-	char** returnValue = gtk_icon_theme_get_icon_names([self castedGObject]);
+	char** returnValue = (char**)gtk_icon_theme_get_icon_names([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int*)iconSizes:(OFString*)iconName
 {
-	int* returnValue = gtk_icon_theme_get_icon_sizes([self castedGObject], [iconName UTF8String]);
+	int* returnValue = (int*)gtk_icon_theme_get_icon_sizes([self castedGObject], [iconName UTF8String]);
 
 	return returnValue;
 }
 
 - (char**)resourcePath
 {
-	char** returnValue = gtk_icon_theme_get_resource_path([self castedGObject]);
+	char** returnValue = (char**)gtk_icon_theme_get_resource_path([self castedGObject]);
 
 	return returnValue;
 }
 
 - (char**)searchPath
 {
-	char** returnValue = gtk_icon_theme_get_search_path([self castedGObject]);
+	char** returnValue = (char**)gtk_icon_theme_get_search_path([self castedGObject]);
 
 	return returnValue;
 }
@@ -96,23 +106,23 @@
 
 - (bool)hasGicon:(GIcon*)gicon
 {
-	bool returnValue = gtk_icon_theme_has_gicon([self castedGObject], gicon);
+	bool returnValue = (bool)gtk_icon_theme_has_gicon([self castedGObject], gicon);
 
 	return returnValue;
 }
 
 - (bool)hasIcon:(OFString*)iconName
 {
-	bool returnValue = gtk_icon_theme_has_icon([self castedGObject], [iconName UTF8String]);
+	bool returnValue = (bool)gtk_icon_theme_has_icon([self castedGObject], [iconName UTF8String]);
 
 	return returnValue;
 }
 
 - (OGTKIconPaintable*)lookupByGiconWithIcon:(GIcon*)icon size:(int)size scale:(int)scale direction:(GtkTextDirection)direction flags:(GtkIconLookupFlags)flags
 {
-	GtkIconPaintable* gobjectValue = GTK_ICON_PAINTABLE(gtk_icon_theme_lookup_by_gicon([self castedGObject], icon, size, scale, direction, flags));
+	GtkIconPaintable* gobjectValue = gtk_icon_theme_lookup_by_gicon([self castedGObject], icon, size, scale, direction, flags);
 
-	OGTKIconPaintable* returnValue = [OGTKIconPaintable withGObject:gobjectValue];
+	OGTKIconPaintable* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -120,9 +130,9 @@
 
 - (OGTKIconPaintable*)lookupIconWithIconName:(OFString*)iconName fallbacks:(const char**)fallbacks size:(int)size scale:(int)scale direction:(GtkTextDirection)direction flags:(GtkIconLookupFlags)flags
 {
-	GtkIconPaintable* gobjectValue = GTK_ICON_PAINTABLE(gtk_icon_theme_lookup_icon([self castedGObject], [iconName UTF8String], fallbacks, size, scale, direction, flags));
+	GtkIconPaintable* gobjectValue = gtk_icon_theme_lookup_icon([self castedGObject], [iconName UTF8String], fallbacks, size, scale, direction, flags);
 
-	OGTKIconPaintable* returnValue = [OGTKIconPaintable withGObject:gobjectValue];
+	OGTKIconPaintable* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;

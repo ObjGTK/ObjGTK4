@@ -1,33 +1,43 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKCellArea.h"
 
-#import "OGTKWidget.h"
-#import "OGTKSnapshot.h"
 #import "OGTKCellAreaContext.h"
 #import "OGTKCellRenderer.h"
+#import "OGTKSnapshot.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKCellArea
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_CELL_AREA;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkCellArea*)castedGObject
 {
-	return GTK_CELL_AREA([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellArea, GtkCellArea);
 }
 
 - (bool)activateWithContext:(OGTKCellAreaContext*)context widget:(OGTKWidget*)widget cellArea:(const GdkRectangle*)cellArea flags:(GtkCellRendererState)flags editOnly:(bool)editOnly
 {
-	bool returnValue = gtk_cell_area_activate([self castedGObject], [context castedGObject], [widget castedGObject], cellArea, flags, editOnly);
+	bool returnValue = (bool)gtk_cell_area_activate([self castedGObject], [context castedGObject], [widget castedGObject], cellArea, flags, editOnly);
 
 	return returnValue;
 }
 
 - (bool)activateCellWithWidget:(OGTKWidget*)widget renderer:(OGTKCellRenderer*)renderer event:(GdkEvent*)event cellArea:(const GdkRectangle*)cellArea flags:(GtkCellRendererState)flags
 {
-	bool returnValue = gtk_cell_area_activate_cell([self castedGObject], [widget castedGObject], [renderer castedGObject], event, cellArea, flags);
+	bool returnValue = (bool)gtk_cell_area_activate_cell([self castedGObject], [widget castedGObject], [renderer castedGObject], event, cellArea, flags);
 
 	return returnValue;
 }
@@ -59,7 +69,7 @@
 
 - (int)attributeGetColumnWithRenderer:(OGTKCellRenderer*)renderer attribute:(OFString*)attribute
 {
-	int returnValue = gtk_cell_area_attribute_get_column([self castedGObject], [renderer castedGObject], [attribute UTF8String]);
+	int returnValue = (int)gtk_cell_area_attribute_get_column([self castedGObject], [renderer castedGObject], [attribute UTF8String]);
 
 	return returnValue;
 }
@@ -86,9 +96,9 @@
 
 - (OGTKCellAreaContext*)copyContext:(OGTKCellAreaContext*)context
 {
-	GtkCellAreaContext* gobjectValue = GTK_CELL_AREA_CONTEXT(gtk_cell_area_copy_context([self castedGObject], [context castedGObject]));
+	GtkCellAreaContext* gobjectValue = gtk_cell_area_copy_context([self castedGObject], [context castedGObject]);
 
-	OGTKCellAreaContext* returnValue = [OGTKCellAreaContext withGObject:gobjectValue];
+	OGTKCellAreaContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -96,9 +106,9 @@
 
 - (OGTKCellAreaContext*)createContext
 {
-	GtkCellAreaContext* gobjectValue = GTK_CELL_AREA_CONTEXT(gtk_cell_area_create_context([self castedGObject]));
+	GtkCellAreaContext* gobjectValue = gtk_cell_area_create_context([self castedGObject]);
 
-	OGTKCellAreaContext* returnValue = [OGTKCellAreaContext withGObject:gobjectValue];
+	OGTKCellAreaContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -106,14 +116,14 @@
 
 - (int)eventWithContext:(OGTKCellAreaContext*)context widget:(OGTKWidget*)widget event:(GdkEvent*)event cellArea:(const GdkRectangle*)cellArea flags:(GtkCellRendererState)flags
 {
-	int returnValue = gtk_cell_area_event([self castedGObject], [context castedGObject], [widget castedGObject], event, cellArea, flags);
+	int returnValue = (int)gtk_cell_area_event([self castedGObject], [context castedGObject], [widget castedGObject], event, cellArea, flags);
 
 	return returnValue;
 }
 
 - (bool)focus:(GtkDirectionType)direction
 {
-	bool returnValue = gtk_cell_area_focus([self castedGObject], direction);
+	bool returnValue = (bool)gtk_cell_area_focus([self castedGObject], direction);
 
 	return returnValue;
 }
@@ -135,9 +145,9 @@
 
 - (OGTKCellRenderer*)cellAtPositionWithContext:(OGTKCellAreaContext*)context widget:(OGTKWidget*)widget cellArea:(const GdkRectangle*)cellArea x:(int)x y:(int)y allocArea:(GdkRectangle*)allocArea
 {
-	GtkCellRenderer* gobjectValue = GTK_CELL_RENDERER(gtk_cell_area_get_cell_at_position([self castedGObject], [context castedGObject], [widget castedGObject], cellArea, x, y, allocArea));
+	GtkCellRenderer* gobjectValue = gtk_cell_area_get_cell_at_position([self castedGObject], [context castedGObject], [widget castedGObject], cellArea, x, y, allocArea);
 
-	OGTKCellRenderer* returnValue = [OGTKCellRenderer withGObject:gobjectValue];
+	OGTKCellRenderer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -151,38 +161,38 @@
 
 - (GtkCellEditable*)editWidget
 {
-	GtkCellEditable* returnValue = gtk_cell_area_get_edit_widget([self castedGObject]);
+	GtkCellEditable* returnValue = (GtkCellEditable*)gtk_cell_area_get_edit_widget([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKCellRenderer*)editedCell
 {
-	GtkCellRenderer* gobjectValue = GTK_CELL_RENDERER(gtk_cell_area_get_edited_cell([self castedGObject]));
+	GtkCellRenderer* gobjectValue = gtk_cell_area_get_edited_cell([self castedGObject]);
 
-	OGTKCellRenderer* returnValue = [OGTKCellRenderer withGObject:gobjectValue];
+	OGTKCellRenderer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKCellRenderer*)focusCell
 {
-	GtkCellRenderer* gobjectValue = GTK_CELL_RENDERER(gtk_cell_area_get_focus_cell([self castedGObject]));
+	GtkCellRenderer* gobjectValue = gtk_cell_area_get_focus_cell([self castedGObject]);
 
-	OGTKCellRenderer* returnValue = [OGTKCellRenderer withGObject:gobjectValue];
+	OGTKCellRenderer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKCellRenderer*)focusFromSibling:(OGTKCellRenderer*)renderer
 {
-	GtkCellRenderer* gobjectValue = GTK_CELL_RENDERER(gtk_cell_area_get_focus_from_sibling([self castedGObject], [renderer castedGObject]));
+	GtkCellRenderer* gobjectValue = gtk_cell_area_get_focus_from_sibling([self castedGObject], [renderer castedGObject]);
 
-	OGTKCellRenderer* returnValue = [OGTKCellRenderer withGObject:gobjectValue];
+	OGTKCellRenderer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (const GList*)focusSiblings:(OGTKCellRenderer*)renderer
 {
-	const GList* returnValue = gtk_cell_area_get_focus_siblings([self castedGObject], [renderer castedGObject]);
+	const GList* returnValue = (const GList*)gtk_cell_area_get_focus_siblings([self castedGObject], [renderer castedGObject]);
 
 	return returnValue;
 }
@@ -209,14 +219,14 @@
 
 - (GtkSizeRequestMode)requestMode
 {
-	GtkSizeRequestMode returnValue = gtk_cell_area_get_request_mode([self castedGObject]);
+	GtkSizeRequestMode returnValue = (GtkSizeRequestMode)gtk_cell_area_get_request_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasRenderer:(OGTKCellRenderer*)renderer
 {
-	bool returnValue = gtk_cell_area_has_renderer([self castedGObject], [renderer castedGObject]);
+	bool returnValue = (bool)gtk_cell_area_has_renderer([self castedGObject], [renderer castedGObject]);
 
 	return returnValue;
 }
@@ -228,14 +238,14 @@
 
 - (bool)isActivatable
 {
-	bool returnValue = gtk_cell_area_is_activatable([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_area_is_activatable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isFocusSiblingWithRenderer:(OGTKCellRenderer*)renderer sibling:(OGTKCellRenderer*)sibling
 {
-	bool returnValue = gtk_cell_area_is_focus_sibling([self castedGObject], [renderer castedGObject], [sibling castedGObject]);
+	bool returnValue = (bool)gtk_cell_area_is_focus_sibling([self castedGObject], [renderer castedGObject], [sibling castedGObject]);
 
 	return returnValue;
 }

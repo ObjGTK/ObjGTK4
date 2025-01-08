@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,22 @@
 
 @implementation OGTKFlowBoxChild
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_FLOW_BOX_CHILD;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkFlowBoxChild* gobjectValue = GTK_FLOW_BOX_CHILD(gtk_flow_box_child_new());
+	GtkFlowBoxChild* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_flow_box_child_new(), GtkFlowBoxChild, GtkFlowBoxChild);
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +39,7 @@
 
 - (GtkFlowBoxChild*)castedGObject
 {
-	return GTK_FLOW_BOX_CHILD([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFlowBoxChild, GtkFlowBoxChild);
 }
 
 - (void)changed
@@ -36,22 +49,22 @@
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_flow_box_child_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_flow_box_child_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)index
 {
-	int returnValue = gtk_flow_box_child_get_index([self castedGObject]);
+	int returnValue = (int)gtk_flow_box_child_get_index([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isSelected
 {
-	bool returnValue = gtk_flow_box_child_is_selected([self castedGObject]);
+	bool returnValue = (bool)gtk_flow_box_child_is_selected([self castedGObject]);
 
 	return returnValue;
 }

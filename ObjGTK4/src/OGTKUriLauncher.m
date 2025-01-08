@@ -1,19 +1,29 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKUriLauncher.h"
 
-#import "OGTKWindow.h"
 #import <OGio/OGCancellable.h>
+#import "OGTKWindow.h"
 
 @implementation OGTKUriLauncher
 
-- (instancetype)init:(OFString*)uri
++ (void)load
 {
-	GtkUriLauncher* gobjectValue = GTK_URI_LAUNCHER(gtk_uri_launcher_new([uri UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_URI_LAUNCHER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithUri:(OFString*)uri
+{
+	GtkUriLauncher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_uri_launcher_new([uri UTF8String]), GtkUriLauncher, GtkUriLauncher);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -29,7 +39,7 @@
 
 - (GtkUriLauncher*)castedGObject
 {
-	return GTK_URI_LAUNCHER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkUriLauncher, GtkUriLauncher);
 }
 
 - (OFString*)uri
@@ -49,13 +59,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_uri_launcher_launch_finish([self castedGObject], result, &err);
+	bool returnValue = (bool)gtk_uri_launcher_launch_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }

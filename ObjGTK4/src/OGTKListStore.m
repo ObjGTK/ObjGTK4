@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKListStore
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_LIST_STORE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initvWithNcolumns:(int)ncolumns types:(GType*)types
 {
-	GtkListStore* gobjectValue = GTK_LIST_STORE(gtk_list_store_newv(ncolumns, types));
+	GtkListStore* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_list_store_newv(ncolumns, types), GtkListStore, GtkListStore);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkListStore*)castedGObject
 {
-	return GTK_LIST_STORE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkListStore, GtkListStore);
 }
 
 - (void)append:(GtkTreeIter*)iter
@@ -61,7 +71,7 @@
 
 - (bool)iterIsValid:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_list_store_iter_is_valid([self castedGObject], iter);
+	bool returnValue = (bool)gtk_list_store_iter_is_valid([self castedGObject], iter);
 
 	return returnValue;
 }
@@ -83,7 +93,7 @@
 
 - (bool)remove:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_list_store_remove([self castedGObject], iter);
+	bool returnValue = (bool)gtk_list_store_remove([self castedGObject], iter);
 
 	return returnValue;
 }

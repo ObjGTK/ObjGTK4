@@ -1,21 +1,31 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKSnapshot.h"
 
-#import <OGdk4/OGGdkTexture.h>
-#import <OGsk4/OGGskGLShader.h>
-#import <OGPango/OGPangoLayout.h>
+#import <OGdk4/OGdkTexture.h>
+#import <OGsk4/OGskGLShader.h>
 #import "OGTKStyleContext.h"
+#import <OGPango/OGPangoLayout.h>
 
 @implementation OGTKSnapshot
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_SNAPSHOT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkSnapshot* gobjectValue = GTK_SNAPSHOT(gtk_snapshot_new());
+	GtkSnapshot* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_snapshot_new(), GtkSnapshot, GtkSnapshot);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -31,7 +41,7 @@
 
 - (GtkSnapshot*)castedGObject
 {
-	return GTK_SNAPSHOT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSnapshot, GtkSnapshot);
 }
 
 - (void)appendBorderWithOutline:(const GskRoundedRect*)outline borderWidth:(const float*)borderWidth borderColor:(const GdkRGBA*)borderColor
@@ -41,7 +51,7 @@
 
 - (cairo_t*)appendCairo:(const graphene_rect_t*)bounds
 {
-	cairo_t* returnValue = gtk_snapshot_append_cairo([self castedGObject], bounds);
+	cairo_t* returnValue = (cairo_t*)gtk_snapshot_append_cairo([self castedGObject], bounds);
 
 	return returnValue;
 }
@@ -101,7 +111,7 @@
 	gtk_snapshot_append_repeating_radial_gradient([self castedGObject], bounds, center, hradius, vradius, start, end, stops, nstops);
 }
 
-- (void)appendScaledTextureWithTexture:(OGGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds
+- (void)appendScaledTextureWithTexture:(OGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds
 {
 	gtk_snapshot_append_scaled_texture([self castedGObject], [texture castedGObject], filter, bounds);
 }
@@ -111,21 +121,21 @@
 	gtk_snapshot_append_stroke([self castedGObject], path, stroke, color);
 }
 
-- (void)appendTextureWithTexture:(OGGdkTexture*)texture bounds:(const graphene_rect_t*)bounds
+- (void)appendTextureWithTexture:(OGdkTexture*)texture bounds:(const graphene_rect_t*)bounds
 {
 	gtk_snapshot_append_texture([self castedGObject], [texture castedGObject], bounds);
 }
 
 - (GskRenderNode*)freeToNode
 {
-	GskRenderNode* returnValue = gtk_snapshot_free_to_node([self castedGObject]);
+	GskRenderNode* returnValue = (GskRenderNode*)gtk_snapshot_free_to_node([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkPaintable*)freeToPaintable:(const graphene_size_t*)size
 {
-	GdkPaintable* returnValue = gtk_snapshot_free_to_paintable([self castedGObject], size);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_snapshot_free_to_paintable([self castedGObject], size);
 
 	return returnValue;
 }
@@ -175,7 +185,7 @@
 	gtk_snapshot_push_fill([self castedGObject], path, fillRule);
 }
 
-- (void)pushGlShaderWithShader:(OGGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs
+- (void)pushGlShaderWithShader:(OGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs
 {
 	gtk_snapshot_push_gl_shader([self castedGObject], [shader castedGObject], bounds, takeArgs);
 }
@@ -267,14 +277,14 @@
 
 - (GskRenderNode*)toNode
 {
-	GskRenderNode* returnValue = gtk_snapshot_to_node([self castedGObject]);
+	GskRenderNode* returnValue = (GskRenderNode*)gtk_snapshot_to_node([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkPaintable*)toPaintable:(const graphene_size_t*)size
 {
-	GdkPaintable* returnValue = gtk_snapshot_to_paintable([self castedGObject], size);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_snapshot_to_paintable([self castedGObject], size);
 
 	return returnValue;
 }

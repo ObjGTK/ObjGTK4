@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,9 +11,19 @@
 
 @implementation OGTKText
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_TEXT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkText* gobjectValue = GTK_TEXT(gtk_text_new());
+	GtkText* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_new(), GtkText, GtkText);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -32,7 +42,7 @@
 
 - (instancetype)initWithBuffer:(OGTKEntryBuffer*)buffer
 {
-	GtkText* gobjectValue = GTK_TEXT(gtk_text_new_with_buffer([buffer castedGObject]));
+	GtkText* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_new_with_buffer([buffer castedGObject]), GtkText, GtkText);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -51,7 +61,7 @@
 
 - (GtkText*)castedGObject
 {
-	return GTK_TEXT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkText, GtkText);
 }
 
 - (void)computeCursorExtentsWithPosition:(gsize)position strong:(graphene_rect_t*)strong weak:(graphene_rect_t*)weak
@@ -61,72 +71,72 @@
 
 - (bool)activatesDefault
 {
-	bool returnValue = gtk_text_get_activates_default([self castedGObject]);
+	bool returnValue = (bool)gtk_text_get_activates_default([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoAttrList*)attributes
 {
-	PangoAttrList* returnValue = gtk_text_get_attributes([self castedGObject]);
+	PangoAttrList* returnValue = (PangoAttrList*)gtk_text_get_attributes([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKEntryBuffer*)buffer
 {
-	GtkEntryBuffer* gobjectValue = GTK_ENTRY_BUFFER(gtk_text_get_buffer([self castedGObject]));
+	GtkEntryBuffer* gobjectValue = gtk_text_get_buffer([self castedGObject]);
 
-	OGTKEntryBuffer* returnValue = [OGTKEntryBuffer withGObject:gobjectValue];
+	OGTKEntryBuffer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)enableEmojiCompletion
 {
-	bool returnValue = gtk_text_get_enable_emoji_completion([self castedGObject]);
+	bool returnValue = (bool)gtk_text_get_enable_emoji_completion([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)extraMenu
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_text_get_extra_menu([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_text_get_extra_menu([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkInputHints)inputHints
 {
-	GtkInputHints returnValue = gtk_text_get_input_hints([self castedGObject]);
+	GtkInputHints returnValue = (GtkInputHints)gtk_text_get_input_hints([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkInputPurpose)inputPurpose
 {
-	GtkInputPurpose returnValue = gtk_text_get_input_purpose([self castedGObject]);
+	GtkInputPurpose returnValue = (GtkInputPurpose)gtk_text_get_input_purpose([self castedGObject]);
 
 	return returnValue;
 }
 
 - (gunichar)invisibleChar
 {
-	gunichar returnValue = gtk_text_get_invisible_char([self castedGObject]);
+	gunichar returnValue = (gunichar)gtk_text_get_invisible_char([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)maxLength
 {
-	int returnValue = gtk_text_get_max_length([self castedGObject]);
+	int returnValue = (int)gtk_text_get_max_length([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)overwriteMode
 {
-	bool returnValue = gtk_text_get_overwrite_mode([self castedGObject]);
+	bool returnValue = (bool)gtk_text_get_overwrite_mode([self castedGObject]);
 
 	return returnValue;
 }
@@ -141,42 +151,42 @@
 
 - (bool)propagateTextWidth
 {
-	bool returnValue = gtk_text_get_propagate_text_width([self castedGObject]);
+	bool returnValue = (bool)gtk_text_get_propagate_text_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoTabArray*)tabs
 {
-	PangoTabArray* returnValue = gtk_text_get_tabs([self castedGObject]);
+	PangoTabArray* returnValue = (PangoTabArray*)gtk_text_get_tabs([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint16)textLength
 {
-	guint16 returnValue = gtk_text_get_text_length([self castedGObject]);
+	guint16 returnValue = (guint16)gtk_text_get_text_length([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)truncateMultiline
 {
-	bool returnValue = gtk_text_get_truncate_multiline([self castedGObject]);
+	bool returnValue = (bool)gtk_text_get_truncate_multiline([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)visibility
 {
-	bool returnValue = gtk_text_get_visibility([self castedGObject]);
+	bool returnValue = (bool)gtk_text_get_visibility([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)grabFocusWithoutSelecting
 {
-	bool returnValue = gtk_text_grab_focus_without_selecting([self castedGObject]);
+	bool returnValue = (bool)gtk_text_grab_focus_without_selecting([self castedGObject]);
 
 	return returnValue;
 }

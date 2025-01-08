@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKWidgetPaintable
 
-- (instancetype)init:(OGTKWidget*)widget
++ (void)load
 {
-	GtkWidgetPaintable* gobjectValue = GTK_WIDGET_PAINTABLE(gtk_widget_paintable_new([widget castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_WIDGET_PAINTABLE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithWidget:(OGTKWidget*)widget
+{
+	GtkWidgetPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_widget_paintable_new([widget castedGObject]), GtkWidgetPaintable, GtkWidgetPaintable);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,14 +38,14 @@
 
 - (GtkWidgetPaintable*)castedGObject
 {
-	return GTK_WIDGET_PAINTABLE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWidgetPaintable, GtkWidgetPaintable);
 }
 
 - (OGTKWidget*)widget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_widget_paintable_get_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_widget_paintable_get_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

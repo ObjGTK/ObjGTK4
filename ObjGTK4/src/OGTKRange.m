@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,36 +10,46 @@
 
 @implementation OGTKRange
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_RANGE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkRange*)castedGObject
 {
-	return GTK_RANGE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkRange, GtkRange);
 }
 
 - (OGTKAdjustment*)adjustment
 {
-	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_range_get_adjustment([self castedGObject]));
+	GtkAdjustment* gobjectValue = gtk_range_get_adjustment([self castedGObject]);
 
-	OGTKAdjustment* returnValue = [OGTKAdjustment withGObject:gobjectValue];
+	OGTKAdjustment* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (double)fillLevel
 {
-	double returnValue = gtk_range_get_fill_level([self castedGObject]);
+	double returnValue = (double)gtk_range_get_fill_level([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)flippable
 {
-	bool returnValue = gtk_range_get_flippable([self castedGObject]);
+	bool returnValue = (bool)gtk_range_get_flippable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)inverted
 {
-	bool returnValue = gtk_range_get_inverted([self castedGObject]);
+	bool returnValue = (bool)gtk_range_get_inverted([self castedGObject]);
 
 	return returnValue;
 }
@@ -51,21 +61,21 @@
 
 - (bool)restrictToFillLevel
 {
-	bool returnValue = gtk_range_get_restrict_to_fill_level([self castedGObject]);
+	bool returnValue = (bool)gtk_range_get_restrict_to_fill_level([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)roundDigits
 {
-	int returnValue = gtk_range_get_round_digits([self castedGObject]);
+	int returnValue = (int)gtk_range_get_round_digits([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showFillLevel
 {
-	bool returnValue = gtk_range_get_show_fill_level([self castedGObject]);
+	bool returnValue = (bool)gtk_range_get_show_fill_level([self castedGObject]);
 
 	return returnValue;
 }
@@ -77,14 +87,14 @@
 
 - (bool)sliderSizeFixed
 {
-	bool returnValue = gtk_range_get_slider_size_fixed([self castedGObject]);
+	bool returnValue = (bool)gtk_range_get_slider_size_fixed([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)value
 {
-	double returnValue = gtk_range_get_value([self castedGObject]);
+	double returnValue = (double)gtk_range_get_value([self castedGObject]);
 
 	return returnValue;
 }

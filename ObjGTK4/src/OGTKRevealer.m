@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKRevealer
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_REVEALER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkRevealer* gobjectValue = GTK_REVEALER(gtk_revealer_new());
+	GtkRevealer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_revealer_new(), GtkRevealer, GtkRevealer);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,41 +39,41 @@
 
 - (GtkRevealer*)castedGObject
 {
-	return GTK_REVEALER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkRevealer, GtkRevealer);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_revealer_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_revealer_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)childRevealed
 {
-	bool returnValue = gtk_revealer_get_child_revealed([self castedGObject]);
+	bool returnValue = (bool)gtk_revealer_get_child_revealed([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)revealChild
 {
-	bool returnValue = gtk_revealer_get_reveal_child([self castedGObject]);
+	bool returnValue = (bool)gtk_revealer_get_reveal_child([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)transitionDuration
 {
-	guint returnValue = gtk_revealer_get_transition_duration([self castedGObject]);
+	guint returnValue = (guint)gtk_revealer_get_transition_duration([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkRevealerTransitionType)transitionType
 {
-	GtkRevealerTransitionType returnValue = gtk_revealer_get_transition_type([self castedGObject]);
+	GtkRevealerTransitionType returnValue = (GtkRevealerTransitionType)gtk_revealer_get_transition_type([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKComboBoxText
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_COMBO_BOX_TEXT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkComboBoxText* gobjectValue = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new());
+	GtkComboBoxText* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_text_new(), GtkComboBoxText, GtkComboBoxText);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,7 +41,7 @@
 
 - (instancetype)initWithEntry
 {
-	GtkComboBoxText* gobjectValue = GTK_COMBO_BOX_TEXT(gtk_combo_box_text_new_with_entry());
+	GtkComboBoxText* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_text_new_with_entry(), GtkComboBoxText, GtkComboBoxText);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -50,12 +60,12 @@
 
 - (GtkComboBoxText*)castedGObject
 {
-	return GTK_COMBO_BOX_TEXT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkComboBoxText, GtkComboBoxText);
 }
 
-- (void)appendWithId:(OFString*)id text:(OFString*)text
+- (void)appendWithIdentifier:(OFString*)identifier text:(OFString*)text
 {
-	gtk_combo_box_text_append([self castedGObject], [id UTF8String], [text UTF8String]);
+	gtk_combo_box_text_append([self castedGObject], [identifier UTF8String], [text UTF8String]);
 }
 
 - (void)appendText:(OFString*)text
@@ -71,9 +81,9 @@
 	return returnValue;
 }
 
-- (void)insertWithPosition:(int)position id:(OFString*)id text:(OFString*)text
+- (void)insertWithPosition:(int)position identifier:(OFString*)identifier text:(OFString*)text
 {
-	gtk_combo_box_text_insert([self castedGObject], position, [id UTF8String], [text UTF8String]);
+	gtk_combo_box_text_insert([self castedGObject], position, [identifier UTF8String], [text UTF8String]);
 }
 
 - (void)insertTextWithPosition:(int)position text:(OFString*)text
@@ -81,9 +91,9 @@
 	gtk_combo_box_text_insert_text([self castedGObject], position, [text UTF8String]);
 }
 
-- (void)prependWithId:(OFString*)id text:(OFString*)text
+- (void)prependWithIdentifier:(OFString*)identifier text:(OFString*)text
 {
-	gtk_combo_box_text_prepend([self castedGObject], [id UTF8String], [text UTF8String]);
+	gtk_combo_box_text_prepend([self castedGObject], [identifier UTF8String], [text UTF8String]);
 }
 
 - (void)prependText:(OFString*)text

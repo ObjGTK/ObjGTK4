@@ -1,19 +1,29 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKMenuButton.h"
 
-#import "OGTKPopover.h"
 #import <OGio/OGMenuModel.h>
+#import "OGTKPopover.h"
 
 @implementation OGTKMenuButton
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_MENU_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkMenuButton* gobjectValue = GTK_MENU_BUTTON(gtk_menu_button_new());
+	GtkMenuButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_menu_button_new(), GtkMenuButton, GtkMenuButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -32,48 +42,48 @@
 
 - (GtkMenuButton*)castedGObject
 {
-	return GTK_MENU_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMenuButton, GtkMenuButton);
 }
 
 - (bool)active
 {
-	bool returnValue = gtk_menu_button_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_menu_button_get_active([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)alwaysShowArrow
 {
-	bool returnValue = gtk_menu_button_get_always_show_arrow([self castedGObject]);
+	bool returnValue = (bool)gtk_menu_button_get_always_show_arrow([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)canShrink
 {
-	bool returnValue = gtk_menu_button_get_can_shrink([self castedGObject]);
+	bool returnValue = (bool)gtk_menu_button_get_can_shrink([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_menu_button_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_menu_button_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkArrowType)direction
 {
-	GtkArrowType returnValue = gtk_menu_button_get_direction([self castedGObject]);
+	GtkArrowType returnValue = (GtkArrowType)gtk_menu_button_get_direction([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasFrame
 {
-	bool returnValue = gtk_menu_button_get_has_frame([self castedGObject]);
+	bool returnValue = (bool)gtk_menu_button_get_has_frame([self castedGObject]);
 
 	return returnValue;
 }
@@ -96,30 +106,30 @@
 
 - (OGMenuModel*)menuModel
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_menu_button_get_menu_model([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_menu_button_get_menu_model([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKPopover*)popover
 {
-	GtkPopover* gobjectValue = GTK_POPOVER(gtk_menu_button_get_popover([self castedGObject]));
+	GtkPopover* gobjectValue = gtk_menu_button_get_popover([self castedGObject]);
 
-	OGTKPopover* returnValue = [OGTKPopover withGObject:gobjectValue];
+	OGTKPopover* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)primary
 {
-	bool returnValue = gtk_menu_button_get_primary([self castedGObject]);
+	bool returnValue = (bool)gtk_menu_button_get_primary([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_menu_button_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_menu_button_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }

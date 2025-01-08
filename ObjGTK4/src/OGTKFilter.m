@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKFilter
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_FILTER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkFilter*)castedGObject
 {
-	return GTK_FILTER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFilter, GtkFilter);
 }
 
 - (void)changed:(GtkFilterChange)change
@@ -20,14 +30,14 @@
 
 - (GtkFilterMatch)strictness
 {
-	GtkFilterMatch returnValue = gtk_filter_get_strictness([self castedGObject]);
+	GtkFilterMatch returnValue = (GtkFilterMatch)gtk_filter_get_strictness([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)match:(gpointer)item
 {
-	bool returnValue = gtk_filter_match([self castedGObject], item);
+	bool returnValue = (bool)gtk_filter_match([self castedGObject], item);
 
 	return returnValue;
 }

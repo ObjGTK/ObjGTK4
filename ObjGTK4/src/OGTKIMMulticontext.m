@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKIMMulticontext
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_IM_MULTICONTEXT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkIMMulticontext* gobjectValue = GTK_IM_MULTICONTEXT(gtk_im_multicontext_new());
+	GtkIMMulticontext* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_im_multicontext_new(), GtkIMMulticontext, GtkIMMulticontext);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkIMMulticontext*)castedGObject
 {
-	return GTK_IM_MULTICONTEXT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIMMulticontext, GtkIMMulticontext);
 }
 
 - (OFString*)contextId

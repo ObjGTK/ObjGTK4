@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,9 +11,19 @@
 
 @implementation OGTKFileLauncher
 
-- (instancetype)init:(GFile*)file
++ (void)load
 {
-	GtkFileLauncher* gobjectValue = GTK_FILE_LAUNCHER(gtk_file_launcher_new(file));
+	GType gtypeToAssociate = GTK_TYPE_FILE_LAUNCHER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithFile:(GFile*)file
+{
+	GtkFileLauncher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_launcher_new(file), GtkFileLauncher, GtkFileLauncher);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -29,26 +39,26 @@
 
 - (GtkFileLauncher*)castedGObject
 {
-	return GTK_FILE_LAUNCHER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFileLauncher, GtkFileLauncher);
 }
 
 - (bool)alwaysAsk
 {
-	bool returnValue = gtk_file_launcher_get_always_ask([self castedGObject]);
+	bool returnValue = (bool)gtk_file_launcher_get_always_ask([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = gtk_file_launcher_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_file_launcher_get_file([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)writable
 {
-	bool returnValue = gtk_file_launcher_get_writable([self castedGObject]);
+	bool returnValue = (bool)gtk_file_launcher_get_writable([self castedGObject]);
 
 	return returnValue;
 }
@@ -62,13 +72,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_file_launcher_launch_finish([self castedGObject], result, &err);
+	bool returnValue = (bool)gtk_file_launcher_launch_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -82,13 +88,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_file_launcher_open_containing_folder_finish([self castedGObject], result, &err);
+	bool returnValue = (bool)gtk_file_launcher_open_containing_folder_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }

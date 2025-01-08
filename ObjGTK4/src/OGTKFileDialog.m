@@ -1,20 +1,30 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKFileDialog.h"
 
 #import <OGio/OGCancellable.h>
-#import "OGTKWindow.h"
 #import "OGTKFileFilter.h"
+#import "OGTKWindow.h"
 
 @implementation OGTKFileDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_FILE_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkFileDialog* gobjectValue = GTK_FILE_DIALOG(gtk_file_dialog_new());
+	GtkFileDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_dialog_new(), GtkFileDialog, GtkFileDialog);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -30,7 +40,7 @@
 
 - (GtkFileDialog*)castedGObject
 {
-	return GTK_FILE_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFileDialog, GtkFileDialog);
 }
 
 - (OFString*)acceptLabel
@@ -43,29 +53,29 @@
 
 - (OGTKFileFilter*)defaultFilter
 {
-	GtkFileFilter* gobjectValue = GTK_FILE_FILTER(gtk_file_dialog_get_default_filter([self castedGObject]));
+	GtkFileFilter* gobjectValue = gtk_file_dialog_get_default_filter([self castedGObject]);
 
-	OGTKFileFilter* returnValue = [OGTKFileFilter withGObject:gobjectValue];
+	OGTKFileFilter* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GListModel*)filters
 {
-	GListModel* returnValue = gtk_file_dialog_get_filters([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_file_dialog_get_filters([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)initialFile
 {
-	GFile* returnValue = gtk_file_dialog_get_initial_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_file_dialog_get_initial_file([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)initialFolder
 {
-	GFile* returnValue = gtk_file_dialog_get_initial_folder([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_file_dialog_get_initial_folder([self castedGObject]);
 
 	return returnValue;
 }
@@ -80,7 +90,7 @@
 
 - (bool)modal
 {
-	bool returnValue = gtk_file_dialog_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_file_dialog_get_modal([self castedGObject]);
 
 	return returnValue;
 }
@@ -102,13 +112,9 @@
 {
 	GError* err = NULL;
 
-	GFile* returnValue = gtk_file_dialog_open_finish([self castedGObject], result, &err);
+	GFile* returnValue = (GFile*)gtk_file_dialog_open_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -122,13 +128,9 @@
 {
 	GError* err = NULL;
 
-	GListModel* returnValue = gtk_file_dialog_open_multiple_finish([self castedGObject], result, &err);
+	GListModel* returnValue = (GListModel*)gtk_file_dialog_open_multiple_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -142,13 +144,9 @@
 {
 	GError* err = NULL;
 
-	GFile* returnValue = gtk_file_dialog_save_finish([self castedGObject], result, &err);
+	GFile* returnValue = (GFile*)gtk_file_dialog_save_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -162,13 +160,9 @@
 {
 	GError* err = NULL;
 
-	GFile* returnValue = gtk_file_dialog_select_folder_finish([self castedGObject], result, &err);
+	GFile* returnValue = (GFile*)gtk_file_dialog_select_folder_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -182,13 +176,9 @@
 {
 	GError* err = NULL;
 
-	GListModel* returnValue = gtk_file_dialog_select_multiple_folders_finish([self castedGObject], result, &err);
+	GListModel* returnValue = (GListModel*)gtk_file_dialog_select_multiple_folders_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKBox
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_BOX;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithOrientation:(GtkOrientation)orientation spacing:(int)spacing
 {
-	GtkBox* gobjectValue = GTK_BOX(gtk_box_new(orientation, spacing));
+	GtkBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_box_new(orientation, spacing), GtkBox, GtkBox);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,7 +39,7 @@
 
 - (GtkBox*)castedGObject
 {
-	return GTK_BOX([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBox, GtkBox);
 }
 
 - (void)append:(OGTKWidget*)child
@@ -39,28 +49,28 @@
 
 - (int)baselineChild
 {
-	int returnValue = gtk_box_get_baseline_child([self castedGObject]);
+	int returnValue = (int)gtk_box_get_baseline_child([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkBaselinePosition)baselinePosition
 {
-	GtkBaselinePosition returnValue = gtk_box_get_baseline_position([self castedGObject]);
+	GtkBaselinePosition returnValue = (GtkBaselinePosition)gtk_box_get_baseline_position([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)homogeneous
 {
-	bool returnValue = gtk_box_get_homogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_box_get_homogeneous([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)spacing
 {
-	int returnValue = gtk_box_get_spacing([self castedGObject]);
+	int returnValue = (int)gtk_box_get_spacing([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,22 +1,32 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKTextView.h"
 
-#import "OGTKTextMark.h"
 #import <OGio/OGMenuModel.h>
-#import <OGPango/OGPangoContext.h>
-#import "OGTKTextChildAnchor.h"
 #import "OGTKTextBuffer.h"
+#import "OGTKTextChildAnchor.h"
+#import "OGTKTextMark.h"
+#import <OGPango/OGPangoContext.h>
 
 @implementation OGTKTextView
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_TEXT_VIEW;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkTextView* gobjectValue = GTK_TEXT_VIEW(gtk_text_view_new());
+	GtkTextView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_view_new(), GtkTextView, GtkTextView);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -35,7 +45,7 @@
 
 - (instancetype)initWithBuffer:(OGTKTextBuffer*)buffer
 {
-	GtkTextView* gobjectValue = GTK_TEXT_VIEW(gtk_text_view_new_with_buffer([buffer castedGObject]));
+	GtkTextView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_view_new_with_buffer([buffer castedGObject]), GtkTextView, GtkTextView);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -54,7 +64,7 @@
 
 - (GtkTextView*)castedGObject
 {
-	return GTK_TEXT_VIEW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextView, GtkTextView);
 }
 
 - (void)addChildAtAnchorWithChild:(OGTKWidget*)child anchor:(OGTKTextChildAnchor*)anchor
@@ -69,14 +79,14 @@
 
 - (bool)backwardDisplayLine:(GtkTextIter*)iter
 {
-	bool returnValue = gtk_text_view_backward_display_line([self castedGObject], iter);
+	bool returnValue = (bool)gtk_text_view_backward_display_line([self castedGObject], iter);
 
 	return returnValue;
 }
 
 - (bool)backwardDisplayLineStart:(GtkTextIter*)iter
 {
-	bool returnValue = gtk_text_view_backward_display_line_start([self castedGObject], iter);
+	bool returnValue = (bool)gtk_text_view_backward_display_line_start([self castedGObject], iter);
 
 	return returnValue;
 }
@@ -88,37 +98,37 @@
 
 - (bool)forwardDisplayLine:(GtkTextIter*)iter
 {
-	bool returnValue = gtk_text_view_forward_display_line([self castedGObject], iter);
+	bool returnValue = (bool)gtk_text_view_forward_display_line([self castedGObject], iter);
 
 	return returnValue;
 }
 
 - (bool)forwardDisplayLineEnd:(GtkTextIter*)iter
 {
-	bool returnValue = gtk_text_view_forward_display_line_end([self castedGObject], iter);
+	bool returnValue = (bool)gtk_text_view_forward_display_line_end([self castedGObject], iter);
 
 	return returnValue;
 }
 
 - (bool)acceptsTab
 {
-	bool returnValue = gtk_text_view_get_accepts_tab([self castedGObject]);
+	bool returnValue = (bool)gtk_text_view_get_accepts_tab([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)bottomMargin
 {
-	int returnValue = gtk_text_view_get_bottom_margin([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_bottom_margin([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTextBuffer*)buffer
 {
-	GtkTextBuffer* gobjectValue = GTK_TEXT_BUFFER(gtk_text_view_get_buffer([self castedGObject]));
+	GtkTextBuffer* gobjectValue = gtk_text_view_get_buffer([self castedGObject]);
 
-	OGTKTextBuffer* returnValue = [OGTKTextBuffer withGObject:gobjectValue];
+	OGTKTextBuffer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -129,65 +139,65 @@
 
 - (bool)cursorVisible
 {
-	bool returnValue = gtk_text_view_get_cursor_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_text_view_get_cursor_visible([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)editable
 {
-	bool returnValue = gtk_text_view_get_editable([self castedGObject]);
+	bool returnValue = (bool)gtk_text_view_get_editable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)extraMenu
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_text_view_get_extra_menu([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_text_view_get_extra_menu([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)gutter:(GtkTextWindowType)win
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_text_view_get_gutter([self castedGObject], win));
+	GtkWidget* gobjectValue = gtk_text_view_get_gutter([self castedGObject], win);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)indent
 {
-	int returnValue = gtk_text_view_get_indent([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_indent([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkInputHints)inputHints
 {
-	GtkInputHints returnValue = gtk_text_view_get_input_hints([self castedGObject]);
+	GtkInputHints returnValue = (GtkInputHints)gtk_text_view_get_input_hints([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkInputPurpose)inputPurpose
 {
-	GtkInputPurpose returnValue = gtk_text_view_get_input_purpose([self castedGObject]);
+	GtkInputPurpose returnValue = (GtkInputPurpose)gtk_text_view_get_input_purpose([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)iterAtLocationWithIter:(GtkTextIter*)iter x:(int)x y:(int)y
 {
-	bool returnValue = gtk_text_view_get_iter_at_location([self castedGObject], iter, x, y);
+	bool returnValue = (bool)gtk_text_view_get_iter_at_location([self castedGObject], iter, x, y);
 
 	return returnValue;
 }
 
 - (bool)iterAtPositionWithIter:(GtkTextIter*)iter trailing:(int*)trailing x:(int)x y:(int)y
 {
-	bool returnValue = gtk_text_view_get_iter_at_position([self castedGObject], iter, trailing, x, y);
+	bool returnValue = (bool)gtk_text_view_get_iter_at_position([self castedGObject], iter, trailing, x, y);
 
 	return returnValue;
 }
@@ -199,14 +209,14 @@
 
 - (GtkJustification)justification
 {
-	GtkJustification returnValue = gtk_text_view_get_justification([self castedGObject]);
+	GtkJustification returnValue = (GtkJustification)gtk_text_view_get_justification([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)leftMargin
 {
-	int returnValue = gtk_text_view_get_left_margin([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_left_margin([self castedGObject]);
 
 	return returnValue;
 }
@@ -223,72 +233,72 @@
 
 - (OGPangoContext*)ltrContext
 {
-	PangoContext* gobjectValue = PANGO_CONTEXT(gtk_text_view_get_ltr_context([self castedGObject]));
+	PangoContext* gobjectValue = gtk_text_view_get_ltr_context([self castedGObject]);
 
-	OGPangoContext* returnValue = [OGPangoContext withGObject:gobjectValue];
+	OGPangoContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)monospace
 {
-	bool returnValue = gtk_text_view_get_monospace([self castedGObject]);
+	bool returnValue = (bool)gtk_text_view_get_monospace([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)overwrite
 {
-	bool returnValue = gtk_text_view_get_overwrite([self castedGObject]);
+	bool returnValue = (bool)gtk_text_view_get_overwrite([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)pixelsAboveLines
 {
-	int returnValue = gtk_text_view_get_pixels_above_lines([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_pixels_above_lines([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)pixelsBelowLines
 {
-	int returnValue = gtk_text_view_get_pixels_below_lines([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_pixels_below_lines([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)pixelsInsideWrap
 {
-	int returnValue = gtk_text_view_get_pixels_inside_wrap([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_pixels_inside_wrap([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)rightMargin
 {
-	int returnValue = gtk_text_view_get_right_margin([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_right_margin([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGPangoContext*)rtlContext
 {
-	PangoContext* gobjectValue = PANGO_CONTEXT(gtk_text_view_get_rtl_context([self castedGObject]));
+	PangoContext* gobjectValue = gtk_text_view_get_rtl_context([self castedGObject]);
 
-	OGPangoContext* returnValue = [OGPangoContext withGObject:gobjectValue];
+	OGPangoContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (PangoTabArray*)tabs
 {
-	PangoTabArray* returnValue = gtk_text_view_get_tabs([self castedGObject]);
+	PangoTabArray* returnValue = (PangoTabArray*)gtk_text_view_get_tabs([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)topMargin
 {
-	int returnValue = gtk_text_view_get_top_margin([self castedGObject]);
+	int returnValue = (int)gtk_text_view_get_top_margin([self castedGObject]);
 
 	return returnValue;
 }
@@ -300,21 +310,21 @@
 
 - (GtkWrapMode)wrapMode
 {
-	GtkWrapMode returnValue = gtk_text_view_get_wrap_mode([self castedGObject]);
+	GtkWrapMode returnValue = (GtkWrapMode)gtk_text_view_get_wrap_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)imContextFilterKeypress:(GdkEvent*)event
 {
-	bool returnValue = gtk_text_view_im_context_filter_keypress([self castedGObject], event);
+	bool returnValue = (bool)gtk_text_view_im_context_filter_keypress([self castedGObject], event);
 
 	return returnValue;
 }
 
 - (bool)moveMarkOnscreen:(OGTKTextMark*)mark
 {
-	bool returnValue = gtk_text_view_move_mark_onscreen([self castedGObject], [mark castedGObject]);
+	bool returnValue = (bool)gtk_text_view_move_mark_onscreen([self castedGObject], [mark castedGObject]);
 
 	return returnValue;
 }
@@ -326,14 +336,14 @@
 
 - (bool)moveVisuallyWithIter:(GtkTextIter*)iter count:(int)count
 {
-	bool returnValue = gtk_text_view_move_visually([self castedGObject], iter, count);
+	bool returnValue = (bool)gtk_text_view_move_visually([self castedGObject], iter, count);
 
 	return returnValue;
 }
 
 - (bool)placeCursorOnscreen
 {
-	bool returnValue = gtk_text_view_place_cursor_onscreen([self castedGObject]);
+	bool returnValue = (bool)gtk_text_view_place_cursor_onscreen([self castedGObject]);
 
 	return returnValue;
 }
@@ -360,7 +370,7 @@
 
 - (bool)scrollToIterWithIter:(GtkTextIter*)iter withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign
 {
-	bool returnValue = gtk_text_view_scroll_to_iter([self castedGObject], iter, withinMargin, useAlign, xalign, yalign);
+	bool returnValue = (bool)gtk_text_view_scroll_to_iter([self castedGObject], iter, withinMargin, useAlign, xalign, yalign);
 
 	return returnValue;
 }
@@ -477,7 +487,7 @@
 
 - (bool)startsDisplayLine:(const GtkTextIter*)iter
 {
-	bool returnValue = gtk_text_view_starts_display_line([self castedGObject], iter);
+	bool returnValue = (bool)gtk_text_view_starts_display_line([self castedGObject], iter);
 
 	return returnValue;
 }

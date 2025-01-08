@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGGdkDevice;
+@class OGdkDevice;
 
 /**
  * A `GtkComboBox` is a widget that allows the user to choose from a list of
@@ -227,7 +227,7 @@
  *
  * @param device a `GdkDevice`
  */
-- (void)popupForDevice:(OGGdkDevice*)device;
+- (void)popupForDevice:(OGdkDevice*)device;
 
 /**
  * Sets the active item of @combo_box to be the item at @index.

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,9 +11,19 @@
 
 @implementation OGTKAlertDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_ALERT_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkAlertDialog*)castedGObject
 {
-	return GTK_ALERT_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAlertDialog, GtkAlertDialog);
 }
 
 - (void)chooseWithParent:(OGTKWindow*)parent cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
@@ -25,34 +35,30 @@
 {
 	GError* err = NULL;
 
-	int returnValue = gtk_alert_dialog_choose_finish([self castedGObject], result, &err);
+	int returnValue = (int)gtk_alert_dialog_choose_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
 
 - (const char* const*)buttons
 {
-	const char* const* returnValue = gtk_alert_dialog_get_buttons([self castedGObject]);
+	const char* const* returnValue = (const char* const*)gtk_alert_dialog_get_buttons([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)cancelButton
 {
-	int returnValue = gtk_alert_dialog_get_cancel_button([self castedGObject]);
+	int returnValue = (int)gtk_alert_dialog_get_cancel_button([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)defaultButton
 {
-	int returnValue = gtk_alert_dialog_get_default_button([self castedGObject]);
+	int returnValue = (int)gtk_alert_dialog_get_default_button([self castedGObject]);
 
 	return returnValue;
 }
@@ -75,7 +81,7 @@
 
 - (bool)modal
 {
-	bool returnValue = gtk_alert_dialog_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_alert_dialog_get_modal([self castedGObject]);
 
 	return returnValue;
 }

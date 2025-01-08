@@ -1,23 +1,33 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKFontDialog.h"
 
-#import "OGTKWindow.h"
-#import "OGTKFilter.h"
-#import <OGPango/OGPangoFontFace.h>
-#import <OGPango/OGPangoFontMap.h>
-#import <OGPango/OGPangoFontFamily.h>
 #import <OGio/OGCancellable.h>
+#import "OGTKFilter.h"
+#import "OGTKWindow.h"
+#import <OGPango/OGPangoFontFace.h>
+#import <OGPango/OGPangoFontFamily.h>
+#import <OGPango/OGPangoFontMap.h>
 
 @implementation OGTKFontDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_FONT_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkFontDialog* gobjectValue = GTK_FONT_DIALOG(gtk_font_dialog_new());
+	GtkFontDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_font_dialog_new(), GtkFontDialog, GtkFontDialog);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -33,7 +43,7 @@
 
 - (GtkFontDialog*)castedGObject
 {
-	return GTK_FONT_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFontDialog, GtkFontDialog);
 }
 
 - (void)chooseFaceWithParent:(OGTKWindow*)parent initialValue:(OGPangoFontFace*)initialValue cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
@@ -45,17 +55,11 @@
 {
 	GError* err = NULL;
 
-	PangoFontFace* gobjectValue = PANGO_FONT_FACE(gtk_font_dialog_choose_face_finish([self castedGObject], result, &err));
+	PangoFontFace* gobjectValue = gtk_font_dialog_choose_face_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
-	OGPangoFontFace* returnValue = [OGPangoFontFace withGObject:gobjectValue];
+	OGPangoFontFace* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -70,17 +74,11 @@
 {
 	GError* err = NULL;
 
-	PangoFontFamily* gobjectValue = PANGO_FONT_FAMILY(gtk_font_dialog_choose_family_finish([self castedGObject], result, &err));
+	PangoFontFamily* gobjectValue = gtk_font_dialog_choose_family_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
-	OGPangoFontFamily* returnValue = [OGPangoFontFamily withGObject:gobjectValue];
+	OGPangoFontFamily* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -100,13 +98,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_font_dialog_choose_font_and_features_finish([self castedGObject], result, fontDesc, fontFeatures, language, &err);
+	bool returnValue = (bool)gtk_font_dialog_choose_font_and_features_finish([self castedGObject], result, fontDesc, fontFeatures, language, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -115,43 +109,39 @@
 {
 	GError* err = NULL;
 
-	PangoFontDescription* returnValue = gtk_font_dialog_choose_font_finish([self castedGObject], result, &err);
+	PangoFontDescription* returnValue = (PangoFontDescription*)gtk_font_dialog_choose_font_finish([self castedGObject], result, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
 
 - (OGTKFilter*)filter
 {
-	GtkFilter* gobjectValue = GTK_FILTER(gtk_font_dialog_get_filter([self castedGObject]));
+	GtkFilter* gobjectValue = gtk_font_dialog_get_filter([self castedGObject]);
 
-	OGTKFilter* returnValue = [OGTKFilter withGObject:gobjectValue];
+	OGTKFilter* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGPangoFontMap*)fontMap
 {
-	PangoFontMap* gobjectValue = PANGO_FONT_MAP(gtk_font_dialog_get_font_map([self castedGObject]));
+	PangoFontMap* gobjectValue = gtk_font_dialog_get_font_map([self castedGObject]);
 
-	OGPangoFontMap* returnValue = [OGPangoFontMap withGObject:gobjectValue];
+	OGPangoFontMap* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (PangoLanguage*)language
 {
-	PangoLanguage* returnValue = gtk_font_dialog_get_language([self castedGObject]);
+	PangoLanguage* returnValue = (PangoLanguage*)gtk_font_dialog_get_language([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)modal
 {
-	bool returnValue = gtk_font_dialog_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_font_dialog_get_modal([self castedGObject]);
 
 	return returnValue;
 }

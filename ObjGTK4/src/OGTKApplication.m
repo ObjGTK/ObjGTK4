@@ -1,20 +1,30 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKApplication.h"
 
-#import "OGTKWindow.h"
-#import <OGio/OGMenuModel.h>
 #import <OGio/OGMenu.h>
+#import <OGio/OGMenuModel.h>
+#import "OGTKWindow.h"
 
 @implementation OGTKApplication
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_APPLICATION;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithApplicationId:(OFString*)applicationId flags:(GApplicationFlags)flags
 {
-	GtkApplication* gobjectValue = GTK_APPLICATION(gtk_application_new([applicationId UTF8String], flags));
+	GtkApplication* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_application_new([applicationId UTF8String], flags), GtkApplication, GtkApplication);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -30,7 +40,7 @@
 
 - (GtkApplication*)castedGObject
 {
-	return GTK_APPLICATION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkApplication, GtkApplication);
 }
 
 - (void)addWindow:(OGTKWindow*)window
@@ -40,67 +50,67 @@
 
 - (char**)accelsForAction:(OFString*)detailedActionName
 {
-	char** returnValue = gtk_application_get_accels_for_action([self castedGObject], [detailedActionName UTF8String]);
+	char** returnValue = (char**)gtk_application_get_accels_for_action([self castedGObject], [detailedActionName UTF8String]);
 
 	return returnValue;
 }
 
 - (char**)actionsForAccel:(OFString*)accel
 {
-	char** returnValue = gtk_application_get_actions_for_accel([self castedGObject], [accel UTF8String]);
+	char** returnValue = (char**)gtk_application_get_actions_for_accel([self castedGObject], [accel UTF8String]);
 
 	return returnValue;
 }
 
 - (OGTKWindow*)activeWindow
 {
-	GtkWindow* gobjectValue = GTK_WINDOW(gtk_application_get_active_window([self castedGObject]));
+	GtkWindow* gobjectValue = gtk_application_get_active_window([self castedGObject]);
 
-	OGTKWindow* returnValue = [OGTKWindow withGObject:gobjectValue];
+	OGTKWindow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
-- (OGMenu*)menuById:(OFString*)id
+- (OGMenu*)menuById:(OFString*)identifier
 {
-	GMenu* gobjectValue = G_MENU(gtk_application_get_menu_by_id([self castedGObject], [id UTF8String]));
+	GMenu* gobjectValue = gtk_application_get_menu_by_id([self castedGObject], [identifier UTF8String]);
 
-	OGMenu* returnValue = [OGMenu withGObject:gobjectValue];
+	OGMenu* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGMenuModel*)menubar
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_application_get_menubar([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_application_get_menubar([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
-- (OGTKWindow*)windowById:(guint)id
+- (OGTKWindow*)windowById:(guint)identifier
 {
-	GtkWindow* gobjectValue = GTK_WINDOW(gtk_application_get_window_by_id([self castedGObject], id));
+	GtkWindow* gobjectValue = gtk_application_get_window_by_id([self castedGObject], identifier);
 
-	OGTKWindow* returnValue = [OGTKWindow withGObject:gobjectValue];
+	OGTKWindow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GList*)windows
 {
-	GList* returnValue = gtk_application_get_windows([self castedGObject]);
+	GList* returnValue = (GList*)gtk_application_get_windows([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)inhibitWithWindow:(OGTKWindow*)window flags:(GtkApplicationInhibitFlags)flags reason:(OFString*)reason
 {
-	guint returnValue = gtk_application_inhibit([self castedGObject], [window castedGObject], flags, [reason UTF8String]);
+	guint returnValue = (guint)gtk_application_inhibit([self castedGObject], [window castedGObject], flags, [reason UTF8String]);
 
 	return returnValue;
 }
 
 - (char**)listActionDescriptions
 {
-	char** returnValue = gtk_application_list_action_descriptions([self castedGObject]);
+	char** returnValue = (char**)gtk_application_list_action_descriptions([self castedGObject]);
 
 	return returnValue;
 }

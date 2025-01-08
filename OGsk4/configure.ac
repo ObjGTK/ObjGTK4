@@ -81,14 +81,14 @@ AS_IF([test x"$with_gt" != x"no" -a x"$with_gt" != x""], [
 ])
 
 
-PKG_CHECK_MODULES(gt, [gtk4 >= $(pkg-config --modversion gtk4)], [
+PKG_CHECK_MODULES(GTK4, [gtk4 >= 4.14.2], [
 	OGSK4_CPPFLAGS="$OGSK4_CPPFLAGS $gt_CFLAGS"
 	OGSK4_LIBS="$OGSK4_LIBS $gt_LIBS"
 	CPPFLAGS="$CPPFLAGS $gt_CFLAGS"
 	LIBS="$LIBS $gt_LIBS"
 	FRAMEWORK_LIBS="$FRAMEWORK_LIBS $gt_LIBS"
 ], [
-	AC_MSG_ERROR(You need gtk4 >= $(pkg-config --modversion gtk4) installed!)
+	AC_MSG_ERROR(You need gtk4 >= 4.14.2 installed!)
 ])
 
 AS_IF([test x"$GOBJC" = x"yes"], [

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,7 +8,7 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDisplay;
+@class OGdkDisplay;
 
 /**
  * `GtkATContext` is an abstract class provided by GTK to communicate to
@@ -28,7 +28,7 @@
 /**
  * Constructors
  */
-- (instancetype)initCreateWithAccessibleRole:(GtkAccessibleRole)accessibleRole accessible:(GtkAccessible*)accessible display:(OGGdkDisplay*)display;
+- (instancetype)initCreateWithAccessibleRole:(GtkAccessibleRole)accessibleRole accessible:(GtkAccessible*)accessible display:(OGdkDisplay*)display;
 
 /**
  * Methods

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,17 +8,27 @@
 
 @implementation OGTKRecentManager
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_RECENT_MANAGER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 + (OGTKRecentManager*)default
 {
-	GtkRecentManager* gobjectValue = GTK_RECENT_MANAGER(gtk_recent_manager_get_default());
+	GtkRecentManager* gobjectValue = gtk_recent_manager_get_default();
 
-	OGTKRecentManager* returnValue = [OGTKRecentManager withGObject:gobjectValue];
+	OGTKRecentManager* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (instancetype)init
 {
-	GtkRecentManager* gobjectValue = GTK_RECENT_MANAGER(gtk_recent_manager_new());
+	GtkRecentManager* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_recent_manager_new(), GtkRecentManager, GtkRecentManager);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -34,33 +44,33 @@
 
 - (GtkRecentManager*)castedGObject
 {
-	return GTK_RECENT_MANAGER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkRecentManager, GtkRecentManager);
 }
 
 - (bool)addFullWithUri:(OFString*)uri recentData:(const GtkRecentData*)recentData
 {
-	bool returnValue = gtk_recent_manager_add_full([self castedGObject], [uri UTF8String], recentData);
+	bool returnValue = (bool)gtk_recent_manager_add_full([self castedGObject], [uri UTF8String], recentData);
 
 	return returnValue;
 }
 
 - (bool)addItem:(OFString*)uri
 {
-	bool returnValue = gtk_recent_manager_add_item([self castedGObject], [uri UTF8String]);
+	bool returnValue = (bool)gtk_recent_manager_add_item([self castedGObject], [uri UTF8String]);
 
 	return returnValue;
 }
 
 - (GList*)items
 {
-	GList* returnValue = gtk_recent_manager_get_items([self castedGObject]);
+	GList* returnValue = (GList*)gtk_recent_manager_get_items([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasItem:(OFString*)uri
 {
-	bool returnValue = gtk_recent_manager_has_item([self castedGObject], [uri UTF8String]);
+	bool returnValue = (bool)gtk_recent_manager_has_item([self castedGObject], [uri UTF8String]);
 
 	return returnValue;
 }
@@ -69,13 +79,9 @@
 {
 	GError* err = NULL;
 
-	GtkRecentInfo* returnValue = gtk_recent_manager_lookup_item([self castedGObject], [uri UTF8String], &err);
+	GtkRecentInfo* returnValue = (GtkRecentInfo*)gtk_recent_manager_lookup_item([self castedGObject], [uri UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -84,13 +90,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_recent_manager_move_item([self castedGObject], [uri UTF8String], [newUri UTF8String], &err);
+	bool returnValue = (bool)gtk_recent_manager_move_item([self castedGObject], [uri UTF8String], [newUri UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -99,13 +101,9 @@
 {
 	GError* err = NULL;
 
-	int returnValue = gtk_recent_manager_purge_items([self castedGObject], &err);
+	int returnValue = (int)gtk_recent_manager_purge_items([self castedGObject], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -114,13 +112,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_recent_manager_remove_item([self castedGObject], [uri UTF8String], &err);
+	bool returnValue = (bool)gtk_recent_manager_remove_item([self castedGObject], [uri UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }

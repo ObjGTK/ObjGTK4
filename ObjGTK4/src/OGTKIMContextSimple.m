@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKIMContextSimple
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_IM_CONTEXT_SIMPLE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkIMContextSimple* gobjectValue = GTK_IM_CONTEXT_SIMPLE(gtk_im_context_simple_new());
+	GtkIMContextSimple* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_im_context_simple_new(), GtkIMContextSimple, GtkIMContextSimple);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkIMContextSimple*)castedGObject
 {
-	return GTK_IM_CONTEXT_SIMPLE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIMContextSimple, GtkIMContextSimple);
 }
 
 - (void)addComposeFile:(OFString*)composeFile

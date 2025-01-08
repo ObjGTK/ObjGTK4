@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,8 +8,8 @@
 
 #import <OGio/OGMountOperation.h>
 
+@class OGdkDisplay;
 @class OGTKWindow;
-@class OGGdkDisplay;
 
 /**
  * `GtkMountOperation` is an implementation of `GMountOperation`.
@@ -36,7 +36,7 @@
 /**
  * Constructors
  */
-- (instancetype)init:(OGTKWindow*)parent;
+- (instancetype)initWithParent:(OGTKWindow*)parent;
 
 /**
  * Methods
@@ -50,7 +50,7 @@
  *
  * @return the display on which windows of @op are shown
  */
-- (OGGdkDisplay*)display;
+- (OGdkDisplay*)display;
 
 /**
  * Gets the transient parent used by the `GtkMountOperation`.
@@ -72,7 +72,7 @@
  *
  * @param display a `GdkDisplay`
  */
-- (void)setDisplay:(OGGdkDisplay*)display;
+- (void)setDisplay:(OGdkDisplay*)display;
 
 /**
  * Sets the transient parent for windows shown by the

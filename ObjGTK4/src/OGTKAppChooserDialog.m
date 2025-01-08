@@ -1,19 +1,29 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKAppChooserDialog.h"
 
-#import "OGTKWindow.h"
 #import "OGTKWidget.h"
+#import "OGTKWindow.h"
 
 @implementation OGTKAppChooserDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_APP_CHOOSER_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags file:(GFile*)file
 {
-	GtkAppChooserDialog* gobjectValue = GTK_APP_CHOOSER_DIALOG(gtk_app_chooser_dialog_new([parent castedGObject], flags, file));
+	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new([parent castedGObject], flags, file), GtkAppChooserDialog, GtkAppChooserDialog);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -32,7 +42,7 @@
 
 - (instancetype)initForContentTypeWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags contentType:(OFString*)contentType
 {
-	GtkAppChooserDialog* gobjectValue = GTK_APP_CHOOSER_DIALOG(gtk_app_chooser_dialog_new_for_content_type([parent castedGObject], flags, [contentType UTF8String]));
+	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new_for_content_type([parent castedGObject], flags, [contentType UTF8String]), GtkAppChooserDialog, GtkAppChooserDialog);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -51,7 +61,7 @@
 
 - (GtkAppChooserDialog*)castedGObject
 {
-	return GTK_APP_CHOOSER_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAppChooserDialog, GtkAppChooserDialog);
 }
 
 - (OFString*)heading
@@ -64,9 +74,9 @@
 
 - (OGTKWidget*)widget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_app_chooser_dialog_get_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_app_chooser_dialog_get_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

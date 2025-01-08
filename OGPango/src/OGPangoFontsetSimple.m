@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGPangoFontsetSimple
 
-- (instancetype)init:(PangoLanguage*)language
++ (void)load
 {
-	PangoFontsetSimple* gobjectValue = PANGO_FONTSET_SIMPLE(pango_fontset_simple_new(language));
+	GType gtypeToAssociate = PANGO_TYPE_FONTSET_SIMPLE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithLanguage:(PangoLanguage*)language
+{
+	PangoFontsetSimple* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_fontset_simple_new(language), PangoFontsetSimple, PangoFontsetSimple);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,7 +38,7 @@
 
 - (PangoFontsetSimple*)castedGObject
 {
-	return PANGO_FONTSET_SIMPLE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoFontsetSimple, PangoFontsetSimple);
 }
 
 - (void)append:(OGPangoFont*)font
@@ -38,7 +48,7 @@
 
 - (int)size
 {
-	int returnValue = pango_fontset_simple_size([self castedGObject]);
+	int returnValue = (int)pango_fontset_simple_size([self castedGObject]);
 
 	return returnValue;
 }

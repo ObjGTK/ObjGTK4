@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKPaned
 
-- (instancetype)init:(GtkOrientation)orientation
++ (void)load
 {
-	GtkPaned* gobjectValue = GTK_PANED(gtk_paned_new(orientation));
+	GType gtypeToAssociate = GTK_TYPE_PANED;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithOrientation:(GtkOrientation)orientation
+{
+	GtkPaned* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_paned_new(orientation), GtkPaned, GtkPaned);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,63 +39,63 @@
 
 - (GtkPaned*)castedGObject
 {
-	return GTK_PANED([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPaned, GtkPaned);
 }
 
 - (OGTKWidget*)endChild
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_paned_get_end_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_paned_get_end_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)position
 {
-	int returnValue = gtk_paned_get_position([self castedGObject]);
+	int returnValue = (int)gtk_paned_get_position([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)resizeEndChild
 {
-	bool returnValue = gtk_paned_get_resize_end_child([self castedGObject]);
+	bool returnValue = (bool)gtk_paned_get_resize_end_child([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)resizeStartChild
 {
-	bool returnValue = gtk_paned_get_resize_start_child([self castedGObject]);
+	bool returnValue = (bool)gtk_paned_get_resize_start_child([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)shrinkEndChild
 {
-	bool returnValue = gtk_paned_get_shrink_end_child([self castedGObject]);
+	bool returnValue = (bool)gtk_paned_get_shrink_end_child([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)shrinkStartChild
 {
-	bool returnValue = gtk_paned_get_shrink_start_child([self castedGObject]);
+	bool returnValue = (bool)gtk_paned_get_shrink_start_child([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)startChild
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_paned_get_start_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_paned_get_start_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)wideHandle
 {
-	bool returnValue = gtk_paned_get_wide_handle([self castedGObject]);
+	bool returnValue = (bool)gtk_paned_get_wide_handle([self castedGObject]);
 
 	return returnValue;
 }

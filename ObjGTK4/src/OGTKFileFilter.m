@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKFileFilter
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_FILE_FILTER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkFileFilter* gobjectValue = GTK_FILE_FILTER(gtk_file_filter_new());
+	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new(), GtkFileFilter, GtkFileFilter);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -24,9 +34,9 @@
 	return self;
 }
 
-- (instancetype)initFromGvariant:(GVariant*)variant
+- (instancetype)initWithVariantFromGvariant:(GVariant*)variant
 {
-	GtkFileFilter* gobjectValue = GTK_FILE_FILTER(gtk_file_filter_new_from_gvariant(variant));
+	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new_from_gvariant(variant), GtkFileFilter, GtkFileFilter);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -42,7 +52,7 @@
 
 - (GtkFileFilter*)castedGObject
 {
-	return GTK_FILE_FILTER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFileFilter, GtkFileFilter);
 }
 
 - (void)addMimeType:(OFString*)mimeType
@@ -67,7 +77,7 @@
 
 - (const char**)attributes
 {
-	const char** returnValue = gtk_file_filter_get_attributes([self castedGObject]);
+	const char** returnValue = (const char**)gtk_file_filter_get_attributes([self castedGObject]);
 
 	return returnValue;
 }
@@ -87,7 +97,7 @@
 
 - (GVariant*)toGvariant
 {
-	GVariant* returnValue = gtk_file_filter_to_gvariant([self castedGObject]);
+	GVariant* returnValue = (GVariant*)gtk_file_filter_to_gvariant([self castedGObject]);
 
 	return returnValue;
 }

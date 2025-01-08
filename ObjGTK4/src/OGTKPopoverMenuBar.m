@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKPopoverMenuBar
 
-- (instancetype)initFromModel:(OGMenuModel*)model
++ (void)load
 {
-	GtkPopoverMenuBar* gobjectValue = GTK_POPOVER_MENU_BAR(gtk_popover_menu_bar_new_from_model([model castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_POPOVER_MENU_BAR;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithModelFromModel:(OGMenuModel*)model
+{
+	GtkPopoverMenuBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_bar_new_from_model([model castedGObject]), GtkPopoverMenuBar, GtkPopoverMenuBar);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,27 +41,27 @@
 
 - (GtkPopoverMenuBar*)castedGObject
 {
-	return GTK_POPOVER_MENU_BAR([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPopoverMenuBar, GtkPopoverMenuBar);
 }
 
-- (bool)addChildWithChild:(OGTKWidget*)child id:(OFString*)id
+- (bool)addChildWithChild:(OGTKWidget*)child identifier:(OFString*)identifier
 {
-	bool returnValue = gtk_popover_menu_bar_add_child([self castedGObject], [child castedGObject], [id UTF8String]);
+	bool returnValue = (bool)gtk_popover_menu_bar_add_child([self castedGObject], [child castedGObject], [identifier UTF8String]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)menuModel
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_popover_menu_bar_get_menu_model([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_popover_menu_bar_get_menu_model([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)removeChild:(OGTKWidget*)child
 {
-	bool returnValue = gtk_popover_menu_bar_remove_child([self castedGObject], [child castedGObject]);
+	bool returnValue = (bool)gtk_popover_menu_bar_remove_child([self castedGObject], [child castedGObject]);
 
 	return returnValue;
 }

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKPageSetup
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_PAGE_SETUP;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkPageSetup* gobjectValue = GTK_PAGE_SETUP(gtk_page_setup_new());
+	GtkPageSetup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_page_setup_new(), GtkPageSetup, GtkPageSetup);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -24,19 +34,13 @@
 	return self;
 }
 
-- (instancetype)initFromFile:(OFString*)fileName
+- (instancetype)initWithFileNameFromFile:(OFString*)fileName
 {
 	GError* err = NULL;
 
-	GtkPageSetup* gobjectValue = GTK_PAGE_SETUP(gtk_page_setup_new_from_file([fileName UTF8String], &err));
+	GtkPageSetup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_page_setup_new_from_file([fileName UTF8String], &err), GtkPageSetup, GtkPageSetup);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -50,9 +54,9 @@
 	return self;
 }
 
-- (instancetype)initFromGvariant:(GVariant*)variant
+- (instancetype)initWithVariantFromGvariant:(GVariant*)variant
 {
-	GtkPageSetup* gobjectValue = GTK_PAGE_SETUP(gtk_page_setup_new_from_gvariant(variant));
+	GtkPageSetup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_page_setup_new_from_gvariant(variant), GtkPageSetup, GtkPageSetup);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -70,15 +74,9 @@
 {
 	GError* err = NULL;
 
-	GtkPageSetup* gobjectValue = GTK_PAGE_SETUP(gtk_page_setup_new_from_key_file(keyFile, [groupName UTF8String], &err));
+	GtkPageSetup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_page_setup_new_from_key_file(keyFile, [groupName UTF8String], &err), GtkPageSetup, GtkPageSetup);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -94,14 +92,14 @@
 
 - (GtkPageSetup*)castedGObject
 {
-	return GTK_PAGE_SETUP([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPageSetup, GtkPageSetup);
 }
 
 - (OGTKPageSetup*)copy
 {
-	GtkPageSetup* gobjectValue = GTK_PAGE_SETUP(gtk_page_setup_copy([self castedGObject]));
+	GtkPageSetup* gobjectValue = gtk_page_setup_copy([self castedGObject]);
 
-	OGTKPageSetup* returnValue = [OGTKPageSetup withGObject:gobjectValue];
+	OGTKPageSetup* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -109,70 +107,70 @@
 
 - (double)bottomMargin:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_bottom_margin([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_bottom_margin([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (double)leftMargin:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_left_margin([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_left_margin([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (GtkPageOrientation)orientation
 {
-	GtkPageOrientation returnValue = gtk_page_setup_get_orientation([self castedGObject]);
+	GtkPageOrientation returnValue = (GtkPageOrientation)gtk_page_setup_get_orientation([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)pageHeight:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_page_height([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_page_height([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (double)pageWidth:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_page_width([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_page_width([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (double)paperHeight:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_paper_height([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_paper_height([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (GtkPaperSize*)paperSize
 {
-	GtkPaperSize* returnValue = gtk_page_setup_get_paper_size([self castedGObject]);
+	GtkPaperSize* returnValue = (GtkPaperSize*)gtk_page_setup_get_paper_size([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)paperWidth:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_paper_width([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_paper_width([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (double)rightMargin:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_right_margin([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_right_margin([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (double)topMargin:(GtkUnit)unit
 {
-	double returnValue = gtk_page_setup_get_top_margin([self castedGObject], unit);
+	double returnValue = (double)gtk_page_setup_get_top_margin([self castedGObject], unit);
 
 	return returnValue;
 }
@@ -181,13 +179,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_page_setup_load_file([self castedGObject], [fileName UTF8String], &err);
+	bool returnValue = (bool)gtk_page_setup_load_file([self castedGObject], [fileName UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -196,13 +190,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_page_setup_load_key_file([self castedGObject], keyFile, [groupName UTF8String], &err);
+	bool returnValue = (bool)gtk_page_setup_load_key_file([self castedGObject], keyFile, [groupName UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -246,20 +236,16 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_page_setup_to_file([self castedGObject], [fileName UTF8String], &err);
+	bool returnValue = (bool)gtk_page_setup_to_file([self castedGObject], [fileName UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
 
 - (GVariant*)toGvariant
 {
-	GVariant* returnValue = gtk_page_setup_to_gvariant([self castedGObject]);
+	GVariant* returnValue = (GVariant*)gtk_page_setup_to_gvariant([self castedGObject]);
 
 	return returnValue;
 }

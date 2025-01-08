@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKFlattenListModel
 
-- (instancetype)init:(GListModel*)model
++ (void)load
 {
-	GtkFlattenListModel* gobjectValue = GTK_FLATTEN_LIST_MODEL(gtk_flatten_list_model_new(model));
+	GType gtypeToAssociate = GTK_TYPE_FLATTEN_LIST_MODEL;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithModel:(GListModel*)model
+{
+	GtkFlattenListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_flatten_list_model_new(model), GtkFlattenListModel, GtkFlattenListModel);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,19 +36,19 @@
 
 - (GtkFlattenListModel*)castedGObject
 {
-	return GTK_FLATTEN_LIST_MODEL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFlattenListModel, GtkFlattenListModel);
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = gtk_flatten_list_model_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_flatten_list_model_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)modelForItem:(guint)position
 {
-	GListModel* returnValue = gtk_flatten_list_model_get_model_for_item([self castedGObject], position);
+	GListModel* returnValue = (GListModel*)gtk_flatten_list_model_get_model_for_item([self castedGObject], position);
 
 	return returnValue;
 }

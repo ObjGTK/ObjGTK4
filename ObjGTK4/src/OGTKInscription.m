@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKInscription
 
-- (instancetype)init:(OFString*)text
++ (void)load
 {
-	GtkInscription* gobjectValue = GTK_INSCRIPTION(gtk_inscription_new([text UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_INSCRIPTION;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithText:(OFString*)text
+{
+	GtkInscription* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_inscription_new([text UTF8String]), GtkInscription, GtkInscription);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,40 +39,40 @@
 
 - (GtkInscription*)castedGObject
 {
-	return GTK_INSCRIPTION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkInscription, GtkInscription);
 }
 
 - (PangoAttrList*)attributes
 {
-	PangoAttrList* returnValue = gtk_inscription_get_attributes([self castedGObject]);
+	PangoAttrList* returnValue = (PangoAttrList*)gtk_inscription_get_attributes([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)minChars
 {
-	guint returnValue = gtk_inscription_get_min_chars([self castedGObject]);
+	guint returnValue = (guint)gtk_inscription_get_min_chars([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)minLines
 {
-	guint returnValue = gtk_inscription_get_min_lines([self castedGObject]);
+	guint returnValue = (guint)gtk_inscription_get_min_lines([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)natChars
 {
-	guint returnValue = gtk_inscription_get_nat_chars([self castedGObject]);
+	guint returnValue = (guint)gtk_inscription_get_nat_chars([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)natLines
 {
-	guint returnValue = gtk_inscription_get_nat_lines([self castedGObject]);
+	guint returnValue = (guint)gtk_inscription_get_nat_lines([self castedGObject]);
 
 	return returnValue;
 }
@@ -77,28 +87,28 @@
 
 - (GtkInscriptionOverflow)textOverflow
 {
-	GtkInscriptionOverflow returnValue = gtk_inscription_get_text_overflow([self castedGObject]);
+	GtkInscriptionOverflow returnValue = (GtkInscriptionOverflow)gtk_inscription_get_text_overflow([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoWrapMode)wrapMode
 {
-	PangoWrapMode returnValue = gtk_inscription_get_wrap_mode([self castedGObject]);
+	PangoWrapMode returnValue = (PangoWrapMode)gtk_inscription_get_wrap_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)xalign
 {
-	float returnValue = gtk_inscription_get_xalign([self castedGObject]);
+	float returnValue = (float)gtk_inscription_get_xalign([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)yalign
 {
-	float returnValue = gtk_inscription_get_yalign([self castedGObject]);
+	float returnValue = (float)gtk_inscription_get_yalign([self castedGObject]);
 
 	return returnValue;
 }

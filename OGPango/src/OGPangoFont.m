@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,10 +8,20 @@
 
 #import "OGPangoContext.h"
 #import "OGPangoCoverage.h"
-#import "OGPangoFontMap.h"
 #import "OGPangoFontFace.h"
+#import "OGPangoFontMap.h"
 
 @implementation OGPangoFont
+
++ (void)load
+{
+	GType gtypeToAssociate = PANGO_TYPE_FONT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
 
 + (void)descriptionsFreeWithDescs:(PangoFontDescription**)descs ndescs:(int)ndescs
 {
@@ -22,17 +32,11 @@
 {
 	GError* err = NULL;
 
-	PangoFont* gobjectValue = PANGO_FONT(pango_font_deserialize([context castedGObject], bytes, &err));
+	PangoFont* gobjectValue = pango_font_deserialize([context castedGObject], bytes, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
-	OGPangoFont* returnValue = [OGPangoFont withGObject:gobjectValue];
+	OGPangoFont* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -40,28 +44,28 @@
 
 - (PangoFont*)castedGObject
 {
-	return PANGO_FONT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoFont, PangoFont);
 }
 
 - (PangoFontDescription*)describe
 {
-	PangoFontDescription* returnValue = pango_font_describe([self castedGObject]);
+	PangoFontDescription* returnValue = (PangoFontDescription*)pango_font_describe([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoFontDescription*)describeWithAbsoluteSize
 {
-	PangoFontDescription* returnValue = pango_font_describe_with_absolute_size([self castedGObject]);
+	PangoFontDescription* returnValue = (PangoFontDescription*)pango_font_describe_with_absolute_size([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGPangoCoverage*)coverage:(PangoLanguage*)language
 {
-	PangoCoverage* gobjectValue = PANGO_COVERAGE(pango_font_get_coverage([self castedGObject], language));
+	PangoCoverage* gobjectValue = pango_font_get_coverage([self castedGObject], language);
 
-	OGPangoCoverage* returnValue = [OGPangoCoverage withGObject:gobjectValue];
+	OGPangoCoverage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -69,9 +73,9 @@
 
 - (OGPangoFontFace*)face
 {
-	PangoFontFace* gobjectValue = PANGO_FONT_FACE(pango_font_get_face([self castedGObject]));
+	PangoFontFace* gobjectValue = pango_font_get_face([self castedGObject]);
 
-	OGPangoFontFace* returnValue = [OGPangoFontFace withGObject:gobjectValue];
+	OGPangoFontFace* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -82,9 +86,9 @@
 
 - (OGPangoFontMap*)fontMap
 {
-	PangoFontMap* gobjectValue = PANGO_FONT_MAP(pango_font_get_font_map([self castedGObject]));
+	PangoFontMap* gobjectValue = pango_font_get_font_map([self castedGObject]);
 
-	OGPangoFontMap* returnValue = [OGPangoFontMap withGObject:gobjectValue];
+	OGPangoFontMap* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -95,35 +99,35 @@
 
 - (hb_font_t*)hbFont
 {
-	hb_font_t* returnValue = pango_font_get_hb_font([self castedGObject]);
+	hb_font_t* returnValue = (hb_font_t*)pango_font_get_hb_font([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoLanguage**)languages
 {
-	PangoLanguage** returnValue = pango_font_get_languages([self castedGObject]);
+	PangoLanguage** returnValue = (PangoLanguage**)pango_font_get_languages([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoFontMetrics*)metrics:(PangoLanguage*)language
 {
-	PangoFontMetrics* returnValue = pango_font_get_metrics([self castedGObject], language);
+	PangoFontMetrics* returnValue = (PangoFontMetrics*)pango_font_get_metrics([self castedGObject], language);
 
 	return returnValue;
 }
 
 - (bool)hasChar:(gunichar)wc
 {
-	bool returnValue = pango_font_has_char([self castedGObject], wc);
+	bool returnValue = (bool)pango_font_has_char([self castedGObject], wc);
 
 	return returnValue;
 }
 
 - (GBytes*)serialize
 {
-	GBytes* returnValue = pango_font_serialize([self castedGObject]);
+	GBytes* returnValue = (GBytes*)pango_font_serialize([self castedGObject]);
 
 	return returnValue;
 }

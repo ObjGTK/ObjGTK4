@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKEventControllerLegacy
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_EVENT_CONTROLLER_LEGACY;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkEventControllerLegacy* gobjectValue = GTK_EVENT_CONTROLLER_LEGACY(gtk_event_controller_legacy_new());
+	GtkEventControllerLegacy* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_legacy_new(), GtkEventControllerLegacy, GtkEventControllerLegacy);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkEventControllerLegacy*)castedGObject
 {
-	return GTK_EVENT_CONTROLLER_LEGACY([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEventControllerLegacy, GtkEventControllerLegacy);
 }
 
 

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKLinkButton
 
-- (instancetype)init:(OFString*)uri
++ (void)load
 {
-	GtkLinkButton* gobjectValue = GTK_LINK_BUTTON(gtk_link_button_new([uri UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_LINK_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithUri:(OFString*)uri
+{
+	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new([uri UTF8String]), GtkLinkButton, GtkLinkButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,7 +41,7 @@
 
 - (instancetype)initWithLabelWithUri:(OFString*)uri label:(OFString*)label
 {
-	GtkLinkButton* gobjectValue = GTK_LINK_BUTTON(gtk_link_button_new_with_label([uri UTF8String], [label UTF8String]));
+	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new_with_label([uri UTF8String], [label UTF8String]), GtkLinkButton, GtkLinkButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -50,7 +60,7 @@
 
 - (GtkLinkButton*)castedGObject
 {
-	return GTK_LINK_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkLinkButton, GtkLinkButton);
 }
 
 - (OFString*)uri
@@ -63,7 +73,7 @@
 
 - (bool)visited
 {
-	bool returnValue = gtk_link_button_get_visited([self castedGObject]);
+	bool returnValue = (bool)gtk_link_button_get_visited([self castedGObject]);
 
 	return returnValue;
 }

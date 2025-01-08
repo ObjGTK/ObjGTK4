@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKCellAreaContext
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_CELL_AREA_CONTEXT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkCellAreaContext*)castedGObject
 {
-	return GTK_CELL_AREA_CONTEXT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellAreaContext, GtkCellAreaContext);
 }
 
 - (void)allocateWithWidth:(int)width height:(int)height
@@ -27,9 +37,9 @@
 
 - (OGTKCellArea*)area
 {
-	GtkCellArea* gobjectValue = GTK_CELL_AREA(gtk_cell_area_context_get_area([self castedGObject]));
+	GtkCellArea* gobjectValue = gtk_cell_area_context_get_area([self castedGObject]);
 
-	OGTKCellArea* returnValue = [OGTKCellArea withGObject:gobjectValue];
+	OGTKCellArea* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

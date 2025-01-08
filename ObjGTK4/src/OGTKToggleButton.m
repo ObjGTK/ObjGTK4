@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKToggleButton
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_TOGGLE_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkToggleButton* gobjectValue = GTK_TOGGLE_BUTTON(gtk_toggle_button_new());
+	GtkToggleButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_toggle_button_new(), GtkToggleButton, GtkToggleButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,7 +41,7 @@
 
 - (instancetype)initWithLabel:(OFString*)label
 {
-	GtkToggleButton* gobjectValue = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_label([label UTF8String]));
+	GtkToggleButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_toggle_button_new_with_label([label UTF8String]), GtkToggleButton, GtkToggleButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -48,9 +58,9 @@
 	return self;
 }
 
-- (instancetype)initWithMnemonic:(OFString*)label
+- (instancetype)initWithLabelWithMnemonic:(OFString*)label
 {
-	GtkToggleButton* gobjectValue = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_mnemonic([label UTF8String]));
+	GtkToggleButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_toggle_button_new_with_mnemonic([label UTF8String]), GtkToggleButton, GtkToggleButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -69,12 +79,12 @@
 
 - (GtkToggleButton*)castedGObject
 {
-	return GTK_TOGGLE_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkToggleButton, GtkToggleButton);
 }
 
 - (bool)active
 {
-	bool returnValue = gtk_toggle_button_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_toggle_button_get_active([self castedGObject]);
 
 	return returnValue;
 }

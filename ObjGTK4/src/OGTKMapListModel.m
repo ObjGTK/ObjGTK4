@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKMapListModel
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_MAP_LIST_MODEL;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithModel:(GListModel*)model mapFunc:(GtkMapListModelMapFunc)mapFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
 {
-	GtkMapListModel* gobjectValue = GTK_MAP_LIST_MODEL(gtk_map_list_model_new(model, mapFunc, userData, userDestroy));
+	GtkMapListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_map_list_model_new(model, mapFunc, userData, userDestroy), GtkMapListModel, GtkMapListModel);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,19 +36,19 @@
 
 - (GtkMapListModel*)castedGObject
 {
-	return GTK_MAP_LIST_MODEL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMapListModel, GtkMapListModel);
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = gtk_map_list_model_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_map_list_model_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasMap
 {
-	bool returnValue = gtk_map_list_model_has_map([self castedGObject]);
+	bool returnValue = (bool)gtk_map_list_model_has_map([self castedGObject]);
 
 	return returnValue;
 }

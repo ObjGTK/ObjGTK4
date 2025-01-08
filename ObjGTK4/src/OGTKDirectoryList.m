@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKDirectoryList
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_DIRECTORY_LIST;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithAttributes:(OFString*)attributes file:(GFile*)file
 {
-	GtkDirectoryList* gobjectValue = GTK_DIRECTORY_LIST(gtk_directory_list_new([attributes UTF8String], file));
+	GtkDirectoryList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_directory_list_new([attributes UTF8String], file), GtkDirectoryList, GtkDirectoryList);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkDirectoryList*)castedGObject
 {
-	return GTK_DIRECTORY_LIST([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDirectoryList, GtkDirectoryList);
 }
 
 - (OFString*)attributes
@@ -39,35 +49,35 @@
 
 - (const GError*)error
 {
-	const GError* returnValue = gtk_directory_list_get_error([self castedGObject]);
+	const GError* returnValue = (const GError*)gtk_directory_list_get_error([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = gtk_directory_list_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_directory_list_get_file([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)ioPriority
 {
-	int returnValue = gtk_directory_list_get_io_priority([self castedGObject]);
+	int returnValue = (int)gtk_directory_list_get_io_priority([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)monitored
 {
-	bool returnValue = gtk_directory_list_get_monitored([self castedGObject]);
+	bool returnValue = (bool)gtk_directory_list_get_monitored([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isLoading
 {
-	bool returnValue = gtk_directory_list_is_loading([self castedGObject]);
+	bool returnValue = (bool)gtk_directory_list_is_loading([self castedGObject]);
 
 	return returnValue;
 }

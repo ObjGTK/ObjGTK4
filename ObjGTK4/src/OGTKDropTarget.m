@@ -1,18 +1,28 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKDropTarget.h"
 
-#import <OGdk4/OGGdkDrop.h>
+#import <OGdk4/OGdkDrop.h>
 
 @implementation OGTKDropTarget
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_DROP_TARGET;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithType:(GType)type actions:(GdkDragAction)actions
 {
-	GtkDropTarget* gobjectValue = GTK_DROP_TARGET(gtk_drop_target_new(type, actions));
+	GtkDropTarget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drop_target_new(type, actions), GtkDropTarget, GtkDropTarget);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,56 +38,56 @@
 
 - (GtkDropTarget*)castedGObject
 {
-	return GTK_DROP_TARGET([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDropTarget, GtkDropTarget);
 }
 
 - (GdkDragAction)actions
 {
-	GdkDragAction returnValue = gtk_drop_target_get_actions([self castedGObject]);
+	GdkDragAction returnValue = (GdkDragAction)gtk_drop_target_get_actions([self castedGObject]);
 
 	return returnValue;
 }
 
-- (OGGdkDrop*)currentDrop
+- (OGdkDrop*)currentDrop
 {
-	GdkDrop* gobjectValue = GDK_DROP(gtk_drop_target_get_current_drop([self castedGObject]));
+	GdkDrop* gobjectValue = gtk_drop_target_get_current_drop([self castedGObject]);
 
-	OGGdkDrop* returnValue = [OGGdkDrop withGObject:gobjectValue];
+	OGdkDrop* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
-- (OGGdkDrop*)drop
+- (OGdkDrop*)drop
 {
-	GdkDrop* gobjectValue = GDK_DROP(gtk_drop_target_get_drop([self castedGObject]));
+	GdkDrop* gobjectValue = gtk_drop_target_get_drop([self castedGObject]);
 
-	OGGdkDrop* returnValue = [OGGdkDrop withGObject:gobjectValue];
+	OGdkDrop* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GdkContentFormats*)formats
 {
-	GdkContentFormats* returnValue = gtk_drop_target_get_formats([self castedGObject]);
+	GdkContentFormats* returnValue = (GdkContentFormats*)gtk_drop_target_get_formats([self castedGObject]);
 
 	return returnValue;
 }
 
 - (const GType*)gtypes:(gsize*)ntypes
 {
-	const GType* returnValue = gtk_drop_target_get_gtypes([self castedGObject], ntypes);
+	const GType* returnValue = (const GType*)gtk_drop_target_get_gtypes([self castedGObject], ntypes);
 
 	return returnValue;
 }
 
 - (bool)preload
 {
-	bool returnValue = gtk_drop_target_get_preload([self castedGObject]);
+	bool returnValue = (bool)gtk_drop_target_get_preload([self castedGObject]);
 
 	return returnValue;
 }
 
 - (const GValue*)value
 {
-	const GValue* returnValue = gtk_drop_target_get_value([self castedGObject]);
+	const GValue* returnValue = (const GValue*)gtk_drop_target_get_value([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,19 +1,29 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKEntryCompletion.h"
 
-#import "OGTKWidget.h"
 #import "OGTKCellArea.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKEntryCompletion
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_ENTRY_COMPLETION;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkEntryCompletion* gobjectValue = GTK_ENTRY_COMPLETION(gtk_entry_completion_new());
+	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new(), GtkEntryCompletion, GtkEntryCompletion);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -29,7 +39,7 @@
 
 - (instancetype)initWithArea:(OGTKCellArea*)area
 {
-	GtkEntryCompletion* gobjectValue = GTK_ENTRY_COMPLETION(gtk_entry_completion_new_with_area([area castedGObject]));
+	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new_with_area([area castedGObject]), GtkEntryCompletion, GtkEntryCompletion);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -45,7 +55,7 @@
 
 - (GtkEntryCompletion*)castedGObject
 {
-	return GTK_ENTRY_COMPLETION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEntryCompletion, GtkEntryCompletion);
 }
 
 - (void)complete
@@ -71,64 +81,64 @@
 
 - (OGTKWidget*)entry
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_entry_completion_get_entry([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_entry_completion_get_entry([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)inlineCompletion
 {
-	bool returnValue = gtk_entry_completion_get_inline_completion([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_inline_completion([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)inlineSelection
 {
-	bool returnValue = gtk_entry_completion_get_inline_selection([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_inline_selection([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)minimumKeyLength
 {
-	int returnValue = gtk_entry_completion_get_minimum_key_length([self castedGObject]);
+	int returnValue = (int)gtk_entry_completion_get_minimum_key_length([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeModel*)model
 {
-	GtkTreeModel* returnValue = gtk_entry_completion_get_model([self castedGObject]);
+	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_entry_completion_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)popupCompletion
 {
-	bool returnValue = gtk_entry_completion_get_popup_completion([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_popup_completion([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)popupSetWidth
 {
-	bool returnValue = gtk_entry_completion_get_popup_set_width([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_popup_set_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)popupSingleMatch
 {
-	bool returnValue = gtk_entry_completion_get_popup_single_match([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_popup_single_match([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)textColumn
 {
-	int returnValue = gtk_entry_completion_get_text_column([self castedGObject]);
+	int returnValue = (int)gtk_entry_completion_get_text_column([self castedGObject]);
 
 	return returnValue;
 }

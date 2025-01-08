@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKProgressBar
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_PROGRESS_BAR;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkProgressBar* gobjectValue = GTK_PROGRESS_BAR(gtk_progress_bar_new());
+	GtkProgressBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_progress_bar_new(), GtkProgressBar, GtkProgressBar);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,40 +39,40 @@
 
 - (GtkProgressBar*)castedGObject
 {
-	return GTK_PROGRESS_BAR([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkProgressBar, GtkProgressBar);
 }
 
 - (PangoEllipsizeMode)ellipsize
 {
-	PangoEllipsizeMode returnValue = gtk_progress_bar_get_ellipsize([self castedGObject]);
+	PangoEllipsizeMode returnValue = (PangoEllipsizeMode)gtk_progress_bar_get_ellipsize([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)fraction
 {
-	double returnValue = gtk_progress_bar_get_fraction([self castedGObject]);
+	double returnValue = (double)gtk_progress_bar_get_fraction([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)inverted
 {
-	bool returnValue = gtk_progress_bar_get_inverted([self castedGObject]);
+	bool returnValue = (bool)gtk_progress_bar_get_inverted([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)pulseStep
 {
-	double returnValue = gtk_progress_bar_get_pulse_step([self castedGObject]);
+	double returnValue = (double)gtk_progress_bar_get_pulse_step([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showText
 {
-	bool returnValue = gtk_progress_bar_get_show_text([self castedGObject]);
+	bool returnValue = (bool)gtk_progress_bar_get_show_text([self castedGObject]);
 
 	return returnValue;
 }

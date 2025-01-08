@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKEventControllerScroll
 
-- (instancetype)init:(GtkEventControllerScrollFlags)flags
++ (void)load
 {
-	GtkEventControllerScroll* gobjectValue = GTK_EVENT_CONTROLLER_SCROLL(gtk_event_controller_scroll_new(flags));
+	GType gtypeToAssociate = GTK_TYPE_EVENT_CONTROLLER_SCROLL;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithFlags:(GtkEventControllerScrollFlags)flags
+{
+	GtkEventControllerScroll* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_scroll_new(flags), GtkEventControllerScroll, GtkEventControllerScroll);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,19 +36,19 @@
 
 - (GtkEventControllerScroll*)castedGObject
 {
-	return GTK_EVENT_CONTROLLER_SCROLL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEventControllerScroll, GtkEventControllerScroll);
 }
 
 - (GtkEventControllerScrollFlags)flags
 {
-	GtkEventControllerScrollFlags returnValue = gtk_event_controller_scroll_get_flags([self castedGObject]);
+	GtkEventControllerScrollFlags returnValue = (GtkEventControllerScrollFlags)gtk_event_controller_scroll_get_flags([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkScrollUnit)unit
 {
-	GdkScrollUnit returnValue = gtk_event_controller_scroll_get_unit([self castedGObject]);
+	GdkScrollUnit returnValue = (GdkScrollUnit)gtk_event_controller_scroll_get_unit([self castedGObject]);
 
 	return returnValue;
 }

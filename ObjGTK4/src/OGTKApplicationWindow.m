@@ -1,20 +1,30 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKApplicationWindow.h"
 
+#import "OGTKApplication.h"
 #import "OGTKShortcutsWindow.h"
 #import "OGTKWidget.h"
-#import "OGTKApplication.h"
 
 @implementation OGTKApplicationWindow
 
-- (instancetype)init:(OGTKApplication*)application
++ (void)load
 {
-	GtkApplicationWindow* gobjectValue = GTK_APPLICATION_WINDOW(gtk_application_window_new([application castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_APPLICATION_WINDOW;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithApplication:(OGTKApplication*)application
+{
+	GtkApplicationWindow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_application_window_new([application castedGObject]), GtkApplicationWindow, GtkApplicationWindow);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -33,27 +43,27 @@
 
 - (GtkApplicationWindow*)castedGObject
 {
-	return GTK_APPLICATION_WINDOW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkApplicationWindow, GtkApplicationWindow);
 }
 
 - (OGTKShortcutsWindow*)helpOverlay
 {
-	GtkShortcutsWindow* gobjectValue = GTK_SHORTCUTS_WINDOW(gtk_application_window_get_help_overlay([self castedGObject]));
+	GtkShortcutsWindow* gobjectValue = gtk_application_window_get_help_overlay([self castedGObject]);
 
-	OGTKShortcutsWindow* returnValue = [OGTKShortcutsWindow withGObject:gobjectValue];
+	OGTKShortcutsWindow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (guint)id
 {
-	guint returnValue = gtk_application_window_get_id([self castedGObject]);
+	guint returnValue = (guint)gtk_application_window_get_id([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showMenubar
 {
-	bool returnValue = gtk_application_window_get_show_menubar([self castedGObject]);
+	bool returnValue = (bool)gtk_application_window_get_show_menubar([self castedGObject]);
 
 	return returnValue;
 }

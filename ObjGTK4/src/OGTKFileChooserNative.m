@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKFileChooserNative
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_FILE_CHOOSER_NATIVE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithTitle:(OFString*)title parent:(OGTKWindow*)parent action:(GtkFileChooserAction)action acceptLabel:(OFString*)acceptLabel cancelLabel:(OFString*)cancelLabel
 {
-	GtkFileChooserNative* gobjectValue = GTK_FILE_CHOOSER_NATIVE(gtk_file_chooser_native_new([title UTF8String], [parent castedGObject], action, [acceptLabel UTF8String], [cancelLabel UTF8String]));
+	GtkFileChooserNative* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_chooser_native_new([title UTF8String], [parent castedGObject], action, [acceptLabel UTF8String], [cancelLabel UTF8String]), GtkFileChooserNative, GtkFileChooserNative);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,7 +38,7 @@
 
 - (GtkFileChooserNative*)castedGObject
 {
-	return GTK_FILE_CHOOSER_NATIVE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFileChooserNative, GtkFileChooserNative);
 }
 
 - (OFString*)acceptLabel

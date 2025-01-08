@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKEditableLabel
 
-- (instancetype)init:(OFString*)str
++ (void)load
 {
-	GtkEditableLabel* gobjectValue = GTK_EDITABLE_LABEL(gtk_editable_label_new([str UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_EDITABLE_LABEL;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithStr:(OFString*)str
+{
+	GtkEditableLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_editable_label_new([str UTF8String]), GtkEditableLabel, GtkEditableLabel);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -29,12 +39,12 @@
 
 - (GtkEditableLabel*)castedGObject
 {
-	return GTK_EDITABLE_LABEL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEditableLabel, GtkEditableLabel);
 }
 
 - (bool)editing
 {
-	bool returnValue = gtk_editable_label_get_editing([self castedGObject]);
+	bool returnValue = (bool)gtk_editable_label_get_editing([self castedGObject]);
 
 	return returnValue;
 }

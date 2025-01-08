@@ -1,15 +1,15 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGGdkContentProvider;
+@class OGMenuModel;
+@class OGdkContentProvider;
 @class OGTKEntryBuffer;
 @class OGTKEntryCompletion;
-@class OGMenuModel;
 
 /**
  * `GtkEntry` is a single line text entry widget.
@@ -516,7 +516,7 @@
  * @param provider a `GdkContentProvider`
  * @param actions a bitmask of the allowed drag actions
  */
-- (void)setIconDragSourceWithIconPos:(GtkEntryIconPosition)iconPos provider:(OGGdkContentProvider*)provider actions:(GdkDragAction)actions;
+- (void)setIconDragSourceWithIconPos:(GtkEntryIconPosition)iconPos provider:(OGdkContentProvider*)provider actions:(GdkDragAction)actions;
 
 /**
  * Sets the icon shown in the entry at the specified position

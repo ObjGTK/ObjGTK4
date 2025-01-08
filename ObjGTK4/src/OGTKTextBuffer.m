@@ -1,23 +1,33 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKTextBuffer.h"
 
-#import "OGTKTextMark.h"
-#import <OGdk4/OGGdkContentProvider.h>
-#import "OGTKTextTag.h"
+#import <OGdk4/OGdkClipboard.h>
+#import <OGdk4/OGdkContentProvider.h>
 #import "OGTKTextChildAnchor.h"
-#import <OGdk4/OGGdkClipboard.h>
+#import "OGTKTextMark.h"
+#import "OGTKTextTag.h"
 #import "OGTKTextTagTable.h"
 
 @implementation OGTKTextBuffer
 
-- (instancetype)init:(OGTKTextTagTable*)table
++ (void)load
 {
-	GtkTextBuffer* gobjectValue = GTK_TEXT_BUFFER(gtk_text_buffer_new([table castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_TEXT_BUFFER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithTable:(OGTKTextTagTable*)table
+{
+	GtkTextBuffer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_buffer_new([table castedGObject]), GtkTextBuffer, GtkTextBuffer);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -33,7 +43,7 @@
 
 - (GtkTextBuffer*)castedGObject
 {
-	return GTK_TEXT_BUFFER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextBuffer, GtkTextBuffer);
 }
 
 - (void)addMarkWithMark:(OGTKTextMark*)mark where:(const GtkTextIter*)where
@@ -41,7 +51,7 @@
 	gtk_text_buffer_add_mark([self castedGObject], [mark castedGObject], where);
 }
 
-- (void)addSelectionClipboard:(OGGdkClipboard*)clipboard
+- (void)addSelectionClipboard:(OGdkClipboard*)clipboard
 {
 	gtk_text_buffer_add_selection_clipboard([self castedGObject], [clipboard castedGObject]);
 }
@@ -58,7 +68,7 @@
 
 - (bool)backspaceWithIter:(GtkTextIter*)iter interactive:(bool)interactive defaultEditable:(bool)defaultEditable
 {
-	bool returnValue = gtk_text_buffer_backspace([self castedGObject], iter, interactive, defaultEditable);
+	bool returnValue = (bool)gtk_text_buffer_backspace([self castedGObject], iter, interactive, defaultEditable);
 
 	return returnValue;
 }
@@ -73,28 +83,28 @@
 	gtk_text_buffer_begin_user_action([self castedGObject]);
 }
 
-- (void)copyClipboard:(OGGdkClipboard*)clipboard
+- (void)copyClipboard:(OGdkClipboard*)clipboard
 {
 	gtk_text_buffer_copy_clipboard([self castedGObject], [clipboard castedGObject]);
 }
 
 - (OGTKTextChildAnchor*)createChildAnchor:(GtkTextIter*)iter
 {
-	GtkTextChildAnchor* gobjectValue = GTK_TEXT_CHILD_ANCHOR(gtk_text_buffer_create_child_anchor([self castedGObject], iter));
+	GtkTextChildAnchor* gobjectValue = gtk_text_buffer_create_child_anchor([self castedGObject], iter);
 
-	OGTKTextChildAnchor* returnValue = [OGTKTextChildAnchor withGObject:gobjectValue];
+	OGTKTextChildAnchor* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKTextMark*)createMarkWithMarkName:(OFString*)markName where:(const GtkTextIter*)where leftGravity:(bool)leftGravity
 {
-	GtkTextMark* gobjectValue = GTK_TEXT_MARK(gtk_text_buffer_create_mark([self castedGObject], [markName UTF8String], where, leftGravity));
+	GtkTextMark* gobjectValue = gtk_text_buffer_create_mark([self castedGObject], [markName UTF8String], where, leftGravity);
 
-	OGTKTextMark* returnValue = [OGTKTextMark withGObject:gobjectValue];
+	OGTKTextMark* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
-- (void)cutClipboardWithClipboard:(OGGdkClipboard*)clipboard defaultEditable:(bool)defaultEditable
+- (void)cutClipboardWithClipboard:(OGdkClipboard*)clipboard defaultEditable:(bool)defaultEditable
 {
 	gtk_text_buffer_cut_clipboard([self castedGObject], [clipboard castedGObject], defaultEditable);
 }
@@ -106,7 +116,7 @@
 
 - (bool)deleteInteractiveWithStartIter:(GtkTextIter*)startIter endIter:(GtkTextIter*)endIter defaultEditable:(bool)defaultEditable
 {
-	bool returnValue = gtk_text_buffer_delete_interactive([self castedGObject], startIter, endIter, defaultEditable);
+	bool returnValue = (bool)gtk_text_buffer_delete_interactive([self castedGObject], startIter, endIter, defaultEditable);
 
 	return returnValue;
 }
@@ -123,7 +133,7 @@
 
 - (bool)deleteSelectionWithInteractive:(bool)interactive defaultEditable:(bool)defaultEditable
 {
-	bool returnValue = gtk_text_buffer_delete_selection([self castedGObject], interactive, defaultEditable);
+	bool returnValue = (bool)gtk_text_buffer_delete_selection([self castedGObject], interactive, defaultEditable);
 
 	return returnValue;
 }
@@ -145,28 +155,28 @@
 
 - (bool)canRedo
 {
-	bool returnValue = gtk_text_buffer_get_can_redo([self castedGObject]);
+	bool returnValue = (bool)gtk_text_buffer_get_can_redo([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)canUndo
 {
-	bool returnValue = gtk_text_buffer_get_can_undo([self castedGObject]);
+	bool returnValue = (bool)gtk_text_buffer_get_can_undo([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)charCount
 {
-	int returnValue = gtk_text_buffer_get_char_count([self castedGObject]);
+	int returnValue = (int)gtk_text_buffer_get_char_count([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)enableUndo
 {
-	bool returnValue = gtk_text_buffer_get_enable_undo([self castedGObject]);
+	bool returnValue = (bool)gtk_text_buffer_get_enable_undo([self castedGObject]);
 
 	return returnValue;
 }
@@ -178,16 +188,16 @@
 
 - (bool)hasSelection
 {
-	bool returnValue = gtk_text_buffer_get_has_selection([self castedGObject]);
+	bool returnValue = (bool)gtk_text_buffer_get_has_selection([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTextMark*)insert
 {
-	GtkTextMark* gobjectValue = GTK_TEXT_MARK(gtk_text_buffer_get_insert([self castedGObject]));
+	GtkTextMark* gobjectValue = gtk_text_buffer_get_insert([self castedGObject]);
 
-	OGTKTextMark* returnValue = [OGTKTextMark withGObject:gobjectValue];
+	OGTKTextMark* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -198,21 +208,21 @@
 
 - (bool)iterAtLineWithIter:(GtkTextIter*)iter lineNumber:(int)lineNumber
 {
-	bool returnValue = gtk_text_buffer_get_iter_at_line([self castedGObject], iter, lineNumber);
+	bool returnValue = (bool)gtk_text_buffer_get_iter_at_line([self castedGObject], iter, lineNumber);
 
 	return returnValue;
 }
 
 - (bool)iterAtLineIndexWithIter:(GtkTextIter*)iter lineNumber:(int)lineNumber byteIndex:(int)byteIndex
 {
-	bool returnValue = gtk_text_buffer_get_iter_at_line_index([self castedGObject], iter, lineNumber, byteIndex);
+	bool returnValue = (bool)gtk_text_buffer_get_iter_at_line_index([self castedGObject], iter, lineNumber, byteIndex);
 
 	return returnValue;
 }
 
 - (bool)iterAtLineOffsetWithIter:(GtkTextIter*)iter lineNumber:(int)lineNumber charOffset:(int)charOffset
 {
-	bool returnValue = gtk_text_buffer_get_iter_at_line_offset([self castedGObject], iter, lineNumber, charOffset);
+	bool returnValue = (bool)gtk_text_buffer_get_iter_at_line_offset([self castedGObject], iter, lineNumber, charOffset);
 
 	return returnValue;
 }
@@ -229,53 +239,53 @@
 
 - (int)lineCount
 {
-	int returnValue = gtk_text_buffer_get_line_count([self castedGObject]);
+	int returnValue = (int)gtk_text_buffer_get_line_count([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTextMark*)mark:(OFString*)name
 {
-	GtkTextMark* gobjectValue = GTK_TEXT_MARK(gtk_text_buffer_get_mark([self castedGObject], [name UTF8String]));
+	GtkTextMark* gobjectValue = gtk_text_buffer_get_mark([self castedGObject], [name UTF8String]);
 
-	OGTKTextMark* returnValue = [OGTKTextMark withGObject:gobjectValue];
+	OGTKTextMark* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (guint)maxUndoLevels
 {
-	guint returnValue = gtk_text_buffer_get_max_undo_levels([self castedGObject]);
+	guint returnValue = (guint)gtk_text_buffer_get_max_undo_levels([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)modified
 {
-	bool returnValue = gtk_text_buffer_get_modified([self castedGObject]);
+	bool returnValue = (bool)gtk_text_buffer_get_modified([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTextMark*)selectionBound
 {
-	GtkTextMark* gobjectValue = GTK_TEXT_MARK(gtk_text_buffer_get_selection_bound([self castedGObject]));
+	GtkTextMark* gobjectValue = gtk_text_buffer_get_selection_bound([self castedGObject]);
 
-	OGTKTextMark* returnValue = [OGTKTextMark withGObject:gobjectValue];
+	OGTKTextMark* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)selectionBoundsWithStart:(GtkTextIter*)start end:(GtkTextIter*)end
 {
-	bool returnValue = gtk_text_buffer_get_selection_bounds([self castedGObject], start, end);
+	bool returnValue = (bool)gtk_text_buffer_get_selection_bounds([self castedGObject], start, end);
 
 	return returnValue;
 }
 
-- (OGGdkContentProvider*)selectionContent
+- (OGdkContentProvider*)selectionContent
 {
-	GdkContentProvider* gobjectValue = GDK_CONTENT_PROVIDER(gtk_text_buffer_get_selection_content([self castedGObject]));
+	GdkContentProvider* gobjectValue = gtk_text_buffer_get_selection_content([self castedGObject]);
 
-	OGGdkContentProvider* returnValue = [OGGdkContentProvider withGObject:gobjectValue];
+	OGdkContentProvider* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -296,9 +306,9 @@
 
 - (OGTKTextTagTable*)tagTable
 {
-	GtkTextTagTable* gobjectValue = GTK_TEXT_TAG_TABLE(gtk_text_buffer_get_tag_table([self castedGObject]));
+	GtkTextTagTable* gobjectValue = gtk_text_buffer_get_tag_table([self castedGObject]);
 
-	OGTKTextTagTable* returnValue = [OGTKTextTagTable withGObject:gobjectValue];
+	OGTKTextTagTable* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -327,14 +337,14 @@
 
 - (bool)insertInteractiveWithIter:(GtkTextIter*)iter text:(OFString*)text len:(int)len defaultEditable:(bool)defaultEditable
 {
-	bool returnValue = gtk_text_buffer_insert_interactive([self castedGObject], iter, [text UTF8String], len, defaultEditable);
+	bool returnValue = (bool)gtk_text_buffer_insert_interactive([self castedGObject], iter, [text UTF8String], len, defaultEditable);
 
 	return returnValue;
 }
 
 - (bool)insertInteractiveAtCursorWithText:(OFString*)text len:(int)len defaultEditable:(bool)defaultEditable
 {
-	bool returnValue = gtk_text_buffer_insert_interactive_at_cursor([self castedGObject], [text UTF8String], len, defaultEditable);
+	bool returnValue = (bool)gtk_text_buffer_insert_interactive_at_cursor([self castedGObject], [text UTF8String], len, defaultEditable);
 
 	return returnValue;
 }
@@ -356,7 +366,7 @@
 
 - (bool)insertRangeInteractiveWithIter:(GtkTextIter*)iter start:(const GtkTextIter*)start end:(const GtkTextIter*)end defaultEditable:(bool)defaultEditable
 {
-	bool returnValue = gtk_text_buffer_insert_range_interactive([self castedGObject], iter, start, end, defaultEditable);
+	bool returnValue = (bool)gtk_text_buffer_insert_range_interactive([self castedGObject], iter, start, end, defaultEditable);
 
 	return returnValue;
 }
@@ -371,7 +381,7 @@
 	gtk_text_buffer_move_mark_by_name([self castedGObject], [name UTF8String], where);
 }
 
-- (void)pasteClipboardWithClipboard:(OGGdkClipboard*)clipboard overrideLocation:(GtkTextIter*)overrideLocation defaultEditable:(bool)defaultEditable
+- (void)pasteClipboardWithClipboard:(OGdkClipboard*)clipboard overrideLocation:(GtkTextIter*)overrideLocation defaultEditable:(bool)defaultEditable
 {
 	gtk_text_buffer_paste_clipboard([self castedGObject], [clipboard castedGObject], overrideLocation, defaultEditable);
 }
@@ -391,7 +401,7 @@
 	gtk_text_buffer_remove_all_tags([self castedGObject], start, end);
 }
 
-- (void)removeSelectionClipboard:(OGGdkClipboard*)clipboard
+- (void)removeSelectionClipboard:(OGdkClipboard*)clipboard
 {
 	gtk_text_buffer_remove_selection_clipboard([self castedGObject], [clipboard castedGObject]);
 }

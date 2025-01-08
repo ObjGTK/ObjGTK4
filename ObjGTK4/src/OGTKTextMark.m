@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKTextMark
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_TEXT_MARK;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithName:(OFString*)name leftGravity:(bool)leftGravity
 {
-	GtkTextMark* gobjectValue = GTK_TEXT_MARK(gtk_text_mark_new([name UTF8String], leftGravity));
+	GtkTextMark* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_mark_new([name UTF8String], leftGravity), GtkTextMark, GtkTextMark);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -28,27 +38,27 @@
 
 - (GtkTextMark*)castedGObject
 {
-	return GTK_TEXT_MARK([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextMark, GtkTextMark);
 }
 
 - (OGTKTextBuffer*)buffer
 {
-	GtkTextBuffer* gobjectValue = GTK_TEXT_BUFFER(gtk_text_mark_get_buffer([self castedGObject]));
+	GtkTextBuffer* gobjectValue = gtk_text_mark_get_buffer([self castedGObject]);
 
-	OGTKTextBuffer* returnValue = [OGTKTextBuffer withGObject:gobjectValue];
+	OGTKTextBuffer* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)deleted
 {
-	bool returnValue = gtk_text_mark_get_deleted([self castedGObject]);
+	bool returnValue = (bool)gtk_text_mark_get_deleted([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)leftGravity
 {
-	bool returnValue = gtk_text_mark_get_left_gravity([self castedGObject]);
+	bool returnValue = (bool)gtk_text_mark_get_left_gravity([self castedGObject]);
 
 	return returnValue;
 }
@@ -63,7 +73,7 @@
 
 - (bool)visible
 {
-	bool returnValue = gtk_text_mark_get_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_text_mark_get_visible([self castedGObject]);
 
 	return returnValue;
 }

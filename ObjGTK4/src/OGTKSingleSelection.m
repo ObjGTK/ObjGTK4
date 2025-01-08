@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKSingleSelection
 
-- (instancetype)init:(GListModel*)model
++ (void)load
 {
-	GtkSingleSelection* gobjectValue = GTK_SINGLE_SELECTION(gtk_single_selection_new(model));
+	GType gtypeToAssociate = GTK_TYPE_SINGLE_SELECTION;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithModel:(GListModel*)model
+{
+	GtkSingleSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_single_selection_new(model), GtkSingleSelection, GtkSingleSelection);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,40 +36,40 @@
 
 - (GtkSingleSelection*)castedGObject
 {
-	return GTK_SINGLE_SELECTION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSingleSelection, GtkSingleSelection);
 }
 
 - (bool)autoselect
 {
-	bool returnValue = gtk_single_selection_get_autoselect([self castedGObject]);
+	bool returnValue = (bool)gtk_single_selection_get_autoselect([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)canUnselect
 {
-	bool returnValue = gtk_single_selection_get_can_unselect([self castedGObject]);
+	bool returnValue = (bool)gtk_single_selection_get_can_unselect([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = gtk_single_selection_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_single_selection_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)selected
 {
-	guint returnValue = gtk_single_selection_get_selected([self castedGObject]);
+	guint returnValue = (guint)gtk_single_selection_get_selected([self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)selectedItem
 {
-	gpointer returnValue = gtk_single_selection_get_selected_item([self castedGObject]);
+	gpointer returnValue = (gpointer)gtk_single_selection_get_selected_item([self castedGObject]);
 
 	return returnValue;
 }

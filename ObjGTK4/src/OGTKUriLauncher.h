@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKWindow;
 @class OGCancellable;
+@class OGTKWindow;
 
 /**
  * A `GtkUriLauncher` object collects the arguments that are needed to open a uri
@@ -35,7 +35,7 @@
 /**
  * Constructors
  */
-- (instancetype)init:(OFString*)uri;
+- (instancetype)initWithUri:(OFString*)uri;
 
 /**
  * Methods

@@ -1,19 +1,29 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKLabel.h"
 
-#import <OGPango/OGPangoLayout.h>
 #import <OGio/OGMenuModel.h>
+#import <OGPango/OGPangoLayout.h>
 
 @implementation OGTKLabel
 
-- (instancetype)init:(OFString*)str
++ (void)load
 {
-	GtkLabel* gobjectValue = GTK_LABEL(gtk_label_new([str UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_LABEL;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
+- (instancetype)initWithStr:(OFString*)str
+{
+	GtkLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_label_new([str UTF8String]), GtkLabel, GtkLabel);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -30,9 +40,9 @@
 	return self;
 }
 
-- (instancetype)initWithMnemonic:(OFString*)str
+- (instancetype)initWithStrWithMnemonic:(OFString*)str
 {
-	GtkLabel* gobjectValue = GTK_LABEL(gtk_label_new_with_mnemonic([str UTF8String]));
+	GtkLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_label_new_with_mnemonic([str UTF8String]), GtkLabel, GtkLabel);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -51,12 +61,12 @@
 
 - (GtkLabel*)castedGObject
 {
-	return GTK_LABEL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkLabel, GtkLabel);
 }
 
 - (PangoAttrList*)attributes
 {
-	PangoAttrList* returnValue = gtk_label_get_attributes([self castedGObject]);
+	PangoAttrList* returnValue = (PangoAttrList*)gtk_label_get_attributes([self castedGObject]);
 
 	return returnValue;
 }
@@ -71,22 +81,22 @@
 
 - (PangoEllipsizeMode)ellipsize
 {
-	PangoEllipsizeMode returnValue = gtk_label_get_ellipsize([self castedGObject]);
+	PangoEllipsizeMode returnValue = (PangoEllipsizeMode)gtk_label_get_ellipsize([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)extraMenu
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_label_get_extra_menu([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_label_get_extra_menu([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkJustification)justify
 {
-	GtkJustification returnValue = gtk_label_get_justify([self castedGObject]);
+	GtkJustification returnValue = (GtkJustification)gtk_label_get_justify([self castedGObject]);
 
 	return returnValue;
 }
@@ -101,9 +111,9 @@
 
 - (OGPangoLayout*)layout
 {
-	PangoLayout* gobjectValue = PANGO_LAYOUT(gtk_label_get_layout([self castedGObject]));
+	PangoLayout* gobjectValue = gtk_label_get_layout([self castedGObject]);
 
-	OGPangoLayout* returnValue = [OGPangoLayout withGObject:gobjectValue];
+	OGPangoLayout* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -114,64 +124,64 @@
 
 - (int)lines
 {
-	int returnValue = gtk_label_get_lines([self castedGObject]);
+	int returnValue = (int)gtk_label_get_lines([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)maxWidthChars
 {
-	int returnValue = gtk_label_get_max_width_chars([self castedGObject]);
+	int returnValue = (int)gtk_label_get_max_width_chars([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)mnemonicKeyval
 {
-	guint returnValue = gtk_label_get_mnemonic_keyval([self castedGObject]);
+	guint returnValue = (guint)gtk_label_get_mnemonic_keyval([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)mnemonicWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_label_get_mnemonic_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_label_get_mnemonic_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkNaturalWrapMode)naturalWrapMode
 {
-	GtkNaturalWrapMode returnValue = gtk_label_get_natural_wrap_mode([self castedGObject]);
+	GtkNaturalWrapMode returnValue = (GtkNaturalWrapMode)gtk_label_get_natural_wrap_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)selectable
 {
-	bool returnValue = gtk_label_get_selectable([self castedGObject]);
+	bool returnValue = (bool)gtk_label_get_selectable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)selectionBoundsWithStart:(int*)start end:(int*)end
 {
-	bool returnValue = gtk_label_get_selection_bounds([self castedGObject], start, end);
+	bool returnValue = (bool)gtk_label_get_selection_bounds([self castedGObject], start, end);
 
 	return returnValue;
 }
 
 - (bool)singleLineMode
 {
-	bool returnValue = gtk_label_get_single_line_mode([self castedGObject]);
+	bool returnValue = (bool)gtk_label_get_single_line_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoTabArray*)tabs
 {
-	PangoTabArray* returnValue = gtk_label_get_tabs([self castedGObject]);
+	PangoTabArray* returnValue = (PangoTabArray*)gtk_label_get_tabs([self castedGObject]);
 
 	return returnValue;
 }
@@ -186,49 +196,49 @@
 
 - (bool)useMarkup
 {
-	bool returnValue = gtk_label_get_use_markup([self castedGObject]);
+	bool returnValue = (bool)gtk_label_get_use_markup([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_label_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_label_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)widthChars
 {
-	int returnValue = gtk_label_get_width_chars([self castedGObject]);
+	int returnValue = (int)gtk_label_get_width_chars([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)wrap
 {
-	bool returnValue = gtk_label_get_wrap([self castedGObject]);
+	bool returnValue = (bool)gtk_label_get_wrap([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoWrapMode)wrapMode
 {
-	PangoWrapMode returnValue = gtk_label_get_wrap_mode([self castedGObject]);
+	PangoWrapMode returnValue = (PangoWrapMode)gtk_label_get_wrap_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)xalign
 {
-	float returnValue = gtk_label_get_xalign([self castedGObject]);
+	float returnValue = (float)gtk_label_get_xalign([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)yalign
 {
-	float returnValue = gtk_label_get_yalign([self castedGObject]);
+	float returnValue = (float)gtk_label_get_yalign([self castedGObject]);
 
 	return returnValue;
 }

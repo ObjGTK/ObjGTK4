@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,9 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkSurface;
+@class OGdkDevice;
+@class OGdkSurface;
 @class OGTKWidget;
-@class OGGdkDevice;
 
 /**
  * `GtkIMContext` defines the interface for GTK input methods.
@@ -108,7 +108,7 @@
  * @param group the active keyboard group for the event
  * @return %TRUE if the input method handled the key event.
  */
-- (bool)filterKeyWithPress:(bool)press surface:(OGGdkSurface*)surface device:(OGGdkDevice*)device time:(guint32)time keycode:(guint)keycode state:(GdkModifierType)state group:(int)group;
+- (bool)filterKeyWithPress:(bool)press surface:(OGdkSurface*)surface device:(OGdkDevice*)device time:(guint32)time keycode:(guint)keycode state:(GdkModifierType)state group:(int)group;
 
 /**
  * Allow an input method to internally handle key press and release

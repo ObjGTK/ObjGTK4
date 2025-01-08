@@ -6,11 +6,11 @@ FRAMEWORK = ${OGDKPIXBUF_FRAMEWORK}
 LIB_MAJOR = 2
 LIB_MINOR = 0
 
-SRCS = OGGdkPixbuf.m \
-	OGGdkPixbufAnimation.m \
-	OGGdkPixbufAnimationIter.m \
-	OGGdkPixbufLoader.m \
-	OGGdkPixbufSimpleAnim.m \
+SRCS = OGdkPixbuf.m \
+	OGdkPixbufAnimation.m \
+	OGdkPixbufAnimationIter.m \
+	OGdkPixbufLoader.m \
+	OGdkPixbufSimpleAnim.m \
 	
 
 INCLUDES = ${SRCS:.m=.h} \

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKNotebook
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_NOTEBOOK;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)init
 {
-	GtkNotebook* gobjectValue = GTK_NOTEBOOK(gtk_notebook_new());
+	GtkNotebook* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_notebook_new(), GtkNotebook, GtkNotebook);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,19 +41,19 @@
 
 - (GtkNotebook*)castedGObject
 {
-	return GTK_NOTEBOOK([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkNotebook, GtkNotebook);
 }
 
 - (int)appendPageWithChild:(OGTKWidget*)child tabLabel:(OGTKWidget*)tabLabel
 {
-	int returnValue = gtk_notebook_append_page([self castedGObject], [child castedGObject], [tabLabel castedGObject]);
+	int returnValue = (int)gtk_notebook_append_page([self castedGObject], [child castedGObject], [tabLabel castedGObject]);
 
 	return returnValue;
 }
 
 - (int)appendPageMenuWithChild:(OGTKWidget*)child tabLabel:(OGTKWidget*)tabLabel menuLabel:(OGTKWidget*)menuLabel
 {
-	int returnValue = gtk_notebook_append_page_menu([self castedGObject], [child castedGObject], [tabLabel castedGObject], [menuLabel castedGObject]);
+	int returnValue = (int)gtk_notebook_append_page_menu([self castedGObject], [child castedGObject], [tabLabel castedGObject], [menuLabel castedGObject]);
 
 	return returnValue;
 }
@@ -55,15 +65,15 @@
 
 - (OGTKWidget*)actionWidget:(GtkPackType)packType
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_notebook_get_action_widget([self castedGObject], packType));
+	GtkWidget* gobjectValue = gtk_notebook_get_action_widget([self castedGObject], packType);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)currentPage
 {
-	int returnValue = gtk_notebook_get_current_page([self castedGObject]);
+	int returnValue = (int)gtk_notebook_get_current_page([self castedGObject]);
 
 	return returnValue;
 }
@@ -78,9 +88,9 @@
 
 - (OGTKWidget*)menuLabel:(OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_notebook_get_menu_label([self castedGObject], [child castedGObject]));
+	GtkWidget* gobjectValue = gtk_notebook_get_menu_label([self castedGObject], [child castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -94,67 +104,67 @@
 
 - (int)npages
 {
-	int returnValue = gtk_notebook_get_n_pages([self castedGObject]);
+	int returnValue = (int)gtk_notebook_get_n_pages([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)nthPage:(int)pageNum
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_notebook_get_nth_page([self castedGObject], pageNum));
+	GtkWidget* gobjectValue = gtk_notebook_get_nth_page([self castedGObject], pageNum);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKNotebookPage*)page:(OGTKWidget*)child
 {
-	GtkNotebookPage* gobjectValue = GTK_NOTEBOOK_PAGE(gtk_notebook_get_page([self castedGObject], [child castedGObject]));
+	GtkNotebookPage* gobjectValue = gtk_notebook_get_page([self castedGObject], [child castedGObject]);
 
-	OGTKNotebookPage* returnValue = [OGTKNotebookPage withGObject:gobjectValue];
+	OGTKNotebookPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GListModel*)pages
 {
-	GListModel* returnValue = gtk_notebook_get_pages([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_notebook_get_pages([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)scrollable
 {
-	bool returnValue = gtk_notebook_get_scrollable([self castedGObject]);
+	bool returnValue = (bool)gtk_notebook_get_scrollable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showBorder
 {
-	bool returnValue = gtk_notebook_get_show_border([self castedGObject]);
+	bool returnValue = (bool)gtk_notebook_get_show_border([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showTabs
 {
-	bool returnValue = gtk_notebook_get_show_tabs([self castedGObject]);
+	bool returnValue = (bool)gtk_notebook_get_show_tabs([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)tabDetachable:(OGTKWidget*)child
 {
-	bool returnValue = gtk_notebook_get_tab_detachable([self castedGObject], [child castedGObject]);
+	bool returnValue = (bool)gtk_notebook_get_tab_detachable([self castedGObject], [child castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)tabLabel:(OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_notebook_get_tab_label([self castedGObject], [child castedGObject]));
+	GtkWidget* gobjectValue = gtk_notebook_get_tab_label([self castedGObject], [child castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -168,28 +178,28 @@
 
 - (GtkPositionType)tabPos
 {
-	GtkPositionType returnValue = gtk_notebook_get_tab_pos([self castedGObject]);
+	GtkPositionType returnValue = (GtkPositionType)gtk_notebook_get_tab_pos([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)tabReorderable:(OGTKWidget*)child
 {
-	bool returnValue = gtk_notebook_get_tab_reorderable([self castedGObject], [child castedGObject]);
+	bool returnValue = (bool)gtk_notebook_get_tab_reorderable([self castedGObject], [child castedGObject]);
 
 	return returnValue;
 }
 
 - (int)insertPageWithChild:(OGTKWidget*)child tabLabel:(OGTKWidget*)tabLabel position:(int)position
 {
-	int returnValue = gtk_notebook_insert_page([self castedGObject], [child castedGObject], [tabLabel castedGObject], position);
+	int returnValue = (int)gtk_notebook_insert_page([self castedGObject], [child castedGObject], [tabLabel castedGObject], position);
 
 	return returnValue;
 }
 
 - (int)insertPageMenuWithChild:(OGTKWidget*)child tabLabel:(OGTKWidget*)tabLabel menuLabel:(OGTKWidget*)menuLabel position:(int)position
 {
-	int returnValue = gtk_notebook_insert_page_menu([self castedGObject], [child castedGObject], [tabLabel castedGObject], [menuLabel castedGObject], position);
+	int returnValue = (int)gtk_notebook_insert_page_menu([self castedGObject], [child castedGObject], [tabLabel castedGObject], [menuLabel castedGObject], position);
 
 	return returnValue;
 }
@@ -201,7 +211,7 @@
 
 - (int)pageNum:(OGTKWidget*)child
 {
-	int returnValue = gtk_notebook_page_num([self castedGObject], [child castedGObject]);
+	int returnValue = (int)gtk_notebook_page_num([self castedGObject], [child castedGObject]);
 
 	return returnValue;
 }
@@ -218,14 +228,14 @@
 
 - (int)prependPageWithChild:(OGTKWidget*)child tabLabel:(OGTKWidget*)tabLabel
 {
-	int returnValue = gtk_notebook_prepend_page([self castedGObject], [child castedGObject], [tabLabel castedGObject]);
+	int returnValue = (int)gtk_notebook_prepend_page([self castedGObject], [child castedGObject], [tabLabel castedGObject]);
 
 	return returnValue;
 }
 
 - (int)prependPageMenuWithChild:(OGTKWidget*)child tabLabel:(OGTKWidget*)tabLabel menuLabel:(OGTKWidget*)menuLabel
 {
-	int returnValue = gtk_notebook_prepend_page_menu([self castedGObject], [child castedGObject], [tabLabel castedGObject], [menuLabel castedGObject]);
+	int returnValue = (int)gtk_notebook_prepend_page_menu([self castedGObject], [child castedGObject], [tabLabel castedGObject], [menuLabel castedGObject]);
 
 	return returnValue;
 }

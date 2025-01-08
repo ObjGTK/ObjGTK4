@@ -1,18 +1,28 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKMediaStream.h"
 
-#import <OGdk4/OGGdkSurface.h>
+#import <OGdk4/OGdkSurface.h>
 
 @implementation OGTKMediaStream
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_MEDIA_STREAM;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkMediaStream*)castedGObject
 {
-	return GTK_MEDIA_STREAM([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMediaStream, GtkMediaStream);
 }
 
 - (void)ended
@@ -32,91 +42,91 @@
 
 - (gint64)duration
 {
-	gint64 returnValue = gtk_media_stream_get_duration([self castedGObject]);
+	gint64 returnValue = (gint64)gtk_media_stream_get_duration([self castedGObject]);
 
 	return returnValue;
 }
 
-- (bool)isEnded
+- (bool)hasEnded
 {
-	bool returnValue = gtk_media_stream_get_ended([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_get_ended([self castedGObject]);
 
 	return returnValue;
 }
 
 - (const GError*)error
 {
-	const GError* returnValue = gtk_media_stream_get_error([self castedGObject]);
+	const GError* returnValue = (const GError*)gtk_media_stream_get_error([self castedGObject]);
 
 	return returnValue;
 }
 
-- (bool)isLoop
+- (bool)loop
 {
-	bool returnValue = gtk_media_stream_get_loop([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_get_loop([self castedGObject]);
 
 	return returnValue;
 }
 
-- (bool)isMuted
+- (bool)muted
 {
-	bool returnValue = gtk_media_stream_get_muted([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_get_muted([self castedGObject]);
 
 	return returnValue;
 }
 
-- (bool)isPlaying
+- (bool)playing
 {
-	bool returnValue = gtk_media_stream_get_playing([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_get_playing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (gint64)timestamp
 {
-	gint64 returnValue = gtk_media_stream_get_timestamp([self castedGObject]);
+	gint64 returnValue = (gint64)gtk_media_stream_get_timestamp([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)volume
 {
-	double returnValue = gtk_media_stream_get_volume([self castedGObject]);
+	double returnValue = (double)gtk_media_stream_get_volume([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasAudio
 {
-	bool returnValue = gtk_media_stream_has_audio([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_has_audio([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasVideo
 {
-	bool returnValue = gtk_media_stream_has_video([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_has_video([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isPrepared
 {
-	bool returnValue = gtk_media_stream_is_prepared([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_is_prepared([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isSeekable
 {
-	bool returnValue = gtk_media_stream_is_seekable([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_is_seekable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isSeeking
 {
-	bool returnValue = gtk_media_stream_is_seeking([self castedGObject]);
+	bool returnValue = (bool)gtk_media_stream_is_seeking([self castedGObject]);
 
 	return returnValue;
 }
@@ -136,7 +146,7 @@
 	gtk_media_stream_prepared([self castedGObject], hasAudio, hasVideo, seekable, duration);
 }
 
-- (void)realize:(OGGdkSurface*)surface
+- (void)realize:(OGdkSurface*)surface
 {
 	gtk_media_stream_realize([self castedGObject], [surface castedGObject]);
 }
@@ -196,7 +206,7 @@
 	gtk_media_stream_unprepared([self castedGObject]);
 }
 
-- (void)unrealize:(OGGdkSurface*)surface
+- (void)unrealize:(OGdkSurface*)surface
 {
 	gtk_media_stream_unrealize([self castedGObject], [surface castedGObject]);
 }

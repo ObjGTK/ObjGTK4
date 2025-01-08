@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,9 +8,19 @@
 
 @implementation OGTKTreeStore
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_TREE_STORE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initvWithNcolumns:(int)ncolumns types:(GType*)types
 {
-	GtkTreeStore* gobjectValue = GTK_TREE_STORE(gtk_tree_store_newv(ncolumns, types));
+	GtkTreeStore* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_store_newv(ncolumns, types), GtkTreeStore, GtkTreeStore);
 
 	@try {
 		self = [super initWithGObject:gobjectValue];
@@ -26,7 +36,7 @@
 
 - (GtkTreeStore*)castedGObject
 {
-	return GTK_TREE_STORE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeStore, GtkTreeStore);
 }
 
 - (void)appendWithIter:(GtkTreeIter*)iter parent:(GtkTreeIter*)parent
@@ -61,21 +71,21 @@
 
 - (bool)isAncestorWithIter:(GtkTreeIter*)iter descendant:(GtkTreeIter*)descendant
 {
-	bool returnValue = gtk_tree_store_is_ancestor([self castedGObject], iter, descendant);
+	bool returnValue = (bool)gtk_tree_store_is_ancestor([self castedGObject], iter, descendant);
 
 	return returnValue;
 }
 
 - (int)iterDepth:(GtkTreeIter*)iter
 {
-	int returnValue = gtk_tree_store_iter_depth([self castedGObject], iter);
+	int returnValue = (int)gtk_tree_store_iter_depth([self castedGObject], iter);
 
 	return returnValue;
 }
 
 - (bool)iterIsValid:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_tree_store_iter_is_valid([self castedGObject], iter);
+	bool returnValue = (bool)gtk_tree_store_iter_is_valid([self castedGObject], iter);
 
 	return returnValue;
 }
@@ -97,7 +107,7 @@
 
 - (bool)remove:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_tree_store_remove([self castedGObject], iter);
+	bool returnValue = (bool)gtk_tree_store_remove([self castedGObject], iter);
 
 	return returnValue;
 }

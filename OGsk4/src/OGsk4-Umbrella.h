@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,7 +8,7 @@
 
 
 // Generated classes
-#import "OGGskCairoRenderer.h"
-#import "OGGskGLShader.h"
-#import "OGGskRenderer.h"
-#import "OGGskVulkanRenderer.h"
+#import "OGskCairoRenderer.h"
+#import "OGskGLShader.h"
+#import "OGskRenderer.h"
+#import "OGskVulkanRenderer.h"

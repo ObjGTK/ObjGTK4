@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,9 +11,19 @@
 
 @implementation OGPangoRenderer
 
++ (void)load
+{
+	GType gtypeToAssociate = PANGO_TYPE_RENDERER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (PangoRenderer*)castedGObject
 {
-	return PANGO_RENDERER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoRenderer, PangoRenderer);
 }
 
 - (void)activate
@@ -68,36 +78,36 @@
 
 - (guint16)alpha:(PangoRenderPart)part
 {
-	guint16 returnValue = pango_renderer_get_alpha([self castedGObject], part);
+	guint16 returnValue = (guint16)pango_renderer_get_alpha([self castedGObject], part);
 
 	return returnValue;
 }
 
 - (PangoColor*)color:(PangoRenderPart)part
 {
-	PangoColor* returnValue = pango_renderer_get_color([self castedGObject], part);
+	PangoColor* returnValue = (PangoColor*)pango_renderer_get_color([self castedGObject], part);
 
 	return returnValue;
 }
 
 - (OGPangoLayout*)layout
 {
-	PangoLayout* gobjectValue = PANGO_LAYOUT(pango_renderer_get_layout([self castedGObject]));
+	PangoLayout* gobjectValue = pango_renderer_get_layout([self castedGObject]);
 
-	OGPangoLayout* returnValue = [OGPangoLayout withGObject:gobjectValue];
+	OGPangoLayout* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (PangoLayoutLine*)layoutLine
 {
-	PangoLayoutLine* returnValue = pango_renderer_get_layout_line([self castedGObject]);
+	PangoLayoutLine* returnValue = (PangoLayoutLine*)pango_renderer_get_layout_line([self castedGObject]);
 
 	return returnValue;
 }
 
 - (const PangoMatrix*)matrix
 {
-	const PangoMatrix* returnValue = pango_renderer_get_matrix([self castedGObject]);
+	const PangoMatrix* returnValue = (const PangoMatrix*)pango_renderer_get_matrix([self castedGObject]);
 
 	return returnValue;
 }

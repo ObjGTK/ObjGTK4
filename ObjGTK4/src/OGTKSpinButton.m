@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,9 +10,19 @@
 
 @implementation OGTKSpinButton
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_SPIN_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (instancetype)initWithAdjustment:(OGTKAdjustment*)adjustment climbRate:(double)climbRate digits:(guint)digits
 {
-	GtkSpinButton* gobjectValue = GTK_SPIN_BUTTON(gtk_spin_button_new([adjustment castedGObject], climbRate, digits));
+	GtkSpinButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spin_button_new([adjustment castedGObject], climbRate, digits), GtkSpinButton, GtkSpinButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -31,7 +41,7 @@
 
 - (instancetype)initWithRangeWithMin:(double)min max:(double)max step:(double)step
 {
-	GtkSpinButton* gobjectValue = GTK_SPIN_BUTTON(gtk_spin_button_new_with_range(min, max, step));
+	GtkSpinButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spin_button_new_with_range(min, max, step), GtkSpinButton, GtkSpinButton);
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
@@ -50,7 +60,7 @@
 
 - (GtkSpinButton*)castedGObject
 {
-	return GTK_SPIN_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSpinButton, GtkSpinButton);
 }
 
 - (void)configureWithAdjustment:(OGTKAdjustment*)adjustment climbRate:(double)climbRate digits:(guint)digits
@@ -60,29 +70,29 @@
 
 - (bool)activatesDefault
 {
-	bool returnValue = gtk_spin_button_get_activates_default([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_activates_default([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKAdjustment*)adjustment
 {
-	GtkAdjustment* gobjectValue = GTK_ADJUSTMENT(gtk_spin_button_get_adjustment([self castedGObject]));
+	GtkAdjustment* gobjectValue = gtk_spin_button_get_adjustment([self castedGObject]);
 
-	OGTKAdjustment* returnValue = [OGTKAdjustment withGObject:gobjectValue];
+	OGTKAdjustment* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (double)climbRate
 {
-	double returnValue = gtk_spin_button_get_climb_rate([self castedGObject]);
+	double returnValue = (double)gtk_spin_button_get_climb_rate([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)digits
 {
-	guint returnValue = gtk_spin_button_get_digits([self castedGObject]);
+	guint returnValue = (guint)gtk_spin_button_get_digits([self castedGObject]);
 
 	return returnValue;
 }
@@ -94,7 +104,7 @@
 
 - (bool)numeric
 {
-	bool returnValue = gtk_spin_button_get_numeric([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_numeric([self castedGObject]);
 
 	return returnValue;
 }
@@ -106,35 +116,35 @@
 
 - (bool)snapToTicks
 {
-	bool returnValue = gtk_spin_button_get_snap_to_ticks([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_snap_to_ticks([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSpinButtonUpdatePolicy)updatePolicy
 {
-	GtkSpinButtonUpdatePolicy returnValue = gtk_spin_button_get_update_policy([self castedGObject]);
+	GtkSpinButtonUpdatePolicy returnValue = (GtkSpinButtonUpdatePolicy)gtk_spin_button_get_update_policy([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)value
 {
-	double returnValue = gtk_spin_button_get_value([self castedGObject]);
+	double returnValue = (double)gtk_spin_button_get_value([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)valueAsInt
 {
-	int returnValue = gtk_spin_button_get_value_as_int([self castedGObject]);
+	int returnValue = (int)gtk_spin_button_get_value_as_int([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)wrap
 {
-	bool returnValue = gtk_spin_button_get_wrap([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_wrap([self castedGObject]);
 
 	return returnValue;
 }
