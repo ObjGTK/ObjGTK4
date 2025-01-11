@@ -15,7 +15,7 @@ This library set is meant to work with the versions delivered with Ubuntu 24.04 
 
 ### Debian / Ubuntu
 
-- `sudo apt install clang-format clang-tidy clang-tools clang clangd libclang1 lld lldb llvm-runtime llvm pkg-config`
+- `sudo apt install make autoconf pkg-config clang-format clang-tidy clang-tools clang clangd libclang1 lld lldb llvm-runtime llvm`
 
 ## Install
 
