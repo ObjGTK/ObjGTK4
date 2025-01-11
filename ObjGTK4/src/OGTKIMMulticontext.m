@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKIMMulticontext
 
-- (instancetype)init
++ (void)load
 {
-	GtkIMMulticontext* gobjectValue = GTK_IM_MULTICONTEXT(gtk_im_multicontext_new());
+	GType gtypeToAssociate = GTK_TYPE_IM_MULTICONTEXT;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)iMMulticontext
+{
+	GtkIMMulticontext* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_im_multicontext_new(), GtkIMMulticontext, GtkIMMulticontext);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKIMMulticontext* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKIMMulticontext alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkIMMulticontext*)castedGObject
 {
-	return GTK_IM_MULTICONTEXT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIMMulticontext, GtkIMMulticontext);
 }
 
 - (OFString*)contextId

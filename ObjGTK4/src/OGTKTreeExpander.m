@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,71 +10,85 @@
 
 @implementation OGTKTreeExpander
 
-- (instancetype)init
++ (void)load
 {
-	GtkTreeExpander* gobjectValue = GTK_TREE_EXPANDER(gtk_tree_expander_new());
+	GType gtypeToAssociate = GTK_TYPE_TREE_EXPANDER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)treeExpander
+{
+	GtkTreeExpander* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_expander_new(), GtkTreeExpander, GtkTreeExpander);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKTreeExpander* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeExpander alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkTreeExpander*)castedGObject
 {
-	return GTK_TREE_EXPANDER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeExpander, GtkTreeExpander);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_tree_expander_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_tree_expander_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)hideExpander
 {
-	bool returnValue = gtk_tree_expander_get_hide_expander([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_expander_get_hide_expander([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)indentForDepth
 {
-	bool returnValue = gtk_tree_expander_get_indent_for_depth([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_expander_get_indent_for_depth([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)indentForIcon
 {
-	bool returnValue = gtk_tree_expander_get_indent_for_icon([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_expander_get_indent_for_icon([self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)item
 {
-	gpointer returnValue = gtk_tree_expander_get_item([self castedGObject]);
+	gpointer returnValue = (gpointer)gtk_tree_expander_get_item([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTreeListRow*)listRow
 {
-	GtkTreeListRow* gobjectValue = GTK_TREE_LIST_ROW(gtk_tree_expander_get_list_row([self castedGObject]));
+	GtkTreeListRow* gobjectValue = gtk_tree_expander_get_list_row([self castedGObject]);
 
-	OGTKTreeListRow* returnValue = [OGTKTreeListRow withGObject:gobjectValue];
+	OGTKTreeListRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

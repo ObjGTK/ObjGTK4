@@ -7,7 +7,7 @@
 	<key>CFBundleName</key>
 	<string>@PACKAGE_NAME@</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.codeberg.objgtk.ogpango</string>
+	<string>de.devbeejohn.ogpango</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>

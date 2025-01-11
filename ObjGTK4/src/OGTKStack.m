@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,124 +10,135 @@
 
 @implementation OGTKStack
 
-- (instancetype)init
++ (void)load
 {
-	GtkStack* gobjectValue = GTK_STACK(gtk_stack_new());
+	GType gtypeToAssociate = GTK_TYPE_STACK;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)stack
+{
+	GtkStack* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_stack_new(), GtkStack, GtkStack);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKStack* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKStack alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkStack*)castedGObject
 {
-	return GTK_STACK([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStack, GtkStack);
 }
 
 - (OGTKStackPage*)addChild:(OGTKWidget*)child
 {
-	GtkStackPage* gobjectValue = GTK_STACK_PAGE(gtk_stack_add_child([self castedGObject], [child castedGObject]));
+	GtkStackPage* gobjectValue = gtk_stack_add_child([self castedGObject], [child castedGObject]);
 
-	OGTKStackPage* returnValue = [OGTKStackPage withGObject:gobjectValue];
+	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKStackPage*)addNamedWithChild:(OGTKWidget*)child name:(OFString*)name
 {
-	GtkStackPage* gobjectValue = GTK_STACK_PAGE(gtk_stack_add_named([self castedGObject], [child castedGObject], [name UTF8String]));
+	GtkStackPage* gobjectValue = gtk_stack_add_named([self castedGObject], [child castedGObject], [name UTF8String]);
 
-	OGTKStackPage* returnValue = [OGTKStackPage withGObject:gobjectValue];
+	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKStackPage*)addTitledWithChild:(OGTKWidget*)child name:(OFString*)name title:(OFString*)title
 {
-	GtkStackPage* gobjectValue = GTK_STACK_PAGE(gtk_stack_add_titled([self castedGObject], [child castedGObject], [name UTF8String], [title UTF8String]));
+	GtkStackPage* gobjectValue = gtk_stack_add_titled([self castedGObject], [child castedGObject], [name UTF8String], [title UTF8String]);
 
-	OGTKStackPage* returnValue = [OGTKStackPage withGObject:gobjectValue];
+	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)childByName:(OFString*)name
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_stack_get_child_by_name([self castedGObject], [name UTF8String]));
+	GtkWidget* gobjectValue = gtk_stack_get_child_by_name([self castedGObject], [name UTF8String]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)hhomogeneous
 {
-	bool returnValue = gtk_stack_get_hhomogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_hhomogeneous([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)interpolateSize
 {
-	bool returnValue = gtk_stack_get_interpolate_size([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_interpolate_size([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKStackPage*)page:(OGTKWidget*)child
 {
-	GtkStackPage* gobjectValue = GTK_STACK_PAGE(gtk_stack_get_page([self castedGObject], [child castedGObject]));
+	GtkStackPage* gobjectValue = gtk_stack_get_page([self castedGObject], [child castedGObject]);
 
-	OGTKStackPage* returnValue = [OGTKStackPage withGObject:gobjectValue];
+	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkSelectionModel*)pages
 {
-	GtkSelectionModel* returnValue = gtk_stack_get_pages([self castedGObject]);
+	GtkSelectionModel* returnValue = (GtkSelectionModel*)gtk_stack_get_pages([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)transitionDuration
 {
-	guint returnValue = gtk_stack_get_transition_duration([self castedGObject]);
+	guint returnValue = (guint)gtk_stack_get_transition_duration([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)transitionRunning
 {
-	bool returnValue = gtk_stack_get_transition_running([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_transition_running([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStackTransitionType)transitionType
 {
-	GtkStackTransitionType returnValue = gtk_stack_get_transition_type([self castedGObject]);
+	GtkStackTransitionType returnValue = (GtkStackTransitionType)gtk_stack_get_transition_type([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)vhomogeneous
 {
-	bool returnValue = gtk_stack_get_vhomogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_vhomogeneous([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)visibleChild
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_stack_get_visible_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_stack_get_visible_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

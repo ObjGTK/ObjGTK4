@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,35 +8,49 @@
 
 @implementation OGTKFrame
 
-- (instancetype)init:(OFString*)label
++ (void)load
 {
-	GtkFrame* gobjectValue = GTK_FRAME(gtk_frame_new([label UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_FRAME;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)frame:(OFString*)label
+{
+	GtkFrame* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_frame_new([label UTF8String]), GtkFrame, GtkFrame);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKFrame* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFrame alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFrame*)castedGObject
 {
-	return GTK_FRAME([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFrame, GtkFrame);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_frame_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_frame_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -50,16 +64,16 @@
 
 - (float)labelAlign
 {
-	float returnValue = gtk_frame_get_label_align([self castedGObject]);
+	float returnValue = (float)gtk_frame_get_label_align([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)labelWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_frame_get_label_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_frame_get_label_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

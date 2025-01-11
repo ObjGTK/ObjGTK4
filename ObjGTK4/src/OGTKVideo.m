@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,139 +10,169 @@
 
 @implementation OGTKVideo
 
-- (instancetype)init
++ (void)load
 {
-	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new());
+	GType gtypeToAssociate = GTK_TYPE_VIDEO;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initForFile:(GFile*)file
++ (instancetype)video
 {
-	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_file(file));
+	GtkVideo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_video_new(), GtkVideo, GtkVideo);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKVideo* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKVideo alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForFilename:(OFString*)filename
++ (instancetype)videoForFile:(GFile*)file
 {
-	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_filename([filename UTF8String]));
+	GtkVideo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_video_new_for_file(file), GtkVideo, GtkVideo);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKVideo* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKVideo alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForMediaStream:(OGTKMediaStream*)stream
++ (instancetype)videoForFilename:(OFString*)filename
 {
-	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_media_stream([stream castedGObject]));
+	GtkVideo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_video_new_for_filename([filename UTF8String]), GtkVideo, GtkVideo);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKVideo* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKVideo alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForResource:(OFString*)resourcePath
++ (instancetype)videoForMediaStream:(OGTKMediaStream*)stream
 {
-	GtkVideo* gobjectValue = GTK_VIDEO(gtk_video_new_for_resource([resourcePath UTF8String]));
+	GtkVideo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_video_new_for_media_stream([stream castedGObject]), GtkVideo, GtkVideo);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKVideo* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKVideo alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)videoForResource:(OFString*)resourcePath
+{
+	GtkVideo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_video_new_for_resource([resourcePath UTF8String]), GtkVideo, GtkVideo);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
+	OGTKVideo* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKVideo alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkVideo*)castedGObject
 {
-	return GTK_VIDEO([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkVideo, GtkVideo);
 }
 
 - (bool)autoplay
 {
-	bool returnValue = gtk_video_get_autoplay([self castedGObject]);
+	bool returnValue = (bool)gtk_video_get_autoplay([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = gtk_video_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_video_get_file([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkGraphicsOffloadEnabled)graphicsOffload
 {
-	GtkGraphicsOffloadEnabled returnValue = gtk_video_get_graphics_offload([self castedGObject]);
+	GtkGraphicsOffloadEnabled returnValue = (GtkGraphicsOffloadEnabled)gtk_video_get_graphics_offload([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)loop
 {
-	bool returnValue = gtk_video_get_loop([self castedGObject]);
+	bool returnValue = (bool)gtk_video_get_loop([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKMediaStream*)mediaStream
 {
-	GtkMediaStream* gobjectValue = GTK_MEDIA_STREAM(gtk_video_get_media_stream([self castedGObject]));
+	GtkMediaStream* gobjectValue = gtk_video_get_media_stream([self castedGObject]);
 
-	OGTKMediaStream* returnValue = [OGTKMediaStream withGObject:gobjectValue];
+	OGTKMediaStream* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

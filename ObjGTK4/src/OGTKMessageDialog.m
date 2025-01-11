@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,16 +10,26 @@
 
 @implementation OGTKMessageDialog
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_MESSAGE_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkMessageDialog*)castedGObject
 {
-	return GTK_MESSAGE_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMessageDialog, GtkMessageDialog);
 }
 
 - (OGTKWidget*)messageArea
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_message_dialog_get_message_area([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_message_dialog_get_message_area([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

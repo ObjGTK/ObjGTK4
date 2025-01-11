@@ -1,17 +1,27 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWindow.h"
 
-#import <OGdk4/OGGdkMonitor.h>
-#import "OGTKWindowGroup.h"
+#import <OGdk4/OGdkDisplay.h>
+#import <OGdk4/OGdkMonitor.h>
 #import "OGTKApplication.h"
-#import <OGdk4/OGGdkDisplay.h>
+#import "OGTKWindowGroup.h"
 
 @implementation OGTKWindow
+
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_WINDOW;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
 
 + (OFString*)defaultIconName
 {
@@ -23,14 +33,14 @@
 
 + (GListModel*)toplevels
 {
-	GListModel* returnValue = gtk_window_get_toplevels();
+	GListModel* returnValue = (GListModel*)gtk_window_get_toplevels();
 
 	return returnValue;
 }
 
 + (GList*)listToplevels
 {
-	GList* returnValue = gtk_window_list_toplevels();
+	GList* returnValue = (GList*)gtk_window_list_toplevels();
 
 	return returnValue;
 }
@@ -50,28 +60,32 @@
 	gtk_window_set_interactive_debugging(enable);
 }
 
-- (instancetype)init
++ (instancetype)window
 {
-	GtkWindow* gobjectValue = GTK_WINDOW(gtk_window_new());
+	GtkWindow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_new(), GtkWindow, GtkWindow);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKWindow* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKWindow alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkWindow*)castedGObject
 {
-	return GTK_WINDOW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWindow, GtkWindow);
 }
 
 - (void)close
@@ -89,30 +103,30 @@
 	gtk_window_fullscreen([self castedGObject]);
 }
 
-- (void)fullscreenOnMonitor:(OGGdkMonitor*)monitor
+- (void)fullscreenOnMonitor:(OGdkMonitor*)monitor
 {
 	gtk_window_fullscreen_on_monitor([self castedGObject], [monitor castedGObject]);
 }
 
 - (OGTKApplication*)application
 {
-	GtkApplication* gobjectValue = GTK_APPLICATION(gtk_window_get_application([self castedGObject]));
+	GtkApplication* gobjectValue = gtk_window_get_application([self castedGObject]);
 
-	OGTKApplication* returnValue = [OGTKApplication withGObject:gobjectValue];
+	OGTKApplication* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_window_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_window_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)decorated
 {
-	bool returnValue = gtk_window_get_decorated([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_decorated([self castedGObject]);
 
 	return returnValue;
 }
@@ -124,59 +138,59 @@
 
 - (OGTKWidget*)defaultWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_window_get_default_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_window_get_default_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)deletable
 {
-	bool returnValue = gtk_window_get_deletable([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_deletable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)destroyWithParent
 {
-	bool returnValue = gtk_window_get_destroy_with_parent([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_destroy_with_parent([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)focus
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_window_get_focus([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_window_get_focus([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)focusVisible
 {
-	bool returnValue = gtk_window_get_focus_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_focus_visible([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWindowGroup*)group
 {
-	GtkWindowGroup* gobjectValue = GTK_WINDOW_GROUP(gtk_window_get_group([self castedGObject]));
+	GtkWindowGroup* gobjectValue = gtk_window_get_group([self castedGObject]);
 
-	OGTKWindowGroup* returnValue = [OGTKWindowGroup withGObject:gobjectValue];
+	OGTKWindowGroup* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)handleMenubarAccel
 {
-	bool returnValue = gtk_window_get_handle_menubar_accel([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_handle_menubar_accel([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hideOnClose
 {
-	bool returnValue = gtk_window_get_hide_on_close([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_hide_on_close([self castedGObject]);
 
 	return returnValue;
 }
@@ -191,21 +205,21 @@
 
 - (bool)mnemonicsVisible
 {
-	bool returnValue = gtk_window_get_mnemonics_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_mnemonics_visible([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)modal
 {
-	bool returnValue = gtk_window_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_modal([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)resizable
 {
-	bool returnValue = gtk_window_get_resizable([self castedGObject]);
+	bool returnValue = (bool)gtk_window_get_resizable([self castedGObject]);
 
 	return returnValue;
 }
@@ -220,51 +234,51 @@
 
 - (OGTKWidget*)titlebar
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_window_get_titlebar([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_window_get_titlebar([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWindow*)transientFor
 {
-	GtkWindow* gobjectValue = GTK_WINDOW(gtk_window_get_transient_for([self castedGObject]));
+	GtkWindow* gobjectValue = gtk_window_get_transient_for([self castedGObject]);
 
-	OGTKWindow* returnValue = [OGTKWindow withGObject:gobjectValue];
+	OGTKWindow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)hasGroup
 {
-	bool returnValue = gtk_window_has_group([self castedGObject]);
+	bool returnValue = (bool)gtk_window_has_group([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isActive
 {
-	bool returnValue = gtk_window_is_active([self castedGObject]);
+	bool returnValue = (bool)gtk_window_is_active([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isFullscreen
 {
-	bool returnValue = gtk_window_is_fullscreen([self castedGObject]);
+	bool returnValue = (bool)gtk_window_is_fullscreen([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isMaximized
 {
-	bool returnValue = gtk_window_is_maximized([self castedGObject]);
+	bool returnValue = (bool)gtk_window_is_maximized([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isSuspended
 {
-	bool returnValue = gtk_window_is_suspended([self castedGObject]);
+	bool returnValue = (bool)gtk_window_is_suspended([self castedGObject]);
 
 	return returnValue;
 }
@@ -324,7 +338,7 @@
 	gtk_window_set_destroy_with_parent([self castedGObject], setting);
 }
 
-- (void)setDisplay:(OGGdkDisplay*)display
+- (void)setDisplay:(OGdkDisplay*)display
 {
 	gtk_window_set_display([self castedGObject], [display castedGObject]);
 }

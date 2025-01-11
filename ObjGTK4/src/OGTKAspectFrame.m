@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,62 +8,76 @@
 
 @implementation OGTKAspectFrame
 
-- (instancetype)initWithXalign:(float)xalign yalign:(float)yalign ratio:(float)ratio obeyChild:(bool)obeyChild
++ (void)load
 {
-	GtkAspectFrame* gobjectValue = GTK_ASPECT_FRAME(gtk_aspect_frame_new(xalign, yalign, ratio, obeyChild));
+	GType gtypeToAssociate = GTK_TYPE_ASPECT_FRAME;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)aspectFrameWithXalign:(float)xalign yalign:(float)yalign ratio:(float)ratio obeyChild:(bool)obeyChild
+{
+	GtkAspectFrame* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_aspect_frame_new(xalign, yalign, ratio, obeyChild), GtkAspectFrame, GtkAspectFrame);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKAspectFrame* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKAspectFrame alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkAspectFrame*)castedGObject
 {
-	return GTK_ASPECT_FRAME([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAspectFrame, GtkAspectFrame);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_aspect_frame_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_aspect_frame_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)obeyChild
 {
-	bool returnValue = gtk_aspect_frame_get_obey_child([self castedGObject]);
+	bool returnValue = (bool)gtk_aspect_frame_get_obey_child([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)ratio
 {
-	float returnValue = gtk_aspect_frame_get_ratio([self castedGObject]);
+	float returnValue = (float)gtk_aspect_frame_get_ratio([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)xalign
 {
-	float returnValue = gtk_aspect_frame_get_xalign([self castedGObject]);
+	float returnValue = (float)gtk_aspect_frame_get_xalign([self castedGObject]);
 
 	return returnValue;
 }
 
 - (float)yalign
 {
-	float returnValue = gtk_aspect_frame_get_yalign([self castedGObject]);
+	float returnValue = (float)gtk_aspect_frame_get_yalign([self castedGObject]);
 
 	return returnValue;
 }

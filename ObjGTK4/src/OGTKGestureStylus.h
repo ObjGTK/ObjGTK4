@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKGestureSingle.h"
 
-@class OGGdkDeviceTool;
+@class OGdkDeviceTool;
 @class OGTKGesture;
 
 /**
@@ -25,7 +25,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)gestureStylus;
 
 /**
  * Methods
@@ -92,7 +92,7 @@
  *
  * @return The current stylus tool
  */
-- (OGGdkDeviceTool*)deviceTool;
+- (OGdkDeviceTool*)deviceTool;
 
 /**
  * Checks whether the gesture is for styluses only.

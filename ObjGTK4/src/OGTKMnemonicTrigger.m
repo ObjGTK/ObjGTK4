@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,30 +8,44 @@
 
 @implementation OGTKMnemonicTrigger
 
-- (instancetype)init:(guint)keyval
++ (void)load
 {
-	GtkMnemonicTrigger* gobjectValue = GTK_MNEMONIC_TRIGGER(gtk_mnemonic_trigger_new(keyval));
+	GType gtypeToAssociate = GTK_TYPE_MNEMONIC_TRIGGER;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)mnemonicTrigger:(guint)keyval
+{
+	GtkMnemonicTrigger* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_mnemonic_trigger_new(keyval), GtkMnemonicTrigger, GtkMnemonicTrigger);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMnemonicTrigger* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMnemonicTrigger alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkMnemonicTrigger*)castedGObject
 {
-	return GTK_MNEMONIC_TRIGGER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMnemonicTrigger, GtkMnemonicTrigger);
 }
 
 - (guint)keyval
 {
-	guint returnValue = gtk_mnemonic_trigger_get_keyval([self castedGObject]);
+	guint returnValue = (guint)gtk_mnemonic_trigger_get_keyval([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,13 +1,13 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKPopover.h"
 
-@class OGTKWidget;
 @class OGMenuModel;
+@class OGTKWidget;
 
 /**
  * `GtkPopoverMenu` is a subclass of `GtkPopover` that implements menu
@@ -131,8 +131,8 @@
 /**
  * Constructors
  */
-- (instancetype)initFromModel:(OGMenuModel*)model;
-- (instancetype)initFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags;
++ (instancetype)popoverMenuFromModel:(OGMenuModel*)model;
++ (instancetype)popoverMenuFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags;
 
 /**
  * Methods
@@ -147,10 +147,10 @@
  * an item with a `custom` attribute that matches @id.
  *
  * @param child the `GtkWidget` to add
- * @param id the ID to insert @child at
+ * @param identifier the ID to insert @child at
  * @return %TRUE if @id was found and the widget added
  */
-- (bool)addChildWithChild:(OGTKWidget*)child id:(OFString*)id;
+- (bool)addChildWithChild:(OGTKWidget*)child identifier:(OFString*)identifier;
 
 /**
  * Returns the flags that @popover uses to create/display a menu from its model.

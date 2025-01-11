@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,100 +8,114 @@
 
 @implementation OGTKPrintSettings
 
-- (instancetype)init
++ (void)load
 {
-	GtkPrintSettings* gobjectValue = GTK_PRINT_SETTINGS(gtk_print_settings_new());
+	GType gtypeToAssociate = GTK_TYPE_PRINT_SETTINGS;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)printSettings
+{
+	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new(), GtkPrintSettings, GtkPrintSettings);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromFile:(OFString*)fileName
++ (instancetype)printSettingsFromFile:(OFString*)fileName
 {
 	GError* err = NULL;
 
-	GtkPrintSettings* gobjectValue = GTK_PRINT_SETTINGS(gtk_print_settings_new_from_file([fileName UTF8String], &err));
+	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new_from_file([fileName UTF8String], &err), GtkPrintSettings, GtkPrintSettings);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
+
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromGvariant:(GVariant*)variant
++ (instancetype)printSettingsFromGvariant:(GVariant*)variant
 {
-	GtkPrintSettings* gobjectValue = GTK_PRINT_SETTINGS(gtk_print_settings_new_from_gvariant(variant));
+	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new_from_gvariant(variant), GtkPrintSettings, GtkPrintSettings);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
++ (instancetype)printSettingsFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	GError* err = NULL;
 
-	GtkPrintSettings* gobjectValue = GTK_PRINT_SETTINGS(gtk_print_settings_new_from_key_file(keyFile, [groupName UTF8String], &err));
+	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new_from_key_file(keyFile, [groupName UTF8String], &err), GtkPrintSettings, GtkPrintSettings);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
+
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkPrintSettings*)castedGObject
 {
-	return GTK_PRINT_SETTINGS([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPrintSettings, GtkPrintSettings);
 }
 
 - (OGTKPrintSettings*)copy
 {
-	GtkPrintSettings* gobjectValue = GTK_PRINT_SETTINGS(gtk_print_settings_copy([self castedGObject]));
+	GtkPrintSettings* gobjectValue = gtk_print_settings_copy([self castedGObject]);
 
-	OGTKPrintSettings* returnValue = [OGTKPrintSettings withGObject:gobjectValue];
+	OGTKPrintSettings* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -122,14 +136,14 @@
 
 - (bool)bool:(OFString*)key
 {
-	bool returnValue = gtk_print_settings_get_bool([self castedGObject], [key UTF8String]);
+	bool returnValue = (bool)gtk_print_settings_get_bool([self castedGObject], [key UTF8String]);
 
 	return returnValue;
 }
 
 - (bool)collate
 {
-	bool returnValue = gtk_print_settings_get_collate([self castedGObject]);
+	bool returnValue = (bool)gtk_print_settings_get_collate([self castedGObject]);
 
 	return returnValue;
 }
@@ -152,21 +166,21 @@
 
 - (double)double:(OFString*)key
 {
-	double returnValue = gtk_print_settings_get_double([self castedGObject], [key UTF8String]);
+	double returnValue = (double)gtk_print_settings_get_double([self castedGObject], [key UTF8String]);
 
 	return returnValue;
 }
 
 - (double)doubleWithDefaultWithKey:(OFString*)key def:(double)def
 {
-	double returnValue = gtk_print_settings_get_double_with_default([self castedGObject], [key UTF8String], def);
+	double returnValue = (double)gtk_print_settings_get_double_with_default([self castedGObject], [key UTF8String], def);
 
 	return returnValue;
 }
 
 - (GtkPrintDuplex)duplex
 {
-	GtkPrintDuplex returnValue = gtk_print_settings_get_duplex([self castedGObject]);
+	GtkPrintDuplex returnValue = (GtkPrintDuplex)gtk_print_settings_get_duplex([self castedGObject]);
 
 	return returnValue;
 }
@@ -181,21 +195,21 @@
 
 - (int)int:(OFString*)key
 {
-	int returnValue = gtk_print_settings_get_int([self castedGObject], [key UTF8String]);
+	int returnValue = (int)gtk_print_settings_get_int([self castedGObject], [key UTF8String]);
 
 	return returnValue;
 }
 
 - (int)intWithDefaultWithKey:(OFString*)key def:(int)def
 {
-	int returnValue = gtk_print_settings_get_int_with_default([self castedGObject], [key UTF8String], def);
+	int returnValue = (int)gtk_print_settings_get_int_with_default([self castedGObject], [key UTF8String], def);
 
 	return returnValue;
 }
 
 - (double)lengthWithKey:(OFString*)key unit:(GtkUnit)unit
 {
-	double returnValue = gtk_print_settings_get_length([self castedGObject], [key UTF8String], unit);
+	double returnValue = (double)gtk_print_settings_get_length([self castedGObject], [key UTF8String], unit);
 
 	return returnValue;
 }
@@ -210,28 +224,28 @@
 
 - (int)ncopies
 {
-	int returnValue = gtk_print_settings_get_n_copies([self castedGObject]);
+	int returnValue = (int)gtk_print_settings_get_n_copies([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)numberUp
 {
-	int returnValue = gtk_print_settings_get_number_up([self castedGObject]);
+	int returnValue = (int)gtk_print_settings_get_number_up([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkNumberUpLayout)numberUpLayout
 {
-	GtkNumberUpLayout returnValue = gtk_print_settings_get_number_up_layout([self castedGObject]);
+	GtkNumberUpLayout returnValue = (GtkNumberUpLayout)gtk_print_settings_get_number_up_layout([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkPageOrientation)orientation
 {
-	GtkPageOrientation returnValue = gtk_print_settings_get_orientation([self castedGObject]);
+	GtkPageOrientation returnValue = (GtkPageOrientation)gtk_print_settings_get_orientation([self castedGObject]);
 
 	return returnValue;
 }
@@ -246,42 +260,42 @@
 
 - (GtkPageRange*)pageRanges:(int*)numRanges
 {
-	GtkPageRange* returnValue = gtk_print_settings_get_page_ranges([self castedGObject], numRanges);
+	GtkPageRange* returnValue = (GtkPageRange*)gtk_print_settings_get_page_ranges([self castedGObject], numRanges);
 
 	return returnValue;
 }
 
 - (GtkPageSet)pageSet
 {
-	GtkPageSet returnValue = gtk_print_settings_get_page_set([self castedGObject]);
+	GtkPageSet returnValue = (GtkPageSet)gtk_print_settings_get_page_set([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)paperHeight:(GtkUnit)unit
 {
-	double returnValue = gtk_print_settings_get_paper_height([self castedGObject], unit);
+	double returnValue = (double)gtk_print_settings_get_paper_height([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (GtkPaperSize*)paperSize
 {
-	GtkPaperSize* returnValue = gtk_print_settings_get_paper_size([self castedGObject]);
+	GtkPaperSize* returnValue = (GtkPaperSize*)gtk_print_settings_get_paper_size([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)paperWidth:(GtkUnit)unit
 {
-	double returnValue = gtk_print_settings_get_paper_width([self castedGObject], unit);
+	double returnValue = (double)gtk_print_settings_get_paper_width([self castedGObject], unit);
 
 	return returnValue;
 }
 
 - (GtkPrintPages)printPages
 {
-	GtkPrintPages returnValue = gtk_print_settings_get_print_pages([self castedGObject]);
+	GtkPrintPages returnValue = (GtkPrintPages)gtk_print_settings_get_print_pages([self castedGObject]);
 
 	return returnValue;
 }
@@ -296,63 +310,63 @@
 
 - (double)printerLpi
 {
-	double returnValue = gtk_print_settings_get_printer_lpi([self castedGObject]);
+	double returnValue = (double)gtk_print_settings_get_printer_lpi([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkPrintQuality)quality
 {
-	GtkPrintQuality returnValue = gtk_print_settings_get_quality([self castedGObject]);
+	GtkPrintQuality returnValue = (GtkPrintQuality)gtk_print_settings_get_quality([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)resolution
 {
-	int returnValue = gtk_print_settings_get_resolution([self castedGObject]);
+	int returnValue = (int)gtk_print_settings_get_resolution([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)resolutionX
 {
-	int returnValue = gtk_print_settings_get_resolution_x([self castedGObject]);
+	int returnValue = (int)gtk_print_settings_get_resolution_x([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)resolutionY
 {
-	int returnValue = gtk_print_settings_get_resolution_y([self castedGObject]);
+	int returnValue = (int)gtk_print_settings_get_resolution_y([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)reverse
 {
-	bool returnValue = gtk_print_settings_get_reverse([self castedGObject]);
+	bool returnValue = (bool)gtk_print_settings_get_reverse([self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)scale
 {
-	double returnValue = gtk_print_settings_get_scale([self castedGObject]);
+	double returnValue = (double)gtk_print_settings_get_scale([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)useColor
 {
-	bool returnValue = gtk_print_settings_get_use_color([self castedGObject]);
+	bool returnValue = (bool)gtk_print_settings_get_use_color([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasKey:(OFString*)key
 {
-	bool returnValue = gtk_print_settings_has_key([self castedGObject], [key UTF8String]);
+	bool returnValue = (bool)gtk_print_settings_has_key([self castedGObject], [key UTF8String]);
 
 	return returnValue;
 }
@@ -361,13 +375,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_print_settings_load_file([self castedGObject], [fileName UTF8String], &err);
+	bool returnValue = (bool)gtk_print_settings_load_file([self castedGObject], [fileName UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -376,13 +386,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_print_settings_load_key_file([self castedGObject], keyFile, [groupName UTF8String], &err);
+	bool returnValue = (bool)gtk_print_settings_load_key_file([self castedGObject], keyFile, [groupName UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -541,20 +547,16 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_print_settings_to_file([self castedGObject], [fileName UTF8String], &err);
+	bool returnValue = (bool)gtk_print_settings_to_file([self castedGObject], [fileName UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
 
 - (GVariant*)toGvariant
 {
-	GVariant* returnValue = gtk_print_settings_to_gvariant([self castedGObject]);
+	GVariant* returnValue = (GVariant*)gtk_print_settings_to_gvariant([self castedGObject]);
 
 	return returnValue;
 }

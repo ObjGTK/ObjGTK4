@@ -1,14 +1,14 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGTKCellAreaContext;
+@class OGdkTexture;
 @class OGTKCellArea;
-@class OGGdkTexture;
+@class OGTKCellAreaContext;
 
 /**
  * A widget displaying a single row of a GtkTreeModel
@@ -41,11 +41,11 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithContextWithArea:(OGTKCellArea*)area context:(OGTKCellAreaContext*)context;
-- (instancetype)initWithMarkup:(OFString*)markup;
-- (instancetype)initWithText:(OFString*)text;
-- (instancetype)initWithTexture:(OGGdkTexture*)texture;
++ (instancetype)cellView;
++ (instancetype)cellViewWithContextWithArea:(OGTKCellArea*)area context:(OGTKCellAreaContext*)context;
++ (instancetype)cellViewWithMarkup:(OFString*)markup;
++ (instancetype)cellViewWithText:(OFString*)text;
++ (instancetype)cellViewWithTexture:(OGdkTexture*)texture;
 
 /**
  * Methods

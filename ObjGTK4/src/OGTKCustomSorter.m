@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKCustomSorter
 
-- (instancetype)initWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
++ (void)load
 {
-	GtkCustomSorter* gobjectValue = GTK_CUSTOM_SORTER(gtk_custom_sorter_new(sortFunc, userData, userDestroy));
+	GType gtypeToAssociate = GTK_TYPE_CUSTOM_SORTER;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)customSorterWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
+{
+	GtkCustomSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_custom_sorter_new(sortFunc, userData, userDestroy), GtkCustomSorter, GtkCustomSorter);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKCustomSorter* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKCustomSorter alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkCustomSorter*)castedGObject
 {
-	return GTK_CUSTOM_SORTER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCustomSorter, GtkCustomSorter);
 }
 
 - (void)setSortFuncWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy

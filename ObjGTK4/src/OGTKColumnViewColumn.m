@@ -1,74 +1,88 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKColumnViewColumn.h"
 
-#import "OGTKSorter.h"
 #import <OGio/OGMenuModel.h>
 #import "OGTKColumnView.h"
 #import "OGTKListItemFactory.h"
+#import "OGTKSorter.h"
 
 @implementation OGTKColumnViewColumn
 
-- (instancetype)initWithTitle:(OFString*)title factory:(OGTKListItemFactory*)factory
++ (void)load
 {
-	GtkColumnViewColumn* gobjectValue = GTK_COLUMN_VIEW_COLUMN(gtk_column_view_column_new([title UTF8String], [factory castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_COLUMN_VIEW_COLUMN;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)columnViewColumnWithTitle:(OFString*)title factory:(OGTKListItemFactory*)factory
+{
+	GtkColumnViewColumn* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_column_view_column_new([title UTF8String], [factory castedGObject]), GtkColumnViewColumn, GtkColumnViewColumn);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKColumnViewColumn* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKColumnViewColumn alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkColumnViewColumn*)castedGObject
 {
-	return GTK_COLUMN_VIEW_COLUMN([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColumnViewColumn, GtkColumnViewColumn);
 }
 
 - (OGTKColumnView*)columnView
 {
-	GtkColumnView* gobjectValue = GTK_COLUMN_VIEW(gtk_column_view_column_get_column_view([self castedGObject]));
+	GtkColumnView* gobjectValue = gtk_column_view_column_get_column_view([self castedGObject]);
 
-	OGTKColumnView* returnValue = [OGTKColumnView withGObject:gobjectValue];
+	OGTKColumnView* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)expand
 {
-	bool returnValue = gtk_column_view_column_get_expand([self castedGObject]);
+	bool returnValue = (bool)gtk_column_view_column_get_expand([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKListItemFactory*)factory
 {
-	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_column_view_column_get_factory([self castedGObject]));
+	GtkListItemFactory* gobjectValue = gtk_column_view_column_get_factory([self castedGObject]);
 
-	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	OGTKListItemFactory* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)fixedWidth
 {
-	int returnValue = gtk_column_view_column_get_fixed_width([self castedGObject]);
+	int returnValue = (int)gtk_column_view_column_get_fixed_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)headerMenu
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_column_view_column_get_header_menu([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_column_view_column_get_header_menu([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -82,16 +96,16 @@
 
 - (bool)resizable
 {
-	bool returnValue = gtk_column_view_column_get_resizable([self castedGObject]);
+	bool returnValue = (bool)gtk_column_view_column_get_resizable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKSorter*)sorter
 {
-	GtkSorter* gobjectValue = GTK_SORTER(gtk_column_view_column_get_sorter([self castedGObject]));
+	GtkSorter* gobjectValue = gtk_column_view_column_get_sorter([self castedGObject]);
 
-	OGTKSorter* returnValue = [OGTKSorter withGObject:gobjectValue];
+	OGTKSorter* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -105,7 +119,7 @@
 
 - (bool)visible
 {
-	bool returnValue = gtk_column_view_column_get_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_column_view_column_get_visible([self castedGObject]);
 
 	return returnValue;
 }
@@ -130,9 +144,9 @@
 	gtk_column_view_column_set_header_menu([self castedGObject], [menu castedGObject]);
 }
 
-- (void)setId:(OFString*)id
+- (void)setId:(OFString*)identifier
 {
-	gtk_column_view_column_set_id([self castedGObject], [id UTF8String]);
+	gtk_column_view_column_set_id([self castedGObject], [identifier UTF8String]);
 }
 
 - (void)setResizable:(bool)resizable

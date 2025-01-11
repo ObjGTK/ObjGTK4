@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,37 +8,51 @@
 
 @implementation OGTKNumericSorter
 
-- (instancetype)init:(GtkExpression*)expression
++ (void)load
 {
-	GtkNumericSorter* gobjectValue = GTK_NUMERIC_SORTER(gtk_numeric_sorter_new(expression));
+	GType gtypeToAssociate = GTK_TYPE_NUMERIC_SORTER;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)numericSorter:(GtkExpression*)expression
+{
+	GtkNumericSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_numeric_sorter_new(expression), GtkNumericSorter, GtkNumericSorter);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKNumericSorter* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKNumericSorter alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkNumericSorter*)castedGObject
 {
-	return GTK_NUMERIC_SORTER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkNumericSorter, GtkNumericSorter);
 }
 
 - (GtkExpression*)expression
 {
-	GtkExpression* returnValue = gtk_numeric_sorter_get_expression([self castedGObject]);
+	GtkExpression* returnValue = (GtkExpression*)gtk_numeric_sorter_get_expression([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSortType)sortOrder
 {
-	GtkSortType returnValue = gtk_numeric_sorter_get_sort_order([self castedGObject]);
+	GtkSortType returnValue = (GtkSortType)gtk_numeric_sorter_get_sort_order([self castedGObject]);
 
 	return returnValue;
 }

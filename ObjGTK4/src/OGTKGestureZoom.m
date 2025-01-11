@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,30 +8,44 @@
 
 @implementation OGTKGestureZoom
 
-- (instancetype)init
++ (void)load
 {
-	GtkGestureZoom* gobjectValue = GTK_GESTURE_ZOOM(gtk_gesture_zoom_new());
+	GType gtypeToAssociate = GTK_TYPE_GESTURE_ZOOM;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)gestureZoom
+{
+	GtkGestureZoom* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_zoom_new(), GtkGestureZoom, GtkGestureZoom);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKGestureZoom* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKGestureZoom alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkGestureZoom*)castedGObject
 {
-	return GTK_GESTURE_ZOOM([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureZoom, GtkGestureZoom);
 }
 
 - (double)scaleDelta
 {
-	double returnValue = gtk_gesture_zoom_get_scale_delta([self castedGObject]);
+	double returnValue = (double)gtk_gesture_zoom_get_scale_delta([self castedGObject]);
 
 	return returnValue;
 }

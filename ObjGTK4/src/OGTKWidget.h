@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,18 +8,18 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGPangoLayout;
-@class OGTKSettings;
-@class OGGdkDisplay;
-@class OGGdkCursor;
-@class OGTKLayoutManager;
-@class OGTKSnapshot;
-@class OGGdkFrameClock;
-@class OGTKStyleContext;
-@class OGPangoFontMap;
-@class OGGdkClipboard;
-@class OGPangoContext;
+@class OGdkClipboard;
+@class OGdkCursor;
+@class OGdkDisplay;
+@class OGdkFrameClock;
 @class OGTKEventController;
+@class OGTKLayoutManager;
+@class OGTKSettings;
+@class OGTKSnapshot;
+@class OGTKStyleContext;
+@class OGPangoContext;
+@class OGPangoFontMap;
+@class OGPangoLayout;
 
 /**
  * The base class for all widgets.
@@ -425,6 +425,8 @@
 /**
  * Functions
  */
++ (void)load;
+
 
 /**
  * Obtains the current default reading direction.
@@ -907,7 +909,7 @@
  *
  * @return the appropriate clipboard object
  */
-- (OGGdkClipboard*)clipboard;
+- (OGdkClipboard*)clipboard;
 
 /**
  * Gets the current foreground color for the widget’s
@@ -945,7 +947,7 @@
  * @return the cursor
  *   currently in use or %NULL if the cursor is inherited
  */
-- (OGGdkCursor*)cursor;
+- (OGdkCursor*)cursor;
 
 /**
  * Gets the reading direction for a particular widget.
@@ -970,7 +972,7 @@
  * @return the `GdkDisplay` for the toplevel
  *   for this widget.
  */
-- (OGGdkDisplay*)display;
+- (OGdkDisplay*)display;
 
 /**
  * Returns the widget’s first child.
@@ -1054,7 +1056,7 @@
  *
  * @return a `GdkFrameClock`
  */
-- (OGGdkFrameClock*)frameClock;
+- (OGdkFrameClock*)frameClock;
 
 /**
  * Gets the horizontal alignment of @widget.
@@ -1293,7 +1295,7 @@
  *
  * @return the appropriate clipboard object
  */
-- (OGGdkClipboard*)primaryClipboard;
+- (OGdkClipboard*)primaryClipboard;
 
 /**
  * Determines whether @widget is realized.
@@ -2012,9 +2014,9 @@
  * Removes a tick callback previously registered with
  * gtk_widget_add_tick_callback().
  *
- * @param id an id returned by [method@Gtk.Widget.add_tick_callback]
+ * @param identifier an id returned by [method@Gtk.Widget.add_tick_callback]
  */
-- (void)removeTickCallback:(guint)id;
+- (void)removeTickCallback:(guint)identifier;
 
 /**
  * Specifies whether the input focus can enter the widget
@@ -2085,7 +2087,7 @@
  *
  * @param cursor the new cursor
  */
-- (void)setCursor:(OGGdkCursor*)cursor;
+- (void)setCursor:(OGdkCursor*)cursor;
 
 /**
  * Sets a named cursor to be shown when pointer devices point

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,7 +8,7 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDisplay;
+@class OGdkDisplay;
 
 /**
  * `GtkShortcutTrigger` tracks how a `GtkShortcut` should be activated.
@@ -33,7 +33,7 @@
 /**
  * Constructors
  */
-- (instancetype)initParseString:(OFString*)string;
++ (instancetype)shortcutTriggerParseString:(OFString*)string;
 
 /**
  * Methods
@@ -110,7 +110,7 @@
  *   trigger did not have a textual representation suitable
  *   for end users.
  */
-- (bool)printLabelWithDisplay:(OGGdkDisplay*)display string:(GString*)string;
+- (bool)printLabelWithDisplay:(OGdkDisplay*)display string:(GString*)string;
 
 /**
  * Gets textual representation for the given trigger.
@@ -129,7 +129,7 @@
  * @param display `GdkDisplay` to print for
  * @return a new string
  */
-- (char*)toLabel:(OGGdkDisplay*)display;
+- (char*)toLabel:(OGdkDisplay*)display;
 
 /**
  * Prints the given trigger into a human-readable string.

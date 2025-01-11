@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,47 +8,61 @@
 
 @implementation OGTKCellRendererToggle
 
-- (instancetype)init
++ (void)load
 {
-	GtkCellRendererToggle* gobjectValue = GTK_CELL_RENDERER_TOGGLE(gtk_cell_renderer_toggle_new());
+	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER_TOGGLE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)cellRendererToggle
+{
+	GtkCellRendererToggle* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_toggle_new(), GtkCellRendererToggle, GtkCellRendererToggle);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKCellRendererToggle* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKCellRendererToggle alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkCellRendererToggle*)castedGObject
 {
-	return GTK_CELL_RENDERER_TOGGLE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererToggle, GtkCellRendererToggle);
 }
 
 - (bool)activatable
 {
-	bool returnValue = gtk_cell_renderer_toggle_get_activatable([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_toggle_get_activatable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)active
 {
-	bool returnValue = gtk_cell_renderer_toggle_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_toggle_get_active([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)radio
 {
-	bool returnValue = gtk_cell_renderer_toggle_get_radio([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_toggle_get_radio([self castedGObject]);
 
 	return returnValue;
 }

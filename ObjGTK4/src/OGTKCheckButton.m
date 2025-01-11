@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,86 +8,108 @@
 
 @implementation OGTKCheckButton
 
-- (instancetype)init
++ (void)load
 {
-	GtkCheckButton* gobjectValue = GTK_CHECK_BUTTON(gtk_check_button_new());
+	GType gtypeToAssociate = GTK_TYPE_CHECK_BUTTON;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithLabel:(OFString*)label
++ (instancetype)checkButton
 {
-	GtkCheckButton* gobjectValue = GTK_CHECK_BUTTON(gtk_check_button_new_with_label([label UTF8String]));
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new(), GtkCheckButton, GtkCheckButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKCheckButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKCheckButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithMnemonic:(OFString*)label
++ (instancetype)checkButtonWithLabel:(OFString*)label
 {
-	GtkCheckButton* gobjectValue = GTK_CHECK_BUTTON(gtk_check_button_new_with_mnemonic([label UTF8String]));
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_label([label UTF8String]), GtkCheckButton, GtkCheckButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKCheckButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKCheckButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)checkButtonWithMnemonic:(OFString*)label
+{
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_mnemonic([label UTF8String]), GtkCheckButton, GtkCheckButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
+	OGTKCheckButton* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKCheckButton alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkCheckButton*)castedGObject
 {
-	return GTK_CHECK_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCheckButton, GtkCheckButton);
 }
 
 - (bool)active
 {
-	bool returnValue = gtk_check_button_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_active([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_check_button_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_check_button_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)inconsistent
 {
-	bool returnValue = gtk_check_button_get_inconsistent([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_inconsistent([self castedGObject]);
 
 	return returnValue;
 }
@@ -102,7 +124,7 @@
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_check_button_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }

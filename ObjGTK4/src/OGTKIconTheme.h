@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,8 +8,8 @@
 
 #import <OGObject/OGObject.h>
 
+@class OGdkDisplay;
 @class OGTKIconPaintable;
-@class OGGdkDisplay;
 
 /**
  * `GtkIconTheme` provides a facility for loading themed icons.
@@ -54,6 +54,8 @@
 /**
  * Functions
  */
++ (void)load;
+
 
 /**
  * Gets the icon theme object associated with @display.
@@ -70,12 +72,12 @@
  *   the given display. This icon theme is associated with the display
  *   and can be used as long as the display is open. Do not ref or unref it.
  */
-+ (OGTKIconTheme*)forDisplay:(OGGdkDisplay*)display;
++ (OGTKIconTheme*)forDisplay:(OGdkDisplay*)display;
 
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)iconTheme;
 
 /**
  * Methods
@@ -111,7 +113,7 @@
  *
  * @return the display of @icon_theme
  */
-- (OGGdkDisplay*)display;
+- (OGdkDisplay*)display;
 
 /**
  * Lists the names of icons in the current icon theme.

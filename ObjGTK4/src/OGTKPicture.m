@@ -1,132 +1,166 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKPicture.h"
 
-#import <OGdkPixbuf/OGGdkPixbuf.h>
+#import <OGdkPixbuf/OGdkPixbuf.h>
 
 @implementation OGTKPicture
 
-- (instancetype)init
++ (void)load
 {
-	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new());
+	GType gtypeToAssociate = GTK_TYPE_PICTURE;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initForFile:(GFile*)file
++ (instancetype)picture
 {
-	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_file(file));
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new(), GtkPicture, GtkPicture);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKPicture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPicture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForFilename:(OFString*)filename
++ (instancetype)pictureForFile:(GFile*)file
 {
-	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_filename([filename UTF8String]));
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_file(file), GtkPicture, GtkPicture);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKPicture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPicture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForPaintable:(GdkPaintable*)paintable
++ (instancetype)pictureForFilename:(OFString*)filename
 {
-	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_paintable(paintable));
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_filename([filename UTF8String]), GtkPicture, GtkPicture);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKPicture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPicture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForPixbuf:(OGGdkPixbuf*)pixbuf
++ (instancetype)pictureForPaintable:(GdkPaintable*)paintable
 {
-	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_pixbuf([pixbuf castedGObject]));
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_paintable(paintable), GtkPicture, GtkPicture);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKPicture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPicture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForResource:(OFString*)resourcePath
++ (instancetype)pictureForPixbuf:(OGdkPixbuf*)pixbuf
 {
-	GtkPicture* gobjectValue = GTK_PICTURE(gtk_picture_new_for_resource([resourcePath UTF8String]));
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_pixbuf([pixbuf castedGObject]), GtkPicture, GtkPicture);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKPicture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPicture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)pictureForResource:(OFString*)resourcePath
+{
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_resource([resourcePath UTF8String]), GtkPicture, GtkPicture);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
+	OGTKPicture* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKPicture alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkPicture*)castedGObject
 {
-	return GTK_PICTURE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPicture, GtkPicture);
 }
 
 - (OFString*)alternativeText
@@ -139,35 +173,35 @@
 
 - (bool)canShrink
 {
-	bool returnValue = gtk_picture_get_can_shrink([self castedGObject]);
+	bool returnValue = (bool)gtk_picture_get_can_shrink([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkContentFit)contentFit
 {
-	GtkContentFit returnValue = gtk_picture_get_content_fit([self castedGObject]);
+	GtkContentFit returnValue = (GtkContentFit)gtk_picture_get_content_fit([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = gtk_picture_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_picture_get_file([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)keepAspectRatio
 {
-	bool returnValue = gtk_picture_get_keep_aspect_ratio([self castedGObject]);
+	bool returnValue = (bool)gtk_picture_get_keep_aspect_ratio([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkPaintable*)paintable
 {
-	GdkPaintable* returnValue = gtk_picture_get_paintable([self castedGObject]);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_picture_get_paintable([self castedGObject]);
 
 	return returnValue;
 }
@@ -207,7 +241,7 @@
 	gtk_picture_set_paintable([self castedGObject], paintable);
 }
 
-- (void)setPixbuf:(OGGdkPixbuf*)pixbuf
+- (void)setPixbuf:(OGdkPixbuf*)pixbuf
 {
 	gtk_picture_set_pixbuf([self castedGObject], [pixbuf castedGObject]);
 }

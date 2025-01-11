@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,86 +8,108 @@
 
 @implementation OGTKBuilder
 
-- (instancetype)init
++ (void)load
 {
-	GtkBuilder* gobjectValue = GTK_BUILDER(gtk_builder_new());
+	GType gtypeToAssociate = GTK_TYPE_BUILDER;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
+	if (gtypeToAssociate == 0)
+		return;
 
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initFromFile:(OFString*)filename
++ (instancetype)builder
 {
-	GtkBuilder* gobjectValue = GTK_BUILDER(gtk_builder_new_from_file([filename UTF8String]));
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new(), GtkBuilder, GtkBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromResource:(OFString*)resourcePath
++ (instancetype)builderFromFile:(OFString*)filename
 {
-	GtkBuilder* gobjectValue = GTK_BUILDER(gtk_builder_new_from_resource([resourcePath UTF8String]));
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_file([filename UTF8String]), GtkBuilder, GtkBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromStringWithString:(OFString*)string length:(gssize)length
++ (instancetype)builderFromResource:(OFString*)resourcePath
 {
-	GtkBuilder* gobjectValue = GTK_BUILDER(gtk_builder_new_from_string([string UTF8String], length));
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_resource([resourcePath UTF8String]), GtkBuilder, GtkBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)builderFromStringWithString:(OFString*)string length:(gssize)length
+{
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_string([string UTF8String], length), GtkBuilder, GtkBuilder);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkBuilder*)castedGObject
 {
-	return GTK_BUILDER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBuilder, GtkBuilder);
 }
 
 - (bool)addFromFile:(OFString*)filename
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_add_from_file([self castedGObject], [filename UTF8String], &err);
+	bool returnValue = (bool)gtk_builder_add_from_file([self castedGObject], [filename UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -96,13 +118,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_add_from_resource([self castedGObject], [resourcePath UTF8String], &err);
+	bool returnValue = (bool)gtk_builder_add_from_resource([self castedGObject], [resourcePath UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -111,13 +129,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_add_from_string([self castedGObject], [buffer UTF8String], length, &err);
+	bool returnValue = (bool)gtk_builder_add_from_string([self castedGObject], [buffer UTF8String], length, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -126,13 +140,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_add_objects_from_file([self castedGObject], [filename UTF8String], objectIds, &err);
+	bool returnValue = (bool)gtk_builder_add_objects_from_file([self castedGObject], [filename UTF8String], objectIds, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -141,13 +151,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_add_objects_from_resource([self castedGObject], [resourcePath UTF8String], objectIds, &err);
+	bool returnValue = (bool)gtk_builder_add_objects_from_resource([self castedGObject], [resourcePath UTF8String], objectIds, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -156,13 +162,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_add_objects_from_string([self castedGObject], [buffer UTF8String], length, objectIds, &err);
+	bool returnValue = (bool)gtk_builder_add_objects_from_string([self castedGObject], [buffer UTF8String], length, objectIds, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -171,13 +173,9 @@
 {
 	GError* err = NULL;
 
-	GClosure* returnValue = gtk_builder_create_closure([self castedGObject], [functionName UTF8String], flags, object, &err);
+	GClosure* returnValue = (GClosure*)gtk_builder_create_closure([self castedGObject], [functionName UTF8String], flags, object, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -191,41 +189,37 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_extend_with_template([self castedGObject], object, templateType, [buffer UTF8String], length, &err);
+	bool returnValue = (bool)gtk_builder_extend_with_template([self castedGObject], object, templateType, [buffer UTF8String], length, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
 
 - (GObject*)currentObject
 {
-	GObject* returnValue = gtk_builder_get_current_object([self castedGObject]);
+	GObject* returnValue = (GObject*)gtk_builder_get_current_object([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GObject*)object:(OFString*)name
 {
-	GObject* returnValue = gtk_builder_get_object([self castedGObject], [name UTF8String]);
+	GObject* returnValue = (GObject*)gtk_builder_get_object([self castedGObject], [name UTF8String]);
 
 	return returnValue;
 }
 
 - (GSList*)objects
 {
-	GSList* returnValue = gtk_builder_get_objects([self castedGObject]);
+	GSList* returnValue = (GSList*)gtk_builder_get_objects([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkBuilderScope*)scope
 {
-	GtkBuilderScope* returnValue = gtk_builder_get_scope([self castedGObject]);
+	GtkBuilderScope* returnValue = (GtkBuilderScope*)gtk_builder_get_scope([self castedGObject]);
 
 	return returnValue;
 }
@@ -240,7 +234,7 @@
 
 - (GType)typeFromName:(OFString*)typeName
 {
-	GType returnValue = gtk_builder_get_type_from_name([self castedGObject], [typeName UTF8String]);
+	GType returnValue = (GType)gtk_builder_get_type_from_name([self castedGObject], [typeName UTF8String]);
 
 	return returnValue;
 }
@@ -264,13 +258,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_value_from_string([self castedGObject], pspec, [string UTF8String], value, &err);
+	bool returnValue = (bool)gtk_builder_value_from_string([self castedGObject], pspec, [string UTF8String], value, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
@@ -279,13 +269,9 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = gtk_builder_value_from_string_type([self castedGObject], type, [string UTF8String], value, &err);
+	bool returnValue = (bool)gtk_builder_value_from_string_type([self castedGObject], type, [string UTF8String], value, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }

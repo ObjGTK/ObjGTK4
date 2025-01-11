@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,60 +8,78 @@
 
 @implementation OGTKExpander
 
-- (instancetype)init:(OFString*)label
++ (void)load
 {
-	GtkExpander* gobjectValue = GTK_EXPANDER(gtk_expander_new([label UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_EXPANDER;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithMnemonic:(OFString*)label
++ (instancetype)expander:(OFString*)label
 {
-	GtkExpander* gobjectValue = GTK_EXPANDER(gtk_expander_new_with_mnemonic([label UTF8String]));
+	GtkExpander* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_expander_new([label UTF8String]), GtkExpander, GtkExpander);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKExpander* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKExpander alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)expanderWithMnemonic:(OFString*)label
+{
+	GtkExpander* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_expander_new_with_mnemonic([label UTF8String]), GtkExpander, GtkExpander);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
+	OGTKExpander* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKExpander alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkExpander*)castedGObject
 {
-	return GTK_EXPANDER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkExpander, GtkExpander);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_expander_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_expander_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)expanded
 {
-	bool returnValue = gtk_expander_get_expanded([self castedGObject]);
+	bool returnValue = (bool)gtk_expander_get_expanded([self castedGObject]);
 
 	return returnValue;
 }
@@ -76,29 +94,29 @@
 
 - (OGTKWidget*)labelWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_expander_get_label_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_expander_get_label_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)resizeToplevel
 {
-	bool returnValue = gtk_expander_get_resize_toplevel([self castedGObject]);
+	bool returnValue = (bool)gtk_expander_get_resize_toplevel([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)useMarkup
 {
-	bool returnValue = gtk_expander_get_use_markup([self castedGObject]);
+	bool returnValue = (bool)gtk_expander_get_use_markup([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_expander_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_expander_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -75,8 +75,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithEntry;
++ (instancetype)comboBoxText;
++ (instancetype)comboBoxTextWithEntry;
 
 /**
  * Methods
@@ -92,10 +92,10 @@
  * This is the same as calling [method@Gtk.ComboBoxText.insert]
  * with a position of -1.
  *
- * @param id a string ID for this value
+ * @param identifier a string ID for this value
  * @param text A string
  */
-- (void)appendWithId:(OFString*)id text:(OFString*)text;
+- (void)appendWithIdentifier:(OFString*)identifier text:(OFString*)text;
 
 /**
  * Appends @text to the list of strings stored in @combo_box.
@@ -130,10 +130,10 @@
  * If @position is negative then @text is appended.
  *
  * @param position An index to insert @text
- * @param id a string ID for this value
+ * @param identifier a string ID for this value
  * @param text A string to display
  */
-- (void)insertWithPosition:(int)position id:(OFString*)id text:(OFString*)text;
+- (void)insertWithPosition:(int)position identifier:(OFString*)identifier text:(OFString*)text;
 
 /**
  * Inserts @text at @position in the list of strings stored in @combo_box.
@@ -156,10 +156,10 @@
  * This is the same as calling [method@Gtk.ComboBoxText.insert]
  * with a position of 0.
  *
- * @param id a string ID for this value
+ * @param identifier a string ID for this value
  * @param text a string
  */
-- (void)prependWithId:(OFString*)id text:(OFString*)text;
+- (void)prependWithIdentifier:(OFString*)identifier text:(OFString*)text;
 
 /**
  * Prepends @text to the list of strings stored in @combo_box.

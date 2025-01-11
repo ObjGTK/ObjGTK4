@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -48,10 +48,10 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initFromIconName:(OFString*)iconName;
-- (instancetype)initWithLabel:(OFString*)label;
-- (instancetype)initWithMnemonic:(OFString*)label;
++ (instancetype)button;
++ (instancetype)buttonFromIconName:(OFString*)iconName;
++ (instancetype)buttonWithLabel:(OFString*)label;
++ (instancetype)buttonWithMnemonic:(OFString*)label;
 
 /**
  * Methods

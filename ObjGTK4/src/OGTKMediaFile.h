@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -28,11 +28,11 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initForFile:(GFile*)file;
-- (instancetype)initForFilename:(OFString*)filename;
-- (instancetype)initForInputStream:(OGInputStream*)stream;
-- (instancetype)initForResource:(OFString*)resourcePath;
++ (instancetype)mediaFile;
++ (instancetype)mediaFileForFile:(GFile*)file;
++ (instancetype)mediaFileForFilename:(OFString*)filename;
++ (instancetype)mediaFileForInputStream:(OGInputStream*)stream;
++ (instancetype)mediaFileForResource:(OFString*)resourcePath;
 
 /**
  * Methods

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,30 +8,44 @@
 
 @implementation OGTKIconPaintable
 
-- (instancetype)initForFileWithFile:(GFile*)file size:(int)size scale:(int)scale
++ (void)load
 {
-	GtkIconPaintable* gobjectValue = GTK_ICON_PAINTABLE(gtk_icon_paintable_new_for_file(file, size, scale));
+	GType gtypeToAssociate = GTK_TYPE_ICON_PAINTABLE;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)iconPaintableForFileWithFile:(GFile*)file size:(int)size scale:(int)scale
+{
+	GtkIconPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_paintable_new_for_file(file, size, scale), GtkIconPaintable, GtkIconPaintable);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKIconPaintable* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKIconPaintable alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkIconPaintable*)castedGObject
 {
-	return GTK_ICON_PAINTABLE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIconPaintable, GtkIconPaintable);
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = gtk_icon_paintable_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_icon_paintable_get_file([self castedGObject]);
 
 	return returnValue;
 }
@@ -46,7 +60,7 @@
 
 - (bool)isSymbolic
 {
-	bool returnValue = gtk_icon_paintable_is_symbolic([self castedGObject]);
+	bool returnValue = (bool)gtk_icon_paintable_is_symbolic([self castedGObject]);
 
 	return returnValue;
 }

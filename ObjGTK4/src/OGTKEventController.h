@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,7 +8,7 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDevice;
+@class OGdkDevice;
 @class OGTKWidget;
 
 /**
@@ -57,7 +57,7 @@
  * @return device of the event is
  *   currently handled by @controller
  */
-- (OGGdkDevice*)currentEventDevice;
+- (OGdkDevice*)currentEventDevice;
 
 /**
  * Returns the modifier state of the event that is currently being

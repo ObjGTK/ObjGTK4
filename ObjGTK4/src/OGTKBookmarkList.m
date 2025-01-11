@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKBookmarkList
 
-- (instancetype)initWithFilename:(OFString*)filename attributes:(OFString*)attributes
++ (void)load
 {
-	GtkBookmarkList* gobjectValue = GTK_BOOKMARK_LIST(gtk_bookmark_list_new([filename UTF8String], [attributes UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_BOOKMARK_LIST;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)bookmarkListWithFilename:(OFString*)filename attributes:(OFString*)attributes
+{
+	GtkBookmarkList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bookmark_list_new([filename UTF8String], [attributes UTF8String]), GtkBookmarkList, GtkBookmarkList);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBookmarkList* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBookmarkList alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkBookmarkList*)castedGObject
 {
-	return GTK_BOOKMARK_LIST([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBookmarkList, GtkBookmarkList);
 }
 
 - (OFString*)attributes
@@ -47,14 +61,14 @@
 
 - (int)ioPriority
 {
-	int returnValue = gtk_bookmark_list_get_io_priority([self castedGObject]);
+	int returnValue = (int)gtk_bookmark_list_get_io_priority([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isLoading
 {
-	bool returnValue = gtk_bookmark_list_is_loading([self castedGObject]);
+	bool returnValue = (bool)gtk_bookmark_list_is_loading([self castedGObject]);
 
 	return returnValue;
 }

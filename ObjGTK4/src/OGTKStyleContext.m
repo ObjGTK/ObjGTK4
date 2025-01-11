@@ -1,28 +1,38 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKStyleContext.h"
 
-#import <OGdk4/OGGdkDisplay.h>
+#import <OGdk4/OGdkDisplay.h>
 
 @implementation OGTKStyleContext
 
-+ (void)addProviderForDisplayWithDisplay:(OGGdkDisplay*)display provider:(GtkStyleProvider*)provider priority:(guint)priority
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_STYLE_CONTEXT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (void)addProviderForDisplayWithDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider priority:(guint)priority
 {
 	gtk_style_context_add_provider_for_display([display castedGObject], provider, priority);
 }
 
-+ (void)removeProviderForDisplayWithDisplay:(OGGdkDisplay*)display provider:(GtkStyleProvider*)provider
++ (void)removeProviderForDisplayWithDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider
 {
 	gtk_style_context_remove_provider_for_display([display castedGObject], provider);
 }
 
 - (GtkStyleContext*)castedGObject
 {
-	return GTK_STYLE_CONTEXT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStyleContext, GtkStyleContext);
 }
 
 - (void)addClass:(OFString*)className
@@ -45,11 +55,11 @@
 	gtk_style_context_get_color([self castedGObject], color);
 }
 
-- (OGGdkDisplay*)display
+- (OGdkDisplay*)display
 {
-	GdkDisplay* gobjectValue = GDK_DISPLAY(gtk_style_context_get_display([self castedGObject]));
+	GdkDisplay* gobjectValue = gtk_style_context_get_display([self castedGObject]);
 
-	OGGdkDisplay* returnValue = [OGGdkDisplay withGObject:gobjectValue];
+	OGdkDisplay* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -65,28 +75,28 @@
 
 - (int)scale
 {
-	int returnValue = gtk_style_context_get_scale([self castedGObject]);
+	int returnValue = (int)gtk_style_context_get_scale([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStateFlags)state
 {
-	GtkStateFlags returnValue = gtk_style_context_get_state([self castedGObject]);
+	GtkStateFlags returnValue = (GtkStateFlags)gtk_style_context_get_state([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasClass:(OFString*)className
 {
-	bool returnValue = gtk_style_context_has_class([self castedGObject], [className UTF8String]);
+	bool returnValue = (bool)gtk_style_context_has_class([self castedGObject], [className UTF8String]);
 
 	return returnValue;
 }
 
 - (bool)lookupColorWithColorName:(OFString*)colorName color:(GdkRGBA*)color
 {
-	bool returnValue = gtk_style_context_lookup_color([self castedGObject], [colorName UTF8String], color);
+	bool returnValue = (bool)gtk_style_context_lookup_color([self castedGObject], [colorName UTF8String], color);
 
 	return returnValue;
 }
@@ -111,7 +121,7 @@
 	gtk_style_context_save([self castedGObject]);
 }
 
-- (void)setDisplay:(OGGdkDisplay*)display
+- (void)setDisplay:(OGdkDisplay*)display
 {
 	gtk_style_context_set_display([self castedGObject], [display castedGObject]);
 }

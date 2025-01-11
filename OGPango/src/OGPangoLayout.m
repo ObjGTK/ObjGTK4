@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,45 +10,53 @@
 
 @implementation OGPangoLayout
 
++ (void)load
+{
+	GType gtypeToAssociate = PANGO_TYPE_LAYOUT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 + (OGPangoLayout*)deserializeWithContext:(OGPangoContext*)context bytes:(GBytes*)bytes flags:(PangoLayoutDeserializeFlags)flags
 {
 	GError* err = NULL;
 
-	PangoLayout* gobjectValue = PANGO_LAYOUT(pango_layout_deserialize([context castedGObject], bytes, flags, &err));
+	PangoLayout* gobjectValue = pango_layout_deserialize([context castedGObject], bytes, flags, &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		if(gobjectValue != NULL)
-			g_object_unref(gobjectValue);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
-	OGPangoLayout* returnValue = [OGPangoLayout withGObject:gobjectValue];
+	OGPangoLayout* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
 }
 
-- (instancetype)init:(OGPangoContext*)context
++ (instancetype)layout:(OGPangoContext*)context
 {
-	PangoLayout* gobjectValue = PANGO_LAYOUT(pango_layout_new([context castedGObject]));
+	PangoLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_layout_new([context castedGObject]), PangoLayout, PangoLayout);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGPangoLayout* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGPangoLayout alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (PangoLayout*)castedGObject
 {
-	return PANGO_LAYOUT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoLayout, PangoLayout);
 }
 
 - (void)contextChanged
@@ -58,9 +66,9 @@
 
 - (OGPangoLayout*)copy
 {
-	PangoLayout* gobjectValue = PANGO_LAYOUT(pango_layout_copy([self castedGObject]));
+	PangoLayout* gobjectValue = pango_layout_copy([self castedGObject]);
 
-	OGPangoLayout* returnValue = [OGPangoLayout withGObject:gobjectValue];
+	OGPangoLayout* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -68,28 +76,28 @@
 
 - (PangoAlignment)alignment
 {
-	PangoAlignment returnValue = pango_layout_get_alignment([self castedGObject]);
+	PangoAlignment returnValue = (PangoAlignment)pango_layout_get_alignment([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoAttrList*)attributes
 {
-	PangoAttrList* returnValue = pango_layout_get_attributes([self castedGObject]);
+	PangoAttrList* returnValue = (PangoAttrList*)pango_layout_get_attributes([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)autoDir
 {
-	bool returnValue = pango_layout_get_auto_dir([self castedGObject]);
+	bool returnValue = (bool)pango_layout_get_auto_dir([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)baseline
 {
-	int returnValue = pango_layout_get_baseline([self castedGObject]);
+	int returnValue = (int)pango_layout_get_baseline([self castedGObject]);
 
 	return returnValue;
 }
@@ -101,16 +109,16 @@
 
 - (gint)characterCount
 {
-	gint returnValue = pango_layout_get_character_count([self castedGObject]);
+	gint returnValue = (gint)pango_layout_get_character_count([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGPangoContext*)context
 {
-	PangoContext* gobjectValue = PANGO_CONTEXT(pango_layout_get_context([self castedGObject]));
+	PangoContext* gobjectValue = pango_layout_get_context([self castedGObject]);
 
-	OGPangoContext* returnValue = [OGPangoContext withGObject:gobjectValue];
+	OGPangoContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -121,14 +129,14 @@
 
 - (PangoDirection)direction:(int)index
 {
-	PangoDirection returnValue = pango_layout_get_direction([self castedGObject], index);
+	PangoDirection returnValue = (PangoDirection)pango_layout_get_direction([self castedGObject], index);
 
 	return returnValue;
 }
 
 - (PangoEllipsizeMode)ellipsize
 {
-	PangoEllipsizeMode returnValue = pango_layout_get_ellipsize([self castedGObject]);
+	PangoEllipsizeMode returnValue = (PangoEllipsizeMode)pango_layout_get_ellipsize([self castedGObject]);
 
 	return returnValue;
 }
@@ -140,84 +148,84 @@
 
 - (const PangoFontDescription*)fontDescription
 {
-	const PangoFontDescription* returnValue = pango_layout_get_font_description([self castedGObject]);
+	const PangoFontDescription* returnValue = (const PangoFontDescription*)pango_layout_get_font_description([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)height
 {
-	int returnValue = pango_layout_get_height([self castedGObject]);
+	int returnValue = (int)pango_layout_get_height([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)indent
 {
-	int returnValue = pango_layout_get_indent([self castedGObject]);
+	int returnValue = (int)pango_layout_get_indent([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoLayoutIter*)iter
 {
-	PangoLayoutIter* returnValue = pango_layout_get_iter([self castedGObject]);
+	PangoLayoutIter* returnValue = (PangoLayoutIter*)pango_layout_get_iter([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)justify
 {
-	bool returnValue = pango_layout_get_justify([self castedGObject]);
+	bool returnValue = (bool)pango_layout_get_justify([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)justifyLastLine
 {
-	bool returnValue = pango_layout_get_justify_last_line([self castedGObject]);
+	bool returnValue = (bool)pango_layout_get_justify_last_line([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoLayoutLine*)line:(int)line
 {
-	PangoLayoutLine* returnValue = pango_layout_get_line([self castedGObject], line);
+	PangoLayoutLine* returnValue = (PangoLayoutLine*)pango_layout_get_line([self castedGObject], line);
 
 	return returnValue;
 }
 
 - (int)lineCount
 {
-	int returnValue = pango_layout_get_line_count([self castedGObject]);
+	int returnValue = (int)pango_layout_get_line_count([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoLayoutLine*)lineReadonly:(int)line
 {
-	PangoLayoutLine* returnValue = pango_layout_get_line_readonly([self castedGObject], line);
+	PangoLayoutLine* returnValue = (PangoLayoutLine*)pango_layout_get_line_readonly([self castedGObject], line);
 
 	return returnValue;
 }
 
 - (float)lineSpacing
 {
-	float returnValue = pango_layout_get_line_spacing([self castedGObject]);
+	float returnValue = (float)pango_layout_get_line_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GSList*)lines
 {
-	GSList* returnValue = pango_layout_get_lines([self castedGObject]);
+	GSList* returnValue = (GSList*)pango_layout_get_lines([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GSList*)linesReadonly
 {
-	GSList* returnValue = pango_layout_get_lines_readonly([self castedGObject]);
+	GSList* returnValue = (GSList*)pango_layout_get_lines_readonly([self castedGObject]);
 
 	return returnValue;
 }
@@ -229,7 +237,7 @@
 
 - (const PangoLogAttr*)logAttrsReadonly:(gint*)nattrs
 {
-	const PangoLogAttr* returnValue = pango_layout_get_log_attrs_readonly([self castedGObject], nattrs);
+	const PangoLogAttr* returnValue = (const PangoLogAttr*)pango_layout_get_log_attrs_readonly([self castedGObject], nattrs);
 
 	return returnValue;
 }
@@ -246,14 +254,14 @@
 
 - (guint)serial
 {
-	guint returnValue = pango_layout_get_serial([self castedGObject]);
+	guint returnValue = (guint)pango_layout_get_serial([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)singleParagraphMode
 {
-	bool returnValue = pango_layout_get_single_paragraph_mode([self castedGObject]);
+	bool returnValue = (bool)pango_layout_get_single_paragraph_mode([self castedGObject]);
 
 	return returnValue;
 }
@@ -265,14 +273,14 @@
 
 - (int)spacing
 {
-	int returnValue = pango_layout_get_spacing([self castedGObject]);
+	int returnValue = (int)pango_layout_get_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoTabArray*)tabs
 {
-	PangoTabArray* returnValue = pango_layout_get_tabs([self castedGObject]);
+	PangoTabArray* returnValue = (PangoTabArray*)pango_layout_get_tabs([self castedGObject]);
 
 	return returnValue;
 }
@@ -287,21 +295,21 @@
 
 - (int)unknownGlyphsCount
 {
-	int returnValue = pango_layout_get_unknown_glyphs_count([self castedGObject]);
+	int returnValue = (int)pango_layout_get_unknown_glyphs_count([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)width
 {
-	int returnValue = pango_layout_get_width([self castedGObject]);
+	int returnValue = (int)pango_layout_get_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (PangoWrapMode)wrap
 {
-	PangoWrapMode returnValue = pango_layout_get_wrap([self castedGObject]);
+	PangoWrapMode returnValue = (PangoWrapMode)pango_layout_get_wrap([self castedGObject]);
 
 	return returnValue;
 }
@@ -318,14 +326,14 @@
 
 - (bool)isEllipsized
 {
-	bool returnValue = pango_layout_is_ellipsized([self castedGObject]);
+	bool returnValue = (bool)pango_layout_is_ellipsized([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isWrapped
 {
-	bool returnValue = pango_layout_is_wrapped([self castedGObject]);
+	bool returnValue = (bool)pango_layout_is_wrapped([self castedGObject]);
 
 	return returnValue;
 }
@@ -337,7 +345,7 @@
 
 - (GBytes*)serialize:(PangoLayoutSerializeFlags)flags
 {
-	GBytes* returnValue = pango_layout_serialize([self castedGObject], flags);
+	GBytes* returnValue = (GBytes*)pango_layout_serialize([self castedGObject], flags);
 
 	return returnValue;
 }
@@ -436,20 +444,16 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = pango_layout_write_to_file([self castedGObject], flags, [filename UTF8String], &err);
+	bool returnValue = (bool)pango_layout_write_to_file([self castedGObject], flags, [filename UTF8String], &err);
 
-	if(err != NULL) {
-		OGErrorException* exception = [OGErrorException exceptionWithGError:err];
-		g_error_free(err);
-		@throw exception;
-	}
+	[OGErrorException throwForError:err];
 
 	return returnValue;
 }
 
 - (bool)xyToIndexWithX:(int)x y:(int)y index:(int*)index trailing:(int*)trailing
 {
-	bool returnValue = pango_layout_xy_to_index([self castedGObject], x, y, index, trailing);
+	bool returnValue = (bool)pango_layout_xy_to_index([self castedGObject], x, y, index, trailing);
 
 	return returnValue;
 }

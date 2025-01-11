@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,11 +8,11 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGTKTextMark;
-@class OGGdkContentProvider;
-@class OGTKTextTag;
+@class OGdkClipboard;
+@class OGdkContentProvider;
 @class OGTKTextChildAnchor;
-@class OGGdkClipboard;
+@class OGTKTextMark;
+@class OGTKTextTag;
 @class OGTKTextTagTable;
 
 /**
@@ -36,7 +36,7 @@
 /**
  * Constructors
  */
-- (instancetype)init:(OGTKTextTagTable*)table;
++ (instancetype)textBuffer:(OGTKTextTagTable*)table;
 
 /**
  * Methods
@@ -68,7 +68,7 @@
  *
  * @param clipboard a `GdkClipboard`
  */
-- (void)addSelectionClipboard:(OGGdkClipboard*)clipboard;
+- (void)addSelectionClipboard:(OGdkClipboard*)clipboard;
 
 /**
  * Emits the “apply-tag” signal on @buffer.
@@ -160,7 +160,7 @@
  *
  * @param clipboard the `GdkClipboard` object to copy to
  */
-- (void)copyClipboard:(OGGdkClipboard*)clipboard;
+- (void)copyClipboard:(OGdkClipboard*)clipboard;
 
 /**
  * Creates and inserts a child anchor.
@@ -212,7 +212,7 @@
  * @param clipboard the `GdkClipboard` object to cut to
  * @param defaultEditable default editability of the buffer
  */
-- (void)cutClipboardWithClipboard:(OGGdkClipboard*)clipboard defaultEditable:(bool)defaultEditable;
+- (void)cutClipboardWithClipboard:(OGdkClipboard*)clipboard defaultEditable:(bool)defaultEditable;
 
 /**
  * Deletes text between @start and @end.
@@ -548,7 +548,7 @@
  *
  * @return a new `GdkContentProvider`.
  */
-- (OGGdkContentProvider*)selectionContent;
+- (OGdkContentProvider*)selectionContent;
 
 /**
  * Returns the text in the range [@start,@end).
@@ -790,7 +790,7 @@
  * @param overrideLocation location to insert pasted text
  * @param defaultEditable whether the buffer is editable by default
  */
-- (void)pasteClipboardWithClipboard:(OGGdkClipboard*)clipboard overrideLocation:(GtkTextIter*)overrideLocation defaultEditable:(bool)defaultEditable;
+- (void)pasteClipboardWithClipboard:(OGdkClipboard*)clipboard overrideLocation:(GtkTextIter*)overrideLocation defaultEditable:(bool)defaultEditable;
 
 /**
  * This function moves the “insert” and “selection_bound” marks
@@ -833,7 +833,7 @@
  * @param clipboard a `GdkClipboard` added to @buffer by
  *   [method@Gtk.TextBuffer.add_selection_clipboard]
  */
-- (void)removeSelectionClipboard:(OGGdkClipboard*)clipboard;
+- (void)removeSelectionClipboard:(OGdkClipboard*)clipboard;
 
 /**
  * Emits the “remove-tag” signal.

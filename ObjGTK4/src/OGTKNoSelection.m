@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,30 +8,44 @@
 
 @implementation OGTKNoSelection
 
-- (instancetype)init:(GListModel*)model
++ (void)load
 {
-	GtkNoSelection* gobjectValue = GTK_NO_SELECTION(gtk_no_selection_new(model));
+	GType gtypeToAssociate = GTK_TYPE_NO_SELECTION;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)noSelection:(GListModel*)model
+{
+	GtkNoSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_no_selection_new(model), GtkNoSelection, GtkNoSelection);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKNoSelection* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKNoSelection alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkNoSelection*)castedGObject
 {
-	return GTK_NO_SELECTION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkNoSelection, GtkNoSelection);
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = gtk_no_selection_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_no_selection_get_model([self castedGObject]);
 
 	return returnValue;
 }

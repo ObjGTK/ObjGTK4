@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,41 +8,55 @@
 
 @implementation OGTKGraphicsOffload
 
-- (instancetype)init:(OGTKWidget*)child
++ (void)load
 {
-	GtkGraphicsOffload* gobjectValue = GTK_GRAPHICS_OFFLOAD(gtk_graphics_offload_new([child castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_GRAPHICS_OFFLOAD;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)graphicsOffload:(OGTKWidget*)child
+{
+	GtkGraphicsOffload* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_graphics_offload_new([child castedGObject]), GtkGraphicsOffload, GtkGraphicsOffload);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKGraphicsOffload* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKGraphicsOffload alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkGraphicsOffload*)castedGObject
 {
-	return GTK_GRAPHICS_OFFLOAD([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGraphicsOffload, GtkGraphicsOffload);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_graphics_offload_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_graphics_offload_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GtkGraphicsOffloadEnabled)enabled
 {
-	GtkGraphicsOffloadEnabled returnValue = gtk_graphics_offload_get_enabled([self castedGObject]);
+	GtkGraphicsOffloadEnabled returnValue = (GtkGraphicsOffloadEnabled)gtk_graphics_offload_get_enabled([self castedGObject]);
 
 	return returnValue;
 }

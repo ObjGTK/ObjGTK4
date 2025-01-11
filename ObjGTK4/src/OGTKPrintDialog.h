@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -9,10 +9,10 @@
 #import <OGObject/OGObject.h>
 
 @class OGCancellable;
-@class OGTKWindow;
-@class OGTKPrintSettings;
 @class OGOutputStream;
 @class OGTKPageSetup;
+@class OGTKPrintSettings;
+@class OGTKWindow;
 
 /**
  * A `GtkPrintDialog` object collects the arguments that
@@ -34,7 +34,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)printDialog;
 
 /**
  * Methods

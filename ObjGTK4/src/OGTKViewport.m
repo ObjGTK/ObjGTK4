@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,41 +10,55 @@
 
 @implementation OGTKViewport
 
-- (instancetype)initWithHadjustment:(OGTKAdjustment*)hadjustment vadjustment:(OGTKAdjustment*)vadjustment
++ (void)load
 {
-	GtkViewport* gobjectValue = GTK_VIEWPORT(gtk_viewport_new([hadjustment castedGObject], [vadjustment castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_VIEWPORT;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)viewportWithHadjustment:(OGTKAdjustment*)hadjustment vadjustment:(OGTKAdjustment*)vadjustment
+{
+	GtkViewport* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_viewport_new([hadjustment castedGObject], [vadjustment castedGObject]), GtkViewport, GtkViewport);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKViewport* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKViewport alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkViewport*)castedGObject
 {
-	return GTK_VIEWPORT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkViewport, GtkViewport);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_viewport_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_viewport_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)scrollToFocus
 {
-	bool returnValue = gtk_viewport_get_scroll_to_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_viewport_get_scroll_to_focus([self castedGObject]);
 
 	return returnValue;
 }

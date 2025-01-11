@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKTreeModelSort
 
-- (instancetype)initWithModel:(GtkTreeModel*)childModel
++ (void)load
 {
-	GtkTreeModelSort* gobjectValue = GTK_TREE_MODEL_SORT(gtk_tree_model_sort_new_with_model(childModel));
+	GType gtypeToAssociate = GTK_TYPE_TREE_MODEL_SORT;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)treeModelSortWithModel:(GtkTreeModel*)childModel
+{
+	GtkTreeModelSort* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_model_sort_new_with_model(childModel), GtkTreeModelSort, GtkTreeModelSort);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKTreeModelSort* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeModelSort alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkTreeModelSort*)castedGObject
 {
-	return GTK_TREE_MODEL_SORT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeModelSort, GtkTreeModelSort);
 }
 
 - (void)clearCache
@@ -36,14 +50,14 @@
 
 - (bool)convertChildIterToIterWithSortIter:(GtkTreeIter*)sortIter childIter:(GtkTreeIter*)childIter
 {
-	bool returnValue = gtk_tree_model_sort_convert_child_iter_to_iter([self castedGObject], sortIter, childIter);
+	bool returnValue = (bool)gtk_tree_model_sort_convert_child_iter_to_iter([self castedGObject], sortIter, childIter);
 
 	return returnValue;
 }
 
 - (GtkTreePath*)convertChildPathToPath:(GtkTreePath*)childPath
 {
-	GtkTreePath* returnValue = gtk_tree_model_sort_convert_child_path_to_path([self castedGObject], childPath);
+	GtkTreePath* returnValue = (GtkTreePath*)gtk_tree_model_sort_convert_child_path_to_path([self castedGObject], childPath);
 
 	return returnValue;
 }
@@ -55,21 +69,21 @@
 
 - (GtkTreePath*)convertPathToChildPath:(GtkTreePath*)sortedPath
 {
-	GtkTreePath* returnValue = gtk_tree_model_sort_convert_path_to_child_path([self castedGObject], sortedPath);
+	GtkTreePath* returnValue = (GtkTreePath*)gtk_tree_model_sort_convert_path_to_child_path([self castedGObject], sortedPath);
 
 	return returnValue;
 }
 
 - (GtkTreeModel*)model
 {
-	GtkTreeModel* returnValue = gtk_tree_model_sort_get_model([self castedGObject]);
+	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_tree_model_sort_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)iterIsValid:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_tree_model_sort_iter_is_valid([self castedGObject], iter);
+	bool returnValue = (bool)gtk_tree_model_sort_iter_is_valid([self castedGObject], iter);
 
 	return returnValue;
 }

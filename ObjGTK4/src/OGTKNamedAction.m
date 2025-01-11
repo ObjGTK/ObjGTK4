@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKNamedAction
 
-- (instancetype)init:(OFString*)name
++ (void)load
 {
-	GtkNamedAction* gobjectValue = GTK_NAMED_ACTION(gtk_named_action_new([name UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_NAMED_ACTION;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)namedAction:(OFString*)name
+{
+	GtkNamedAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_named_action_new([name UTF8String]), GtkNamedAction, GtkNamedAction);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKNamedAction* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKNamedAction alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkNamedAction*)castedGObject
 {
-	return GTK_NAMED_ACTION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkNamedAction, GtkNamedAction);
 }
 
 - (OFString*)actionName

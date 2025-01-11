@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,28 +11,42 @@
 
 @implementation OGTKColorChooserDialog
 
-- (instancetype)initWithTitle:(OFString*)title parent:(OGTKWindow*)parent
++ (void)load
 {
-	GtkColorChooserDialog* gobjectValue = GTK_COLOR_CHOOSER_DIALOG(gtk_color_chooser_dialog_new([title UTF8String], [parent castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_COLOR_CHOOSER_DIALOG;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)colorChooserDialogWithTitle:(OFString*)title parent:(OGTKWindow*)parent
+{
+	GtkColorChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_chooser_dialog_new([title UTF8String], [parent castedGObject]), GtkColorChooserDialog, GtkColorChooserDialog);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKColorChooserDialog* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKColorChooserDialog alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkColorChooserDialog*)castedGObject
 {
-	return GTK_COLOR_CHOOSER_DIALOG([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColorChooserDialog, GtkColorChooserDialog);
 }
 
 

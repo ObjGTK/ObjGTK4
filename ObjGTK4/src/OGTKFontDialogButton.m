@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,41 +10,55 @@
 
 @implementation OGTKFontDialogButton
 
-- (instancetype)init:(OGTKFontDialog*)dialog
++ (void)load
 {
-	GtkFontDialogButton* gobjectValue = GTK_FONT_DIALOG_BUTTON(gtk_font_dialog_button_new([dialog castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_FONT_DIALOG_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)fontDialogButton:(OGTKFontDialog*)dialog
+{
+	GtkFontDialogButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_font_dialog_button_new([dialog castedGObject]), GtkFontDialogButton, GtkFontDialogButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKFontDialogButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFontDialogButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFontDialogButton*)castedGObject
 {
-	return GTK_FONT_DIALOG_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFontDialogButton, GtkFontDialogButton);
 }
 
 - (OGTKFontDialog*)dialog
 {
-	GtkFontDialog* gobjectValue = GTK_FONT_DIALOG(gtk_font_dialog_button_get_dialog([self castedGObject]));
+	GtkFontDialog* gobjectValue = gtk_font_dialog_button_get_dialog([self castedGObject]);
 
-	OGTKFontDialog* returnValue = [OGTKFontDialog withGObject:gobjectValue];
+	OGTKFontDialog* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (PangoFontDescription*)fontDesc
 {
-	PangoFontDescription* returnValue = gtk_font_dialog_button_get_font_desc([self castedGObject]);
+	PangoFontDescription* returnValue = (PangoFontDescription*)gtk_font_dialog_button_get_font_desc([self castedGObject]);
 
 	return returnValue;
 }
@@ -59,28 +73,28 @@
 
 - (PangoLanguage*)language
 {
-	PangoLanguage* returnValue = gtk_font_dialog_button_get_language([self castedGObject]);
+	PangoLanguage* returnValue = (PangoLanguage*)gtk_font_dialog_button_get_language([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkFontLevel)level
 {
-	GtkFontLevel returnValue = gtk_font_dialog_button_get_level([self castedGObject]);
+	GtkFontLevel returnValue = (GtkFontLevel)gtk_font_dialog_button_get_level([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)useFont
 {
-	bool returnValue = gtk_font_dialog_button_get_use_font([self castedGObject]);
+	bool returnValue = (bool)gtk_font_dialog_button_get_use_font([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)useSize
 {
-	bool returnValue = gtk_font_dialog_button_get_use_size([self castedGObject]);
+	bool returnValue = (bool)gtk_font_dialog_button_get_use_size([self castedGObject]);
 
 	return returnValue;
 }

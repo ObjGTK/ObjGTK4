@@ -1,15 +1,15 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGGdkMonitor;
-@class OGTKWindowGroup;
+@class OGdkDisplay;
+@class OGdkMonitor;
 @class OGTKApplication;
-@class OGGdkDisplay;
+@class OGTKWindowGroup;
 
 /**
  * A `GtkWindow` is a toplevel window which can contain other widgets.
@@ -79,6 +79,8 @@
 /**
  * Functions
  */
++ (void)load;
+
 
 /**
  * Returns the fallback icon name for windows.
@@ -159,7 +161,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)window;
 
 /**
  * Methods
@@ -213,7 +215,7 @@
  *
  * @param monitor which monitor to go fullscreen on
  */
-- (void)fullscreenOnMonitor:(OGGdkMonitor*)monitor;
+- (void)fullscreenOnMonitor:(OGdkMonitor*)monitor;
 
 /**
  * Gets the `GtkApplication` associated with the window.
@@ -626,7 +628,7 @@
  *
  * @param display a `GdkDisplay`
  */
-- (void)setDisplay:(OGGdkDisplay*)display;
+- (void)setDisplay:(OGdkDisplay*)display;
 
 /**
  * Sets the focus widget.

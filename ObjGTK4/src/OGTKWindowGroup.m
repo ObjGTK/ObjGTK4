@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,25 +10,39 @@
 
 @implementation OGTKWindowGroup
 
-- (instancetype)init
++ (void)load
 {
-	GtkWindowGroup* gobjectValue = GTK_WINDOW_GROUP(gtk_window_group_new());
+	GType gtypeToAssociate = GTK_TYPE_WINDOW_GROUP;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)windowGroup
+{
+	GtkWindowGroup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_group_new(), GtkWindowGroup, GtkWindowGroup);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKWindowGroup* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKWindowGroup alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkWindowGroup*)castedGObject
 {
-	return GTK_WINDOW_GROUP([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWindowGroup, GtkWindowGroup);
 }
 
 - (void)addWindow:(OGTKWindow*)window
@@ -38,7 +52,7 @@
 
 - (GList*)listWindows
 {
-	GList* returnValue = gtk_window_group_list_windows([self castedGObject]);
+	GList* returnValue = (GList*)gtk_window_group_list_windows([self castedGObject]);
 
 	return returnValue;
 }

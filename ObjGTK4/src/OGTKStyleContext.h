@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,7 +8,7 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDisplay;
+@class OGdkDisplay;
 
 /**
  * `GtkStyleContext` stores styling information affecting a widget.
@@ -58,6 +58,8 @@
 /**
  * Functions
  */
++ (void)load;
+
 
 /**
  * Adds a global style provider to @display, which will be used
@@ -78,7 +80,7 @@
  *   %GTK_STYLE_PROVIDER_PRIORITY_FALLBACK and
  *   %GTK_STYLE_PROVIDER_PRIORITY_USER
  */
-+ (void)addProviderForDisplayWithDisplay:(OGGdkDisplay*)display provider:(GtkStyleProvider*)provider priority:(guint)priority;
++ (void)addProviderForDisplayWithDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider priority:(guint)priority;
 
 /**
  * Removes @provider from the global style providers list in @display.
@@ -86,7 +88,7 @@
  * @param display a `GdkDisplay`
  * @param provider a `GtkStyleProvider`
  */
-+ (void)removeProviderForDisplayWithDisplay:(OGGdkDisplay*)display provider:(GtkStyleProvider*)provider;
++ (void)removeProviderForDisplayWithDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider;
 
 /**
  * Methods
@@ -155,7 +157,7 @@
  *
  * @return a `GdkDisplay`.
  */
-- (OGGdkDisplay*)display;
+- (OGdkDisplay*)display;
 
 /**
  * Gets the margin for a given state as a `GtkBorder`.
@@ -258,7 +260,7 @@
  *
  * @param display a `GdkDisplay`
  */
-- (void)setDisplay:(OGGdkDisplay*)display;
+- (void)setDisplay:(OGdkDisplay*)display;
 
 /**
  * Sets the scale to use when getting image assets for the style.

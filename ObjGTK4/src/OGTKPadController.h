@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKEventController.h"
 
-@class OGGdkDevice;
+@class OGdkDevice;
 
 /**
  * `GtkPadController` is an event controller for the pads found in drawing
@@ -67,7 +67,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithGroup:(GActionGroup*)group pad:(OGGdkDevice*)pad;
++ (instancetype)padControllerWithGroup:(GActionGroup*)group pad:(OGdkDevice*)pad;
 
 /**
  * Methods

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,16 +10,26 @@
 
 @implementation OGPangoFontFamily
 
++ (void)load
+{
+	GType gtypeToAssociate = PANGO_TYPE_FONT_FAMILY;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (PangoFontFamily*)castedGObject
 {
-	return PANGO_FONT_FAMILY([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoFontFamily, PangoFontFamily);
 }
 
 - (OGPangoFontFace*)face:(OFString*)name
 {
-	PangoFontFace* gobjectValue = PANGO_FONT_FACE(pango_font_family_get_face([self castedGObject], [name UTF8String]));
+	PangoFontFace* gobjectValue = pango_font_family_get_face([self castedGObject], [name UTF8String]);
 
-	OGPangoFontFace* returnValue = [OGPangoFontFace withGObject:gobjectValue];
+	OGPangoFontFace* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -33,14 +43,14 @@
 
 - (bool)isMonospace
 {
-	bool returnValue = pango_font_family_is_monospace([self castedGObject]);
+	bool returnValue = (bool)pango_font_family_is_monospace([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isVariable
 {
-	bool returnValue = pango_font_family_is_variable([self castedGObject]);
+	bool returnValue = (bool)pango_font_family_is_variable([self castedGObject]);
 
 	return returnValue;
 }

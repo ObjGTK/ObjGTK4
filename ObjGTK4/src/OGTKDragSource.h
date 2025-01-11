@@ -1,13 +1,13 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKGestureSingle.h"
 
-@class OGGdkDrag;
-@class OGGdkContentProvider;
+@class OGdkContentProvider;
+@class OGdkDrag;
 
 /**
  * `GtkDragSource` is an event controller to initiate Drag-And-Drop operations.
@@ -97,7 +97,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)dragSource;
 
 /**
  * Methods
@@ -123,7 +123,7 @@
  *
  * @return the `GdkContentProvider` of @source
  */
-- (OGGdkContentProvider*)content;
+- (OGdkContentProvider*)content;
 
 /**
  * Returns the underlying `GdkDrag` object for an ongoing drag.
@@ -131,7 +131,7 @@
  * @return the `GdkDrag` of the current
  *   drag operation
  */
-- (OGGdkDrag*)drag;
+- (OGdkDrag*)drag;
 
 /**
  * Sets the actions on the `GtkDragSource`.
@@ -162,7 +162,7 @@
  *
  * @param content a `GdkContentProvider`
  */
-- (void)setContent:(OGGdkContentProvider*)content;
+- (void)setContent:(OGdkContentProvider*)content;
 
 /**
  * Sets a paintable to use as icon during DND operations.

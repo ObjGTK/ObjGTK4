@@ -1,14 +1,14 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKRange.h"
 
+@class OGTKAdjustment;
 @class OGTKWidget;
 @class OGPangoLayout;
-@class OGTKAdjustment;
 
 /**
  * A `GtkScale` is a slider control used to select a numeric value.
@@ -102,8 +102,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment;
-- (instancetype)initWithRangeWithOrientation:(GtkOrientation)orientation min:(double)min max:(double)max step:(double)step;
++ (instancetype)scaleWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment;
++ (instancetype)scaleWithRangeWithOrientation:(GtkOrientation)orientation min:(double)min max:(double)max step:(double)step;
 
 /**
  * Methods

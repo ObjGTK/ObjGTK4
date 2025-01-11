@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,35 +10,49 @@
 
 @implementation OGTKStackSidebar
 
-- (instancetype)init
++ (void)load
 {
-	GtkStackSidebar* gobjectValue = GTK_STACK_SIDEBAR(gtk_stack_sidebar_new());
+	GType gtypeToAssociate = GTK_TYPE_STACK_SIDEBAR;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)stackSidebar
+{
+	GtkStackSidebar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_stack_sidebar_new(), GtkStackSidebar, GtkStackSidebar);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKStackSidebar* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKStackSidebar alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkStackSidebar*)castedGObject
 {
-	return GTK_STACK_SIDEBAR([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStackSidebar, GtkStackSidebar);
 }
 
 - (OGTKStack*)stack
 {
-	GtkStack* gobjectValue = GTK_STACK(gtk_stack_sidebar_get_stack([self castedGObject]));
+	GtkStack* gobjectValue = gtk_stack_sidebar_get_stack([self castedGObject]);
 
-	OGTKStack* returnValue = [OGTKStack withGObject:gobjectValue];
+	OGTKStack* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

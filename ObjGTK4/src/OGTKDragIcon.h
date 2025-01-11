@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGGdkDrag;
+@class OGdkDrag;
 
 /**
  * `GtkDragIcon` is a `GtkRoot` implementation for drag icons.
@@ -30,6 +30,8 @@
 /**
  * Functions
  */
++ (void)load;
+
 
 /**
  * Creates a widget that can be used as a drag icon for the given
@@ -58,7 +60,7 @@
  * @param drag a `GdkDrag`
  * @return the `GtkDragIcon`
  */
-+ (OGTKWidget*)forDrag:(OGGdkDrag*)drag;
++ (OGTKWidget*)forDrag:(OGdkDrag*)drag;
 
 /**
  * Creates a `GtkDragIcon` that shows @paintable, and associates
@@ -72,7 +74,7 @@
  * @param hotX X coordinate of the hotspot
  * @param hotY Y coordinate of the hotspot
  */
-+ (void)setFromPaintableWithDrag:(OGGdkDrag*)drag paintable:(GdkPaintable*)paintable hotX:(int)hotX hotY:(int)hotY;
++ (void)setFromPaintableWithDrag:(OGdkDrag*)drag paintable:(GdkPaintable*)paintable hotX:(int)hotX hotY:(int)hotY;
 
 /**
  * Methods

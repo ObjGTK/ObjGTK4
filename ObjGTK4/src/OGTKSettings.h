@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,7 +8,7 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkDisplay;
+@class OGdkDisplay;
 
 /**
  * `GtkSettings` provides a mechanism to share global settings between
@@ -49,6 +49,8 @@
 /**
  * Functions
  */
++ (void)load;
+
 
 /**
  * Gets the `GtkSettings` object for the default display, creating
@@ -67,7 +69,7 @@
  * @param display a `GdkDisplay`
  * @return a `GtkSettings` object
  */
-+ (OGTKSettings*)forDisplay:(OGGdkDisplay*)display;
++ (OGTKSettings*)forDisplay:(OGdkDisplay*)display;
 
 /**
  * Methods

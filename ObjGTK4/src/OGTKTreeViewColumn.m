@@ -1,58 +1,76 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKTreeViewColumn.h"
 
-#import "OGTKWidget.h"
-#import "OGTKCellRenderer.h"
 #import "OGTKCellArea.h"
+#import "OGTKCellRenderer.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKTreeViewColumn
 
-- (instancetype)init
++ (void)load
 {
-	GtkTreeViewColumn* gobjectValue = GTK_TREE_VIEW_COLUMN(gtk_tree_view_column_new());
+	GType gtypeToAssociate = GTK_TYPE_TREE_VIEW_COLUMN;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithArea:(OGTKCellArea*)area
++ (instancetype)treeViewColumn
 {
-	GtkTreeViewColumn* gobjectValue = GTK_TREE_VIEW_COLUMN(gtk_tree_view_column_new_with_area([area castedGObject]));
+	GtkTreeViewColumn* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_view_column_new(), GtkTreeViewColumn, GtkTreeViewColumn);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKTreeViewColumn* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeViewColumn alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)treeViewColumnWithArea:(OGTKCellArea*)area
+{
+	GtkTreeViewColumn* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_view_column_new_with_area([area castedGObject]), GtkTreeViewColumn, GtkTreeViewColumn);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
+	OGTKTreeViewColumn* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKTreeViewColumn alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkTreeViewColumn*)castedGObject
 {
-	return GTK_TREE_VIEW_COLUMN([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeViewColumn, GtkTreeViewColumn);
 }
 
 - (void)addAttributeWithCellRenderer:(OGTKCellRenderer*)cellRenderer attribute:(OFString*)attribute column:(int)column
@@ -62,7 +80,7 @@
 
 - (bool)cellGetPositionWithCellRenderer:(OGTKCellRenderer*)cellRenderer xoffset:(int*)xoffset width:(int*)width
 {
-	bool returnValue = gtk_tree_view_column_cell_get_position([self castedGObject], [cellRenderer castedGObject], xoffset, width);
+	bool returnValue = (bool)gtk_tree_view_column_cell_get_position([self castedGObject], [cellRenderer castedGObject], xoffset, width);
 
 	return returnValue;
 }
@@ -74,7 +92,7 @@
 
 - (bool)cellIsVisible
 {
-	bool returnValue = gtk_tree_view_column_cell_is_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_view_column_cell_is_visible([self castedGObject]);
 
 	return returnValue;
 }
@@ -106,99 +124,99 @@
 
 - (float)alignment
 {
-	float returnValue = gtk_tree_view_column_get_alignment([self castedGObject]);
+	float returnValue = (float)gtk_tree_view_column_get_alignment([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)button
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_tree_view_column_get_button([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_tree_view_column_get_button([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)clickable
 {
-	bool returnValue = gtk_tree_view_column_get_clickable([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_view_column_get_clickable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)expand
 {
-	bool returnValue = gtk_tree_view_column_get_expand([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_view_column_get_expand([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)fixedWidth
 {
-	int returnValue = gtk_tree_view_column_get_fixed_width([self castedGObject]);
+	int returnValue = (int)gtk_tree_view_column_get_fixed_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)maxWidth
 {
-	int returnValue = gtk_tree_view_column_get_max_width([self castedGObject]);
+	int returnValue = (int)gtk_tree_view_column_get_max_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)minWidth
 {
-	int returnValue = gtk_tree_view_column_get_min_width([self castedGObject]);
+	int returnValue = (int)gtk_tree_view_column_get_min_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)reorderable
 {
-	bool returnValue = gtk_tree_view_column_get_reorderable([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_view_column_get_reorderable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)resizable
 {
-	bool returnValue = gtk_tree_view_column_get_resizable([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_view_column_get_resizable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeViewColumnSizing)sizing
 {
-	GtkTreeViewColumnSizing returnValue = gtk_tree_view_column_get_sizing([self castedGObject]);
+	GtkTreeViewColumnSizing returnValue = (GtkTreeViewColumnSizing)gtk_tree_view_column_get_sizing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)sortColumnId
 {
-	int returnValue = gtk_tree_view_column_get_sort_column_id([self castedGObject]);
+	int returnValue = (int)gtk_tree_view_column_get_sort_column_id([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)sortIndicator
 {
-	bool returnValue = gtk_tree_view_column_get_sort_indicator([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_view_column_get_sort_indicator([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSortType)sortOrder
 {
-	GtkSortType returnValue = gtk_tree_view_column_get_sort_order([self castedGObject]);
+	GtkSortType returnValue = (GtkSortType)gtk_tree_view_column_get_sort_order([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)spacing
 {
-	int returnValue = gtk_tree_view_column_get_spacing([self castedGObject]);
+	int returnValue = (int)gtk_tree_view_column_get_spacing([self castedGObject]);
 
 	return returnValue;
 }
@@ -213,37 +231,37 @@
 
 - (OGTKWidget*)treeView
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_tree_view_column_get_tree_view([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_tree_view_column_get_tree_view([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)visible
 {
-	bool returnValue = gtk_tree_view_column_get_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_view_column_get_visible([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)widget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_tree_view_column_get_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_tree_view_column_get_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (int)width
 {
-	int returnValue = gtk_tree_view_column_get_width([self castedGObject]);
+	int returnValue = (int)gtk_tree_view_column_get_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)xoffset
 {
-	int returnValue = gtk_tree_view_column_get_x_offset([self castedGObject]);
+	int returnValue = (int)gtk_tree_view_column_get_x_offset([self castedGObject]);
 
 	return returnValue;
 }

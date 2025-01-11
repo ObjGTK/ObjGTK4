@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -46,8 +46,8 @@
 /**
  * Constructors
  */
-- (instancetype)init:(OFString*)uri;
-- (instancetype)initWithLabelWithUri:(OFString*)uri label:(OFString*)label;
++ (instancetype)linkButton:(OFString*)uri;
++ (instancetype)linkButtonWithLabelWithUri:(OFString*)uri label:(OFString*)label;
 
 /**
  * Methods

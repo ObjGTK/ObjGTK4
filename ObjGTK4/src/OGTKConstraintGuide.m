@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKConstraintGuide
 
-- (instancetype)init
++ (void)load
 {
-	GtkConstraintGuide* gobjectValue = GTK_CONSTRAINT_GUIDE(gtk_constraint_guide_new());
+	GType gtypeToAssociate = GTK_TYPE_CONSTRAINT_GUIDE;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)constraintGuide
+{
+	GtkConstraintGuide* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_constraint_guide_new(), GtkConstraintGuide, GtkConstraintGuide);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKConstraintGuide* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKConstraintGuide alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkConstraintGuide*)castedGObject
 {
-	return GTK_CONSTRAINT_GUIDE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkConstraintGuide, GtkConstraintGuide);
 }
 
 - (void)maxSizeWithWidth:(int*)width height:(int*)height
@@ -54,7 +68,7 @@
 
 - (GtkConstraintStrength)strength
 {
-	GtkConstraintStrength returnValue = gtk_constraint_guide_get_strength([self castedGObject]);
+	GtkConstraintStrength returnValue = (GtkConstraintStrength)gtk_constraint_guide_get_strength([self castedGObject]);
 
 	return returnValue;
 }

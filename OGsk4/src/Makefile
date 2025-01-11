@@ -6,10 +6,10 @@ FRAMEWORK = ${OGSK4_FRAMEWORK}
 LIB_MAJOR = 4
 LIB_MINOR = 0
 
-SRCS = OGGskCairoRenderer.m \
-	OGGskGLShader.m \
-	OGGskRenderer.m \
-	OGGskVulkanRenderer.m \
+SRCS = OGskCairoRenderer.m \
+	OGskGLShader.m \
+	OGskRenderer.m \
+	OGskVulkanRenderer.m \
 	
 
 INCLUDES = ${SRCS:.m=.h} \

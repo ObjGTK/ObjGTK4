@@ -1,24 +1,34 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKCellRenderer.h"
 
-#import "OGTKWidget.h"
 #import "OGTKSnapshot.h"
+#import "OGTKWidget.h"
 
 @implementation OGTKCellRenderer
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkCellRenderer*)castedGObject
 {
-	return GTK_CELL_RENDERER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRenderer, GtkCellRenderer);
 }
 
 - (bool)activateWithEvent:(GdkEvent*)event widget:(OGTKWidget*)widget path:(OFString*)path backgroundArea:(const GdkRectangle*)backgroundArea cellArea:(const GdkRectangle*)cellArea flags:(GtkCellRendererState)flags
 {
-	bool returnValue = gtk_cell_renderer_activate([self castedGObject], event, [widget castedGObject], [path UTF8String], backgroundArea, cellArea, flags);
+	bool returnValue = (bool)gtk_cell_renderer_activate([self castedGObject], event, [widget castedGObject], [path UTF8String], backgroundArea, cellArea, flags);
 
 	return returnValue;
 }
@@ -40,14 +50,14 @@
 
 - (bool)isExpanded
 {
-	bool returnValue = gtk_cell_renderer_get_is_expanded([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_get_is_expanded([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isExpander
 {
-	bool returnValue = gtk_cell_renderer_get_is_expander([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_get_is_expander([self castedGObject]);
 
 	return returnValue;
 }
@@ -84,35 +94,35 @@
 
 - (GtkSizeRequestMode)requestMode
 {
-	GtkSizeRequestMode returnValue = gtk_cell_renderer_get_request_mode([self castedGObject]);
+	GtkSizeRequestMode returnValue = (GtkSizeRequestMode)gtk_cell_renderer_get_request_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)sensitive
 {
-	bool returnValue = gtk_cell_renderer_get_sensitive([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_get_sensitive([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStateFlags)stateWithWidget:(OGTKWidget*)widget cellState:(GtkCellRendererState)cellState
 {
-	GtkStateFlags returnValue = gtk_cell_renderer_get_state([self castedGObject], [widget castedGObject], cellState);
+	GtkStateFlags returnValue = (GtkStateFlags)gtk_cell_renderer_get_state([self castedGObject], [widget castedGObject], cellState);
 
 	return returnValue;
 }
 
 - (bool)visible
 {
-	bool returnValue = gtk_cell_renderer_get_visible([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_get_visible([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isActivatable
 {
-	bool returnValue = gtk_cell_renderer_is_activatable([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_is_activatable([self castedGObject]);
 
 	return returnValue;
 }
@@ -159,7 +169,7 @@
 
 - (GtkCellEditable*)startEditingWithEvent:(GdkEvent*)event widget:(OGTKWidget*)widget path:(OFString*)path backgroundArea:(const GdkRectangle*)backgroundArea cellArea:(const GdkRectangle*)cellArea flags:(GtkCellRendererState)flags
 {
-	GtkCellEditable* returnValue = gtk_cell_renderer_start_editing([self castedGObject], event, [widget castedGObject], [path UTF8String], backgroundArea, cellArea, flags);
+	GtkCellEditable* returnValue = (GtkCellEditable*)gtk_cell_renderer_start_editing([self castedGObject], event, [widget castedGObject], [path UTF8String], backgroundArea, cellArea, flags);
 
 	return returnValue;
 }

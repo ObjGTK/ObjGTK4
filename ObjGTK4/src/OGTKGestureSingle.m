@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,42 +8,52 @@
 
 @implementation OGTKGestureSingle
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_GESTURE_SINGLE;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkGestureSingle*)castedGObject
 {
-	return GTK_GESTURE_SINGLE([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureSingle, GtkGestureSingle);
 }
 
 - (guint)button
 {
-	guint returnValue = gtk_gesture_single_get_button([self castedGObject]);
+	guint returnValue = (guint)gtk_gesture_single_get_button([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)currentButton
 {
-	guint returnValue = gtk_gesture_single_get_current_button([self castedGObject]);
+	guint returnValue = (guint)gtk_gesture_single_get_current_button([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkEventSequence*)currentSequence
 {
-	GdkEventSequence* returnValue = gtk_gesture_single_get_current_sequence([self castedGObject]);
+	GdkEventSequence* returnValue = (GdkEventSequence*)gtk_gesture_single_get_current_sequence([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)exclusive
 {
-	bool returnValue = gtk_gesture_single_get_exclusive([self castedGObject]);
+	bool returnValue = (bool)gtk_gesture_single_get_exclusive([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)touchOnly
 {
-	bool returnValue = gtk_gesture_single_get_touch_only([self castedGObject]);
+	bool returnValue = (bool)gtk_gesture_single_get_touch_only([self castedGObject]);
 
 	return returnValue;
 }

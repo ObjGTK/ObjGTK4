@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,28 +8,42 @@
 
 @implementation OGTKGrid
 
-- (instancetype)init
++ (void)load
 {
-	GtkGrid* gobjectValue = GTK_GRID(gtk_grid_new());
+	GType gtypeToAssociate = GTK_TYPE_GRID;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)grid
+{
+	GtkGrid* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_grid_new(), GtkGrid, GtkGrid);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKGrid* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKGrid alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkGrid*)castedGObject
 {
-	return GTK_GRID([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGrid, GtkGrid);
 }
 
 - (void)attachWithChild:(OGTKWidget*)child column:(int)column row:(int)row width:(int)width height:(int)height
@@ -44,50 +58,50 @@
 
 - (int)baselineRow
 {
-	int returnValue = gtk_grid_get_baseline_row([self castedGObject]);
+	int returnValue = (int)gtk_grid_get_baseline_row([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)childAtWithColumn:(int)column row:(int)row
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_grid_get_child_at([self castedGObject], column, row));
+	GtkWidget* gobjectValue = gtk_grid_get_child_at([self castedGObject], column, row);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)columnHomogeneous
 {
-	bool returnValue = gtk_grid_get_column_homogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_grid_get_column_homogeneous([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)columnSpacing
 {
-	guint returnValue = gtk_grid_get_column_spacing([self castedGObject]);
+	guint returnValue = (guint)gtk_grid_get_column_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkBaselinePosition)rowBaselinePosition:(int)row
 {
-	GtkBaselinePosition returnValue = gtk_grid_get_row_baseline_position([self castedGObject], row);
+	GtkBaselinePosition returnValue = (GtkBaselinePosition)gtk_grid_get_row_baseline_position([self castedGObject], row);
 
 	return returnValue;
 }
 
 - (bool)rowHomogeneous
 {
-	bool returnValue = gtk_grid_get_row_homogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_grid_get_row_homogeneous([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)rowSpacing
 {
-	guint returnValue = gtk_grid_get_row_spacing([self castedGObject]);
+	guint returnValue = (guint)gtk_grid_get_row_spacing([self castedGObject]);
 
 	return returnValue;
 }

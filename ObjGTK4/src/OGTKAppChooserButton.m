@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,28 +8,42 @@
 
 @implementation OGTKAppChooserButton
 
-- (instancetype)init:(OFString*)contentType
++ (void)load
 {
-	GtkAppChooserButton* gobjectValue = GTK_APP_CHOOSER_BUTTON(gtk_app_chooser_button_new([contentType UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_APP_CHOOSER_BUTTON;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)appChooserButton:(OFString*)contentType
+{
+	GtkAppChooserButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_button_new([contentType UTF8String]), GtkAppChooserButton, GtkAppChooserButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKAppChooserButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKAppChooserButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkAppChooserButton*)castedGObject
 {
-	return GTK_APP_CHOOSER_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAppChooserButton, GtkAppChooserButton);
 }
 
 - (void)appendCustomItemWithName:(OFString*)name label:(OFString*)label icon:(GIcon*)icon
@@ -52,21 +66,21 @@
 
 - (bool)modal
 {
-	bool returnValue = gtk_app_chooser_button_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_button_get_modal([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showDefaultItem
 {
-	bool returnValue = gtk_app_chooser_button_get_show_default_item([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_button_get_show_default_item([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showDialogItem
 {
-	bool returnValue = gtk_app_chooser_button_get_show_dialog_item([self castedGObject]);
+	bool returnValue = (bool)gtk_app_chooser_button_get_show_dialog_item([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,15 +1,15 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGTKTreeViewColumn;
 @class OGTKCellRenderer;
 @class OGTKTooltip;
 @class OGTKTreeSelection;
+@class OGTKTreeViewColumn;
 
 /**
  * A widget for displaying both trees and lists
@@ -109,8 +109,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithModel:(GtkTreeModel*)model;
++ (instancetype)treeView;
++ (instancetype)treeViewWithModel:(GtkTreeModel*)model;
 
 /**
  * Methods

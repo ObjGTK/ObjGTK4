@@ -1,13 +1,13 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGPangoLayout;
 @class OGMenuModel;
+@class OGPangoLayout;
 
 /**
  * The `GtkLabel` widget displays a small amount of text.
@@ -202,8 +202,8 @@
 /**
  * Constructors
  */
-- (instancetype)init:(OFString*)str;
-- (instancetype)initWithMnemonic:(OFString*)str;
++ (instancetype)label:(OFString*)str;
++ (instancetype)labelWithMnemonic:(OFString*)str;
 
 /**
  * Methods

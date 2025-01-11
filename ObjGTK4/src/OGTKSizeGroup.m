@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,25 +10,39 @@
 
 @implementation OGTKSizeGroup
 
-- (instancetype)init:(GtkSizeGroupMode)mode
++ (void)load
 {
-	GtkSizeGroup* gobjectValue = GTK_SIZE_GROUP(gtk_size_group_new(mode));
+	GType gtypeToAssociate = GTK_TYPE_SIZE_GROUP;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)sizeGroup:(GtkSizeGroupMode)mode
+{
+	GtkSizeGroup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_size_group_new(mode), GtkSizeGroup, GtkSizeGroup);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKSizeGroup* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKSizeGroup alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkSizeGroup*)castedGObject
 {
-	return GTK_SIZE_GROUP([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSizeGroup, GtkSizeGroup);
 }
 
 - (void)addWidget:(OGTKWidget*)widget
@@ -38,14 +52,14 @@
 
 - (GtkSizeGroupMode)mode
 {
-	GtkSizeGroupMode returnValue = gtk_size_group_get_mode([self castedGObject]);
+	GtkSizeGroupMode returnValue = (GtkSizeGroupMode)gtk_size_group_get_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GSList*)widgets
 {
-	GSList* returnValue = gtk_size_group_get_widgets([self castedGObject]);
+	GSList* returnValue = (GSList*)gtk_size_group_get_widgets([self castedGObject]);
 
 	return returnValue;
 }

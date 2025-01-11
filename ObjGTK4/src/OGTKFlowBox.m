@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,28 +11,42 @@
 
 @implementation OGTKFlowBox
 
-- (instancetype)init
++ (void)load
 {
-	GtkFlowBox* gobjectValue = GTK_FLOW_BOX(gtk_flow_box_new());
+	GType gtypeToAssociate = GTK_TYPE_FLOW_BOX;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)flowBox
+{
+	GtkFlowBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_flow_box_new(), GtkFlowBox, GtkFlowBox);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKFlowBox* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFlowBox alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFlowBox*)castedGObject
 {
-	return GTK_FLOW_BOX([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFlowBox, GtkFlowBox);
 }
 
 - (void)append:(OGTKWidget*)child
@@ -47,72 +61,72 @@
 
 - (bool)activateOnSingleClick
 {
-	bool returnValue = gtk_flow_box_get_activate_on_single_click([self castedGObject]);
+	bool returnValue = (bool)gtk_flow_box_get_activate_on_single_click([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKFlowBoxChild*)childAtIndex:(int)idx
 {
-	GtkFlowBoxChild* gobjectValue = GTK_FLOW_BOX_CHILD(gtk_flow_box_get_child_at_index([self castedGObject], idx));
+	GtkFlowBoxChild* gobjectValue = gtk_flow_box_get_child_at_index([self castedGObject], idx);
 
-	OGTKFlowBoxChild* returnValue = [OGTKFlowBoxChild withGObject:gobjectValue];
+	OGTKFlowBoxChild* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKFlowBoxChild*)childAtPosWithX:(int)x y:(int)y
 {
-	GtkFlowBoxChild* gobjectValue = GTK_FLOW_BOX_CHILD(gtk_flow_box_get_child_at_pos([self castedGObject], x, y));
+	GtkFlowBoxChild* gobjectValue = gtk_flow_box_get_child_at_pos([self castedGObject], x, y);
 
-	OGTKFlowBoxChild* returnValue = [OGTKFlowBoxChild withGObject:gobjectValue];
+	OGTKFlowBoxChild* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (guint)columnSpacing
 {
-	guint returnValue = gtk_flow_box_get_column_spacing([self castedGObject]);
+	guint returnValue = (guint)gtk_flow_box_get_column_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)homogeneous
 {
-	bool returnValue = gtk_flow_box_get_homogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_flow_box_get_homogeneous([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)maxChildrenPerLine
 {
-	guint returnValue = gtk_flow_box_get_max_children_per_line([self castedGObject]);
+	guint returnValue = (guint)gtk_flow_box_get_max_children_per_line([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)minChildrenPerLine
 {
-	guint returnValue = gtk_flow_box_get_min_children_per_line([self castedGObject]);
+	guint returnValue = (guint)gtk_flow_box_get_min_children_per_line([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)rowSpacing
 {
-	guint returnValue = gtk_flow_box_get_row_spacing([self castedGObject]);
+	guint returnValue = (guint)gtk_flow_box_get_row_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GList*)selectedChildren
 {
-	GList* returnValue = gtk_flow_box_get_selected_children([self castedGObject]);
+	GList* returnValue = (GList*)gtk_flow_box_get_selected_children([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSelectionMode)selectionMode
 {
-	GtkSelectionMode returnValue = gtk_flow_box_get_selection_mode([self castedGObject]);
+	GtkSelectionMode returnValue = (GtkSelectionMode)gtk_flow_box_get_selection_mode([self castedGObject]);
 
 	return returnValue;
 }

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,28 +8,42 @@
 
 @implementation OGTKCalendar
 
-- (instancetype)init
++ (void)load
 {
-	GtkCalendar* gobjectValue = GTK_CALENDAR(gtk_calendar_new());
+	GType gtypeToAssociate = GTK_TYPE_CALENDAR;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)calendar
+{
+	GtkCalendar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_calendar_new(), GtkCalendar, GtkCalendar);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKCalendar* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKCalendar alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkCalendar*)castedGObject
 {
-	return GTK_CALENDAR([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCalendar, GtkCalendar);
 }
 
 - (void)clearMarks
@@ -39,56 +53,56 @@
 
 - (GDateTime*)date
 {
-	GDateTime* returnValue = gtk_calendar_get_date([self castedGObject]);
+	GDateTime* returnValue = (GDateTime*)gtk_calendar_get_date([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)day
 {
-	int returnValue = gtk_calendar_get_day([self castedGObject]);
+	int returnValue = (int)gtk_calendar_get_day([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)dayIsMarked:(guint)day
 {
-	bool returnValue = gtk_calendar_get_day_is_marked([self castedGObject], day);
+	bool returnValue = (bool)gtk_calendar_get_day_is_marked([self castedGObject], day);
 
 	return returnValue;
 }
 
 - (int)month
 {
-	int returnValue = gtk_calendar_get_month([self castedGObject]);
+	int returnValue = (int)gtk_calendar_get_month([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showDayNames
 {
-	bool returnValue = gtk_calendar_get_show_day_names([self castedGObject]);
+	bool returnValue = (bool)gtk_calendar_get_show_day_names([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showHeading
 {
-	bool returnValue = gtk_calendar_get_show_heading([self castedGObject]);
+	bool returnValue = (bool)gtk_calendar_get_show_heading([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showWeekNumbers
 {
-	bool returnValue = gtk_calendar_get_show_week_numbers([self castedGObject]);
+	bool returnValue = (bool)gtk_calendar_get_show_week_numbers([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)year
 {
-	int returnValue = gtk_calendar_get_year([self castedGObject]);
+	int returnValue = (int)gtk_calendar_get_year([self castedGObject]);
 
 	return returnValue;
 }

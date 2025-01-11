@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,105 +8,131 @@
 
 @implementation OGTKButton
 
-- (instancetype)init
++ (void)load
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new());
+	GType gtypeToAssociate = GTK_TYPE_BUTTON;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initFromIconName:(OFString*)iconName
++ (instancetype)button
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_from_icon_name([iconName UTF8String]));
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new(), GtkButton, GtkButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithLabel:(OFString*)label
++ (instancetype)buttonFromIconName:(OFString*)iconName
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_with_label([label UTF8String]));
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new_from_icon_name([iconName UTF8String]), GtkButton, GtkButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithMnemonic:(OFString*)label
++ (instancetype)buttonWithLabel:(OFString*)label
 {
-	GtkButton* gobjectValue = GTK_BUTTON(gtk_button_new_with_mnemonic([label UTF8String]));
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new_with_label([label UTF8String]), GtkButton, GtkButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)buttonWithMnemonic:(OFString*)label
+{
+	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new_with_mnemonic([label UTF8String]), GtkButton, GtkButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
+	OGTKButton* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKButton alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkButton*)castedGObject
 {
-	return GTK_BUTTON([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkButton, GtkButton);
 }
 
 - (bool)canShrink
 {
-	bool returnValue = gtk_button_get_can_shrink([self castedGObject]);
+	bool returnValue = (bool)gtk_button_get_can_shrink([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_button_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_button_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)hasFrame
 {
-	bool returnValue = gtk_button_get_has_frame([self castedGObject]);
+	bool returnValue = (bool)gtk_button_get_has_frame([self castedGObject]);
 
 	return returnValue;
 }
@@ -129,7 +155,7 @@
 
 - (bool)useUnderline
 {
-	bool returnValue = gtk_button_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_button_get_use_underline([self castedGObject]);
 
 	return returnValue;
 }

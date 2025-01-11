@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,39 +10,53 @@
 
 @implementation OGTKTreeListModel
 
-- (instancetype)initWithRoot:(GListModel*)root passthrough:(bool)passthrough autoexpand:(bool)autoexpand createFunc:(GtkTreeListModelCreateModelFunc)createFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
++ (void)load
 {
-	GtkTreeListModel* gobjectValue = GTK_TREE_LIST_MODEL(gtk_tree_list_model_new(root, passthrough, autoexpand, createFunc, userData, userDestroy));
+	GType gtypeToAssociate = GTK_TYPE_TREE_LIST_MODEL;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)treeListModelWithRoot:(GListModel*)root passthrough:(bool)passthrough autoexpand:(bool)autoexpand createFunc:(GtkTreeListModelCreateModelFunc)createFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
+{
+	GtkTreeListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_list_model_new(root, passthrough, autoexpand, createFunc, userData, userDestroy), GtkTreeListModel, GtkTreeListModel);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKTreeListModel* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeListModel alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkTreeListModel*)castedGObject
 {
-	return GTK_TREE_LIST_MODEL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeListModel, GtkTreeListModel);
 }
 
 - (bool)autoexpand
 {
-	bool returnValue = gtk_tree_list_model_get_autoexpand([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_list_model_get_autoexpand([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTreeListRow*)childRow:(guint)position
 {
-	GtkTreeListRow* gobjectValue = GTK_TREE_LIST_ROW(gtk_tree_list_model_get_child_row([self castedGObject], position));
+	GtkTreeListRow* gobjectValue = gtk_tree_list_model_get_child_row([self castedGObject], position);
 
-	OGTKTreeListRow* returnValue = [OGTKTreeListRow withGObject:gobjectValue];
+	OGTKTreeListRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;
@@ -50,23 +64,23 @@
 
 - (GListModel*)model
 {
-	GListModel* returnValue = gtk_tree_list_model_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_tree_list_model_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)passthrough
 {
-	bool returnValue = gtk_tree_list_model_get_passthrough([self castedGObject]);
+	bool returnValue = (bool)gtk_tree_list_model_get_passthrough([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTreeListRow*)row:(guint)position
 {
-	GtkTreeListRow* gobjectValue = GTK_TREE_LIST_ROW(gtk_tree_list_model_get_row([self castedGObject], position));
+	GtkTreeListRow* gobjectValue = gtk_tree_list_model_get_row([self castedGObject], position);
 
-	OGTKTreeListRow* returnValue = [OGTKTreeListRow withGObject:gobjectValue];
+	OGTKTreeListRow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
 
 	return returnValue;

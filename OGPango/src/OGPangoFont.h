@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,8 +10,8 @@
 
 @class OGPangoContext;
 @class OGPangoCoverage;
-@class OGPangoFontMap;
 @class OGPangoFontFace;
+@class OGPangoFontMap;
 
 /**
  * A `PangoFont` is used to represent a font in a
@@ -26,6 +26,8 @@
 /**
  * Functions
  */
++ (void)load;
+
 
 /**
  * Frees an array of font descriptions.

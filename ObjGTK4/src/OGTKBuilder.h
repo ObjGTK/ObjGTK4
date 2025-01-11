@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -359,10 +359,10 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initFromFile:(OFString*)filename;
-- (instancetype)initFromResource:(OFString*)resourcePath;
-- (instancetype)initFromStringWithString:(OFString*)string length:(gssize)length;
++ (instancetype)builder;
++ (instancetype)builderFromFile:(OFString*)filename;
++ (instancetype)builderFromResource:(OFString*)resourcePath;
++ (instancetype)builderFromStringWithString:(OFString*)string length:(gssize)length;
 
 /**
  * Methods

@@ -1,82 +1,104 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKIconView.h"
 
+#import "OGTKCellArea.h"
 #import "OGTKCellRenderer.h"
 #import "OGTKTooltip.h"
-#import "OGTKCellArea.h"
 
 @implementation OGTKIconView
 
-- (instancetype)init
++ (void)load
 {
-	GtkIconView* gobjectValue = GTK_ICON_VIEW(gtk_icon_view_new());
+	GType gtypeToAssociate = GTK_TYPE_ICON_VIEW;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithArea:(OGTKCellArea*)area
++ (instancetype)iconView
 {
-	GtkIconView* gobjectValue = GTK_ICON_VIEW(gtk_icon_view_new_with_area([area castedGObject]));
+	GtkIconView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_view_new(), GtkIconView, GtkIconView);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKIconView* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKIconView alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithModel:(GtkTreeModel*)model
++ (instancetype)iconViewWithArea:(OGTKCellArea*)area
 {
-	GtkIconView* gobjectValue = GTK_ICON_VIEW(gtk_icon_view_new_with_model(model));
+	GtkIconView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_view_new_with_area([area castedGObject]), GtkIconView, GtkIconView);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKIconView* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKIconView alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)iconViewWithModel:(GtkTreeModel*)model
+{
+	GtkIconView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_view_new_with_model(model), GtkIconView, GtkIconView);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
+	OGTKIconView* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKIconView alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkIconView*)castedGObject
 {
-	return GTK_ICON_VIEW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIconView, GtkIconView);
 }
 
 - (GdkPaintable*)createDragIcon:(GtkTreePath*)path
 {
-	GdkPaintable* returnValue = gtk_icon_view_create_drag_icon([self castedGObject], path);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_icon_view_create_drag_icon([self castedGObject], path);
 
 	return returnValue;
 }
@@ -93,42 +115,42 @@
 
 - (bool)activateOnSingleClick
 {
-	bool returnValue = gtk_icon_view_get_activate_on_single_click([self castedGObject]);
+	bool returnValue = (bool)gtk_icon_view_get_activate_on_single_click([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)cellRectWithPath:(GtkTreePath*)path cell:(OGTKCellRenderer*)cell rect:(GdkRectangle*)rect
 {
-	bool returnValue = gtk_icon_view_get_cell_rect([self castedGObject], path, [cell castedGObject], rect);
+	bool returnValue = (bool)gtk_icon_view_get_cell_rect([self castedGObject], path, [cell castedGObject], rect);
 
 	return returnValue;
 }
 
 - (int)columnSpacing
 {
-	int returnValue = gtk_icon_view_get_column_spacing([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_column_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)columns
 {
-	int returnValue = gtk_icon_view_get_columns([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_columns([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)cursorWithPath:(GtkTreePath**)path cell:(GtkCellRenderer**)cell
 {
-	bool returnValue = gtk_icon_view_get_cursor([self castedGObject], path, cell);
+	bool returnValue = (bool)gtk_icon_view_get_cursor([self castedGObject], path, cell);
 
 	return returnValue;
 }
 
 - (bool)destItemAtPosWithDragX:(int)dragX dragY:(int)dragY path:(GtkTreePath**)path pos:(GtkIconViewDropPosition*)pos
 {
-	bool returnValue = gtk_icon_view_get_dest_item_at_pos([self castedGObject], dragX, dragY, path, pos);
+	bool returnValue = (bool)gtk_icon_view_get_dest_item_at_pos([self castedGObject], dragX, dragY, path, pos);
 
 	return returnValue;
 }
@@ -140,140 +162,140 @@
 
 - (bool)itemAtPosWithX:(int)x y:(int)y path:(GtkTreePath**)path cell:(GtkCellRenderer**)cell
 {
-	bool returnValue = gtk_icon_view_get_item_at_pos([self castedGObject], x, y, path, cell);
+	bool returnValue = (bool)gtk_icon_view_get_item_at_pos([self castedGObject], x, y, path, cell);
 
 	return returnValue;
 }
 
 - (int)itemColumn:(GtkTreePath*)path
 {
-	int returnValue = gtk_icon_view_get_item_column([self castedGObject], path);
+	int returnValue = (int)gtk_icon_view_get_item_column([self castedGObject], path);
 
 	return returnValue;
 }
 
 - (GtkOrientation)itemOrientation
 {
-	GtkOrientation returnValue = gtk_icon_view_get_item_orientation([self castedGObject]);
+	GtkOrientation returnValue = (GtkOrientation)gtk_icon_view_get_item_orientation([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)itemPadding
 {
-	int returnValue = gtk_icon_view_get_item_padding([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_item_padding([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)itemRow:(GtkTreePath*)path
 {
-	int returnValue = gtk_icon_view_get_item_row([self castedGObject], path);
+	int returnValue = (int)gtk_icon_view_get_item_row([self castedGObject], path);
 
 	return returnValue;
 }
 
 - (int)itemWidth
 {
-	int returnValue = gtk_icon_view_get_item_width([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_item_width([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)margin
 {
-	int returnValue = gtk_icon_view_get_margin([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_margin([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)markupColumn
 {
-	int returnValue = gtk_icon_view_get_markup_column([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_markup_column([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeModel*)model
 {
-	GtkTreeModel* returnValue = gtk_icon_view_get_model([self castedGObject]);
+	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_icon_view_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreePath*)pathAtPosWithX:(int)x y:(int)y
 {
-	GtkTreePath* returnValue = gtk_icon_view_get_path_at_pos([self castedGObject], x, y);
+	GtkTreePath* returnValue = (GtkTreePath*)gtk_icon_view_get_path_at_pos([self castedGObject], x, y);
 
 	return returnValue;
 }
 
 - (int)pixbufColumn
 {
-	int returnValue = gtk_icon_view_get_pixbuf_column([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_pixbuf_column([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)reorderable
 {
-	bool returnValue = gtk_icon_view_get_reorderable([self castedGObject]);
+	bool returnValue = (bool)gtk_icon_view_get_reorderable([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)rowSpacing
 {
-	int returnValue = gtk_icon_view_get_row_spacing([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_row_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GList*)selectedItems
 {
-	GList* returnValue = gtk_icon_view_get_selected_items([self castedGObject]);
+	GList* returnValue = (GList*)gtk_icon_view_get_selected_items([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSelectionMode)selectionMode
 {
-	GtkSelectionMode returnValue = gtk_icon_view_get_selection_mode([self castedGObject]);
+	GtkSelectionMode returnValue = (GtkSelectionMode)gtk_icon_view_get_selection_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)spacing
 {
-	int returnValue = gtk_icon_view_get_spacing([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_spacing([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)textColumn
 {
-	int returnValue = gtk_icon_view_get_text_column([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_text_column([self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)tooltipColumn
 {
-	int returnValue = gtk_icon_view_get_tooltip_column([self castedGObject]);
+	int returnValue = (int)gtk_icon_view_get_tooltip_column([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)tooltipContextWithX:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_icon_view_get_tooltip_context([self castedGObject], x, y, keyboardTip, model, path, iter);
+	bool returnValue = (bool)gtk_icon_view_get_tooltip_context([self castedGObject], x, y, keyboardTip, model, path, iter);
 
 	return returnValue;
 }
 
 - (bool)visibleRangeWithStartPath:(GtkTreePath**)startPath endPath:(GtkTreePath**)endPath
 {
-	bool returnValue = gtk_icon_view_get_visible_range([self castedGObject], startPath, endPath);
+	bool returnValue = (bool)gtk_icon_view_get_visible_range([self castedGObject], startPath, endPath);
 
 	return returnValue;
 }
@@ -285,7 +307,7 @@
 
 - (bool)pathIsSelected:(GtkTreePath*)path
 {
-	bool returnValue = gtk_icon_view_path_is_selected([self castedGObject], path);
+	bool returnValue = (bool)gtk_icon_view_path_is_selected([self castedGObject], path);
 
 	return returnValue;
 }

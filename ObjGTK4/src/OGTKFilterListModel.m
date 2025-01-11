@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,52 +10,66 @@
 
 @implementation OGTKFilterListModel
 
-- (instancetype)initWithModel:(GListModel*)model filter:(OGTKFilter*)filter
++ (void)load
 {
-	GtkFilterListModel* gobjectValue = GTK_FILTER_LIST_MODEL(gtk_filter_list_model_new(model, [filter castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_FILTER_LIST_MODEL;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)filterListModelWithModel:(GListModel*)model filter:(OGTKFilter*)filter
+{
+	GtkFilterListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_filter_list_model_new(model, [filter castedGObject]), GtkFilterListModel, GtkFilterListModel);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKFilterListModel* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFilterListModel alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFilterListModel*)castedGObject
 {
-	return GTK_FILTER_LIST_MODEL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFilterListModel, GtkFilterListModel);
 }
 
 - (OGTKFilter*)filter
 {
-	GtkFilter* gobjectValue = GTK_FILTER(gtk_filter_list_model_get_filter([self castedGObject]));
+	GtkFilter* gobjectValue = gtk_filter_list_model_get_filter([self castedGObject]);
 
-	OGTKFilter* returnValue = [OGTKFilter withGObject:gobjectValue];
+	OGTKFilter* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)incremental
 {
-	bool returnValue = gtk_filter_list_model_get_incremental([self castedGObject]);
+	bool returnValue = (bool)gtk_filter_list_model_get_incremental([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = gtk_filter_list_model_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_filter_list_model_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)pending
 {
-	guint returnValue = gtk_filter_list_model_get_pending([self castedGObject]);
+	guint returnValue = (guint)gtk_filter_list_model_get_pending([self castedGObject]);
 
 	return returnValue;
 }

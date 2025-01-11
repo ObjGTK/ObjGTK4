@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,30 +8,44 @@
 
 @implementation OGTKSelectionFilterModel
 
-- (instancetype)init:(GtkSelectionModel*)model
++ (void)load
 {
-	GtkSelectionFilterModel* gobjectValue = GTK_SELECTION_FILTER_MODEL(gtk_selection_filter_model_new(model));
+	GType gtypeToAssociate = GTK_TYPE_SELECTION_FILTER_MODEL;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)selectionFilterModel:(GtkSelectionModel*)model
+{
+	GtkSelectionFilterModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_selection_filter_model_new(model), GtkSelectionFilterModel, GtkSelectionFilterModel);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKSelectionFilterModel* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKSelectionFilterModel alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkSelectionFilterModel*)castedGObject
 {
-	return GTK_SELECTION_FILTER_MODEL([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSelectionFilterModel, GtkSelectionFilterModel);
 }
 
 - (GtkSelectionModel*)model
 {
-	GtkSelectionModel* returnValue = gtk_selection_filter_model_get_model([self castedGObject]);
+	GtkSelectionModel* returnValue = (GtkSelectionModel*)gtk_selection_filter_model_get_model([self castedGObject]);
 
 	return returnValue;
 }

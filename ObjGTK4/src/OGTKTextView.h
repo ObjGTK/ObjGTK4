@@ -1,16 +1,16 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGTKTextMark;
 @class OGMenuModel;
-@class OGPangoContext;
-@class OGTKTextChildAnchor;
 @class OGTKTextBuffer;
+@class OGTKTextChildAnchor;
+@class OGTKTextMark;
+@class OGPangoContext;
 
 /**
  * A widget that displays the contents of a [class@Gtk.TextBuffer].
@@ -58,8 +58,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithBuffer:(OGTKTextBuffer*)buffer;
++ (instancetype)textView;
++ (instancetype)textViewWithBuffer:(OGTKTextBuffer*)buffer;
 
 /**
  * Methods

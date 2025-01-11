@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,71 +10,81 @@
 
 @implementation OGTKTreeSelection
 
++ (void)load
+{
+	GType gtypeToAssociate = GTK_TYPE_TREE_SELECTION;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
 - (GtkTreeSelection*)castedGObject
 {
-	return GTK_TREE_SELECTION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeSelection, GtkTreeSelection);
 }
 
 - (int)countSelectedRows
 {
-	int returnValue = gtk_tree_selection_count_selected_rows([self castedGObject]);
+	int returnValue = (int)gtk_tree_selection_count_selected_rows([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSelectionMode)mode
 {
-	GtkSelectionMode returnValue = gtk_tree_selection_get_mode([self castedGObject]);
+	GtkSelectionMode returnValue = (GtkSelectionMode)gtk_tree_selection_get_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeSelectionFunc)selectFunction
 {
-	GtkTreeSelectionFunc returnValue = gtk_tree_selection_get_select_function([self castedGObject]);
+	GtkTreeSelectionFunc returnValue = (GtkTreeSelectionFunc)gtk_tree_selection_get_select_function([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)selectedWithModel:(GtkTreeModel**)model iter:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_tree_selection_get_selected([self castedGObject], model, iter);
+	bool returnValue = (bool)gtk_tree_selection_get_selected([self castedGObject], model, iter);
 
 	return returnValue;
 }
 
 - (GList*)selectedRows:(GtkTreeModel**)model
 {
-	GList* returnValue = gtk_tree_selection_get_selected_rows([self castedGObject], model);
+	GList* returnValue = (GList*)gtk_tree_selection_get_selected_rows([self castedGObject], model);
 
 	return returnValue;
 }
 
 - (OGTKTreeView*)treeView
 {
-	GtkTreeView* gobjectValue = GTK_TREE_VIEW(gtk_tree_selection_get_tree_view([self castedGObject]));
+	GtkTreeView* gobjectValue = gtk_tree_selection_get_tree_view([self castedGObject]);
 
-	OGTKTreeView* returnValue = [OGTKTreeView withGObject:gobjectValue];
+	OGTKTreeView* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (gpointer)userData
 {
-	gpointer returnValue = gtk_tree_selection_get_user_data([self castedGObject]);
+	gpointer returnValue = (gpointer)gtk_tree_selection_get_user_data([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)iterIsSelected:(GtkTreeIter*)iter
 {
-	bool returnValue = gtk_tree_selection_iter_is_selected([self castedGObject], iter);
+	bool returnValue = (bool)gtk_tree_selection_iter_is_selected([self castedGObject], iter);
 
 	return returnValue;
 }
 
 - (bool)pathIsSelected:(GtkTreePath*)path
 {
-	bool returnValue = gtk_tree_selection_path_is_selected([self castedGObject], path);
+	bool returnValue = (bool)gtk_tree_selection_path_is_selected([self castedGObject], path);
 
 	return returnValue;
 }

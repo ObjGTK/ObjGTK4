@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKPasswordEntryBuffer
 
-- (instancetype)init
++ (void)load
 {
-	GtkPasswordEntryBuffer* gobjectValue = GTK_PASSWORD_ENTRY_BUFFER(gtk_password_entry_buffer_new());
+	GType gtypeToAssociate = GTK_TYPE_PASSWORD_ENTRY_BUFFER;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)passwordEntryBuffer
+{
+	GtkPasswordEntryBuffer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_password_entry_buffer_new(), GtkPasswordEntryBuffer, GtkPasswordEntryBuffer);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPasswordEntryBuffer* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPasswordEntryBuffer alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkPasswordEntryBuffer*)castedGObject
 {
-	return GTK_PASSWORD_ENTRY_BUFFER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPasswordEntryBuffer, GtkPasswordEntryBuffer);
 }
 
 

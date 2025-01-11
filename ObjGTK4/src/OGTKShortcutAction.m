@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,30 +10,44 @@
 
 @implementation OGTKShortcutAction
 
-- (instancetype)initParseString:(OFString*)string
++ (void)load
 {
-	GtkShortcutAction* gobjectValue = GTK_SHORTCUT_ACTION(gtk_shortcut_action_parse_string([string UTF8String]));
+	GType gtypeToAssociate = GTK_TYPE_SHORTCUT_ACTION;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)shortcutActionParseString:(OFString*)string
+{
+	GtkShortcutAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_action_parse_string([string UTF8String]), GtkShortcutAction, GtkShortcutAction);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKShortcutAction* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKShortcutAction alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkShortcutAction*)castedGObject
 {
-	return GTK_SHORTCUT_ACTION([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkShortcutAction, GtkShortcutAction);
 }
 
 - (bool)activateWithFlags:(GtkShortcutActionFlags)flags widget:(OGTKWidget*)widget args:(GVariant*)args
 {
-	bool returnValue = gtk_shortcut_action_activate([self castedGObject], flags, [widget castedGObject], args);
+	bool returnValue = (bool)gtk_shortcut_action_activate([self castedGObject], flags, [widget castedGObject], args);
 
 	return returnValue;
 }

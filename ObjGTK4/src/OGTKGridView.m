@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -11,76 +11,90 @@
 
 @implementation OGTKGridView
 
-- (instancetype)initWithModel:(GtkSelectionModel*)model factory:(OGTKListItemFactory*)factory
++ (void)load
 {
-	GtkGridView* gobjectValue = GTK_GRID_VIEW(gtk_grid_view_new(model, [factory castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_GRID_VIEW;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)gridViewWithModel:(GtkSelectionModel*)model factory:(OGTKListItemFactory*)factory
+{
+	GtkGridView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_grid_view_new(model, [factory castedGObject]), GtkGridView, GtkGridView);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKGridView* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKGridView alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkGridView*)castedGObject
 {
-	return GTK_GRID_VIEW([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGridView, GtkGridView);
 }
 
 - (bool)enableRubberband
 {
-	bool returnValue = gtk_grid_view_get_enable_rubberband([self castedGObject]);
+	bool returnValue = (bool)gtk_grid_view_get_enable_rubberband([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKListItemFactory*)factory
 {
-	GtkListItemFactory* gobjectValue = GTK_LIST_ITEM_FACTORY(gtk_grid_view_get_factory([self castedGObject]));
+	GtkListItemFactory* gobjectValue = gtk_grid_view_get_factory([self castedGObject]);
 
-	OGTKListItemFactory* returnValue = [OGTKListItemFactory withGObject:gobjectValue];
+	OGTKListItemFactory* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (guint)maxColumns
 {
-	guint returnValue = gtk_grid_view_get_max_columns([self castedGObject]);
+	guint returnValue = (guint)gtk_grid_view_get_max_columns([self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)minColumns
 {
-	guint returnValue = gtk_grid_view_get_min_columns([self castedGObject]);
+	guint returnValue = (guint)gtk_grid_view_get_min_columns([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSelectionModel*)model
 {
-	GtkSelectionModel* returnValue = gtk_grid_view_get_model([self castedGObject]);
+	GtkSelectionModel* returnValue = (GtkSelectionModel*)gtk_grid_view_get_model([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)singleClickActivate
 {
-	bool returnValue = gtk_grid_view_get_single_click_activate([self castedGObject]);
+	bool returnValue = (bool)gtk_grid_view_get_single_click_activate([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkListTabBehavior)tabBehavior
 {
-	GtkListTabBehavior returnValue = gtk_grid_view_get_tab_behavior([self castedGObject]);
+	GtkListTabBehavior returnValue = (GtkListTabBehavior)gtk_grid_view_get_tab_behavior([self castedGObject]);
 
 	return returnValue;
 }

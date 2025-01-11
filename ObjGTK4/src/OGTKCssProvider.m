@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKCssProvider
 
-- (instancetype)init
++ (void)load
 {
-	GtkCssProvider* gobjectValue = GTK_CSS_PROVIDER(gtk_css_provider_new());
+	GType gtypeToAssociate = GTK_TYPE_CSS_PROVIDER;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)cssProvider
+{
+	GtkCssProvider* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_css_provider_new(), GtkCssProvider, GtkCssProvider);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKCssProvider* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKCssProvider alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkCssProvider*)castedGObject
 {
-	return GTK_CSS_PROVIDER([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCssProvider, GtkCssProvider);
 }
 
 - (void)loadFromBytes:(GBytes*)data

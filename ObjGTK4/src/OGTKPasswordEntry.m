@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -10,41 +10,55 @@
 
 @implementation OGTKPasswordEntry
 
-- (instancetype)init
++ (void)load
 {
-	GtkPasswordEntry* gobjectValue = GTK_PASSWORD_ENTRY(gtk_password_entry_new());
+	GType gtypeToAssociate = GTK_TYPE_PASSWORD_ENTRY;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)passwordEntry
+{
+	GtkPasswordEntry* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_password_entry_new(), GtkPasswordEntry, GtkPasswordEntry);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKPasswordEntry* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPasswordEntry alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkPasswordEntry*)castedGObject
 {
-	return GTK_PASSWORD_ENTRY([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPasswordEntry, GtkPasswordEntry);
 }
 
 - (OGMenuModel*)extraMenu
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_password_entry_get_extra_menu([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_password_entry_get_extra_menu([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)showPeekIcon
 {
-	bool returnValue = gtk_password_entry_get_show_peek_icon([self castedGObject]);
+	bool returnValue = (bool)gtk_password_entry_get_show_peek_icon([self castedGObject]);
 
 	return returnValue;
 }

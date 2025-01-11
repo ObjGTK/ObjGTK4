@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,65 +8,79 @@
 
 @implementation OGTKCenterBox
 
-- (instancetype)init
++ (void)load
 {
-	GtkCenterBox* gobjectValue = GTK_CENTER_BOX(gtk_center_box_new());
+	GType gtypeToAssociate = GTK_TYPE_CENTER_BOX;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)centerBox
+{
+	GtkCenterBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_center_box_new(), GtkCenterBox, GtkCenterBox);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKCenterBox* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKCenterBox alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkCenterBox*)castedGObject
 {
-	return GTK_CENTER_BOX([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCenterBox, GtkCenterBox);
 }
 
 - (GtkBaselinePosition)baselinePosition
 {
-	GtkBaselinePosition returnValue = gtk_center_box_get_baseline_position([self castedGObject]);
+	GtkBaselinePosition returnValue = (GtkBaselinePosition)gtk_center_box_get_baseline_position([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)centerWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_center_box_get_center_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_center_box_get_center_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)endWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_center_box_get_end_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_center_box_get_end_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)shrinkCenterLast
 {
-	bool returnValue = gtk_center_box_get_shrink_center_last([self castedGObject]);
+	bool returnValue = (bool)gtk_center_box_get_shrink_center_last([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)startWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_center_box_get_start_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_center_box_get_start_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

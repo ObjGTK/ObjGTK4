@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,28 +8,42 @@
 
 @implementation OGTKInfoBar
 
-- (instancetype)init
++ (void)load
 {
-	GtkInfoBar* gobjectValue = GTK_INFO_BAR(gtk_info_bar_new());
+	GType gtypeToAssociate = GTK_TYPE_INFO_BAR;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)infoBar
+{
+	GtkInfoBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_info_bar_new(), GtkInfoBar, GtkInfoBar);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKInfoBar* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKInfoBar alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkInfoBar*)castedGObject
 {
-	return GTK_INFO_BAR([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkInfoBar, GtkInfoBar);
 }
 
 - (void)addActionWidgetWithChild:(OGTKWidget*)child responseId:(int)responseId
@@ -39,9 +53,9 @@
 
 - (OGTKWidget*)addButtonWithButtonText:(OFString*)buttonText responseId:(int)responseId
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_info_bar_add_button([self castedGObject], [buttonText UTF8String], responseId));
+	GtkWidget* gobjectValue = gtk_info_bar_add_button([self castedGObject], [buttonText UTF8String], responseId);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -52,21 +66,21 @@
 
 - (GtkMessageType)messageType
 {
-	GtkMessageType returnValue = gtk_info_bar_get_message_type([self castedGObject]);
+	GtkMessageType returnValue = (GtkMessageType)gtk_info_bar_get_message_type([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)revealed
 {
-	bool returnValue = gtk_info_bar_get_revealed([self castedGObject]);
+	bool returnValue = (bool)gtk_info_bar_get_revealed([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showCloseButton
 {
-	bool returnValue = gtk_info_bar_get_show_close_button([self castedGObject]);
+	bool returnValue = (bool)gtk_info_bar_get_show_close_button([self castedGObject]);
 
 	return returnValue;
 }

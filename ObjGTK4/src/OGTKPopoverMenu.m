@@ -1,84 +1,96 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKPopoverMenu.h"
 
-#import "OGTKWidget.h"
 #import <OGio/OGMenuModel.h>
+#import "OGTKWidget.h"
 
 @implementation OGTKPopoverMenu
 
-- (instancetype)initFromModel:(OGMenuModel*)model
++ (void)load
 {
-	GtkPopoverMenu* gobjectValue = GTK_POPOVER_MENU(gtk_popover_menu_new_from_model([model castedGObject]));
+	GType gtypeToAssociate = GTK_TYPE_POPOVER_MENU;
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if (gtypeToAssociate == 0)
+		return;
 
-	@try {
-		self = [super initWithGObject:gobjectValue];
-	} @catch (id e) {
-		g_object_unref(gobjectValue);
-		[self release];
-		@throw e;
-	}
-
-	g_object_unref(gobjectValue);
-	return self;
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags
++ (instancetype)popoverMenuFromModel:(OGMenuModel*)model
 {
-	GtkPopoverMenu* gobjectValue = GTK_POPOVER_MENU(gtk_popover_menu_new_from_model_full([model castedGObject], flags));
+	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model([model castedGObject]), GtkPopoverMenu, GtkPopoverMenu);
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
+	OGTKPopoverMenu* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPopoverMenu alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
+}
+
++ (instancetype)popoverMenuFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags
+{
+	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model_full([model castedGObject], flags), GtkPopoverMenu, GtkPopoverMenu);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPopoverMenu* wrapperObject;
+	@try {
+		wrapperObject = [[OGTKPopoverMenu alloc] initWithGObject:gobjectValue];
+	} @catch (id e) {
+		g_object_unref(gobjectValue);
+		[wrapperObject release];
+		@throw e;
+	}
+
+	g_object_unref(gobjectValue);
+	return [wrapperObject autorelease];
 }
 
 - (GtkPopoverMenu*)castedGObject
 {
-	return GTK_POPOVER_MENU([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPopoverMenu, GtkPopoverMenu);
 }
 
-- (bool)addChildWithChild:(OGTKWidget*)child id:(OFString*)id
+- (bool)addChildWithChild:(OGTKWidget*)child identifier:(OFString*)identifier
 {
-	bool returnValue = gtk_popover_menu_add_child([self castedGObject], [child castedGObject], [id UTF8String]);
+	bool returnValue = (bool)gtk_popover_menu_add_child([self castedGObject], [child castedGObject], [identifier UTF8String]);
 
 	return returnValue;
 }
 
 - (GtkPopoverMenuFlags)flags
 {
-	GtkPopoverMenuFlags returnValue = gtk_popover_menu_get_flags([self castedGObject]);
+	GtkPopoverMenuFlags returnValue = (GtkPopoverMenuFlags)gtk_popover_menu_get_flags([self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)menuModel
 {
-	GMenuModel* gobjectValue = G_MENU_MODEL(gtk_popover_menu_get_menu_model([self castedGObject]));
+	GMenuModel* gobjectValue = gtk_popover_menu_get_menu_model([self castedGObject]);
 
-	OGMenuModel* returnValue = [OGMenuModel withGObject:gobjectValue];
+	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)removeChild:(OGTKWidget*)child
 {
-	bool returnValue = gtk_popover_menu_remove_child([self castedGObject], [child castedGObject]);
+	bool returnValue = (bool)gtk_popover_menu_remove_child([self castedGObject], [child castedGObject]);
 
 	return returnValue;
 }

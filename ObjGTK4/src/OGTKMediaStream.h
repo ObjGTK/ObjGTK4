@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,7 +8,7 @@
 
 #import <OGObject/OGObject.h>
 
-@class OGGdkSurface;
+@class OGdkSurface;
 
 /**
  * `GtkMediaStream` is the integration point for media playback inside GTK.
@@ -98,7 +98,7 @@
  *
  * @return %TRUE if playback is finished
  */
-- (bool)isEnded;
+- (bool)hasEnded;
 
 /**
  * If the stream is in an error state, returns the `GError`
@@ -128,7 +128,7 @@
  *
  * @return %TRUE if the stream should loop
  */
-- (bool)isLoop;
+- (bool)loop;
 
 /**
  * Returns whether the audio for the stream is muted.
@@ -137,14 +137,14 @@
  *
  * @return %TRUE if the stream is muted
  */
-- (bool)isMuted;
+- (bool)muted;
 
 /**
  * Return whether the stream is currently playing.
  *
  * @return %TRUE if the stream is playing
  */
-- (bool)isPlaying;
+- (bool)playing;
 
 /**
  * Returns the current presentation timestamp in microseconds.
@@ -253,7 +253,7 @@
  *
  * @param surface a `GdkSurface`
  */
-- (void)realize:(OGGdkSurface*)surface;
+- (void)realize:(OGdkSurface*)surface;
 
 /**
  * Start a seek operation on @self to @timestamp.
@@ -402,7 +402,7 @@
  *
  * @param surface the `GdkSurface` the stream was realized with
  */
-- (void)unrealize:(OGGdkSurface*)surface;
+- (void)unrealize:(OGdkSurface*)surface;
 
 /**
  * Media stream implementations should regularly call this

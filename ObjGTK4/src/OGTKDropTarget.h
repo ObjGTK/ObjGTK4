@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKEventController.h"
 
-@class OGGdkDrop;
+@class OGdkDrop;
 
 /**
  * `GtkDropTarget` is an event controller to receive Drag-and-Drop operations.
@@ -91,7 +91,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithType:(GType)type actions:(GdkDragAction)actions;
++ (instancetype)dropTargetWithType:(GType)type actions:(GdkDragAction)actions;
 
 /**
  * Methods
@@ -113,7 +113,7 @@
  *
  * @return The current drop
  */
-- (OGGdkDrop*)currentDrop;
+- (OGdkDrop*)currentDrop;
 
 /**
  * Gets the currently handled drop operation.
@@ -122,7 +122,7 @@
  *
  * @return The current drop
  */
-- (OGGdkDrop*)drop;
+- (OGdkDrop*)drop;
 
 /**
  * Gets the data formats that this drop target accepts.

@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,25 +8,39 @@
 
 @implementation OGTKBinLayout
 
-- (instancetype)init
++ (void)load
 {
-	GtkBinLayout* gobjectValue = GTK_BIN_LAYOUT(gtk_bin_layout_new());
+	GType gtypeToAssociate = GTK_TYPE_BIN_LAYOUT;
 
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)binLayout
+{
+	GtkBinLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bin_layout_new(), GtkBinLayout, GtkBinLayout);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBinLayout* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBinLayout alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkBinLayout*)castedGObject
 {
-	return GTK_BIN_LAYOUT([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBinLayout, GtkBinLayout);
 }
 
 

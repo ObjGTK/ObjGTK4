@@ -1,12 +1,12 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
-@class OGGdkPixbuf;
+@class OGdkPixbuf;
 
 /**
  * The `GtkImage` widget displays an image.
@@ -59,13 +59,13 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initFromFile:(OFString*)filename;
-- (instancetype)initFromGicon:(GIcon*)icon;
-- (instancetype)initFromIconName:(OFString*)iconName;
-- (instancetype)initFromPaintable:(GdkPaintable*)paintable;
-- (instancetype)initFromPixbuf:(OGGdkPixbuf*)pixbuf;
-- (instancetype)initFromResource:(OFString*)resourcePath;
++ (instancetype)image;
++ (instancetype)imageFromFile:(OFString*)filename;
++ (instancetype)imageFromGicon:(GIcon*)icon;
++ (instancetype)imageFromIconName:(OFString*)iconName;
++ (instancetype)imageFromPaintable:(GdkPaintable*)paintable;
++ (instancetype)imageFromPixbuf:(OGdkPixbuf*)pixbuf;
++ (instancetype)imageFromResource:(OFString*)resourcePath;
 
 /**
  * Methods
@@ -187,7 +187,7 @@
  *
  * @param pixbuf a `GdkPixbuf` or `NULL`
  */
-- (void)setFromPixbuf:(OGGdkPixbuf*)pixbuf;
+- (void)setFromPixbuf:(OGdkPixbuf*)pixbuf;
 
 /**
  * Sets a `GtkImage` to show a resource.

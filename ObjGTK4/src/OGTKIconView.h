@@ -1,14 +1,14 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKWidget.h"
 
+@class OGTKCellArea;
 @class OGTKCellRenderer;
 @class OGTKTooltip;
-@class OGTKCellArea;
 
 /**
  * `GtkIconView` is a widget which displays data in a grid of icons.
@@ -45,9 +45,9 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithArea:(OGTKCellArea*)area;
-- (instancetype)initWithModel:(GtkTreeModel*)model;
++ (instancetype)iconView;
++ (instancetype)iconViewWithArea:(OGTKCellArea*)area;
++ (instancetype)iconViewWithModel:(GtkTreeModel*)model;
 
 /**
  * Methods

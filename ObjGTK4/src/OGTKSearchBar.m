@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -8,28 +8,42 @@
 
 @implementation OGTKSearchBar
 
-- (instancetype)init
++ (void)load
 {
-	GtkSearchBar* gobjectValue = GTK_SEARCH_BAR(gtk_search_bar_new());
+	GType gtypeToAssociate = GTK_TYPE_SEARCH_BAR;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)searchBar
+{
+	GtkSearchBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_search_bar_new(), GtkSearchBar, GtkSearchBar);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKSearchBar* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKSearchBar alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkSearchBar*)castedGObject
 {
-	return GTK_SEARCH_BAR([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSearchBar, GtkSearchBar);
 }
 
 - (void)connectEntry:(GtkEditable*)entry
@@ -39,30 +53,30 @@
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_search_bar_get_child([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_search_bar_get_child([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (OGTKWidget*)keyCaptureWidget
 {
-	GtkWidget* gobjectValue = GTK_WIDGET(gtk_search_bar_get_key_capture_widget([self castedGObject]));
+	GtkWidget* gobjectValue = gtk_search_bar_get_key_capture_widget([self castedGObject]);
 
-	OGTKWidget* returnValue = [OGTKWidget withGObject:gobjectValue];
+	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (bool)searchMode
 {
-	bool returnValue = gtk_search_bar_get_search_mode([self castedGObject]);
+	bool returnValue = (bool)gtk_search_bar_get_search_mode([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showCloseButton
 {
-	bool returnValue = gtk_search_bar_get_show_close_button([self castedGObject]);
+	bool returnValue = (bool)gtk_search_bar_get_show_close_button([self castedGObject]);
 
 	return returnValue;
 }

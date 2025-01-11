@@ -1,37 +1,51 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #import "OGTKGLArea.h"
 
-#import <OGdk4/OGGdkGLContext.h>
+#import <OGdk4/OGdkGLContext.h>
 
 @implementation OGTKGLArea
 
-- (instancetype)init
++ (void)load
 {
-	GtkGLArea* gobjectValue = GTK_GL_AREA(gtk_gl_area_new());
+	GType gtypeToAssociate = GTK_TYPE_GL_AREA;
+
+	if (gtypeToAssociate == 0)
+		return;
+
+	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (instancetype)gLArea
+{
+	GtkGLArea* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gl_area_new(), GtkGLArea, GtkGLArea);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKGLArea* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKGLArea alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkGLArea*)castedGObject
 {
-	return GTK_GL_AREA([self gObject]);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGLArea, GtkGLArea);
 }
 
 - (void)attachBuffers
@@ -41,50 +55,50 @@
 
 - (GdkGLAPI)allowedApis
 {
-	GdkGLAPI returnValue = gtk_gl_area_get_allowed_apis([self castedGObject]);
+	GdkGLAPI returnValue = (GdkGLAPI)gtk_gl_area_get_allowed_apis([self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkGLAPI)api
 {
-	GdkGLAPI returnValue = gtk_gl_area_get_api([self castedGObject]);
+	GdkGLAPI returnValue = (GdkGLAPI)gtk_gl_area_get_api([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)autoRender
 {
-	bool returnValue = gtk_gl_area_get_auto_render([self castedGObject]);
+	bool returnValue = (bool)gtk_gl_area_get_auto_render([self castedGObject]);
 
 	return returnValue;
 }
 
-- (OGGdkGLContext*)context
+- (OGdkGLContext*)context
 {
-	GdkGLContext* gobjectValue = GDK_GL_CONTEXT(gtk_gl_area_get_context([self castedGObject]));
+	GdkGLContext* gobjectValue = gtk_gl_area_get_context([self castedGObject]);
 
-	OGGdkGLContext* returnValue = [OGGdkGLContext withGObject:gobjectValue];
+	OGdkGLContext* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
 - (GError*)error
 {
-	GError* returnValue = gtk_gl_area_get_error([self castedGObject]);
+	GError* returnValue = (GError*)gtk_gl_area_get_error([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasDepthBuffer
 {
-	bool returnValue = gtk_gl_area_get_has_depth_buffer([self castedGObject]);
+	bool returnValue = (bool)gtk_gl_area_get_has_depth_buffer([self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasStencilBuffer
 {
-	bool returnValue = gtk_gl_area_get_has_stencil_buffer([self castedGObject]);
+	bool returnValue = (bool)gtk_gl_area_get_has_stencil_buffer([self castedGObject]);
 
 	return returnValue;
 }
@@ -96,7 +110,7 @@
 
 - (bool)useEs
 {
-	bool returnValue = gtk_gl_area_get_use_es([self castedGObject]);
+	bool returnValue = (bool)gtk_gl_area_get_use_es([self castedGObject]);
 
 	return returnValue;
 }

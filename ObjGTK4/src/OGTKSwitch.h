@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015-2017 Tyler Burton <software@tylerburton.ca>
- * SPDX-FileCopyrightText: 2015-2024 The ObjGTK authors, see AUTHORS file
+ * SPDX-FileCopyrightText: 2015-2025 The ObjGTK authors, see AUTHORS file
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
@@ -12,13 +12,13 @@
  * ![An example GtkSwitch](switch.png)
  * 
  * The user can control which state should be active by clicking the
- * empty area, or by dragging the slider.
+ * empty area, or by dragging the handle.
  * 
- * `GtkSwitch` can also express situations where the underlying state changes
- * with a delay. In this case, the slider position indicates the user's recent
- * change (represented by the [property@Gtk.Switch:active] property), while the
- * trough color indicates the present underlying state (represented by the
- * [property@Gtk.Switch:state] property).
+ * `GtkSwitch` can also handle situations where the underlying state
+ * changes with a delay. In this case, the slider position indicates
+ * the user's recent change (as indicated by the [property@Gtk.Switch:active]
+ * property), and the color indicates whether the underlying state (represented
+ * by the [property@Gtk.Switch:state] property) has been updated yet.
  * 
  * ![GtkSwitch with delayed state change](switch-state.png)
  * 
@@ -51,7 +51,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)switch;
 
 /**
  * Methods
