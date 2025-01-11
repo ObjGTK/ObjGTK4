@@ -48,7 +48,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GListModel*)model sorter:(OGTKSorter*)sorter;
++ (instancetype)sortListModelWithModel:(GListModel*)model sorter:(OGTKSorter*)sorter;
 
 /**
  * Methods

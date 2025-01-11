@@ -38,7 +38,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)windowGroup;
 
 /**
  * Methods

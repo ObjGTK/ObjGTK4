@@ -115,8 +115,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initForIntervalWithMinValue:(double)minValue maxValue:(double)maxValue;
++ (instancetype)levelBar;
++ (instancetype)levelBarForIntervalWithMinValue:(double)minValue maxValue:(double)maxValue;
 
 /**
  * Methods

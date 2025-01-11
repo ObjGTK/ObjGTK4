@@ -83,7 +83,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)menuButton;
 
 /**
  * Methods

@@ -30,7 +30,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithText:(OFString*)text;
++ (instancetype)inscription:(OFString*)text;
 
 /**
  * Methods

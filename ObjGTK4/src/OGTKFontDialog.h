@@ -39,7 +39,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)fontDialog;
 
 /**
  * Methods

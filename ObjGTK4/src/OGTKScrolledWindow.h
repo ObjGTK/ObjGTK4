@@ -88,7 +88,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)scrolledWindow;
 
 /**
  * Methods

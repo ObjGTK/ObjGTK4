@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initvWithNcolumns:(int)ncolumns types:(GType*)types
++ (instancetype)treeStorevWithNcolumns:(int)ncolumns types:(GType*)types
 {
 	GtkTreeStore* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_store_newv(ncolumns, types), GtkTreeStore, GtkTreeStore);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKTreeStore* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeStore alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkTreeStore*)castedGObject

@@ -49,7 +49,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GListModel*)model mapFunc:(GtkMapListModelMapFunc)mapFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
++ (instancetype)mapListModelWithModel:(GListModel*)model mapFunc:(GtkMapListModelMapFunc)mapFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
 
 /**
  * Methods

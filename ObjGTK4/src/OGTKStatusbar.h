@@ -54,7 +54,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)statusbar;
 
 /**
  * Methods

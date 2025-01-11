@@ -32,7 +32,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithXalign:(float)xalign yalign:(float)yalign ratio:(float)ratio obeyChild:(bool)obeyChild;
++ (instancetype)aspectFrameWithXalign:(float)xalign yalign:(float)yalign ratio:(float)ratio obeyChild:(bool)obeyChild;
 
 /**
  * Methods

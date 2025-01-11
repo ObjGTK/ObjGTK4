@@ -27,7 +27,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)eventControllerFocus;
 
 /**
  * Methods

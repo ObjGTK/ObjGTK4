@@ -26,7 +26,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithExpression:(GtkExpression*)expression;
++ (instancetype)stringSorter:(GtkExpression*)expression;
 
 /**
  * Methods

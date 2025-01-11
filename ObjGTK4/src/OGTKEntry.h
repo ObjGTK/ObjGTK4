@@ -110,8 +110,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithBuffer:(OGTKEntryBuffer*)buffer;
++ (instancetype)entry;
++ (instancetype)entryWithBuffer:(OGTKEntryBuffer*)buffer;
 
 /**
  * Methods

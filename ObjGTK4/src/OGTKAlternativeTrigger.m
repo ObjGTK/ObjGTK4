@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithFirst:(OGTKShortcutTrigger*)first second:(OGTKShortcutTrigger*)second
++ (instancetype)alternativeTriggerWithFirst:(OGTKShortcutTrigger*)first second:(OGTKShortcutTrigger*)second
 {
 	GtkAlternativeTrigger* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_alternative_trigger_new([first castedGObject], [second castedGObject]), GtkAlternativeTrigger, GtkAlternativeTrigger);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKAlternativeTrigger* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKAlternativeTrigger alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkAlternativeTrigger*)castedGObject

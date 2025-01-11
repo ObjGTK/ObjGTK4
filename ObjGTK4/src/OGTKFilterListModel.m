@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithModel:(GListModel*)model filter:(OGTKFilter*)filter
++ (instancetype)filterListModelWithModel:(GListModel*)model filter:(OGTKFilter*)filter
 {
 	GtkFilterListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_filter_list_model_new(model, [filter castedGObject]), GtkFilterListModel, GtkFilterListModel);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKFilterListModel* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFilterListModel alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFilterListModel*)castedGObject

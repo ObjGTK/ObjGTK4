@@ -61,8 +61,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithArea:(OGTKCellArea*)area;
++ (instancetype)entryCompletion;
++ (instancetype)entryCompletionWithArea:(OGTKCellArea*)area;
 
 /**
  * Methods

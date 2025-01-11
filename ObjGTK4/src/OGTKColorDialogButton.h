@@ -38,7 +38,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithDialog:(OGTKColorDialog*)dialog;
++ (instancetype)colorDialogButton:(OGTKColorDialog*)dialog;
 
 /**
  * Methods

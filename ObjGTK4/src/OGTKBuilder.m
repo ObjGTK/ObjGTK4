@@ -18,68 +18,84 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)builder
 {
 	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new(), GtkBuilder, GtkBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithFilenameFromFile:(OFString*)filename
++ (instancetype)builderFromFile:(OFString*)filename
 {
 	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_file([filename UTF8String]), GtkBuilder, GtkBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath
++ (instancetype)builderFromResource:(OFString*)resourcePath
 {
 	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_resource([resourcePath UTF8String]), GtkBuilder, GtkBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromStringWithString:(OFString*)string length:(gssize)length
++ (instancetype)builderFromStringWithString:(OFString*)string length:(gssize)length
 {
 	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_string([string UTF8String], length), GtkBuilder, GtkBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkBuilder*)castedGObject

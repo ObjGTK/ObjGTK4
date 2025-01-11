@@ -42,7 +42,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithAttributes:(OFString*)attributes file:(GFile*)file;
++ (instancetype)directoryListWithAttributes:(OFString*)attributes file:(GFile*)file;
 
 /**
  * Methods

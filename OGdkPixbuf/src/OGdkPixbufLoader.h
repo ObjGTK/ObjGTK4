@@ -68,9 +68,9 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithMimeType:(OFString*)mimeType;
-- (instancetype)initWithImageTypeWithType:(OFString*)imageType;
++ (instancetype)pixbufLoader;
++ (instancetype)pixbufLoaderWithMimeType:(OFString*)mimeType;
++ (instancetype)pixbufLoaderWithType:(OFString*)imageType;
 
 /**
  * Methods

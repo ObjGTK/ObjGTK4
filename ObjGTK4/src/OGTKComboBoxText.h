@@ -75,8 +75,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithEntry;
++ (instancetype)comboBoxText;
++ (instancetype)comboBoxTextWithEntry;
 
 /**
  * Methods

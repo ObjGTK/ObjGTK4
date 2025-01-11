@@ -31,8 +31,7 @@
 
 
 /**
- * Convert data generated from [method@Pango.Coverage.to_bytes]
- * back to a `PangoCoverage`.
+ * This returns %NULL
  *
  * @param bytes binary data
  *   representing a `PangoCoverage`
@@ -44,7 +43,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)coverage;
 
 /**
  * Methods

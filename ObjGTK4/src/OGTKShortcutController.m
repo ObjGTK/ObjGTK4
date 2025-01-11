@@ -20,36 +20,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)shortcutController
 {
 	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new(), GtkShortcutController, GtkShortcutController);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKShortcutController* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKShortcutController alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithModelForModel:(GListModel*)model
++ (instancetype)shortcutControllerForModel:(GListModel*)model
 {
 	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new_for_model(model), GtkShortcutController, GtkShortcutController);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKShortcutController* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKShortcutController alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkShortcutController*)castedGObject

@@ -47,7 +47,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithStrings:(const char* const*)strings;
++ (instancetype)stringList:(const char* const*)strings;
 
 /**
  * Methods

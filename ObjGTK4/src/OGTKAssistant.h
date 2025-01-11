@@ -57,7 +57,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)assistant;
 
 /**
  * Methods

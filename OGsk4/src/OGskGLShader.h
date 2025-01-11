@@ -135,8 +135,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithSourcecodeFromBytes:(GBytes*)sourcecode;
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath;
++ (instancetype)gLShaderFromBytes:(GBytes*)sourcecode;
++ (instancetype)gLShaderFromResource:(OFString*)resourcePath;
 
 /**
  * Methods

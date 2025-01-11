@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithType:(GType)type actions:(GdkDragAction)actions
++ (instancetype)dropTargetWithType:(GType)type actions:(GdkDragAction)actions
 {
 	GtkDropTarget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drop_target_new(type, actions), GtkDropTarget, GtkDropTarget);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKDropTarget* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKDropTarget alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkDropTarget*)castedGObject

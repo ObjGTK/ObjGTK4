@@ -29,7 +29,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)gestureDrag;
 
 /**
  * Methods

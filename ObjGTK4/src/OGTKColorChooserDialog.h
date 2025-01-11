@@ -40,7 +40,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithTitle:(OFString*)title parent:(OGTKWindow*)parent;
++ (instancetype)colorChooserDialogWithTitle:(OFString*)title parent:(OGTKWindow*)parent;
 
 /**
  * Methods

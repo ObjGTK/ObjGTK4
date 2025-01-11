@@ -53,7 +53,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)stackSwitcher;
 
 /**
  * Methods

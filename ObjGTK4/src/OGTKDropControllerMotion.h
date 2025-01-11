@@ -28,7 +28,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)dropControllerMotion;
 
 /**
  * Methods

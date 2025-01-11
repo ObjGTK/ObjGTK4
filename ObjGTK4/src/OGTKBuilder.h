@@ -359,10 +359,10 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFilenameFromFile:(OFString*)filename;
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath;
-- (instancetype)initFromStringWithString:(OFString*)string length:(gssize)length;
++ (instancetype)builder;
++ (instancetype)builderFromFile:(OFString*)filename;
++ (instancetype)builderFromResource:(OFString*)resourcePath;
++ (instancetype)builderFromStringWithString:(OFString*)string length:(gssize)length;
 
 /**
  * Methods

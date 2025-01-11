@@ -36,7 +36,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)builderCScope;
 
 /**
  * Methods

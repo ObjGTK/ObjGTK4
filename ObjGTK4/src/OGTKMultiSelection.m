@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithModel:(GListModel*)model
++ (instancetype)multiSelection:(GListModel*)model
 {
 	GtkMultiSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_multi_selection_new(model), GtkMultiSelection, GtkMultiSelection);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMultiSelection* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMultiSelection alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkMultiSelection*)castedGObject

@@ -23,7 +23,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithRoot:(GListModel*)root passthrough:(bool)passthrough autoexpand:(bool)autoexpand createFunc:(GtkTreeListModelCreateModelFunc)createFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
++ (instancetype)treeListModelWithRoot:(GListModel*)root passthrough:(bool)passthrough autoexpand:(bool)autoexpand createFunc:(GtkTreeListModelCreateModelFunc)createFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
 
 /**
  * Methods

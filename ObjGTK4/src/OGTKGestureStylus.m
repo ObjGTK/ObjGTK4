@@ -21,20 +21,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)gestureStylus
 {
 	GtkGestureStylus* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_stylus_new(), GtkGestureStylus, GtkGestureStylus);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKGestureStylus* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKGestureStylus alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkGestureStylus*)castedGObject

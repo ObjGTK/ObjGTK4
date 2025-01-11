@@ -67,7 +67,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)aboutDialog;
 
 /**
  * Methods

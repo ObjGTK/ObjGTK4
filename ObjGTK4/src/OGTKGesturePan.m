@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithOrientation:(GtkOrientation)orientation
++ (instancetype)gesturePan:(GtkOrientation)orientation
 {
 	GtkGesturePan* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_pan_new(orientation), GtkGesturePan, GtkGesturePan);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKGesturePan* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKGesturePan alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkGesturePan*)castedGObject

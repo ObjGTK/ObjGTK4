@@ -51,7 +51,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)switch;
 
 /**
  * Methods

@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithSorter:(OGTKSorter*)sorter
++ (instancetype)treeListRowSorter:(OGTKSorter*)sorter
 {
 	GtkTreeListRowSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_list_row_sorter_new([sorter castedGObject]), GtkTreeListRowSorter, GtkTreeListRowSorter);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKTreeListRowSorter* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeListRowSorter alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkTreeListRowSorter*)castedGObject

@@ -38,7 +38,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithTrigger:(OGTKShortcutTrigger*)trigger action:(OGTKShortcutAction*)action;
++ (instancetype)shortcutWithTrigger:(OGTKShortcutTrigger*)trigger action:(OGTKShortcutAction*)action;
 
 /**
  * Methods

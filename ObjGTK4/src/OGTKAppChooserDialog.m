@@ -21,42 +21,50 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags file:(GFile*)file
++ (instancetype)appChooserDialogWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags file:(GFile*)file
 {
 	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new([parent castedGObject], flags, file), GtkAppChooserDialog, GtkAppChooserDialog);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKAppChooserDialog* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKAppChooserDialog alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initForContentTypeWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags contentType:(OFString*)contentType
++ (instancetype)appChooserDialogForContentTypeWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags contentType:(OFString*)contentType
 {
 	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new_for_content_type([parent castedGObject], flags, [contentType UTF8String]), GtkAppChooserDialog, GtkAppChooserDialog);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKAppChooserDialog* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKAppChooserDialog alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkAppChooserDialog*)castedGObject

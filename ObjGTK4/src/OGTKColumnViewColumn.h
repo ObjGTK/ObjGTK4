@@ -37,7 +37,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithTitle:(OFString*)title factory:(OGTKListItemFactory*)factory;
++ (instancetype)columnViewColumnWithTitle:(OFString*)title factory:(OGTKListItemFactory*)factory;
 
 /**
  * Methods

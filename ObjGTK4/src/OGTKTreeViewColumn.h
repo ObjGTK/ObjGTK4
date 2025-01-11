@@ -34,8 +34,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithArea:(OGTKCellArea*)area;
++ (instancetype)treeViewColumn;
++ (instancetype)treeViewColumnWithArea:(OGTKCellArea*)area;
 
 /**
  * Methods

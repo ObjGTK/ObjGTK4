@@ -20,84 +20,104 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)mediaFile
 {
 	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new(), GtkMediaFile, GtkMediaFile);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMediaFile* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMediaFile alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithFileForFile:(GFile*)file
++ (instancetype)mediaFileForFile:(GFile*)file
 {
 	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_file(file), GtkMediaFile, GtkMediaFile);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMediaFile* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMediaFile alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithFilenameForFilename:(OFString*)filename
++ (instancetype)mediaFileForFilename:(OFString*)filename
 {
 	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_filename([filename UTF8String]), GtkMediaFile, GtkMediaFile);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMediaFile* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMediaFile alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithStreamForInputStream:(OGInputStream*)stream
++ (instancetype)mediaFileForInputStream:(OGInputStream*)stream
 {
 	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_input_stream([stream castedGObject]), GtkMediaFile, GtkMediaFile);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMediaFile* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMediaFile alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithResourcePathForResource:(OFString*)resourcePath
++ (instancetype)mediaFileForResource:(OFString*)resourcePath
 {
 	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_resource([resourcePath UTF8String]), GtkMediaFile, GtkMediaFile);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMediaFile* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMediaFile alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkMediaFile*)castedGObject

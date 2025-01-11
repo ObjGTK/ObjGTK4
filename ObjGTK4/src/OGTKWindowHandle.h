@@ -32,7 +32,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)windowHandle;
 
 /**
  * Methods

@@ -22,7 +22,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)cellRendererProgress;
 
 /**
  * Methods

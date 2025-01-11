@@ -31,7 +31,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithExpression:(GtkExpression*)expression;
++ (instancetype)stringFilter:(GtkExpression*)expression;
 
 /**
  * Methods

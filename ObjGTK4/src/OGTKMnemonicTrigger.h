@@ -22,7 +22,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithKeyval:(guint)keyval;
++ (instancetype)mnemonicTrigger:(guint)keyval;
 
 /**
  * Methods

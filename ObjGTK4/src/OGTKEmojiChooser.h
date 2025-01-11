@@ -48,7 +48,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)emojiChooser;
 
 /**
  * Methods

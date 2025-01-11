@@ -109,8 +109,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithModel:(GtkTreeModel*)model;
++ (instancetype)treeView;
++ (instancetype)treeViewWithModel:(GtkTreeModel*)model;
 
 /**
  * Methods

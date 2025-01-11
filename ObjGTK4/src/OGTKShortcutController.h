@@ -60,8 +60,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithModelForModel:(GListModel*)model;
++ (instancetype)shortcutController;
++ (instancetype)shortcutControllerForModel:(GListModel*)model;
 
 /**
  * Methods

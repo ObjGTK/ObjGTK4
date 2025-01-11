@@ -19,7 +19,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithCallback:(GtkShortcutFunc)callback data:(gpointer)data destroy:(GDestroyNotify)destroy;
++ (instancetype)callbackActionWithCallback:(GtkShortcutFunc)callback data:(gpointer)data destroy:(GDestroyNotify)destroy;
 
 /**
  * Methods

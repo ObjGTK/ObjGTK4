@@ -184,7 +184,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)constraintLayout;
 
 /**
  * Methods

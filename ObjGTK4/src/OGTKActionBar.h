@@ -56,7 +56,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)actionBar;
 
 /**
  * Methods

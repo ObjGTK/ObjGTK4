@@ -295,19 +295,19 @@
 /**
  * Constructors
  */
-- (instancetype)initWithColorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height;
-- (instancetype)initFromBytesWithData:(GBytes*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride;
-- (instancetype)initFromDataWithData:(const guchar*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride destroyFn:(GdkPixbufDestroyNotify)destroyFn destroyFnData:(gpointer)destroyFnData;
-- (instancetype)initWithFilenameFromFile:(OFString*)filename;
-- (instancetype)initFromFileAtScaleWithFilename:(OFString*)filename width:(int)width height:(int)height preserveAspectRatio:(bool)preserveAspectRatio;
-- (instancetype)initFromFileAtSizeWithFilename:(OFString*)filename width:(int)width height:(int)height;
-- (instancetype)initFromInlineWithDataLength:(gint)dataLength data:(const guint8*)data copyPixels:(bool)copyPixels;
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath;
-- (instancetype)initFromResourceAtScaleWithResourcePath:(OFString*)resourcePath width:(int)width height:(int)height preserveAspectRatio:(bool)preserveAspectRatio;
-- (instancetype)initFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
-- (instancetype)initFromStreamAtScaleWithStream:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable;
-- (instancetype)initWithAsyncResultFromStreamFinish:(GAsyncResult*)asyncResult;
-- (instancetype)initWithDataFromXpmData:(const char**)data;
++ (instancetype)pixbufWithColorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height;
++ (instancetype)pixbufFromBytesWithData:(GBytes*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride;
++ (instancetype)pixbufFromDataWithData:(const guchar*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride destroyFn:(GdkPixbufDestroyNotify)destroyFn destroyFnData:(gpointer)destroyFnData;
++ (instancetype)pixbufFromFile:(OFString*)filename;
++ (instancetype)pixbufFromFileAtScaleWithFilename:(OFString*)filename width:(int)width height:(int)height preserveAspectRatio:(bool)preserveAspectRatio;
++ (instancetype)pixbufFromFileAtSizeWithFilename:(OFString*)filename width:(int)width height:(int)height;
++ (instancetype)pixbufFromInlineWithDataLength:(gint)dataLength data:(const guint8*)data copyPixels:(bool)copyPixels;
++ (instancetype)pixbufFromResource:(OFString*)resourcePath;
++ (instancetype)pixbufFromResourceAtScaleWithResourcePath:(OFString*)resourcePath width:(int)width height:(int)height preserveAspectRatio:(bool)preserveAspectRatio;
++ (instancetype)pixbufFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
++ (instancetype)pixbufFromStreamAtScaleWithStream:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable;
++ (instancetype)pixbufFromStreamFinish:(GAsyncResult*)asyncResult;
++ (instancetype)pixbufFromXpmData:(const char**)data;
 
 /**
  * Methods

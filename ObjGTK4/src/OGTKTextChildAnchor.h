@@ -26,8 +26,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithCharacterWithReplacement:(OFString*)character;
++ (instancetype)textChildAnchor;
++ (instancetype)textChildAnchorWithReplacement:(OFString*)character;
 
 /**
  * Methods

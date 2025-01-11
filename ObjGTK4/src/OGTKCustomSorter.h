@@ -20,7 +20,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
++ (instancetype)customSorterWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
 
 /**
  * Methods

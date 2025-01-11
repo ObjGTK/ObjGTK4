@@ -18,36 +18,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)fileFilter
 {
 	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new(), GtkFileFilter, GtkFileFilter);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKFileFilter* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFileFilter alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithVariantFromGvariant:(GVariant*)variant
++ (instancetype)fileFilterFromGvariant:(GVariant*)variant
 {
 	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new_from_gvariant(variant), GtkFileFilter, GtkFileFilter);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKFileFilter* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFileFilter alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFileFilter*)castedGObject

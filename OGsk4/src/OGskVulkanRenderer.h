@@ -4,11 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#include <gsk/gsk.h>
-
-#import <OGPango/OGPangoRenderer.h>
-
-@class OGskRenderer;
+#import "OGskRenderer.h"
 
 /**
  * A GSK renderer that is using Vulkan.
@@ -16,7 +12,7 @@
  * This renderer will fail to realize if Vulkan is not supported.
  *
  */
-@interface OGskVulkanRenderer : OGPangoRenderer
+@interface OGskVulkanRenderer : OGskRenderer
 {
 
 }
@@ -25,7 +21,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)vulkanRenderer;
 
 /**
  * Methods

@@ -48,10 +48,10 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithIconNameFromIconName:(OFString*)iconName;
-- (instancetype)initWithLabel:(OFString*)label;
-- (instancetype)initWithLabelWithMnemonic:(OFString*)label;
++ (instancetype)button;
++ (instancetype)buttonFromIconName:(OFString*)iconName;
++ (instancetype)buttonWithLabel:(OFString*)label;
++ (instancetype)buttonWithMnemonic:(OFString*)label;
 
 /**
  * Methods

@@ -36,7 +36,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithMin:(double)min max:(double)max step:(double)step icons:(const char**)icons;
++ (instancetype)scaleButtonWithMin:(double)min max:(double)max step:(double)step icons:(const char**)icons;
 
 /**
  * Methods

@@ -50,7 +50,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)overlay;
 
 /**
  * Methods

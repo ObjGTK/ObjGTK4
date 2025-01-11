@@ -20,36 +20,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initFromNameWithName:(OFString*)name fallback:(OGdkCursor*)fallback
++ (instancetype)cursorFromNameWithName:(OFString*)name fallback:(OGdkCursor*)fallback
 {
 	GdkCursor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_cursor_new_from_name([name UTF8String], [fallback castedGObject]), GdkCursor, GdkCursor);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkCursor* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkCursor alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromTextureWithTexture:(OGdkTexture*)texture hotspotX:(int)hotspotX hotspotY:(int)hotspotY fallback:(OGdkCursor*)fallback
++ (instancetype)cursorFromTextureWithTexture:(OGdkTexture*)texture hotspotX:(int)hotspotX hotspotY:(int)hotspotY fallback:(OGdkCursor*)fallback
 {
 	GdkCursor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_cursor_new_from_texture([texture castedGObject], hotspotX, hotspotY, [fallback castedGObject]), GdkCursor, GdkCursor);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkCursor* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkCursor alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkCursor*)castedGObject

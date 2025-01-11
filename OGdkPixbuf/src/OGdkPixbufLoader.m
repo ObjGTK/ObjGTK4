@@ -21,60 +21,72 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)pixbufLoader
 {
 	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new(), GdkPixbufLoader, GdkPixbufLoader);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkPixbufLoader* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufLoader alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithMimeType:(OFString*)mimeType
++ (instancetype)pixbufLoaderWithMimeType:(OFString*)mimeType
 {
 	GError* err = NULL;
 
 	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new_with_mime_type([mimeType UTF8String], &err), GdkPixbufLoader, GdkPixbufLoader);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkPixbufLoader* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufLoader alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithImageTypeWithType:(OFString*)imageType
++ (instancetype)pixbufLoaderWithType:(OFString*)imageType
 {
 	GError* err = NULL;
 
 	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new_with_type([imageType UTF8String], &err), GdkPixbufLoader, GdkPixbufLoader);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkPixbufLoader* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufLoader alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkPixbufLoader*)castedGObject

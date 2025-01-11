@@ -41,8 +41,8 @@
 /**
  * Constructors
  */
-- (instancetype)initFromBytesWithScope:(GtkBuilderScope*)scope bytes:(GBytes*)bytes;
-- (instancetype)initFromResourceWithScope:(GtkBuilderScope*)scope resourcePath:(OFString*)resourcePath;
++ (instancetype)builderListItemFactoryFromBytesWithScope:(GtkBuilderScope*)scope bytes:(GBytes*)bytes;
++ (instancetype)builderListItemFactoryFromResourceWithScope:(GtkBuilderScope*)scope resourcePath:(OFString*)resourcePath;
 
 /**
  * Methods

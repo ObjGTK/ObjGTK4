@@ -26,7 +26,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)cellRendererText;
 
 /**
  * Methods

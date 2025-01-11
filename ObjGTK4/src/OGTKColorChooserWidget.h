@@ -42,7 +42,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)colorChooserWidget;
 
 /**
  * Methods

@@ -31,7 +31,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithValue:(double)value lower:(double)lower upper:(double)upper stepIncrement:(double)stepIncrement pageIncrement:(double)pageIncrement pageSize:(double)pageSize;
++ (instancetype)adjustmentWithValue:(double)value lower:(double)lower upper:(double)upper stepIncrement:(double)stepIncrement pageIncrement:(double)pageIncrement pageSize:(double)pageSize;
 
 /**
  * Methods

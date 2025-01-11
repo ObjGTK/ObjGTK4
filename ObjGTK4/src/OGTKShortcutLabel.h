@@ -21,7 +21,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithAccelerator:(OFString*)accelerator;
++ (instancetype)shortcutLabel:(OFString*)accelerator;
 
 /**
  * Methods

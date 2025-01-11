@@ -97,7 +97,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)dragSource;
 
 /**
  * Methods

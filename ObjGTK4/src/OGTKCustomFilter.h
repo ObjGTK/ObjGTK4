@@ -19,7 +19,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithMatchFunc:(GtkCustomFilterFunc)matchFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
++ (instancetype)customFilterWithMatchFunc:(GtkCustomFilterFunc)matchFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
 
 /**
  * Methods

@@ -58,8 +58,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithBuffer:(OGTKTextBuffer*)buffer;
++ (instancetype)textView;
++ (instancetype)textViewWithBuffer:(OGTKTextBuffer*)buffer;
 
 /**
  * Methods

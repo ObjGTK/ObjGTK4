@@ -81,7 +81,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithContext:(OGPangoContext*)context;
++ (instancetype)layout:(OGPangoContext*)context;
 
 /**
  * Methods

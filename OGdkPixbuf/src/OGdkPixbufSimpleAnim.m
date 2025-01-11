@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithWidth:(gint)width height:(gint)height rate:(gfloat)rate
++ (instancetype)pixbufSimpleAnimWithWidth:(gint)width height:(gint)height rate:(gfloat)rate
 {
 	GdkPixbufSimpleAnim* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_simple_anim_new(width, height, rate), GdkPixbufSimpleAnim, GdkPixbufSimpleAnim);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkPixbufSimpleAnim* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufSimpleAnim alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkPixbufSimpleAnim*)castedGObject

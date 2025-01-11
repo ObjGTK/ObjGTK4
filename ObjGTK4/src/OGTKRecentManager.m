@@ -26,20 +26,24 @@
 	return returnValue;
 }
 
-- (instancetype)init
++ (instancetype)recentManager
 {
 	GtkRecentManager* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_recent_manager_new(), GtkRecentManager, GtkRecentManager);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKRecentManager* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKRecentManager alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkRecentManager*)castedGObject

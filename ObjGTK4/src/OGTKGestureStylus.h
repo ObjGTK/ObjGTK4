@@ -25,7 +25,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)gestureStylus;
 
 /**
  * Methods

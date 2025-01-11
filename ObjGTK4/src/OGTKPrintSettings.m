@@ -18,76 +18,92 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)printSettings
 {
 	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new(), GtkPrintSettings, GtkPrintSettings);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithFileNameFromFile:(OFString*)fileName
++ (instancetype)printSettingsFromFile:(OFString*)fileName
 {
 	GError* err = NULL;
 
 	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new_from_file([fileName UTF8String], &err), GtkPrintSettings, GtkPrintSettings);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithVariantFromGvariant:(GVariant*)variant
++ (instancetype)printSettingsFromGvariant:(GVariant*)variant
 {
 	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new_from_gvariant(variant), GtkPrintSettings, GtkPrintSettings);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
++ (instancetype)printSettingsFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	GError* err = NULL;
 
 	GtkPrintSettings* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_print_settings_new_from_key_file(keyFile, [groupName UTF8String], &err), GtkPrintSettings, GtkPrintSettings);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGTKPrintSettings* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPrintSettings alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkPrintSettings*)castedGObject

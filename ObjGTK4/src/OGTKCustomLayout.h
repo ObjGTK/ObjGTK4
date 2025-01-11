@@ -24,7 +24,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithRequestMode:(GtkCustomRequestModeFunc)requestMode measure:(GtkCustomMeasureFunc)measure allocate:(GtkCustomAllocateFunc)allocate;
++ (instancetype)customLayoutWithRequestMode:(GtkCustomRequestModeFunc)requestMode measure:(GtkCustomMeasureFunc)measure allocate:(GtkCustomAllocateFunc)allocate;
 
 /**
  * Methods

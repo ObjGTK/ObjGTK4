@@ -33,7 +33,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GListModel*)model filter:(OGTKFilter*)filter;
++ (instancetype)filterListModelWithModel:(GListModel*)model filter:(OGTKFilter*)filter;
 
 /**
  * Methods

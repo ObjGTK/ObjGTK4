@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithGroup:(GActionGroup*)group pad:(OGdkDevice*)pad
++ (instancetype)padControllerWithGroup:(GActionGroup*)group pad:(OGdkDevice*)pad
 {
 	GtkPadController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_pad_controller_new(group, [pad castedGObject]), GtkPadController, GtkPadController);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPadController* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPadController alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkPadController*)castedGObject

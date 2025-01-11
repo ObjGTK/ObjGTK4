@@ -96,7 +96,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)drawingArea;
 
 /**
  * Methods

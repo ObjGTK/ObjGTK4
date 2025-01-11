@@ -35,7 +35,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithUri:(OFString*)uri;
++ (instancetype)uriLauncher:(OFString*)uri;
 
 /**
  * Methods

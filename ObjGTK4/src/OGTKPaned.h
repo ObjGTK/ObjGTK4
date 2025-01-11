@@ -85,7 +85,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithOrientation:(GtkOrientation)orientation;
++ (instancetype)paned:(GtkOrientation)orientation;
 
 /**
  * Methods

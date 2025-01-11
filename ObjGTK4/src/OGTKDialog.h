@@ -141,7 +141,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)dialog;
 
 /**
  * Methods

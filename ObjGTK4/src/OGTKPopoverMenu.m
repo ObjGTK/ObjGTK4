@@ -21,42 +21,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithModelFromModel:(OGMenuModel*)model
++ (instancetype)popoverMenuFromModel:(OGMenuModel*)model
 {
 	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model([model castedGObject]), GtkPopoverMenu, GtkPopoverMenu);
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
+	OGTKPopoverMenu* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPopoverMenu alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags
++ (instancetype)popoverMenuFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags
 {
 	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model_full([model castedGObject], flags), GtkPopoverMenu, GtkPopoverMenu);
 
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
+	OGTKPopoverMenu* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPopoverMenu alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkPopoverMenu*)castedGObject

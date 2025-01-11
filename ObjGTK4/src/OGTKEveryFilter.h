@@ -21,7 +21,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)everyFilter;
 
 /**
  * Methods

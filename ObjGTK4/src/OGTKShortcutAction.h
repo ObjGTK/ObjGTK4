@@ -49,7 +49,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithStringParseString:(OFString*)string;
++ (instancetype)shortcutActionParseString:(OFString*)string;
 
 /**
  * Methods

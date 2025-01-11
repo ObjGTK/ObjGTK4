@@ -25,7 +25,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithStream:(OGTKMediaStream*)stream;
++ (instancetype)mediaControls:(OGTKMediaStream*)stream;
 
 /**
  * Methods

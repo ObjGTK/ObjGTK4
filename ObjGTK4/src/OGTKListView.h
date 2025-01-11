@@ -118,7 +118,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GtkSelectionModel*)model factory:(OGTKListItemFactory*)factory;
++ (instancetype)listViewWithModel:(GtkSelectionModel*)model factory:(OGTKListItemFactory*)factory;
 
 /**
  * Methods

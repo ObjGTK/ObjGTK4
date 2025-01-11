@@ -55,7 +55,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithName:(OFString*)name leftGravity:(bool)leftGravity;
++ (instancetype)textMarkWithName:(OFString*)name leftGravity:(bool)leftGravity;
 
 /**
  * Methods

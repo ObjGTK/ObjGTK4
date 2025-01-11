@@ -27,7 +27,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)gestureClick;
 
 /**
  * Methods

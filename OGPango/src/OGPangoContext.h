@@ -33,7 +33,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)context;
 
 /**
  * Methods

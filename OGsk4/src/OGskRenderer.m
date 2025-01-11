@@ -22,20 +22,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithSurfaceForSurface:(OGdkSurface*)surface
++ (instancetype)rendererForSurface:(OGdkSurface*)surface
 {
 	GskRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_renderer_new_for_surface([surface castedGObject]), GskRenderer, GskRenderer);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGskRenderer* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGskRenderer alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GskRenderer*)castedGObject

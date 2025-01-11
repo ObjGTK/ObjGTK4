@@ -59,13 +59,13 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFilenameFromFile:(OFString*)filename;
-- (instancetype)initWithIconFromGicon:(GIcon*)icon;
-- (instancetype)initWithIconNameFromIconName:(OFString*)iconName;
-- (instancetype)initWithPaintableFromPaintable:(GdkPaintable*)paintable;
-- (instancetype)initWithPixbufFromPixbuf:(OGdkPixbuf*)pixbuf;
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath;
++ (instancetype)image;
++ (instancetype)imageFromFile:(OFString*)filename;
++ (instancetype)imageFromGicon:(GIcon*)icon;
++ (instancetype)imageFromIconName:(OFString*)iconName;
++ (instancetype)imageFromPaintable:(GdkPaintable*)paintable;
++ (instancetype)imageFromPixbuf:(OGdkPixbuf*)pixbuf;
++ (instancetype)imageFromResource:(OFString*)resourcePath;
 
 /**
  * Methods

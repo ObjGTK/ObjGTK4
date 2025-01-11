@@ -20,42 +20,50 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithModel:(GListModel*)model expression:(GtkExpression*)expression
++ (instancetype)dropDownWithModel:(GListModel*)model expression:(GtkExpression*)expression
 {
 	GtkDropDown* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drop_down_new(model, expression), GtkDropDown, GtkDropDown);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKDropDown* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKDropDown alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithStringsFromStrings:(const char* const*)strings
++ (instancetype)dropDownFromStrings:(const char* const*)strings
 {
 	GtkDropDown* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drop_down_new_from_strings(strings), GtkDropDown, GtkDropDown);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKDropDown* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKDropDown alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkDropDown*)castedGObject

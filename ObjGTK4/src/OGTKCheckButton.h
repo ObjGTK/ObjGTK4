@@ -75,9 +75,9 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithLabel:(OFString*)label;
-- (instancetype)initWithLabelWithMnemonic:(OFString*)label;
++ (instancetype)checkButton;
++ (instancetype)checkButtonWithLabel:(OFString*)label;
++ (instancetype)checkButtonWithMnemonic:(OFString*)label;
 
 /**
  * Methods

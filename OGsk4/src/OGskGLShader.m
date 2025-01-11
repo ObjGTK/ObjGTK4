@@ -20,36 +20,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithSourcecodeFromBytes:(GBytes*)sourcecode
++ (instancetype)gLShaderFromBytes:(GBytes*)sourcecode
 {
 	GskGLShader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_gl_shader_new_from_bytes(sourcecode), GskGLShader, GskGLShader);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGskGLShader* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGskGLShader alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath
++ (instancetype)gLShaderFromResource:(OFString*)resourcePath
 {
 	GskGLShader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_gl_shader_new_from_resource([resourcePath UTF8String]), GskGLShader, GskGLShader);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGskGLShader* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGskGLShader alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GskGLShader*)castedGObject

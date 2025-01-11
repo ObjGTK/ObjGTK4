@@ -46,8 +46,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithUri:(OFString*)uri;
-- (instancetype)initWithLabelWithUri:(OFString*)uri label:(OFString*)label;
++ (instancetype)linkButton:(OFString*)uri;
++ (instancetype)linkButtonWithLabelWithUri:(OFString*)uri label:(OFString*)label;
 
 /**
  * Methods

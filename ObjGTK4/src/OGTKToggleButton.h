@@ -95,9 +95,9 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithLabel:(OFString*)label;
-- (instancetype)initWithLabelWithMnemonic:(OFString*)label;
++ (instancetype)toggleButton;
++ (instancetype)toggleButtonWithLabel:(OFString*)label;
++ (instancetype)toggleButtonWithMnemonic:(OFString*)label;
 
 /**
  * Methods

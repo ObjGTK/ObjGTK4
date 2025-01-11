@@ -89,7 +89,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)headerBar;
 
 /**
  * Methods

@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithModel:(GListModel*)model
++ (instancetype)flattenListModel:(GListModel*)model
 {
 	GtkFlattenListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_flatten_list_model_new(model), GtkFlattenListModel, GtkFlattenListModel);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKFlattenListModel* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFlattenListModel alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFlattenListModel*)castedGObject

@@ -52,7 +52,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithOrientation:(GtkOrientation)orientation spacing:(int)spacing;
++ (instancetype)boxWithOrientation:(GtkOrientation)orientation spacing:(int)spacing;
 
 /**
  * Methods

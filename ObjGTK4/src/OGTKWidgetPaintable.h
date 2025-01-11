@@ -42,7 +42,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithWidget:(OGTKWidget*)widget;
++ (instancetype)widgetPaintable:(OGTKWidget*)widget;
 
 /**
  * Methods

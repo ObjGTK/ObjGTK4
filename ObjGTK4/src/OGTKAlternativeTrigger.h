@@ -23,7 +23,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithFirst:(OGTKShortcutTrigger*)first second:(OGTKShortcutTrigger*)second;
++ (instancetype)alternativeTriggerWithFirst:(OGTKShortcutTrigger*)first second:(OGTKShortcutTrigger*)second;
 
 /**
  * Methods

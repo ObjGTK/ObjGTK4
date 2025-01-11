@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithName:(OFString*)name leftGravity:(bool)leftGravity
++ (instancetype)textMarkWithName:(OFString*)name leftGravity:(bool)leftGravity
 {
 	GtkTextMark* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_mark_new([name UTF8String], leftGravity), GtkTextMark, GtkTextMark);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKTextMark* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTextMark alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkTextMark*)castedGObject

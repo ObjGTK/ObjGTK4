@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithExpression:(GtkExpression*)expression
++ (instancetype)stringSorter:(GtkExpression*)expression
 {
 	GtkStringSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_sorter_new(expression), GtkStringSorter, GtkStringSorter);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKStringSorter* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKStringSorter alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkStringSorter*)castedGObject

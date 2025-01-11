@@ -21,20 +21,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithParent:(OGTKWindow*)parent
++ (instancetype)mountOperation:(OGTKWindow*)parent
 {
 	GtkMountOperation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_mount_operation_new([parent castedGObject]), GtkMountOperation, GtkMountOperation);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMountOperation* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMountOperation alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkMountOperation*)castedGObject

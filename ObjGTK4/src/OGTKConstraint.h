@@ -35,8 +35,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithTarget:(gpointer)target targetAttribute:(GtkConstraintAttribute)targetAttribute relation:(GtkConstraintRelation)relation source:(gpointer)source sourceAttribute:(GtkConstraintAttribute)sourceAttribute multiplier:(double)multiplier constant:(double)constant strength:(int)strength;
-- (instancetype)initConstantWithTarget:(gpointer)target targetAttribute:(GtkConstraintAttribute)targetAttribute relation:(GtkConstraintRelation)relation constant:(double)constant strength:(int)strength;
++ (instancetype)constraintWithTarget:(gpointer)target targetAttribute:(GtkConstraintAttribute)targetAttribute relation:(GtkConstraintRelation)relation source:(gpointer)source sourceAttribute:(GtkConstraintAttribute)sourceAttribute multiplier:(double)multiplier constant:(double)constant strength:(int)strength;
++ (instancetype)constraintConstantWithTarget:(gpointer)target targetAttribute:(GtkConstraintAttribute)targetAttribute relation:(GtkConstraintRelation)relation constant:(double)constant strength:(int)strength;
 
 /**
  * Methods

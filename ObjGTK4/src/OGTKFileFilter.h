@@ -64,8 +64,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithVariantFromGvariant:(GVariant*)variant;
++ (instancetype)fileFilter;
++ (instancetype)fileFilterFromGvariant:(GVariant*)variant;
 
 /**
  * Methods

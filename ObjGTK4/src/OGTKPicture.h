@@ -66,12 +66,12 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFileForFile:(GFile*)file;
-- (instancetype)initWithFilenameForFilename:(OFString*)filename;
-- (instancetype)initWithPaintableForPaintable:(GdkPaintable*)paintable;
-- (instancetype)initWithPixbufForPixbuf:(OGdkPixbuf*)pixbuf;
-- (instancetype)initWithResourcePathForResource:(OFString*)resourcePath;
++ (instancetype)picture;
++ (instancetype)pictureForFile:(GFile*)file;
++ (instancetype)pictureForFilename:(OFString*)filename;
++ (instancetype)pictureForPaintable:(GdkPaintable*)paintable;
++ (instancetype)pictureForPixbuf:(OGdkPixbuf*)pixbuf;
++ (instancetype)pictureForResource:(OFString*)resourcePath;
 
 /**
  * Methods

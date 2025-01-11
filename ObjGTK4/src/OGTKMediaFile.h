@@ -28,11 +28,11 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFileForFile:(GFile*)file;
-- (instancetype)initWithFilenameForFilename:(OFString*)filename;
-- (instancetype)initWithStreamForInputStream:(OGInputStream*)stream;
-- (instancetype)initWithResourcePathForResource:(OFString*)resourcePath;
++ (instancetype)mediaFile;
++ (instancetype)mediaFileForFile:(GFile*)file;
++ (instancetype)mediaFileForFilename:(OFString*)filename;
++ (instancetype)mediaFileForInputStream:(OGInputStream*)stream;
++ (instancetype)mediaFileForResource:(OFString*)resourcePath;
 
 /**
  * Methods

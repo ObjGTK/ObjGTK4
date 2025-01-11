@@ -38,7 +38,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithName:(OFString*)name;
++ (instancetype)textTag:(OFString*)name;
 
 /**
  * Methods

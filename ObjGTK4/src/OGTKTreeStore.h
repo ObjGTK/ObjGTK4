@@ -51,7 +51,7 @@
 /**
  * Constructors
  */
-- (instancetype)initvWithNcolumns:(int)ncolumns types:(GType*)types;
++ (instancetype)treeStorevWithNcolumns:(int)ncolumns types:(GType*)types;
 
 /**
  * Methods

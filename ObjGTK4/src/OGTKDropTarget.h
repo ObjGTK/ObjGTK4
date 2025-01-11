@@ -91,7 +91,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithType:(GType)type actions:(GdkDragAction)actions;
++ (instancetype)dropTargetWithType:(GType)type actions:(GdkDragAction)actions;
 
 /**
  * Methods

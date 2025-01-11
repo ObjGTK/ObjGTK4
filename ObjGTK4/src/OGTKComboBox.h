@@ -80,10 +80,10 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithEntry;
-- (instancetype)initWithModel:(GtkTreeModel*)model;
-- (instancetype)initWithModelAndEntry:(GtkTreeModel*)model;
++ (instancetype)comboBox;
++ (instancetype)comboBoxWithEntry;
++ (instancetype)comboBoxWithModel:(GtkTreeModel*)model;
++ (instancetype)comboBoxWithModelAndEntry:(GtkTreeModel*)model;
 
 /**
  * Methods

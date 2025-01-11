@@ -4,11 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-#include <gsk/gsk.h>
-
-#import <OGPango/OGPangoRenderer.h>
-
-@class OGskRenderer;
+#import "OGskRenderer.h"
 
 /**
  * A GSK renderer that is using cairo.
@@ -17,7 +13,7 @@
  * 3D transformations.
  *
  */
-@interface OGskCairoRenderer : OGPangoRenderer
+@interface OGskCairoRenderer : OGskRenderer
 {
 
 }
@@ -26,7 +22,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)cairoRenderer;
 
 /**
  * Methods

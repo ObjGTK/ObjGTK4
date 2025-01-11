@@ -6,8 +6,6 @@
 
 #import "OGskCairoRenderer.h"
 
-#import "OGskRenderer.h"
-
 @implementation OGskCairoRenderer
 
 + (void)load
@@ -20,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)cairoRenderer
 {
 	GskCairoRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_cairo_renderer_new(), GskCairoRenderer, GskCairoRenderer);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGskCairoRenderer* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGskCairoRenderer alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GskCairoRenderer*)castedGObject

@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initForFileWithFile:(GFile*)file size:(int)size scale:(int)scale
++ (instancetype)iconPaintableForFileWithFile:(GFile*)file size:(int)size scale:(int)scale
 {
 	GtkIconPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_paintable_new_for_file(file, size, scale), GtkIconPaintable, GtkIconPaintable);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKIconPaintable* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKIconPaintable alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkIconPaintable*)castedGObject

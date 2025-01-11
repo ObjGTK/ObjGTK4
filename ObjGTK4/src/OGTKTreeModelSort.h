@@ -116,7 +116,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithChildModelWithModel:(GtkTreeModel*)childModel;
++ (instancetype)treeModelSortWithModel:(GtkTreeModel*)childModel;
 
 /**
  * Methods

@@ -58,7 +58,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)signalListItemFactory;
 
 /**
  * Methods

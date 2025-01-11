@@ -18,23 +18,27 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithContentType:(OFString*)contentType
++ (instancetype)appChooserWidget:(OFString*)contentType
 {
 	GtkAppChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_widget_new([contentType UTF8String]), GtkAppChooserWidget, GtkAppChooserWidget);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKAppChooserWidget* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKAppChooserWidget alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkAppChooserWidget*)castedGObject

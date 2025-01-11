@@ -102,7 +102,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)grid;
 
 /**
  * Methods

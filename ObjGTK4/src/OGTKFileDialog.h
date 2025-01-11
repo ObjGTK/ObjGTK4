@@ -34,7 +34,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)fileDialog;
 
 /**
  * Methods

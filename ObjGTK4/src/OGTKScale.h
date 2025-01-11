@@ -102,8 +102,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment;
-- (instancetype)initWithRangeWithOrientation:(GtkOrientation)orientation min:(double)min max:(double)max step:(double)step;
++ (instancetype)scaleWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment;
++ (instancetype)scaleWithRangeWithOrientation:(GtkOrientation)orientation min:(double)min max:(double)max step:(double)step;
 
 /**
  * Methods

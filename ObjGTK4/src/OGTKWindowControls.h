@@ -68,7 +68,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithSide:(GtkPackType)side;
++ (instancetype)windowControls:(GtkPackType)side;
 
 /**
  * Methods

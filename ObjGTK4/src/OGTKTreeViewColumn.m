@@ -22,42 +22,50 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)treeViewColumn
 {
 	GtkTreeViewColumn* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_view_column_new(), GtkTreeViewColumn, GtkTreeViewColumn);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKTreeViewColumn* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeViewColumn alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithArea:(OGTKCellArea*)area
++ (instancetype)treeViewColumnWithArea:(OGTKCellArea*)area
 {
 	GtkTreeViewColumn* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_view_column_new_with_area([area castedGObject]), GtkTreeViewColumn, GtkTreeViewColumn);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKTreeViewColumn* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKTreeViewColumn alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkTreeViewColumn*)castedGObject

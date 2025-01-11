@@ -21,20 +21,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)gLTextureBuilder
 {
 	GdkGLTextureBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_gl_texture_builder_new(), GdkGLTextureBuilder, GdkGLTextureBuilder);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkGLTextureBuilder* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkGLTextureBuilder alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkGLTextureBuilder*)castedGObject

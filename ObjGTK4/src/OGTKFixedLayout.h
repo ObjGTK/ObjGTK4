@@ -49,7 +49,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)fixedLayout;
 
 /**
  * Methods

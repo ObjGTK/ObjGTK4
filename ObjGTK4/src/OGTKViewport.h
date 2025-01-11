@@ -38,7 +38,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithHadjustment:(OGTKAdjustment*)hadjustment vadjustment:(OGTKAdjustment*)vadjustment;
++ (instancetype)viewportWithHadjustment:(OGTKAdjustment*)hadjustment vadjustment:(OGTKAdjustment*)vadjustment;
 
 /**
  * Methods

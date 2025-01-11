@@ -60,10 +60,10 @@
 /**
  * Constructors
  */
-- (instancetype)initWithFilenameFromFile:(OFString*)filename;
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath;
-- (instancetype)initFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
-- (instancetype)initWithAsyncResultFromStreamFinish:(GAsyncResult*)asyncResult;
++ (instancetype)pixbufAnimationFromFile:(OFString*)filename;
++ (instancetype)pixbufAnimationFromResource:(OFString*)resourcePath;
++ (instancetype)pixbufAnimationFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
++ (instancetype)pixbufAnimationFromStreamFinish:(GAsyncResult*)asyncResult;
 
 /**
  * Methods

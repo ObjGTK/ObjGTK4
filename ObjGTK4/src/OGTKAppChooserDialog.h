@@ -38,8 +38,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags file:(GFile*)file;
-- (instancetype)initForContentTypeWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags contentType:(OFString*)contentType;
++ (instancetype)appChooserDialogWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags file:(GFile*)file;
++ (instancetype)appChooserDialogForContentTypeWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags contentType:(OFString*)contentType;
 
 /**
  * Methods

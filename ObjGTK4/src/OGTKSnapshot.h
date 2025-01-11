@@ -37,7 +37,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)snapshot;
 
 /**
  * Methods

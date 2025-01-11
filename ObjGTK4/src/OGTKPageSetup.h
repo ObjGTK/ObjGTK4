@@ -62,10 +62,10 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFileNameFromFile:(OFString*)fileName;
-- (instancetype)initWithVariantFromGvariant:(GVariant*)variant;
-- (instancetype)initFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
++ (instancetype)pageSetup;
++ (instancetype)pageSetupFromFile:(OFString*)fileName;
++ (instancetype)pageSetupFromGvariant:(GVariant*)variant;
++ (instancetype)pageSetupFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 /**
  * Methods

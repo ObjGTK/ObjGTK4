@@ -40,7 +40,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithTitle:(OFString*)title parent:(OGTKWindow*)parent;
++ (instancetype)fontChooserDialogWithTitle:(OFString*)title parent:(OGTKWindow*)parent;
 
 /**
  * Methods

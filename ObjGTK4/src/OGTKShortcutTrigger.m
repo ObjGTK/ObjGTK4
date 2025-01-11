@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithStringParseString:(OFString*)string
++ (instancetype)shortcutTriggerParseString:(OFString*)string
 {
 	GtkShortcutTrigger* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_trigger_parse_string([string UTF8String]), GtkShortcutTrigger, GtkShortcutTrigger);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKShortcutTrigger* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKShortcutTrigger alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkShortcutTrigger*)castedGObject

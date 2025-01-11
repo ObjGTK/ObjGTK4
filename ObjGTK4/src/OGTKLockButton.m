@@ -21,23 +21,27 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithPermission:(OGPermission*)permission
++ (instancetype)lockButton:(OGPermission*)permission
 {
 	GtkLockButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_lock_button_new([permission castedGObject]), GtkLockButton, GtkLockButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKLockButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKLockButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkLockButton*)castedGObject

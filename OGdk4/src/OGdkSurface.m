@@ -26,36 +26,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initPopupWithParent:(OGdkSurface*)parent autohide:(bool)autohide
++ (instancetype)surfacePopupWithParent:(OGdkSurface*)parent autohide:(bool)autohide
 {
 	GdkSurface* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_surface_new_popup([parent castedGObject], autohide), GdkSurface, GdkSurface);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkSurface* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkSurface alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithDisplayToplevel:(OGdkDisplay*)display
++ (instancetype)surfaceToplevel:(OGdkDisplay*)display
 {
 	GdkSurface* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_surface_new_toplevel([display castedGObject]), GdkSurface, GdkSurface);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkSurface* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkSurface alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkSurface*)castedGObject

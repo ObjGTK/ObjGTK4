@@ -45,9 +45,9 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithArea:(OGTKCellArea*)area;
-- (instancetype)initWithModel:(GtkTreeModel*)model;
++ (instancetype)iconView;
++ (instancetype)iconViewWithArea:(OGTKCellArea*)area;
++ (instancetype)iconViewWithModel:(GtkTreeModel*)model;
 
 /**
  * Methods

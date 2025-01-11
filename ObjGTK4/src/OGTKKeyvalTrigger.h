@@ -19,7 +19,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithKeyval:(guint)keyval modifiers:(GdkModifierType)modifiers;
++ (instancetype)keyvalTriggerWithKeyval:(guint)keyval modifiers:(GdkModifierType)modifiers;
 
 /**
  * Methods

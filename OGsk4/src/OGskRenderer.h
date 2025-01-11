@@ -35,7 +35,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithSurfaceForSurface:(OGdkSurface*)surface;
++ (instancetype)rendererForSurface:(OGdkSurface*)surface;
 
 /**
  * Methods

@@ -90,7 +90,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)recentManager;
 
 /**
  * Methods

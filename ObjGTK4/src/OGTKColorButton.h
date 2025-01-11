@@ -36,8 +36,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithRgba:(const GdkRGBA*)rgba;
++ (instancetype)colorButton;
++ (instancetype)colorButtonWithRgba:(const GdkRGBA*)rgba;
 
 /**
  * Methods

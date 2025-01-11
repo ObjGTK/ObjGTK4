@@ -52,7 +52,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)centerBox;
 
 /**
  * Methods

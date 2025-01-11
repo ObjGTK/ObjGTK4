@@ -126,7 +126,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)gLArea;
 
 /**
  * Methods

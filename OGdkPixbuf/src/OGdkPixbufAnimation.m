@@ -28,84 +28,100 @@
 	gdk_pixbuf_animation_new_from_stream_async([stream castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (instancetype)initWithFilenameFromFile:(OFString*)filename
++ (instancetype)pixbufAnimationFromFile:(OFString*)filename
 {
 	GError* err = NULL;
 
 	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_file([filename UTF8String], &err), GdkPixbufAnimation, GdkPixbufAnimation);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkPixbufAnimation* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufAnimation alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath
++ (instancetype)pixbufAnimationFromResource:(OFString*)resourcePath
 {
 	GError* err = NULL;
 
 	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_resource([resourcePath UTF8String], &err), GdkPixbufAnimation, GdkPixbufAnimation);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkPixbufAnimation* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufAnimation alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable
++ (instancetype)pixbufAnimationFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable
 {
 	GError* err = NULL;
 
 	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_stream([stream castedGObject], [cancellable castedGObject], &err), GdkPixbufAnimation, GdkPixbufAnimation);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkPixbufAnimation* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufAnimation alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithAsyncResultFromStreamFinish:(GAsyncResult*)asyncResult
++ (instancetype)pixbufAnimationFromStreamFinish:(GAsyncResult*)asyncResult
 {
 	GError* err = NULL;
 
 	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_stream_finish(asyncResult, &err), GdkPixbufAnimation, GdkPixbufAnimation);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkPixbufAnimation* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkPixbufAnimation alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkPixbufAnimation*)castedGObject

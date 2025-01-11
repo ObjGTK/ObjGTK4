@@ -87,7 +87,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GtkSelectionModel*)model;
++ (instancetype)columnView:(GtkSelectionModel*)model;
 
 /**
  * Methods

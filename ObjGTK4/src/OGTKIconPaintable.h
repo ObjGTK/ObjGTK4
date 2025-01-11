@@ -23,7 +23,7 @@
 /**
  * Constructors
  */
-- (instancetype)initForFileWithFile:(GFile*)file size:(int)size scale:(int)scale;
++ (instancetype)iconPaintableForFileWithFile:(GFile*)file size:(int)size scale:(int)scale;
 
 /**
  * Methods

@@ -21,52 +21,64 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initForBytesWithMimeType:(OFString*)mimeType bytes:(GBytes*)bytes
++ (instancetype)contentProviderForBytesWithMimeType:(OFString*)mimeType bytes:(GBytes*)bytes
 {
 	GdkContentProvider* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_content_provider_new_for_bytes([mimeType UTF8String], bytes), GdkContentProvider, GdkContentProvider);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkContentProvider* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkContentProvider alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithValueForValue:(const GValue*)value
++ (instancetype)contentProviderForValue:(const GValue*)value
 {
 	GdkContentProvider* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_content_provider_new_for_value(value), GdkContentProvider, GdkContentProvider);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkContentProvider* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkContentProvider alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initUnionWithProviders:(GdkContentProvider**)providers nproviders:(gsize)nproviders
++ (instancetype)contentProviderUnionWithProviders:(GdkContentProvider**)providers nproviders:(gsize)nproviders
 {
 	GdkContentProvider* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_content_provider_new_union(providers, nproviders), GdkContentProvider, GdkContentProvider);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkContentProvider* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkContentProvider alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkContentProvider*)castedGObject

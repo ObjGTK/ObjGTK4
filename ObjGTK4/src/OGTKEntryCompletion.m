@@ -21,36 +21,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)entryCompletion
 {
 	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new(), GtkEntryCompletion, GtkEntryCompletion);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKEntryCompletion* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKEntryCompletion alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithArea:(OGTKCellArea*)area
++ (instancetype)entryCompletionWithArea:(OGTKCellArea*)area
 {
 	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new_with_area([area castedGObject]), GtkEntryCompletion, GtkEntryCompletion);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKEntryCompletion* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKEntryCompletion alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkEntryCompletion*)castedGObject

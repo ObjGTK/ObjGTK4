@@ -74,7 +74,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)listBox;
 
 /**
  * Methods

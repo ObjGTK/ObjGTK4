@@ -25,7 +25,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithLanguage:(PangoLanguage*)language;
++ (instancetype)fontsetSimple:(PangoLanguage*)language;
 
 /**
  * Methods

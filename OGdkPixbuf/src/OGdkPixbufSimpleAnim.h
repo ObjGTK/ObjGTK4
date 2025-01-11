@@ -21,7 +21,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithWidth:(gint)width height:(gint)height rate:(gfloat)rate;
++ (instancetype)pixbufSimpleAnimWithWidth:(gint)width height:(gint)height rate:(gfloat)rate;
 
 /**
  * Methods

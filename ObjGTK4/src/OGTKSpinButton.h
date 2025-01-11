@@ -132,8 +132,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithAdjustment:(OGTKAdjustment*)adjustment climbRate:(double)climbRate digits:(guint)digits;
-- (instancetype)initWithRangeWithMin:(double)min max:(double)max step:(double)step;
++ (instancetype)spinButtonWithAdjustment:(OGTKAdjustment*)adjustment climbRate:(double)climbRate digits:(guint)digits;
++ (instancetype)spinButtonWithRangeWithMin:(double)min max:(double)max step:(double)step;
 
 /**
  * Methods

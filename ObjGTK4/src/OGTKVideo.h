@@ -34,11 +34,11 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFileForFile:(GFile*)file;
-- (instancetype)initWithFilenameForFilename:(OFString*)filename;
-- (instancetype)initWithStreamForMediaStream:(OGTKMediaStream*)stream;
-- (instancetype)initWithResourcePathForResource:(OFString*)resourcePath;
++ (instancetype)video;
++ (instancetype)videoForFile:(GFile*)file;
++ (instancetype)videoForFilename:(OFString*)filename;
++ (instancetype)videoForMediaStream:(OGTKMediaStream*)stream;
++ (instancetype)videoForResource:(OFString*)resourcePath;
 
 /**
  * Methods

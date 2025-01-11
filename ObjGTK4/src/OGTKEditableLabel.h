@@ -46,7 +46,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithStr:(OFString*)str;
++ (instancetype)editableLabel:(OFString*)str;
 
 /**
  * Methods

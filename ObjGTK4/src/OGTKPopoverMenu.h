@@ -131,8 +131,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModelFromModel:(OGMenuModel*)model;
-- (instancetype)initFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags;
++ (instancetype)popoverMenuFromModel:(OGMenuModel*)model;
++ (instancetype)popoverMenuFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags;
 
 /**
  * Methods

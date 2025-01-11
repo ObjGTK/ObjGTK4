@@ -54,7 +54,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithFormats:(GdkContentFormats*)formats actions:(GdkDragAction)actions;
++ (instancetype)dropTargetAsyncWithFormats:(GdkContentFormats*)formats actions:(GdkDragAction)actions;
 
 /**
  * Methods

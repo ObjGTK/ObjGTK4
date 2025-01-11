@@ -19,7 +19,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithName:(OFString*)name;
++ (instancetype)namedAction:(OFString*)name;
 
 /**
  * Methods

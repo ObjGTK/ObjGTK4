@@ -33,7 +33,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithStringParseString:(OFString*)string;
++ (instancetype)shortcutTriggerParseString:(OFString*)string;
 
 /**
  * Methods

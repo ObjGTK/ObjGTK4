@@ -80,7 +80,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)dmabufTextureBuilder;
 
 /**
  * Methods

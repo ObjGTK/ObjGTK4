@@ -24,7 +24,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)volumeButton;
 
 /**
  * Methods

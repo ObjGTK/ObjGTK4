@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithLanguage:(PangoLanguage*)language
++ (instancetype)fontsetSimple:(PangoLanguage*)language
 {
 	PangoFontsetSimple* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_fontset_simple_new(language), PangoFontsetSimple, PangoFontsetSimple);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGPangoFontsetSimple* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGPangoFontsetSimple alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (PangoFontsetSimple*)castedGObject

@@ -91,7 +91,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)infoBar;
 
 /**
  * Methods

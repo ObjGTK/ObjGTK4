@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithOrientation:(GtkOrientation)orientation
++ (instancetype)boxLayout:(GtkOrientation)orientation
 {
 	GtkBoxLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_box_layout_new(orientation), GtkBoxLayout, GtkBoxLayout);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBoxLayout* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBoxLayout alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkBoxLayout*)castedGObject

@@ -32,10 +32,10 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFileNameFromFile:(OFString*)fileName;
-- (instancetype)initWithVariantFromGvariant:(GVariant*)variant;
-- (instancetype)initFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
++ (instancetype)printSettings;
++ (instancetype)printSettingsFromFile:(OFString*)fileName;
++ (instancetype)printSettingsFromGvariant:(GVariant*)variant;
++ (instancetype)printSettingsFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 /**
  * Methods

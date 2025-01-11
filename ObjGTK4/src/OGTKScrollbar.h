@@ -62,7 +62,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment;
++ (instancetype)scrollbarWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment;
 
 /**
  * Methods

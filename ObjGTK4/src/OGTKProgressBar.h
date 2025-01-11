@@ -64,7 +64,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)progressBar;
 
 /**
  * Methods

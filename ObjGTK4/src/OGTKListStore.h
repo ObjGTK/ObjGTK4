@@ -163,7 +163,7 @@
 /**
  * Constructors
  */
-- (instancetype)initvWithNcolumns:(int)ncolumns types:(GType*)types;
++ (instancetype)listStorevWithNcolumns:(int)ncolumns types:(GType*)types;
 
 /**
  * Methods

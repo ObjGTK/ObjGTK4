@@ -112,7 +112,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)notebook;
 
 /**
  * Methods

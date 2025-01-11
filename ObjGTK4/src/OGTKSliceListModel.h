@@ -27,7 +27,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GListModel*)model offset:(guint)offset size:(guint)size;
++ (instancetype)sliceListModelWithModel:(GListModel*)model offset:(guint)offset size:(guint)size;
 
 /**
  * Methods

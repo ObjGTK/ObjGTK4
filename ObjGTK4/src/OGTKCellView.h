@@ -41,11 +41,11 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithContextWithArea:(OGTKCellArea*)area context:(OGTKCellAreaContext*)context;
-- (instancetype)initWithMarkup:(OFString*)markup;
-- (instancetype)initWithText:(OFString*)text;
-- (instancetype)initWithTexture:(OGdkTexture*)texture;
++ (instancetype)cellView;
++ (instancetype)cellViewWithContextWithArea:(OGTKCellArea*)area context:(OGTKCellAreaContext*)context;
++ (instancetype)cellViewWithMarkup:(OFString*)markup;
++ (instancetype)cellViewWithText:(OFString*)text;
++ (instancetype)cellViewWithTexture:(OGdkTexture*)texture;
 
 /**
  * Methods

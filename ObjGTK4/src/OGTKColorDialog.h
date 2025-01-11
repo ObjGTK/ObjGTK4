@@ -35,7 +35,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)colorDialog;
 
 /**
  * Methods

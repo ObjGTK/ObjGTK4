@@ -20,96 +20,116 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithPixbufForPixbuf:(OGdkPixbuf*)pixbuf
++ (instancetype)textureForPixbuf:(OGdkPixbuf*)pixbuf
 {
 	GdkTexture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_texture_new_for_pixbuf([pixbuf castedGObject]), GdkTexture, GdkTexture);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkTexture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkTexture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithBytesFromBytes:(GBytes*)bytes
++ (instancetype)textureFromBytes:(GBytes*)bytes
 {
 	GError* err = NULL;
 
 	GdkTexture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_texture_new_from_bytes(bytes, &err), GdkTexture, GdkTexture);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkTexture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkTexture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithFileFromFile:(GFile*)file
++ (instancetype)textureFromFile:(GFile*)file
 {
 	GError* err = NULL;
 
 	GdkTexture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_texture_new_from_file(file, &err), GdkTexture, GdkTexture);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkTexture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkTexture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithPathFromFilename:(OFString*)path
++ (instancetype)textureFromFilename:(OFString*)path
 {
 	GError* err = NULL;
 
 	GdkTexture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_texture_new_from_filename([path UTF8String], &err), GdkTexture, GdkTexture);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	[OGErrorException throwForError:err unrefGObject:gobjectValue];
 
+	OGdkTexture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkTexture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath
++ (instancetype)textureFromResource:(OFString*)resourcePath
 {
 	GdkTexture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_texture_new_from_resource([resourcePath UTF8String]), GdkTexture, GdkTexture);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGdkTexture* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGdkTexture alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GdkTexture*)castedGObject

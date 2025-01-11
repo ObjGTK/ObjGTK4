@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithExpression:(GtkExpression*)expression
++ (instancetype)boolFilter:(GtkExpression*)expression
 {
 	GtkBoolFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bool_filter_new(expression), GtkBoolFilter, GtkBoolFilter);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBoolFilter* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBoolFilter alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkBoolFilter*)castedGObject

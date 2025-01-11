@@ -49,7 +49,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModelFromModel:(OGMenuModel*)model;
++ (instancetype)popoverMenuBarFromModel:(OGMenuModel*)model;
 
 /**
  * Methods

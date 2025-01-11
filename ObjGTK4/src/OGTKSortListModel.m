@@ -20,20 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithModel:(GListModel*)model sorter:(OGTKSorter*)sorter
++ (instancetype)sortListModelWithModel:(GListModel*)model sorter:(OGTKSorter*)sorter
 {
 	GtkSortListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_sort_list_model_new(model, [sorter castedGObject]), GtkSortListModel, GtkSortListModel);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKSortListModel* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKSortListModel alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkSortListModel*)castedGObject

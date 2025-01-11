@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithFilename:(OFString*)filename attributes:(OFString*)attributes
++ (instancetype)bookmarkListWithFilename:(OFString*)filename attributes:(OFString*)attributes
 {
 	GtkBookmarkList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bookmark_list_new([filename UTF8String], [attributes UTF8String]), GtkBookmarkList, GtkBookmarkList);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBookmarkList* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBookmarkList alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkBookmarkList*)castedGObject

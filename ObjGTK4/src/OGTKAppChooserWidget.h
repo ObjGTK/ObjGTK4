@@ -41,7 +41,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithContentType:(OFString*)contentType;
++ (instancetype)appChooserWidget:(OFString*)contentType;
 
 /**
  * Methods

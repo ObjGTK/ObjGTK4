@@ -30,7 +30,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithInitialChars:(OFString*)initialChars ninitialChars:(int)ninitialChars;
++ (instancetype)entryBufferWithInitialChars:(OFString*)initialChars ninitialChars:(int)ninitialChars;
 
 /**
  * Methods

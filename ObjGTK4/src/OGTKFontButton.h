@@ -35,8 +35,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithFontnameWithFont:(OFString*)fontname;
++ (instancetype)fontButton;
++ (instancetype)fontButtonWithFont:(OFString*)fontname;
 
 /**
  * Methods

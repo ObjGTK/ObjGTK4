@@ -21,20 +21,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithFile:(GFile*)file
++ (instancetype)fileLauncher:(GFile*)file
 {
 	GtkFileLauncher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_launcher_new(file), GtkFileLauncher, GtkFileLauncher);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKFileLauncher* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKFileLauncher alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkFileLauncher*)castedGObject

@@ -20,7 +20,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithExpression:(GtkExpression*)expression;
++ (instancetype)boolFilter:(GtkExpression*)expression;
 
 /**
  * Methods

@@ -77,7 +77,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)iconTheme;
 
 /**
  * Methods

@@ -67,7 +67,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)stack;
 
 /**
  * Methods

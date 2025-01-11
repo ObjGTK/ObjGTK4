@@ -19,7 +19,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithWidth:(int)width height:(int)height format:(GdkMemoryFormat)format bytes:(GBytes*)bytes stride:(gsize)stride;
++ (instancetype)memoryTextureWithWidth:(int)width height:(int)height format:(GdkMemoryFormat)format bytes:(GBytes*)bytes stride:(gsize)stride;
 
 /**
  * Methods

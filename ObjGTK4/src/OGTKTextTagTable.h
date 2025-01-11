@@ -43,7 +43,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)textTagTable;
 
 /**
  * Methods

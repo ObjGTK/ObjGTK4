@@ -67,7 +67,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithGroup:(GActionGroup*)group pad:(OGdkDevice*)pad;
++ (instancetype)padControllerWithGroup:(GActionGroup*)group pad:(OGdkDevice*)pad;
 
 /**
  * Methods

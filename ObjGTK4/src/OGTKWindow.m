@@ -60,23 +60,27 @@
 	gtk_window_set_interactive_debugging(enable);
 }
 
-- (instancetype)init
++ (instancetype)window
 {
 	GtkWindow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_new(), GtkWindow, GtkWindow);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKWindow* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKWindow alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkWindow*)castedGObject

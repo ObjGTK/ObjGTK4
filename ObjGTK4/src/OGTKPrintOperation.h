@@ -86,7 +86,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)printOperation;
 
 /**
  * Methods

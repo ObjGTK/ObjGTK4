@@ -30,7 +30,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)cellRendererSpinner;
 
 /**
  * Methods

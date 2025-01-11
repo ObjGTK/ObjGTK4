@@ -64,7 +64,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithLabel:(OFString*)label;
++ (instancetype)frame:(OFString*)label;
 
 /**
  * Methods

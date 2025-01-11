@@ -202,8 +202,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithStr:(OFString*)str;
-- (instancetype)initWithStrWithMnemonic:(OFString*)str;
++ (instancetype)label:(OFString*)str;
++ (instancetype)labelWithMnemonic:(OFString*)str;
 
 /**
  * Methods

@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)init
++ (instancetype)passwordEntryBuffer
 {
 	GtkPasswordEntryBuffer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_password_entry_buffer_new(), GtkPasswordEntryBuffer, GtkPasswordEntryBuffer);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKPasswordEntryBuffer* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKPasswordEntryBuffer alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkPasswordEntryBuffer*)castedGObject

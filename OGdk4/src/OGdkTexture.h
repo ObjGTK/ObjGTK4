@@ -37,11 +37,11 @@
 /**
  * Constructors
  */
-- (instancetype)initWithPixbufForPixbuf:(OGdkPixbuf*)pixbuf;
-- (instancetype)initWithBytesFromBytes:(GBytes*)bytes;
-- (instancetype)initWithFileFromFile:(GFile*)file;
-- (instancetype)initWithPathFromFilename:(OFString*)path;
-- (instancetype)initWithResourcePathFromResource:(OFString*)resourcePath;
++ (instancetype)textureForPixbuf:(OGdkPixbuf*)pixbuf;
++ (instancetype)textureFromBytes:(GBytes*)bytes;
++ (instancetype)textureFromFile:(GFile*)file;
++ (instancetype)textureFromFilename:(OFString*)path;
++ (instancetype)textureFromResource:(OFString*)resourcePath;
 
 /**
  * Methods

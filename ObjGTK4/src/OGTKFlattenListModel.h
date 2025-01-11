@@ -24,7 +24,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GListModel*)model;
++ (instancetype)flattenListModel:(GListModel*)model;
 
 /**
  * Methods

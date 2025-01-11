@@ -76,8 +76,8 @@
 /**
  * Constructors
  */
-- (instancetype)initWithModel:(GListModel*)model expression:(GtkExpression*)expression;
-- (instancetype)initWithStringsFromStrings:(const char* const*)strings;
++ (instancetype)dropDownWithModel:(GListModel*)model expression:(GtkExpression*)expression;
++ (instancetype)dropDownFromStrings:(const char* const*)strings;
 
 /**
  * Methods

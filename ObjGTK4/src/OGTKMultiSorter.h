@@ -23,7 +23,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)multiSorter;
 
 /**
  * Methods

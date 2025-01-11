@@ -32,7 +32,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithOrientation:(GtkOrientation)orientation;
++ (instancetype)boxLayout:(GtkOrientation)orientation;
 
 /**
  * Methods

@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithKeyval:(guint)keyval
++ (instancetype)mnemonicTrigger:(guint)keyval
 {
 	GtkMnemonicTrigger* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_mnemonic_trigger_new(keyval), GtkMnemonicTrigger, GtkMnemonicTrigger);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKMnemonicTrigger* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKMnemonicTrigger alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkMnemonicTrigger*)castedGObject

@@ -32,9 +32,9 @@
 /**
  * Constructors
  */
-- (instancetype)initForBytesWithMimeType:(OFString*)mimeType bytes:(GBytes*)bytes;
-- (instancetype)initWithValueForValue:(const GValue*)value;
-- (instancetype)initUnionWithProviders:(GdkContentProvider**)providers nproviders:(gsize)nproviders;
++ (instancetype)contentProviderForBytesWithMimeType:(OFString*)mimeType bytes:(GBytes*)bytes;
++ (instancetype)contentProviderForValue:(const GValue*)value;
++ (instancetype)contentProviderUnionWithProviders:(GdkContentProvider**)providers nproviders:(gsize)nproviders;
 
 /**
  * Methods

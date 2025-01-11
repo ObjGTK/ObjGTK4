@@ -95,7 +95,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)popover;
 
 /**
  * Methods

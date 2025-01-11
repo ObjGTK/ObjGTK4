@@ -28,7 +28,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithFilename:(OFString*)filename attributes:(OFString*)attributes;
++ (instancetype)bookmarkListWithFilename:(OFString*)filename attributes:(OFString*)attributes;
 
 /**
  * Methods

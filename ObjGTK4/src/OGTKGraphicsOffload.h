@@ -54,7 +54,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithChild:(OGTKWidget*)child;
++ (instancetype)graphicsOffload:(OGTKWidget*)child;
 
 /**
  * Methods

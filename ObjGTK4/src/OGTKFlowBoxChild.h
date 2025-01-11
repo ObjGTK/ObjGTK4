@@ -19,7 +19,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)flowBoxChild;
 
 /**
  * Methods

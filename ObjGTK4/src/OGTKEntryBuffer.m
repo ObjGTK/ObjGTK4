@@ -18,20 +18,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithInitialChars:(OFString*)initialChars ninitialChars:(int)ninitialChars
++ (instancetype)entryBufferWithInitialChars:(OFString*)initialChars ninitialChars:(int)ninitialChars
 {
 	GtkEntryBuffer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_buffer_new([initialChars UTF8String], ninitialChars), GtkEntryBuffer, GtkEntryBuffer);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKEntryBuffer* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKEntryBuffer alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkEntryBuffer*)castedGObject

@@ -18,36 +18,44 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initFromBytesWithScope:(GtkBuilderScope*)scope bytes:(GBytes*)bytes
++ (instancetype)builderListItemFactoryFromBytesWithScope:(GtkBuilderScope*)scope bytes:(GBytes*)bytes
 {
 	GtkBuilderListItemFactory* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_list_item_factory_new_from_bytes(scope, bytes), GtkBuilderListItemFactory, GtkBuilderListItemFactory);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilderListItemFactory* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilderListItemFactory alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initFromResourceWithScope:(GtkBuilderScope*)scope resourcePath:(OFString*)resourcePath
++ (instancetype)builderListItemFactoryFromResourceWithScope:(GtkBuilderScope*)scope resourcePath:(OFString*)resourcePath
 {
 	GtkBuilderListItemFactory* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_list_item_factory_new_from_resource(scope, [resourcePath UTF8String]), GtkBuilderListItemFactory, GtkBuilderListItemFactory);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	OGTKBuilderListItemFactory* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKBuilderListItemFactory alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkBuilderListItemFactory*)castedGObject

@@ -20,23 +20,27 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithMin:(double)min max:(double)max step:(double)step icons:(const char**)icons
++ (instancetype)scaleButtonWithMin:(double)min max:(double)max step:(double)step icons:(const char**)icons
 {
 	GtkScaleButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_scale_button_new(min, max, step, icons), GtkScaleButton, GtkScaleButton);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKScaleButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKScaleButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkScaleButton*)castedGObject

@@ -36,7 +36,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithTable:(OGTKTextTagTable*)table;
++ (instancetype)textBuffer:(OGTKTextTagTable*)table;
 
 /**
  * Methods

@@ -35,7 +35,7 @@
 /**
  * Constructors
  */
-- (instancetype)initWithFile:(GFile*)file;
++ (instancetype)fileLauncher:(GFile*)file;
 
 /**
  * Methods

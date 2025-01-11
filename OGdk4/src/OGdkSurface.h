@@ -37,8 +37,8 @@
 /**
  * Constructors
  */
-- (instancetype)initPopupWithParent:(OGdkSurface*)parent autohide:(bool)autohide;
-- (instancetype)initWithDisplayToplevel:(OGdkDisplay*)display;
++ (instancetype)surfacePopupWithParent:(OGdkSurface*)parent autohide:(bool)autohide;
++ (instancetype)surfaceToplevel:(OGdkDisplay*)display;
 
 /**
  * Methods

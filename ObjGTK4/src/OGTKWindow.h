@@ -161,7 +161,7 @@
 /**
  * Constructors
  */
-- (instancetype)init;
++ (instancetype)window;
 
 /**
  * Methods

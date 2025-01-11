@@ -83,8 +83,8 @@
 /**
  * Constructors
  */
-- (instancetype)init;
-- (instancetype)initWithBuffer:(OGTKEntryBuffer*)buffer;
++ (instancetype)text;
++ (instancetype)textWithBuffer:(OGTKEntryBuffer*)buffer;
 
 /**
  * Methods

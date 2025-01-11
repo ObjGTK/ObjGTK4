@@ -56,8 +56,8 @@
 /**
  * Constructors
  */
-- (instancetype)initFromNameWithName:(OFString*)name fallback:(OGdkCursor*)fallback;
-- (instancetype)initFromTextureWithTexture:(OGdkTexture*)texture hotspotX:(int)hotspotX hotspotY:(int)hotspotY fallback:(OGdkCursor*)fallback;
++ (instancetype)cursorFromNameWithName:(OFString*)name fallback:(OGdkCursor*)fallback;
++ (instancetype)cursorFromTextureWithTexture:(OGdkTexture*)texture hotspotX:(int)hotspotX hotspotY:(int)hotspotY fallback:(OGdkCursor*)fallback;
 
 /**
  * Methods

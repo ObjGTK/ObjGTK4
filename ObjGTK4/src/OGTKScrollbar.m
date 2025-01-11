@@ -20,23 +20,27 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment
++ (instancetype)scrollbarWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment
 {
 	GtkScrollbar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_scrollbar_new(orientation, [adjustment castedGObject]), GtkScrollbar, GtkScrollbar);
+
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKScrollbar* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKScrollbar alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkScrollbar*)castedGObject

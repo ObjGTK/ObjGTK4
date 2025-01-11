@@ -20,42 +20,50 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-- (instancetype)initWithUri:(OFString*)uri
++ (instancetype)linkButton:(OFString*)uri
 {
 	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new([uri UTF8String]), GtkLinkButton, GtkLinkButton);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKLinkButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKLinkButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
-- (instancetype)initWithLabelWithUri:(OFString*)uri label:(OFString*)label
++ (instancetype)linkButtonWithLabelWithUri:(OFString*)uri label:(OFString*)label
 {
 	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new_with_label([uri UTF8String], [label UTF8String]), GtkLinkButton, GtkLinkButton);
 
+	if OF_UNLIKELY(!gobjectValue)
+		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
 	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
 	g_object_ref_sink(gobjectValue);
 
+	OGTKLinkButton* wrapperObject;
 	@try {
-		self = [super initWithGObject:gobjectValue];
+		wrapperObject = [[OGTKLinkButton alloc] initWithGObject:gobjectValue];
 	} @catch (id e) {
 		g_object_unref(gobjectValue);
-		[self release];
+		[wrapperObject release];
 		@throw e;
 	}
 
 	g_object_unref(gobjectValue);
-	return self;
+	return [wrapperObject autorelease];
 }
 
 - (GtkLinkButton*)castedGObject
