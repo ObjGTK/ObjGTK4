@@ -27,6 +27,9 @@
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	OGTKEmojiChooser* wrapperObject;
 	@try {
 		wrapperObject = [[OGTKEmojiChooser alloc] initWithGObject:gobjectValue];

@@ -1457,7 +1457,7 @@
  * @return The object built in the template XML with
  *   the id @name
  */
-- (GObject*)templateChildWithWidgetType:(GType)widgetType name:(OFString*)name;
+- (OGObject*)templateChildWithWidgetType:(GType)widgetType name:(OFString*)name;
 
 /**
  * Gets the contents of the tooltip for @widget.

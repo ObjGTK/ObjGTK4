@@ -511,7 +511,7 @@
  * @param object Object to create the closure with
  * @return A new closure for invoking @function_name
  */
-- (GClosure*)createClosureWithFunctionName:(OFString*)functionName flags:(GtkBuilderClosureFlags)flags object:(GObject*)object;
+- (GClosure*)createClosureWithFunctionName:(OFString*)functionName flags:(GtkBuilderClosureFlags)flags object:(OGObject*)object;
 
 /**
  * Add @object to the @builder object pool so it can be
@@ -525,7 +525,7 @@
  * @param name the name of the object exposed to the builder
  * @param object the object to expose
  */
-- (void)exposeObjectWithName:(OFString*)name object:(GObject*)object;
+- (void)exposeObjectWithName:(OFString*)name object:(OGObject*)object;
 
 /**
  * Main private entry point for building composite components
@@ -540,14 +540,14 @@
  * @param length the length of @buffer (may be -1 if @buffer is nul-terminated)
  * @return A positive value on success, 0 if an error occurred
  */
-- (bool)extendWithTemplateWithObject:(GObject*)object templateType:(GType)templateType buffer:(OFString*)buffer length:(gssize)length;
+- (bool)extendWithTemplateWithObject:(OGObject*)object templateType:(GType)templateType buffer:(OFString*)buffer length:(gssize)length;
 
 /**
  * Gets the current object set via gtk_builder_set_current_object().
  *
  * @return the current object
  */
-- (GObject*)currentObject;
+- (OGObject*)currentObject;
 
 /**
  * Gets the object named @name.
@@ -558,7 +558,7 @@
  * @param name name of object to get
  * @return the object named @name
  */
-- (GObject*)object:(OFString*)name;
+- (OGObject*)object:(OFString*)name;
 
 /**
  * Gets all objects that have been constructed by @builder.
@@ -613,7 +613,7 @@
  *
  * @param currentObject the new current object
  */
-- (void)setCurrentObject:(GObject*)currentObject;
+- (void)setCurrentObject:(OGObject*)currentObject;
 
 /**
  * Sets the scope the builder should operate in.

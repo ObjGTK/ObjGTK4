@@ -581,10 +581,11 @@
 	return returnValue;
 }
 
-- (GObject*)templateChildWithWidgetType:(GType)widgetType name:(OFString*)name
+- (OGObject*)templateChildWithWidgetType:(GType)widgetType name:(OFString*)name
 {
-	GObject* returnValue = (GObject*)gtk_widget_get_template_child([self castedGObject], widgetType, [name UTF8String]);
+	GObject* gobjectValue = gtk_widget_get_template_child([self castedGObject], widgetType, [name UTF8String]);
 
+	OGObject* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 

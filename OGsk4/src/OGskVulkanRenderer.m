@@ -6,6 +6,8 @@
 
 #import "OGskVulkanRenderer.h"
 
+#import "OGskRenderer.h"
+
 @implementation OGskVulkanRenderer
 
 + (void)load

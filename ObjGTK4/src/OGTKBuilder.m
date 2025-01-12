@@ -169,7 +169,7 @@
 	return returnValue;
 }
 
-- (GClosure*)createClosureWithFunctionName:(OFString*)functionName flags:(GtkBuilderClosureFlags)flags object:(GObject*)object
+- (GClosure*)createClosureWithFunctionName:(OFString*)functionName flags:(GtkBuilderClosureFlags)flags object:(OGObject*)object
 {
 	GError* err = NULL;
 
@@ -180,12 +180,12 @@
 	return returnValue;
 }
 
-- (void)exposeObjectWithName:(OFString*)name object:(GObject*)object
+- (void)exposeObjectWithName:(OFString*)name object:(OGObject*)object
 {
 	gtk_builder_expose_object([self castedGObject], [name UTF8String], object);
 }
 
-- (bool)extendWithTemplateWithObject:(GObject*)object templateType:(GType)templateType buffer:(OFString*)buffer length:(gssize)length
+- (bool)extendWithTemplateWithObject:(OGObject*)object templateType:(GType)templateType buffer:(OFString*)buffer length:(gssize)length
 {
 	GError* err = NULL;
 
@@ -196,17 +196,19 @@
 	return returnValue;
 }
 
-- (GObject*)currentObject
+- (OGObject*)currentObject
 {
-	GObject* returnValue = (GObject*)gtk_builder_get_current_object([self castedGObject]);
+	GObject* gobjectValue = gtk_builder_get_current_object([self castedGObject]);
 
+	OGObject* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
-- (GObject*)object:(OFString*)name
+- (OGObject*)object:(OFString*)name
 {
-	GObject* returnValue = (GObject*)gtk_builder_get_object([self castedGObject], [name UTF8String]);
+	GObject* gobjectValue = gtk_builder_get_object([self castedGObject], [name UTF8String]);
 
+	OGObject* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
 }
 
@@ -239,7 +241,7 @@
 	return returnValue;
 }
 
-- (void)setCurrentObject:(GObject*)currentObject
+- (void)setCurrentObject:(OGObject*)currentObject
 {
 	gtk_builder_set_current_object([self castedGObject], currentObject);
 }

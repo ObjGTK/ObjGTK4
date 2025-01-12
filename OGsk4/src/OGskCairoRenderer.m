@@ -6,6 +6,8 @@
 
 #import "OGskCairoRenderer.h"
 
+#import "OGskRenderer.h"
+
 @implementation OGskCairoRenderer
 
 + (void)load
