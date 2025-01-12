@@ -173,7 +173,7 @@
 {
 	GError* err = NULL;
 
-	GClosure* returnValue = (GClosure*)gtk_builder_create_closure([self castedGObject], [functionName UTF8String], flags, object, &err);
+	GClosure* returnValue = (GClosure*)gtk_builder_create_closure([self castedGObject], [functionName UTF8String], flags, [object gObject], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -182,14 +182,14 @@
 
 - (void)exposeObjectWithName:(OFString*)name object:(OGObject*)object
 {
-	gtk_builder_expose_object([self castedGObject], [name UTF8String], object);
+	gtk_builder_expose_object([self castedGObject], [name UTF8String], [object gObject]);
 }
 
 - (bool)extendWithTemplateWithObject:(OGObject*)object templateType:(GType)templateType buffer:(OFString*)buffer length:(gssize)length
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_extend_with_template([self castedGObject], object, templateType, [buffer UTF8String], length, &err);
+	bool returnValue = (bool)gtk_builder_extend_with_template([self castedGObject], [object gObject], templateType, [buffer UTF8String], length, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -243,7 +243,7 @@
 
 - (void)setCurrentObject:(OGObject*)currentObject
 {
-	gtk_builder_set_current_object([self castedGObject], currentObject);
+	gtk_builder_set_current_object([self castedGObject], [currentObject gObject]);
 }
 
 - (void)setScope:(GtkBuilderScope*)scope

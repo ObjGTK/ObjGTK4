@@ -31,7 +31,8 @@
 
 
 /**
- * This returns %NULL
+ * Convert data generated from [method@Pango.Coverage.to_bytes]
+ * back to a `PangoCoverage`.
  *
  * @param bytes binary data
  *   representing a `PangoCoverage`
