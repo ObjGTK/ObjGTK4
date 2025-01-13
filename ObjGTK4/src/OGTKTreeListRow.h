@@ -41,7 +41,7 @@
  * @param position position of the child to get
  * @return the child in @position
  */
-- (OGTKTreeListRow*)childRow:(guint)position;
+- (OGTKTreeListRow*)childRowWithPosition:(guint)position;
 
 /**
  * If the row is expanded, gets the model holding the children of @self.

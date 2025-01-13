@@ -63,7 +63,7 @@
  *
  * @param region minimum region that should be drawn
  */
-- (void)beginFrame:(const cairo_region_t*)region;
+- (void)beginFrameWithRegion:(const cairo_region_t*)region;
 
 /**
  * Ends a drawing operation started with gdk_draw_context_begin_frame().

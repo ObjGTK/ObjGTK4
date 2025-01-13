@@ -166,7 +166,7 @@
  *
  * @param identifier ID to use for this column
  */
-- (void)setId:(OFString*)identifier;
+- (void)setIdWithIdentifier:(OFString*)identifier;
 
 /**
  * Sets whether this column should be resizable by dragging.

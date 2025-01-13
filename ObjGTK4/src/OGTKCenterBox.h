@@ -115,7 +115,7 @@
  *
  * @param child the new center widget
  */
-- (void)setCenterWidget:(OGTKWidget*)child;
+- (void)setCenterWidgetWithChild:(OGTKWidget*)child;
 
 /**
  * Sets the end widget.
@@ -124,7 +124,7 @@
  *
  * @param child the new end widget
  */
-- (void)setEndWidget:(OGTKWidget*)child;
+- (void)setEndWidgetWithChild:(OGTKWidget*)child;
 
 /**
  * Sets whether to shrink the center widget after other children.
@@ -147,6 +147,6 @@
  *
  * @param child the new start widget
  */
-- (void)setStartWidget:(OGTKWidget*)child;
+- (void)setStartWidgetWithChild:(OGTKWidget*)child;
 
 @end

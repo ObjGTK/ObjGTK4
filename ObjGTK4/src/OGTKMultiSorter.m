@@ -43,12 +43,12 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMultiSorter, GtkMultiSorter);
 }
 
-- (void)append:(OGTKSorter*)sorter
+- (void)appendWithSorter:(OGTKSorter*)sorter
 {
 	gtk_multi_sorter_append([self castedGObject], [sorter castedGObject]);
 }
 
-- (void)remove:(guint)position
+- (void)removeWithPosition:(guint)position
 {
 	gtk_multi_sorter_remove([self castedGObject], position);
 }

@@ -23,7 +23,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeListRow, GtkTreeListRow);
 }
 
-- (OGTKTreeListRow*)childRow:(guint)position
+- (OGTKTreeListRow*)childRowWithPosition:(guint)position
 {
 	GtkTreeListRow* gobjectValue = gtk_tree_list_row_get_child_row([self castedGObject], position);
 

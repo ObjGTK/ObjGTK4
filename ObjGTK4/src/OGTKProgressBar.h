@@ -142,7 +142,7 @@
  *
  * @param mode a `PangoEllipsizeMode`
  */
-- (void)setEllipsize:(PangoEllipsizeMode)mode;
+- (void)setEllipsizeWithMode:(PangoEllipsizeMode)mode;
 
 /**
  * Causes the progress bar to “fill in” the given fraction
@@ -173,7 +173,7 @@
  *
  * @param fraction fraction between 0.0 and 1.0
  */
-- (void)setPulseStep:(double)fraction;
+- (void)setPulseStepWithFraction:(double)fraction;
 
 /**
  * Sets whether the progress bar will show text next to the bar.

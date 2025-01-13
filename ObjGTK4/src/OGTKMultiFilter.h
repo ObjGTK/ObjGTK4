@@ -27,7 +27,7 @@
  *
  * @param filter A new filter to use
  */
-- (void)append:(OGTKFilter*)filter;
+- (void)appendWithFilter:(OGTKFilter*)filter;
 
 /**
  * Removes the filter at the given @position from the list of filters used
@@ -38,6 +38,6 @@
  *
  * @param position position of filter to remove
  */
-- (void)remove:(guint)position;
+- (void)removeWithPosition:(guint)position;
 
 @end

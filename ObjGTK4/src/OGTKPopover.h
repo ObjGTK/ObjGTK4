@@ -162,7 +162,7 @@
  * @param rect location to store the rectangle
  * @return %TRUE if a rectangle to point to was set.
  */
-- (bool)pointingTo:(GdkRectangle*)rect;
+- (bool)pointingToWithRect:(GdkRectangle*)rect;
 
 /**
  * Returns the preferred position of @popover.
@@ -276,7 +276,7 @@
  *
  * @param rect rectangle to point to
  */
-- (void)setPointingTo:(const GdkRectangle*)rect;
+- (void)setPointingToWithRect:(const GdkRectangle*)rect;
 
 /**
  * Sets the preferred position for @popover to appear.

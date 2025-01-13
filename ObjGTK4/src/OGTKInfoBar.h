@@ -132,7 +132,7 @@
  *
  * @param widget the child to be added
  */
-- (void)addChild:(OGTKWidget*)widget;
+- (void)addChildWithWidget:(OGTKWidget*)widget;
 
 /**
  * Returns the message type of the message area.
@@ -170,14 +170,14 @@
  *
  * @param widget a child that has been added to the content area
  */
-- (void)removeChild:(OGTKWidget*)widget;
+- (void)removeChildWithWidget:(OGTKWidget*)widget;
 
 /**
  * Emits the “response” signal with the given @response_id.
  *
  * @param responseId a response ID
  */
-- (void)response:(int)responseId;
+- (void)responseWithResponseId:(int)responseId;
 
 /**
  * Sets the last widget in the info bar’s action area with
@@ -190,7 +190,7 @@
  *
  * @param responseId a response ID
  */
-- (void)setDefaultResponse:(int)responseId;
+- (void)setDefaultResponseWithResponseId:(int)responseId;
 
 /**
  * Sets the message type of the message area.
@@ -234,6 +234,6 @@
  *
  * @param setting %TRUE to include a close button
  */
-- (void)setShowCloseButton:(bool)setting;
+- (void)setShowCloseButtonWithSetting:(bool)setting;
 
 @end

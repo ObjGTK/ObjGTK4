@@ -31,7 +31,7 @@
 	gtk_alert_dialog_choose([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (int)chooseFinish:(GAsyncResult*)result
+- (int)chooseFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -86,7 +86,7 @@
 	return returnValue;
 }
 
-- (void)setButtons:(const char* const*)labels
+- (void)setButtonsWithLabels:(const char* const*)labels
 {
 	gtk_alert_dialog_set_buttons([self castedGObject], labels);
 }
@@ -116,7 +116,7 @@
 	gtk_alert_dialog_set_modal([self castedGObject], modal);
 }
 
-- (void)show:(OGTKWindow*)parent
+- (void)showWithParent:(OGTKWindow*)parent
 {
 	gtk_alert_dialog_show([self castedGObject], [parent castedGObject]);
 }

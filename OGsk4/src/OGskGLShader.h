@@ -135,8 +135,8 @@
 /**
  * Constructors
  */
-+ (instancetype)gLShaderFromBytes:(GBytes*)sourcecode;
-+ (instancetype)gLShaderFromResource:(OFString*)resourcePath;
++ (instancetype)gLShaderFromBytesWithSourcecode:(GBytes*)sourcecode;
++ (instancetype)gLShaderFromResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Methods
@@ -161,7 +161,7 @@
  * @param renderer a `GskRenderer`
  * @return %TRUE on success, %FALSE if an error occurred
  */
-- (bool)compile:(OGskRenderer*)renderer;
+- (bool)compileWithRenderer:(OGskRenderer*)renderer;
 
 /**
  * Looks for a uniform by the name @name, and returns the index
@@ -190,7 +190,7 @@
  * @return A newly allocated block of data which can be
  *     passed to [ctor@Gsk.GLShaderNode.new].
  */
-- (GBytes*)formatArgsVa:(va_list)uniforms;
+- (GBytes*)formatArgsVaWithUniforms:(va_list)uniforms;
 
 /**
  * Gets the value of the uniform @idx in the @args block.
@@ -315,7 +315,7 @@
  * @param idx index of the uniform
  * @return The name of the declared uniform
  */
-- (OFString*)uniformName:(int)idx;
+- (OFString*)uniformNameWithIdx:(int)idx;
 
 /**
  * Get the offset into the data block where data for this uniforms is stored.
@@ -323,7 +323,7 @@
  * @param idx index of the uniform
  * @return The data offset
  */
-- (int)uniformOffset:(int)idx;
+- (int)uniformOffsetWithIdx:(int)idx;
 
 /**
  * Get the type of the declared uniform for this shader at index @idx.
@@ -331,6 +331,6 @@
  * @param idx index of the uniform
  * @return The type of the declared uniform
  */
-- (GskGLUniformType)uniformType:(int)idx;
+- (GskGLUniformType)uniformTypeWithIdx:(int)idx;
 
 @end

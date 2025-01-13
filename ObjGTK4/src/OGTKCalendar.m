@@ -65,7 +65,7 @@
 	return returnValue;
 }
 
-- (bool)dayIsMarked:(guint)day
+- (bool)dayIsMarkedWithDay:(guint)day
 {
 	bool returnValue = (bool)gtk_calendar_get_day_is_marked([self castedGObject], day);
 
@@ -112,7 +112,7 @@
 	gtk_calendar_mark_day([self castedGObject], day);
 }
 
-- (void)selectDay:(GDateTime*)date
+- (void)selectDayWithDate:(GDateTime*)date
 {
 	gtk_calendar_select_day([self castedGObject], date);
 }
@@ -127,17 +127,17 @@
 	gtk_calendar_set_month([self castedGObject], month);
 }
 
-- (void)setShowDayNames:(bool)value
+- (void)setShowDayNamesWithValue:(bool)value
 {
 	gtk_calendar_set_show_day_names([self castedGObject], value);
 }
 
-- (void)setShowHeading:(bool)value
+- (void)setShowHeadingWithValue:(bool)value
 {
 	gtk_calendar_set_show_heading([self castedGObject], value);
 }
 
-- (void)setShowWeekNumbers:(bool)value
+- (void)setShowWeekNumbersWithValue:(bool)value
 {
 	gtk_calendar_set_show_week_numbers([self castedGObject], value);
 }

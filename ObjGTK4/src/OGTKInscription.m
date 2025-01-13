@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)inscription:(OFString*)text
++ (instancetype)inscriptionWithText:(OFString*)text
 {
 	GtkInscription* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_inscription_new([text UTF8String]), GtkInscription, GtkInscription);
 
@@ -117,7 +117,7 @@
 	return returnValue;
 }
 
-- (void)setAttributes:(PangoAttrList*)attrs
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs
 {
 	gtk_inscription_set_attributes([self castedGObject], attrs);
 }

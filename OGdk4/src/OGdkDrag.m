@@ -38,7 +38,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkDrag, GdkDrag);
 }
 
-- (void)dropDone:(bool)success
+- (void)dropDoneWithSuccess:(bool)success
 {
 	gdk_drag_drop_done([self castedGObject], success);
 }

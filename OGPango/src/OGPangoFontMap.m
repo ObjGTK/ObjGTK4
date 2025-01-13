@@ -43,7 +43,7 @@
 	return returnValue;
 }
 
-- (OGPangoFontFamily*)family:(OFString*)name
+- (OGPangoFontFamily*)familyWithName:(OFString*)name
 {
 	PangoFontFamily* gobjectValue = pango_font_map_get_family([self castedGObject], [name UTF8String]);
 
@@ -58,7 +58,7 @@
 	return returnValue;
 }
 
-- (void)listFamiliesWithFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies
+- (void)listFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies
 {
 	pango_font_map_list_families([self castedGObject], families, nfamilies);
 }
@@ -83,7 +83,7 @@
 	return returnValue;
 }
 
-- (OGPangoFont*)reloadFontWithFont:(OGPangoFont*)font scale:(double)scale context:(OGPangoContext*)context variations:(OFString*)variations
+- (OGPangoFont*)reloadFont:(OGPangoFont*)font scale:(double)scale context:(OGPangoContext*)context variations:(OFString*)variations
 {
 	PangoFont* gobjectValue = pango_font_map_reload_font([self castedGObject], [font castedGObject], scale, [context castedGObject], [variations UTF8String]);
 

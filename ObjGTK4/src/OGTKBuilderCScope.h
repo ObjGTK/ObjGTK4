@@ -67,6 +67,6 @@
  * @return The callback symbol
  *   in @builder for @callback_name
  */
-- (GCallback)lookupCallbackSymbol:(OFString*)callbackName;
+- (GCallback)lookupCallbackSymbolWithCallbackName:(OFString*)callbackName;
 
 @end

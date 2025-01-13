@@ -54,7 +54,7 @@
  * @param position position of the child to get
  * @return the child in @position
  */
-- (OGTKTreeListRow*)childRow:(guint)position;
+- (OGTKTreeListRow*)childRowWithPosition:(guint)position;
 
 /**
  * Gets the root model that @self was created with.
@@ -101,7 +101,7 @@
  * @param position the position of the row to fetch
  * @return The row item
  */
-- (OGTKTreeListRow*)row:(guint)position;
+- (OGTKTreeListRow*)rowWithPosition:(guint)position;
 
 /**
  * Sets whether the model should autoexpand.

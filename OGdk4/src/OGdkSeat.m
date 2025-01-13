@@ -33,7 +33,7 @@
 	return returnValue;
 }
 
-- (GList*)devices:(GdkSeatCapabilities)capabilities
+- (GList*)devicesWithCapabilities:(GdkSeatCapabilities)capabilities
 {
 	GList* returnValue = (GList*)gdk_seat_get_devices([self castedGObject], capabilities);
 

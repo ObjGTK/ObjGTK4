@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)sizeGroup:(GtkSizeGroupMode)mode
++ (instancetype)sizeGroupWithMode:(GtkSizeGroupMode)mode
 {
 	GtkSizeGroup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_size_group_new(mode), GtkSizeGroup, GtkSizeGroup);
 

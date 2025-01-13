@@ -34,7 +34,7 @@
 /**
  * Constructors
  */
-+ (instancetype)separator:(GtkOrientation)orientation;
++ (instancetype)separatorWithOrientation:(GtkOrientation)orientation;
 
 /**
  * Methods

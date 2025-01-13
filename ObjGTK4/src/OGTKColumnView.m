@@ -22,7 +22,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)columnView:(GtkSelectionModel*)model
++ (instancetype)columnViewWithModel:(GtkSelectionModel*)model
 {
 	GtkColumnView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_column_view_new(model), GtkColumnView, GtkColumnView);
 
@@ -195,7 +195,7 @@
 	gtk_column_view_set_tab_behavior([self castedGObject], tabBehavior);
 }
 
-- (void)sortByColumnWithColumn:(OGTKColumnViewColumn*)column direction:(GtkSortType)direction
+- (void)sortByColumn:(OGTKColumnViewColumn*)column direction:(GtkSortType)direction
 {
 	gtk_column_view_sort_by_column([self castedGObject], [column castedGObject], direction);
 }

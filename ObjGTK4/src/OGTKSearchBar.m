@@ -96,7 +96,7 @@
 	gtk_search_bar_set_search_mode([self castedGObject], searchMode);
 }
 
-- (void)setShowCloseButton:(bool)visible
+- (void)setShowCloseButtonWithVisible:(bool)visible
 {
 	gtk_search_bar_set_show_close_button([self castedGObject], visible);
 }

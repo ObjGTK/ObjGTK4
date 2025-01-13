@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)separator:(GtkOrientation)orientation
++ (instancetype)separatorWithOrientation:(GtkOrientation)orientation
 {
 	GtkSeparator* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_separator_new(orientation), GtkSeparator, GtkSeparator);
 

@@ -59,7 +59,7 @@
 	return returnValue;
 }
 
-+ (bool)initModules:(OFString*)path
++ (bool)initModulesWithPath:(OFString*)path
 {
 	GError* err = NULL;
 
@@ -70,17 +70,17 @@
 	return returnValue;
 }
 
-+ (void)newFromStreamAsyncWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
++ (void)newFromStreamAsync:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
 {
 	gdk_pixbuf_new_from_stream_async([stream castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-+ (void)newFromStreamAtScaleAsyncWithStream:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
++ (void)newFromStreamAtScaleAsync:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
 {
 	gdk_pixbuf_new_from_stream_at_scale_async([stream castedGObject], width, height, preserveAspectRatio, [cancellable castedGObject], callback, userData);
 }
 
-+ (bool)saveToStreamFinish:(GAsyncResult*)asyncResult
++ (bool)saveToStreamFinishWithAsyncResult:(GAsyncResult*)asyncResult
 {
 	GError* err = NULL;
 
@@ -131,7 +131,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufFromDataWithData:(const guchar*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride destroyFn:(GdkPixbufDestroyNotify)destroyFn destroyFnData:(gpointer)destroyFnData
++ (instancetype)pixbufFromData:(const guchar*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride destroyFn:(GdkPixbufDestroyNotify)destroyFn destroyFnData:(gpointer)destroyFnData
 {
 	GdkPixbuf* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_new_from_data(data, colorspace, hasAlpha, bitsPerSample, width, height, rowstride, destroyFn, destroyFnData), GdkPixbuf, GdkPixbuf);
 
@@ -151,7 +151,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufFromFile:(OFString*)filename
++ (instancetype)pixbufFromFileWithFilename:(OFString*)filename
 {
 	GError* err = NULL;
 
@@ -247,7 +247,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufFromResource:(OFString*)resourcePath
++ (instancetype)pixbufFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	GError* err = NULL;
 
@@ -295,7 +295,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable
++ (instancetype)pixbufFromStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable
 {
 	GError* err = NULL;
 
@@ -319,7 +319,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufFromStreamAtScaleWithStream:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable
++ (instancetype)pixbufFromStreamAtScale:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable
 {
 	GError* err = NULL;
 
@@ -343,7 +343,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufFromStreamFinish:(GAsyncResult*)asyncResult
++ (instancetype)pixbufFromStreamFinishWithAsyncResult:(GAsyncResult*)asyncResult
 {
 	GError* err = NULL;
 
@@ -447,19 +447,19 @@
 	gdk_pixbuf_copy_area([self castedGObject], srcX, srcY, width, height, [destPixbuf castedGObject], destX, destY);
 }
 
-- (bool)copyOptions:(OGdkPixbuf*)destPixbuf
+- (bool)copyOptionsWithDestPixbuf:(OGdkPixbuf*)destPixbuf
 {
 	bool returnValue = (bool)gdk_pixbuf_copy_options([self castedGObject], [destPixbuf castedGObject]);
 
 	return returnValue;
 }
 
-- (void)fill:(guint32)pixel
+- (void)fillWithPixel:(guint32)pixel
 {
 	gdk_pixbuf_fill([self castedGObject], pixel);
 }
 
-- (OGdkPixbuf*)flip:(bool)horizontal
+- (OGdkPixbuf*)flipWithHorizontal:(bool)horizontal
 {
 	GdkPixbuf* gobjectValue = gdk_pixbuf_flip([self castedGObject], horizontal);
 
@@ -511,7 +511,7 @@
 	return returnValue;
 }
 
-- (OFString*)option:(OFString*)key
+- (OFString*)optionWithKey:(OFString*)key
 {
 	const gchar* gobjectValue = gdk_pixbuf_get_option([self castedGObject], [key UTF8String]);
 
@@ -578,14 +578,14 @@
 	return returnValue;
 }
 
-- (bool)removeOption:(OFString*)key
+- (bool)removeOptionWithKey:(OFString*)key
 {
 	bool returnValue = (bool)gdk_pixbuf_remove_option([self castedGObject], [key UTF8String]);
 
 	return returnValue;
 }
 
-- (OGdkPixbuf*)rotateSimple:(GdkPixbufRotation)angle
+- (OGdkPixbuf*)rotateSimpleWithAngle:(GdkPixbufRotation)angle
 {
 	GdkPixbuf* gobjectValue = gdk_pixbuf_rotate_simple([self castedGObject], angle);
 
@@ -600,7 +600,7 @@
 	gdk_pixbuf_saturate_and_pixelate([self castedGObject], [dest castedGObject], saturation, pixelate);
 }
 
-- (bool)saveToBuffervWithBuffer:(gchar**)buffer bufferSize:(gsize*)bufferSize type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues
+- (bool)saveToBufferv:(gchar**)buffer bufferSize:(gsize*)bufferSize type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues
 {
 	GError* err = NULL;
 
@@ -622,7 +622,7 @@
 	return returnValue;
 }
 
-- (bool)saveToStreamvWithStream:(OGOutputStream*)stream type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues cancellable:(OGCancellable*)cancellable
+- (bool)saveToStreamv:(OGOutputStream*)stream type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues cancellable:(OGCancellable*)cancellable
 {
 	GError* err = NULL;
 
@@ -633,7 +633,7 @@
 	return returnValue;
 }
 
-- (void)saveToStreamvAsyncWithStream:(OGOutputStream*)stream type:(OFString*)type optionKeys:(gchar**)optionKeys optionValues:(gchar**)optionValues cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
+- (void)saveToStreamvAsync:(OGOutputStream*)stream type:(OFString*)type optionKeys:(gchar**)optionKeys optionValues:(gchar**)optionValues cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
 {
 	gdk_pixbuf_save_to_streamv_async([self castedGObject], [stream castedGObject], [type UTF8String], optionKeys, optionValues, [cancellable castedGObject], callback, userData);
 }

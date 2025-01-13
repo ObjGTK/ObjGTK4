@@ -67,7 +67,7 @@
  * @param identifier the ID to insert @child at
  * @return %TRUE if @id was found and the widget added
  */
-- (bool)addChildWithChild:(OGTKWidget*)child identifier:(OFString*)identifier;
+- (bool)addChild:(OGTKWidget*)child identifier:(OFString*)identifier;
 
 /**
  * Returns the model from which the contents of @bar are taken.

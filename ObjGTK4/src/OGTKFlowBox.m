@@ -49,12 +49,12 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFlowBox, GtkFlowBox);
 }
 
-- (void)append:(OGTKWidget*)child
+- (void)appendWithChild:(OGTKWidget*)child
 {
 	gtk_flow_box_append([self castedGObject], [child castedGObject]);
 }
 
-- (void)bindModelWithModel:(GListModel*)model createWidgetFunc:(GtkFlowBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc
+- (void)bindModel:(GListModel*)model createWidgetFunc:(GtkFlowBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc
 {
 	gtk_flow_box_bind_model([self castedGObject], model, createWidgetFunc, userData, userDataFreeFunc);
 }
@@ -66,7 +66,7 @@
 	return returnValue;
 }
 
-- (OGTKFlowBoxChild*)childAtIndex:(int)idx
+- (OGTKFlowBoxChild*)childAtIndexWithIdx:(int)idx
 {
 	GtkFlowBoxChild* gobjectValue = gtk_flow_box_get_child_at_index([self castedGObject], idx);
 
@@ -146,12 +146,12 @@
 	gtk_flow_box_invalidate_sort([self castedGObject]);
 }
 
-- (void)prepend:(OGTKWidget*)child
+- (void)prependWithChild:(OGTKWidget*)child
 {
 	gtk_flow_box_prepend([self castedGObject], [child castedGObject]);
 }
 
-- (void)remove:(OGTKWidget*)widget
+- (void)removeWithWidget:(OGTKWidget*)widget
 {
 	gtk_flow_box_remove([self castedGObject], [widget castedGObject]);
 }
@@ -186,7 +186,7 @@
 	gtk_flow_box_set_column_spacing([self castedGObject], spacing);
 }
 
-- (void)setFilterFuncWithFilterFunc:(GtkFlowBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
+- (void)setFilterFunc:(GtkFlowBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
 {
 	gtk_flow_box_set_filter_func([self castedGObject], filterFunc, userData, destroy);
 }
@@ -201,7 +201,7 @@
 	gtk_flow_box_set_homogeneous([self castedGObject], homogeneous);
 }
 
-- (void)setMaxChildrenPerLine:(guint)nchildren
+- (void)setMaxChildrenPerLineWithNchildren:(guint)nchildren
 {
 	gtk_flow_box_set_max_children_per_line([self castedGObject], nchildren);
 }
@@ -221,7 +221,7 @@
 	gtk_flow_box_set_selection_mode([self castedGObject], mode);
 }
 
-- (void)setSortFuncWithSortFunc:(GtkFlowBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
+- (void)setSortFunc:(GtkFlowBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
 {
 	gtk_flow_box_set_sort_func([self castedGObject], sortFunc, userData, destroy);
 }

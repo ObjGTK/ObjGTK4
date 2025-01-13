@@ -63,9 +63,9 @@
  * Constructors
  */
 + (instancetype)pageSetup;
-+ (instancetype)pageSetupFromFile:(OFString*)fileName;
++ (instancetype)pageSetupFromFileWithFileName:(OFString*)fileName;
 + (instancetype)pageSetupFromGvariant:(GVariant*)variant;
-+ (instancetype)pageSetupFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
++ (instancetype)pageSetupFromKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 /**
  * Methods
@@ -86,7 +86,7 @@
  * @param unit the unit for the return value
  * @return the bottom margin
  */
-- (double)bottomMargin:(GtkUnit)unit;
+- (double)bottomMarginWithUnit:(GtkUnit)unit;
 
 /**
  * Gets the left margin in units of @unit.
@@ -94,7 +94,7 @@
  * @param unit the unit for the return value
  * @return the left margin
  */
-- (double)leftMargin:(GtkUnit)unit;
+- (double)leftMarginWithUnit:(GtkUnit)unit;
 
 /**
  * Gets the page orientation of the `GtkPageSetup`.
@@ -113,7 +113,7 @@
  * @param unit the unit for the return value
  * @return the page height.
  */
-- (double)pageHeight:(GtkUnit)unit;
+- (double)pageHeightWithUnit:(GtkUnit)unit;
 
 /**
  * Returns the page width in units of @unit.
@@ -125,7 +125,7 @@
  * @param unit the unit for the return value
  * @return the page width.
  */
-- (double)pageWidth:(GtkUnit)unit;
+- (double)pageWidthWithUnit:(GtkUnit)unit;
 
 /**
  * Returns the paper height in units of @unit.
@@ -137,7 +137,7 @@
  * @param unit the unit for the return value
  * @return the paper height.
  */
-- (double)paperHeight:(GtkUnit)unit;
+- (double)paperHeightWithUnit:(GtkUnit)unit;
 
 /**
  * Gets the paper size of the `GtkPageSetup`.
@@ -156,7 +156,7 @@
  * @param unit the unit for the return value
  * @return the paper width.
  */
-- (double)paperWidth:(GtkUnit)unit;
+- (double)paperWidthWithUnit:(GtkUnit)unit;
 
 /**
  * Gets the right margin in units of @unit.
@@ -164,7 +164,7 @@
  * @param unit the unit for the return value
  * @return the right margin
  */
-- (double)rightMargin:(GtkUnit)unit;
+- (double)rightMarginWithUnit:(GtkUnit)unit;
 
 /**
  * Gets the top margin in units of @unit.
@@ -172,7 +172,7 @@
  * @param unit the unit for the return value
  * @return the top margin
  */
-- (double)topMargin:(GtkUnit)unit;
+- (double)topMarginWithUnit:(GtkUnit)unit;
 
 /**
  * Reads the page setup from the file @file_name.
@@ -182,7 +182,7 @@
  * @param fileName the filename to read the page setup from
  * @return %TRUE on success
  */
-- (bool)loadFile:(OFString*)fileName;
+- (bool)loadFileWithFileName:(OFString*)fileName;
 
 /**
  * Reads the page setup from the group @group_name in the key file
@@ -193,7 +193,7 @@
  *   to use the default name “Page Setup”
  * @return %TRUE on success
  */
-- (bool)loadKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
+- (bool)loadKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 /**
  * Sets the bottom margin of the `GtkPageSetup`.
@@ -201,7 +201,7 @@
  * @param margin the new bottom margin in units of @unit
  * @param unit the units for @margin
  */
-- (void)setBottomMarginWithMargin:(double)margin unit:(GtkUnit)unit;
+- (void)setBottomMargin:(double)margin unit:(GtkUnit)unit;
 
 /**
  * Sets the left margin of the `GtkPageSetup`.
@@ -209,7 +209,7 @@
  * @param margin the new left margin in units of @unit
  * @param unit the units for @margin
  */
-- (void)setLeftMarginWithMargin:(double)margin unit:(GtkUnit)unit;
+- (void)setLeftMargin:(double)margin unit:(GtkUnit)unit;
 
 /**
  * Sets the page orientation of the `GtkPageSetup`.
@@ -242,7 +242,7 @@
  * @param margin the new right margin in units of @unit
  * @param unit the units for @margin
  */
-- (void)setRightMarginWithMargin:(double)margin unit:(GtkUnit)unit;
+- (void)setRightMargin:(double)margin unit:(GtkUnit)unit;
 
 /**
  * Sets the top margin of the `GtkPageSetup`.
@@ -250,7 +250,7 @@
  * @param margin the new top margin in units of @unit
  * @param unit the units for @margin
  */
-- (void)setTopMarginWithMargin:(double)margin unit:(GtkUnit)unit;
+- (void)setTopMargin:(double)margin unit:(GtkUnit)unit;
 
 /**
  * This function saves the information from @setup to @file_name.
@@ -258,7 +258,7 @@
  * @param fileName the file to save to
  * @return %TRUE on success
  */
-- (bool)toFile:(OFString*)fileName;
+- (bool)toFileWithFileName:(OFString*)fileName;
 
 /**
  * Serialize page setup to an a{sv} variant.
@@ -274,6 +274,6 @@
  * @param groupName the group to add the settings to in @key_file,
  *   or %NULL to use the default name “Page Setup”
  */
-- (void)toKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
+- (void)toKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 @end

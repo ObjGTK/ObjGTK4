@@ -77,7 +77,7 @@
  */
 + (instancetype)checkButton;
 + (instancetype)checkButtonWithLabel:(OFString*)label;
-+ (instancetype)checkButtonWithMnemonic:(OFString*)label;
++ (instancetype)checkButtonWithMnemonicWithLabel:(OFString*)label;
 
 /**
  * Methods
@@ -128,7 +128,7 @@
  *
  * @param setting the new value to set
  */
-- (void)setActive:(bool)setting;
+- (void)setActiveWithSetting:(bool)setting;
 
 /**
  * Sets the child widget of @button.
@@ -196,6 +196,6 @@
  *
  * @param setting the new value to set
  */
-- (void)setUseUnderline:(bool)setting;
+- (void)setUseUnderlineWithSetting:(bool)setting;
 
 @end

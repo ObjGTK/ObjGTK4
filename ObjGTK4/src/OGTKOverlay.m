@@ -46,7 +46,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkOverlay, GtkOverlay);
 }
 
-- (void)addOverlay:(OGTKWidget*)widget
+- (void)addOverlayWithWidget:(OGTKWidget*)widget
 {
 	gtk_overlay_add_overlay([self castedGObject], [widget castedGObject]);
 }
@@ -59,21 +59,21 @@
 	return returnValue;
 }
 
-- (bool)clipOverlay:(OGTKWidget*)widget
+- (bool)clipOverlayWithWidget:(OGTKWidget*)widget
 {
 	bool returnValue = (bool)gtk_overlay_get_clip_overlay([self castedGObject], [widget castedGObject]);
 
 	return returnValue;
 }
 
-- (bool)measureOverlay:(OGTKWidget*)widget
+- (bool)measureOverlayWithWidget:(OGTKWidget*)widget
 {
 	bool returnValue = (bool)gtk_overlay_get_measure_overlay([self castedGObject], [widget castedGObject]);
 
 	return returnValue;
 }
 
-- (void)removeOverlay:(OGTKWidget*)widget
+- (void)removeOverlayWithWidget:(OGTKWidget*)widget
 {
 	gtk_overlay_remove_overlay([self castedGObject], [widget castedGObject]);
 }

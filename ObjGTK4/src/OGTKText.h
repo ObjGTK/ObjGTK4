@@ -285,7 +285,7 @@
  *
  * @param attrs a `PangoAttrList`
  */
-- (void)setAttributes:(PangoAttrList*)attrs;
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs;
 
 /**
  * Set the `GtkEntryBuffer` object which holds the text for
@@ -312,7 +312,7 @@
  *
  * @param model a `GMenuModel`
  */
-- (void)setExtraMenu:(OGMenuModel*)model;
+- (void)setExtraMenuWithModel:(OGMenuModel*)model;
 
 /**
  * Sets input hints that allow input methods
@@ -419,7 +419,7 @@
  * @param visible %TRUE if the contents of the `GtkText` are displayed
  *   as plaintext
  */
-- (void)setVisibility:(bool)visible;
+- (void)setVisibilityWithVisible:(bool)visible;
 
 /**
  * Unsets the invisible char.

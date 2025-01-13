@@ -30,7 +30,7 @@
 /**
  * Constructors
  */
-+ (instancetype)inscription:(OFString*)text;
++ (instancetype)inscriptionWithText:(OFString*)text;
 
 /**
  * Methods
@@ -129,7 +129,7 @@
  *
  * @param attrs a [struct@Pango.AttrList]
  */
-- (void)setAttributes:(PangoAttrList*)attrs;
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs;
 
 /**
  * Utility function to set the text and attributes to be displayed.

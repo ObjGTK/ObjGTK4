@@ -33,9 +33,9 @@
  * Constructors
  */
 + (instancetype)printSettings;
-+ (instancetype)printSettingsFromFile:(OFString*)fileName;
++ (instancetype)printSettingsFromFileWithFileName:(OFString*)fileName;
 + (instancetype)printSettingsFromGvariant:(GVariant*)variant;
-+ (instancetype)printSettingsFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
++ (instancetype)printSettingsFromKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 /**
  * Methods
@@ -64,7 +64,7 @@
  * @param key a key
  * @return the string value for @key
  */
-- (OFString*)get:(OFString*)key;
+- (OFString*)getWithKey:(OFString*)key;
 
 /**
  * Returns the boolean represented by the value
@@ -76,7 +76,7 @@
  * @param key a key
  * @return %TRUE, if @key maps to a true value.
  */
-- (bool)bool:(OFString*)key;
+- (bool)boolWithKey:(OFString*)key;
 
 /**
  * Gets the value of %GTK_PRINT_SETTINGS_COLLATE.
@@ -105,7 +105,7 @@
  * @param key a key
  * @return the double value of @key
  */
-- (double)double:(OFString*)key;
+- (double)doubleWithKey:(OFString*)key;
 
 /**
  * Returns the floating point number represented by
@@ -140,7 +140,7 @@
  * @param key a key
  * @return the integer value of @key
  */
-- (int)int:(OFString*)key;
+- (int)intWithKey:(OFString*)key;
 
 /**
  * Returns the value of @key, interpreted as
@@ -217,7 +217,7 @@
  *   of `GtkPageRange`s. Use g_free() to free the array when
  *   it is no longer needed.
  */
-- (GtkPageRange*)pageRanges:(int*)numRanges;
+- (GtkPageRange*)pageRangesWithNumRanges:(int*)numRanges;
 
 /**
  * Gets the value of %GTK_PRINT_SETTINGS_PAGE_SET.
@@ -233,7 +233,7 @@
  * @param unit the unit for the return value
  * @return the paper height, in units of @unit
  */
-- (double)paperHeight:(GtkUnit)unit;
+- (double)paperHeightWithUnit:(GtkUnit)unit;
 
 /**
  * Gets the value of %GTK_PRINT_SETTINGS_PAPER_FORMAT,
@@ -250,7 +250,7 @@
  * @param unit the unit for the return value
  * @return the paper width, in units of @unit
  */
-- (double)paperWidth:(GtkUnit)unit;
+- (double)paperWidthWithUnit:(GtkUnit)unit;
 
 /**
  * Gets the value of %GTK_PRINT_SETTINGS_PRINT_PAGES.
@@ -342,7 +342,7 @@
  * @param fileName the filename to read the settings from
  * @return %TRUE on success
  */
-- (bool)loadFile:(OFString*)fileName;
+- (bool)loadFileWithFileName:(OFString*)fileName;
 
 /**
  * Reads the print settings from the group @group_name in @key_file.
@@ -355,7 +355,7 @@
  *   to use the default “Print Settings”
  * @return %TRUE on success
  */
-- (bool)loadKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
+- (bool)loadKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 /**
  * Associates @value with @key.
@@ -447,7 +447,7 @@
  *
  * @param numCopies the number of copies
  */
-- (void)setNcopies:(int)numCopies;
+- (void)setNcopiesWithNumCopies:(int)numCopies;
 
 /**
  * Sets the value of %GTK_PRINT_SETTINGS_NUMBER_UP.
@@ -483,7 +483,7 @@
  * @param pageRanges an array of `GtkPageRange`s
  * @param numRanges the length of @page_ranges
  */
-- (void)setPageRangesWithPageRanges:(GtkPageRange*)pageRanges numRanges:(int)numRanges;
+- (void)setPageRanges:(GtkPageRange*)pageRanges numRanges:(int)numRanges;
 
 /**
  * Sets the value of %GTK_PRINT_SETTINGS_PAGE_SET.
@@ -498,7 +498,7 @@
  * @param height the paper height
  * @param unit the units of @height
  */
-- (void)setPaperHeightWithHeight:(double)height unit:(GtkUnit)unit;
+- (void)setPaperHeight:(double)height unit:(GtkUnit)unit;
 
 /**
  * Sets the value of %GTK_PRINT_SETTINGS_PAPER_FORMAT,
@@ -515,7 +515,7 @@
  * @param width the paper width
  * @param unit the units of @width
  */
-- (void)setPaperWidthWithWidth:(double)width unit:(GtkUnit)unit;
+- (void)setPaperWidth:(double)width unit:(GtkUnit)unit;
 
 /**
  * Sets the value of %GTK_PRINT_SETTINGS_PRINT_PAGES.
@@ -563,7 +563,7 @@
  * @param resolutionX the horizontal resolution in dpi
  * @param resolutionY the vertical resolution in dpi
  */
-- (void)setResolutionXyWithResolutionX:(int)resolutionX resolutionY:(int)resolutionY;
+- (void)setResolutionXy:(int)resolutionX resolutionY:(int)resolutionY;
 
 /**
  * Sets the value of %GTK_PRINT_SETTINGS_REVERSE.
@@ -595,7 +595,7 @@
  * @param fileName the file to save to
  * @return %TRUE on success
  */
-- (bool)toFile:(OFString*)fileName;
+- (bool)toFileWithFileName:(OFString*)fileName;
 
 /**
  * Serialize print settings to an a{sv} variant.
@@ -611,7 +611,7 @@
  * @param groupName the group to add the settings to in @key_file, or
  *   %NULL to use the default “Print Settings”
  */
-- (void)toKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
+- (void)toKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName;
 
 /**
  * Removes any value associated with @key.
@@ -620,6 +620,6 @@
  *
  * @param key a key
  */
-- (void)unset:(OFString*)key;
+- (void)unsetWithKey:(OFString*)key;
 
 @end

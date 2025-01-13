@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)multiSelection:(GListModel*)model
++ (instancetype)multiSelectionWithModel:(GListModel*)model
 {
 	GtkMultiSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_multi_selection_new(model), GtkMultiSelection, GtkMultiSelection);
 

@@ -46,7 +46,7 @@
 /**
  * Constructors
  */
-+ (instancetype)editableLabel:(OFString*)str;
++ (instancetype)editableLabelWithStr:(OFString*)str;
 
 /**
  * Methods
@@ -77,6 +77,6 @@
  *
  * @param commit whether to set the edited text on the label
  */
-- (void)stopEditing:(bool)commit;
+- (void)stopEditingWithCommit:(bool)commit;
 
 @end

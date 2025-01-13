@@ -67,7 +67,7 @@
  * @param name a family name
  * @return the `PangoFontFamily`
  */
-- (OGPangoFontFamily*)family:(OFString*)name;
+- (OGPangoFontFamily*)familyWithName:(OFString*)name;
 
 /**
  * Returns the current serial number of @fontmap.
@@ -100,7 +100,7 @@
  *   This array should be freed with g_free().
  * @param nfamilies location to store the number of elements in @families
  */
-- (void)listFamiliesWithFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies;
+- (void)listFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies;
 
 /**
  * Load the font in the fontmap that is the closest match for @desc.
@@ -136,6 +136,6 @@
  * @param variations font variations to use
  * @return the modified font
  */
-- (OGPangoFont*)reloadFontWithFont:(OGPangoFont*)font scale:(double)scale context:(OGPangoContext*)context variations:(OFString*)variations;
+- (OGPangoFont*)reloadFont:(OGPangoFont*)font scale:(double)scale context:(OGPangoContext*)context variations:(OFString*)variations;
 
 @end

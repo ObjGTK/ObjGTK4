@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)frame:(OFString*)label
++ (instancetype)frameWithLabel:(OFString*)label
 {
 	GtkFrame* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_frame_new([label UTF8String]), GtkFrame, GtkFrame);
 
@@ -87,7 +87,7 @@
 	gtk_frame_set_label([self castedGObject], [label UTF8String]);
 }
 
-- (void)setLabelAlign:(float)xalign
+- (void)setLabelAlignWithXalign:(float)xalign
 {
 	gtk_frame_set_label_align([self castedGObject], xalign);
 }

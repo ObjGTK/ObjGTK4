@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)stringObject:(OFString*)string
++ (instancetype)stringObjectWithString:(OFString*)string
 {
 	GtkStringObject* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_object_new([string UTF8String]), GtkStringObject, GtkStringObject);
 

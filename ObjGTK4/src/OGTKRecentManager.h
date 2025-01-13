@@ -141,7 +141,7 @@
  * @return %TRUE if the new item was successfully added
  *   to the recently used resources list
  */
-- (bool)addItem:(OFString*)uri;
+- (bool)addItemWithUri:(OFString*)uri;
 
 /**
  * Gets the list of recently used resources.
@@ -160,7 +160,7 @@
  * @param uri a URI
  * @return %TRUE if the resource was found, %FALSE otherwise
  */
-- (bool)hasItem:(OFString*)uri;
+- (bool)hasItemWithUri:(OFString*)uri;
 
 /**
  * Searches for a URI inside the recently used resources list, and
@@ -173,7 +173,7 @@
  *   not registered in the recently used resources list. Free with
  *   [method@Gtk.RecentInfo.unref].
  */
-- (GtkRecentInfo*)lookupItem:(OFString*)uri;
+- (GtkRecentInfo*)lookupItemWithUri:(OFString*)uri;
 
 /**
  * Changes the location of a recently used resource from @uri to @new_uri.
@@ -204,6 +204,6 @@
  * @return %TRUE if the item pointed by @uri has been successfully
  *   removed by the recently used resources list, and %FALSE otherwise
  */
-- (bool)removeItem:(OFString*)uri;
+- (bool)removeItemWithUri:(OFString*)uri;
 
 @end

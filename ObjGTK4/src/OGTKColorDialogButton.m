@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)colorDialogButton:(OGTKColorDialog*)dialog
++ (instancetype)colorDialogButtonWithDialog:(OGTKColorDialog*)dialog
 {
 	GtkColorDialogButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_dialog_button_new([dialog castedGObject]), GtkColorDialogButton, GtkColorDialogButton);
 
@@ -68,7 +68,7 @@
 	gtk_color_dialog_button_set_dialog([self castedGObject], [dialog castedGObject]);
 }
 
-- (void)setRgba:(const GdkRGBA*)color
+- (void)setRgbaWithColor:(const GdkRGBA*)color
 {
 	gtk_color_dialog_button_set_rgba([self castedGObject], color);
 }

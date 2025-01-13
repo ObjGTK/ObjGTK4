@@ -115,7 +115,7 @@
 	return returnValue;
 }
 
-- (bool)isShared:(OGdkGLContext*)other
+- (bool)isSharedWithOther:(OGdkGLContext*)other
 {
 	bool returnValue = (bool)gdk_gl_context_is_shared([self castedGObject], [other castedGObject]);
 

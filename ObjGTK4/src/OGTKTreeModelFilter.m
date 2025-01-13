@@ -42,12 +42,12 @@
 	return returnValue;
 }
 
-- (void)convertIterToChildIterWithChildIter:(GtkTreeIter*)childIter filterIter:(GtkTreeIter*)filterIter
+- (void)convertIterToChildIter:(GtkTreeIter*)childIter filterIter:(GtkTreeIter*)filterIter
 {
 	gtk_tree_model_filter_convert_iter_to_child_iter([self castedGObject], childIter, filterIter);
 }
 
-- (GtkTreePath*)convertPathToChildPath:(GtkTreePath*)filterPath
+- (GtkTreePath*)convertPathToChildPathWithFilterPath:(GtkTreePath*)filterPath
 {
 	GtkTreePath* returnValue = (GtkTreePath*)gtk_tree_model_filter_convert_path_to_child_path([self castedGObject], filterPath);
 
@@ -76,7 +76,7 @@
 	gtk_tree_model_filter_set_visible_column([self castedGObject], column);
 }
 
-- (void)setVisibleFuncWithFunc:(GtkTreeModelFilterVisibleFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
+- (void)setVisibleFunc:(GtkTreeModelFilterVisibleFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
 {
 	gtk_tree_model_filter_set_visible_func([self castedGObject], func, data, destroy);
 }

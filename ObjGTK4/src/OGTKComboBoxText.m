@@ -81,11 +81,11 @@
 	gtk_combo_box_text_append_text([self castedGObject], [text UTF8String]);
 }
 
-- (char*)activeText
+- (OFString*)activeText
 {
 	char* gobjectValue = gtk_combo_box_text_get_active_text([self castedGObject]);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
@@ -109,7 +109,7 @@
 	gtk_combo_box_text_prepend_text([self castedGObject], [text UTF8String]);
 }
 
-- (void)remove:(int)position
+- (void)removeWithPosition:(int)position
 {
 	gtk_combo_box_text_remove([self castedGObject], position);
 }

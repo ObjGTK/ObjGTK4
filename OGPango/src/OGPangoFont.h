@@ -86,7 +86,7 @@
  * @return a newly-allocated `PangoCoverage`
  *   object.
  */
-- (OGPangoCoverage*)coverage:(PangoLanguage*)language;
+- (OGPangoCoverage*)coverageWithLanguage:(PangoLanguage*)language;
 
 /**
  * Gets the `PangoFontFace` to which @font belongs.
@@ -189,7 +189,7 @@
  * @return a `PangoFontMetrics` object. The caller must call
  *   [method@Pango.FontMetrics.unref] when finished using the object.
  */
-- (PangoFontMetrics*)metrics:(PangoLanguage*)language;
+- (PangoFontMetrics*)metricsWithLanguage:(PangoLanguage*)language;
 
 /**
  * Returns whether the font provides a glyph for this character.
@@ -197,7 +197,7 @@
  * @param wc a Unicode character
  * @return `TRUE` if @font can render @wc
  */
-- (bool)hasChar:(gunichar)wc;
+- (bool)hasCharWithWc:(gunichar)wc;
 
 /**
  * Serializes the @font in a way that can be uniquely identified.

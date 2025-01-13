@@ -46,14 +46,14 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStatusbar, GtkStatusbar);
 }
 
-- (guint)contextId:(OFString*)contextDescription
+- (guint)contextIdWithContextDescription:(OFString*)contextDescription
 {
 	guint returnValue = (guint)gtk_statusbar_get_context_id([self castedGObject], [contextDescription UTF8String]);
 
 	return returnValue;
 }
 
-- (void)pop:(guint)contextId
+- (void)popWithContextId:(guint)contextId
 {
 	gtk_statusbar_pop([self castedGObject], contextId);
 }
@@ -70,7 +70,7 @@
 	gtk_statusbar_remove([self castedGObject], contextId, messageId);
 }
 
-- (void)removeAll:(guint)contextId
+- (void)removeAllWithContextId:(guint)contextId
 {
 	gtk_statusbar_remove_all([self castedGObject], contextId);
 }

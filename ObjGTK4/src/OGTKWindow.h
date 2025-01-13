@@ -135,7 +135,7 @@
  *
  * @param setting %TRUE to automatically do startup notification
  */
-+ (void)setAutoStartupNotification:(bool)setting;
++ (void)setAutoStartupNotificationWithSetting:(bool)setting;
 
 /**
  * Sets an icon to be used as fallback.
@@ -156,7 +156,7 @@
  *
  * @param enable %TRUE to enable interactive debugging
  */
-+ (void)setInteractiveDebugging:(bool)enable;
++ (void)setInteractiveDebuggingWithEnable:(bool)enable;
 
 /**
  * Constructors
@@ -497,7 +497,7 @@
  * @param timestamp the timestamp of the user interaction (typically a
  *   button or key press event) which triggered this call
  */
-- (void)presentWithTime:(guint32)timestamp;
+- (void)presentWithTimeWithTimestamp:(guint32)timestamp;
 
 /**
  * Sets or unsets the `GtkApplication` associated with the window.
@@ -542,7 +542,7 @@
  *
  * @param setting %TRUE to decorate the window
  */
-- (void)setDecorated:(bool)setting;
+- (void)setDecoratedWithSetting:(bool)setting;
 
 /**
  * Sets the default size of a window.
@@ -607,7 +607,7 @@
  *
  * @param setting %TRUE to decorate the window as deletable
  */
-- (void)setDeletable:(bool)setting;
+- (void)setDeletableWithSetting:(bool)setting;
 
 /**
  * If @setting is %TRUE, then destroying the transient parent of @window
@@ -618,7 +618,7 @@
  *
  * @param setting whether to destroy @window with its transient parent
  */
-- (void)setDestroyWithParent:(bool)setting;
+- (void)setDestroyWithParentWithSetting:(bool)setting;
 
 /**
  * Sets the `GdkDisplay` where the @window is displayed.
@@ -652,7 +652,7 @@
  *
  * @param setting the new value
  */
-- (void)setFocusVisible:(bool)setting;
+- (void)setFocusVisibleWithSetting:(bool)setting;
 
 /**
  * Sets whether this window should react to F10 key presses
@@ -668,7 +668,7 @@
  *
  * @param setting whether to hide the window when it is closed
  */
-- (void)setHideOnClose:(bool)setting;
+- (void)setHideOnCloseWithSetting:(bool)setting;
 
 /**
  * Sets the icon for the window from a named themed icon.
@@ -691,7 +691,7 @@
  *
  * @param setting the new value
  */
-- (void)setMnemonicsVisible:(bool)setting;
+- (void)setMnemonicsVisibleWithSetting:(bool)setting;
 
 /**
  * Sets a window modal or non-modal.
@@ -783,7 +783,7 @@
  *
  * @param parent parent window
  */
-- (void)setTransientFor:(OGTKWindow*)parent;
+- (void)setTransientForWithParent:(OGTKWindow*)parent;
 
 /**
  * Asks to remove the fullscreen state for @window, and return to

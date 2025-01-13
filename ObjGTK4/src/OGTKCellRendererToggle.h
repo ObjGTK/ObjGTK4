@@ -60,14 +60,14 @@
  *
  * @param setting the value to set.
  */
-- (void)setActivatable:(bool)setting;
+- (void)setActivatableWithSetting:(bool)setting;
 
 /**
  * Activates or deactivates a cell renderer.
  *
  * @param setting the value to set.
  */
-- (void)setActive:(bool)setting;
+- (void)setActiveWithSetting:(bool)setting;
 
 /**
  * If @radio is %TRUE, the cell renderer renders a radio toggle

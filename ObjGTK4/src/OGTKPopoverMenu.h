@@ -132,7 +132,7 @@
  * Constructors
  */
 + (instancetype)popoverMenuFromModel:(OGMenuModel*)model;
-+ (instancetype)popoverMenuFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags;
++ (instancetype)popoverMenuFromModelFull:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags;
 
 /**
  * Methods
@@ -150,7 +150,7 @@
  * @param identifier the ID to insert @child at
  * @return %TRUE if @id was found and the widget added
  */
-- (bool)addChildWithChild:(OGTKWidget*)child identifier:(OFString*)identifier;
+- (bool)addChild:(OGTKWidget*)child identifier:(OFString*)identifier;
 
 /**
  * Returns the flags that @popover uses to create/display a menu from its model.

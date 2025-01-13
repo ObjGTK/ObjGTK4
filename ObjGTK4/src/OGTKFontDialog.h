@@ -71,7 +71,7 @@
  * @param result a `GAsyncResult`
  * @return the selected font face
  */
-- (OGPangoFontFace*)chooseFaceFinish:(GAsyncResult*)result;
+- (OGPangoFontFace*)chooseFaceFinishWithResult:(GAsyncResult*)result;
 
 /**
  * This function initiates a font selection operation by
@@ -100,7 +100,7 @@
  * @param result a `GAsyncResult`
  * @return the selected family
  */
-- (OGPangoFontFamily*)chooseFamilyFinish:(GAsyncResult*)result;
+- (OGPangoFontFamily*)chooseFamilyFinishWithResult:(GAsyncResult*)result;
 
 /**
  * This function initiates a font selection operation by
@@ -161,7 +161,7 @@
  * @param result a `GAsyncResult`
  * @return the selected font
  */
-- (PangoFontDescription*)chooseFontFinish:(GAsyncResult*)result;
+- (PangoFontDescription*)chooseFontFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Returns the filter that decides which fonts to display

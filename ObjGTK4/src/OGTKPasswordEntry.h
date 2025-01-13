@@ -81,7 +81,7 @@
  *
  * @param model a `GMenuModel`
  */
-- (void)setExtraMenu:(OGMenuModel*)model;
+- (void)setExtraMenuWithModel:(OGMenuModel*)model;
 
 /**
  * Sets whether the entry should have a clickable icon

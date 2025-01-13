@@ -107,7 +107,7 @@
  * @param minimumHeight location to store the minimum height
  * @param naturalHeight location to store the natural height
  */
-- (void)preferredHeightForWidthWithWidth:(int)width minimumHeight:(int*)minimumHeight naturalHeight:(int*)naturalHeight;
+- (void)preferredHeightForWidth:(int)width minimumHeight:(int*)minimumHeight naturalHeight:(int*)naturalHeight;
 
 /**
  * Gets the accumulative preferred width for all rows which have been
@@ -132,7 +132,7 @@
  * @param minimumWidth location to store the minimum width
  * @param naturalWidth location to store the natural width
  */
-- (void)preferredWidthForHeightWithHeight:(int)height minimumWidth:(int*)minimumWidth naturalWidth:(int*)naturalWidth;
+- (void)preferredWidthForHeight:(int)height minimumWidth:(int*)minimumWidth naturalWidth:(int*)naturalWidth;
 
 /**
  * Causes the minimum and/or natural height to grow if the new

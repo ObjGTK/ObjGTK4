@@ -223,7 +223,7 @@
  *
  * @param position the position of the item to select, or %GTK_INVALID_LIST_POSITION
  */
-- (void)setSelected:(guint)position;
+- (void)setSelectedWithPosition:(guint)position;
 
 /**
  * Sets whether an arrow will be displayed within the widget.

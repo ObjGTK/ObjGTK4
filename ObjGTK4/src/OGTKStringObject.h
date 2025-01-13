@@ -25,7 +25,7 @@
 /**
  * Constructors
  */
-+ (instancetype)stringObject:(OFString*)string;
++ (instancetype)stringObjectWithString:(OFString*)string;
 
 /**
  * Methods

@@ -95,7 +95,7 @@
 	gdk_content_serializer_return_success([self castedGObject]);
 }
 
-- (void)setTaskDataWithData:(gpointer)data notify:(GDestroyNotify)notify
+- (void)setTaskData:(gpointer)data notify:(GDestroyNotify)notify
 {
 	gdk_content_serializer_set_task_data([self castedGObject], data, notify);
 }

@@ -26,7 +26,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkDrawContext, GdkDrawContext);
 }
 
-- (void)beginFrame:(const cairo_region_t*)region
+- (void)beginFrameWithRegion:(const cairo_region_t*)region
 {
 	gdk_draw_context_begin_frame([self castedGObject], region);
 }

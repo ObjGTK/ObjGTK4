@@ -63,7 +63,7 @@
 	return returnValue;
 }
 
-- (void)setExtraMenu:(OGMenuModel*)model
+- (void)setExtraMenuWithModel:(OGMenuModel*)model
 {
 	gtk_password_entry_set_extra_menu([self castedGObject], [model castedGObject]);
 }

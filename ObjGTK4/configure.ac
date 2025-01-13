@@ -60,15 +60,6 @@ AS_IF([$OBJFW_CONFIG --package OGObject], [AC_MSG_RESULT(yes)
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGObject installed.)
 ])
-AC_MSG_CHECKING(for ObjFW package OGsk4)
-AS_IF([$OBJFW_CONFIG --package OGsk4], [AC_MSG_RESULT(yes)
-	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGsk4 --cppflags)"
-	LIBS="$LIBS $($OBJFW_CONFIG --package OGsk4 --libs)"
-	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGsk4 --framework-libs) $FRAMEWORK_LIBS"
-], [
-	AC_MSG_ERROR(You need ObjFW package OGsk4 installed.)
-])
-
 AC_MSG_CHECKING(for ObjFW package OGdk4)
 AS_IF([$OBJFW_CONFIG --package OGdk4], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGdk4 --cppflags)"
@@ -76,6 +67,15 @@ AS_IF([$OBJFW_CONFIG --package OGdk4], [AC_MSG_RESULT(yes)
 	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGdk4 --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGdk4 installed.)
+])
+
+AC_MSG_CHECKING(for ObjFW package OGsk4)
+AS_IF([$OBJFW_CONFIG --package OGsk4], [AC_MSG_RESULT(yes)
+	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGsk4 --cppflags)"
+	LIBS="$LIBS $($OBJFW_CONFIG --package OGsk4 --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGsk4 --framework-libs) $FRAMEWORK_LIBS"
+], [
+	AC_MSG_ERROR(You need ObjFW package OGsk4 installed.)
 ])
 
 

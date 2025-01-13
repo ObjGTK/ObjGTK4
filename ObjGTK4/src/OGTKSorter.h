@@ -59,7 +59,7 @@
  *
  * @param change How the sorter changed
  */
-- (void)changed:(GtkSorterChange)change;
+- (void)changedWithChange:(GtkSorterChange)change;
 
 /**
  * Compares two given items according to the sort order implemented

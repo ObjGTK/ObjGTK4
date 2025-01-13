@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)widgetPaintable:(OGTKWidget*)widget
++ (instancetype)widgetPaintableWithWidget:(OGTKWidget*)widget
 {
 	GtkWidgetPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_widget_paintable_new([widget castedGObject]), GtkWidgetPaintable, GtkWidgetPaintable);
 

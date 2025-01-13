@@ -48,7 +48,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPopoverMenuBar, GtkPopoverMenuBar);
 }
 
-- (bool)addChildWithChild:(OGTKWidget*)child identifier:(OFString*)identifier
+- (bool)addChild:(OGTKWidget*)child identifier:(OFString*)identifier
 {
 	bool returnValue = (bool)gtk_popover_menu_bar_add_child([self castedGObject], [child castedGObject], [identifier UTF8String]);
 

@@ -45,7 +45,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextTagTable, GtkTextTagTable);
 }
 
-- (bool)add:(OGTKTextTag*)tag
+- (bool)addWithTag:(OGTKTextTag*)tag
 {
 	bool returnValue = (bool)gtk_text_tag_table_add([self castedGObject], [tag castedGObject]);
 
@@ -64,7 +64,7 @@
 	return returnValue;
 }
 
-- (OGTKTextTag*)lookup:(OFString*)name
+- (OGTKTextTag*)lookupWithName:(OFString*)name
 {
 	GtkTextTag* gobjectValue = gtk_text_tag_table_lookup([self castedGObject], [name UTF8String]);
 
@@ -72,7 +72,7 @@
 	return returnValue;
 }
 
-- (void)remove:(OGTKTextTag*)tag
+- (void)removeWithTag:(OGTKTextTag*)tag
 {
 	gtk_text_tag_table_remove([self castedGObject], [tag castedGObject]);
 }

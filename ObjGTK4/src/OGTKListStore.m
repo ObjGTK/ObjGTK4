@@ -43,7 +43,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkListStore, GtkListStore);
 }
 
-- (void)append:(GtkTreeIter*)iter
+- (void)appendWithIter:(GtkTreeIter*)iter
 {
 	gtk_list_store_append([self castedGObject], iter);
 }
@@ -73,7 +73,7 @@
 	gtk_list_store_insert_with_valuesv([self castedGObject], iter, position, columns, values, nvalues);
 }
 
-- (bool)iterIsValid:(GtkTreeIter*)iter
+- (bool)iterIsValidWithIter:(GtkTreeIter*)iter
 {
 	bool returnValue = (bool)gtk_list_store_iter_is_valid([self castedGObject], iter);
 
@@ -90,19 +90,19 @@
 	gtk_list_store_move_before([self castedGObject], iter, position);
 }
 
-- (void)prepend:(GtkTreeIter*)iter
+- (void)prependWithIter:(GtkTreeIter*)iter
 {
 	gtk_list_store_prepend([self castedGObject], iter);
 }
 
-- (bool)remove:(GtkTreeIter*)iter
+- (bool)removeWithIter:(GtkTreeIter*)iter
 {
 	bool returnValue = (bool)gtk_list_store_remove([self castedGObject], iter);
 
 	return returnValue;
 }
 
-- (void)reorder:(int*)newOrder
+- (void)reorderWithNewOrder:(int*)newOrder
 {
 	gtk_list_store_reorder([self castedGObject], newOrder);
 }
@@ -127,7 +127,7 @@
 	gtk_list_store_set_valuesv([self castedGObject], iter, columns, values, nvalues);
 }
 
-- (void)swapWithA:(GtkTreeIter*)a b:(GtkTreeIter*)b
+- (void)swap:(GtkTreeIter*)a b:(GtkTreeIter*)b
 {
 	gtk_list_store_swap([self castedGObject], a, b);
 }

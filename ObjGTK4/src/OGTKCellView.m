@@ -170,7 +170,7 @@
 	return returnValue;
 }
 
-- (void)setDisplayedRow:(GtkTreePath*)path
+- (void)setDisplayedRowWithPath:(GtkTreePath*)path
 {
 	gtk_cell_view_set_displayed_row([self castedGObject], path);
 }

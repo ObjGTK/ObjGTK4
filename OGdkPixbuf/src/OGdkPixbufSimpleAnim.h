@@ -36,7 +36,7 @@
  *
  * @param pixbuf the pixbuf to add
  */
-- (void)addFrame:(OGdkPixbuf*)pixbuf;
+- (void)addFrameWithPixbuf:(OGdkPixbuf*)pixbuf;
 
 /**
  * Gets whether @animation should loop indefinitely when it reaches the end.

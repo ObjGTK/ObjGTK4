@@ -72,7 +72,7 @@
  * @param row a row index
  * @return the baseline position of @row
  */
-- (GtkBaselinePosition)rowBaselinePosition:(int)row;
+- (GtkBaselinePosition)rowBaselinePositionWithRow:(int)row;
 
 /**
  * Checks whether all rows of @grid should have the same height.
@@ -120,7 +120,7 @@
  * @param row a row index
  * @param pos a `GtkBaselinePosition`
  */
-- (void)setRowBaselinePositionWithRow:(int)row pos:(GtkBaselinePosition)pos;
+- (void)setRowBaselinePosition:(int)row pos:(GtkBaselinePosition)pos;
 
 /**
  * Sets whether all rows of @grid should have the same height.

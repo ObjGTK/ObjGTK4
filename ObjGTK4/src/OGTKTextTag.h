@@ -38,7 +38,7 @@
 /**
  * Constructors
  */
-+ (instancetype)textTag:(OFString*)name;
++ (instancetype)textTagWithName:(OFString*)name;
 
 /**
  * Methods
@@ -55,7 +55,7 @@
  *
  * @param sizeChanged whether the change affects the `GtkTextView` layout
  */
-- (void)changed:(bool)sizeChanged;
+- (void)changedWithSizeChanged:(bool)sizeChanged;
 
 /**
  * Get the tag priority.

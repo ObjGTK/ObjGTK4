@@ -64,7 +64,7 @@
  *
  * @param data `GBytes` containing the data to load
  */
-- (void)loadFromBytes:(GBytes*)data;
+- (void)loadFromBytesWithData:(GBytes*)data;
 
 /**
  * Loads @data into @css_provider.
@@ -74,7 +74,7 @@
  * @param data CSS data to be parsed
  * @param length the length of @data in bytes, or -1 for NUL terminated strings
  */
-- (void)loadFromDataWithData:(OFString*)data length:(gssize)length;
+- (void)loadFromData:(OFString*)data length:(gssize)length;
 
 /**
  * Loads the data contained in @file into @css_provider.
@@ -102,7 +102,7 @@
  *
  * @param resourcePath a `GResource` resource path
  */
-- (void)loadFromResource:(OFString*)resourcePath;
+- (void)loadFromResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Loads @string into @css_provider.
@@ -124,7 +124,7 @@
  * @param variant variant to load, for example, "dark", or
  *   %NULL for the default
  */
-- (void)loadNamedWithName:(OFString*)name variant:(OFString*)variant;
+- (void)loadNamed:(OFString*)name variant:(OFString*)variant;
 
 /**
  * Converts the @provider into a string representation in CSS
@@ -137,6 +137,6 @@
  *
  * @return a new string representing the @provider.
  */
-- (char*)toString;
+- (OFString*)toString;
 
 @end

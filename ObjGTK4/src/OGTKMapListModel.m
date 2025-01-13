@@ -57,7 +57,7 @@
 	return returnValue;
 }
 
-- (void)setMapFuncWithMapFunc:(GtkMapListModelMapFunc)mapFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
+- (void)setMapFunc:(GtkMapListModelMapFunc)mapFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
 {
 	gtk_map_list_model_set_map_func([self castedGObject], mapFunc, userData, userDestroy);
 }

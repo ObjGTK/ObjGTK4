@@ -85,7 +85,7 @@
  *
  * @param child the `GtkWidget` to be added to @action_bar
  */
-- (void)packEnd:(OGTKWidget*)child;
+- (void)packEndWithChild:(OGTKWidget*)child;
 
 /**
  * Adds @child to @action_bar, packed with reference to the
@@ -93,14 +93,14 @@
  *
  * @param child the `GtkWidget` to be added to @action_bar
  */
-- (void)packStart:(OGTKWidget*)child;
+- (void)packStartWithChild:(OGTKWidget*)child;
 
 /**
  * Removes a child from @action_bar.
  *
  * @param child the `GtkWidget` to be removed
  */
-- (void)remove:(OGTKWidget*)child;
+- (void)removeWithChild:(OGTKWidget*)child;
 
 /**
  * Sets the center widget for the `GtkActionBar`.

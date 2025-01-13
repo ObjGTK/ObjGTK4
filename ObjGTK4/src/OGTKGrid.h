@@ -184,7 +184,7 @@
  * @param row a row index
  * @return the baseline position of @row
  */
-- (GtkBaselinePosition)rowBaselinePosition:(int)row;
+- (GtkBaselinePosition)rowBaselinePositionWithRow:(int)row;
 
 /**
  * Returns whether all rows of @grid have the same height.
@@ -209,7 +209,7 @@
  *
  * @param position the position to insert the column at
  */
-- (void)insertColumn:(int)position;
+- (void)insertColumnWithPosition:(int)position;
 
 /**
  * Inserts a row or column at the specified position.
@@ -234,7 +234,7 @@
  *
  * @param position the position to insert the row at
  */
-- (void)insertRow:(int)position;
+- (void)insertRowWithPosition:(int)position;
 
 /**
  * Queries the attach points and spans of @child inside the given `GtkGrid`.
@@ -245,7 +245,7 @@
  * @param width the number of columns @child spans
  * @param height the number of rows @child spans
  */
-- (void)queryChildWithChild:(OGTKWidget*)child column:(int*)column row:(int*)row width:(int*)width height:(int*)height;
+- (void)queryChild:(OGTKWidget*)child column:(int*)column row:(int*)row width:(int*)width height:(int*)height;
 
 /**
  * Removes a child from @grid.
@@ -255,7 +255,7 @@
  *
  * @param child the child widget to remove
  */
-- (void)remove:(OGTKWidget*)child;
+- (void)removeWithChild:(OGTKWidget*)child;
 
 /**
  * Removes a column from the grid.
@@ -267,7 +267,7 @@
  *
  * @param position the position of the column to remove
  */
-- (void)removeColumn:(int)position;
+- (void)removeColumnWithPosition:(int)position;
 
 /**
  * Removes a row from the grid.
@@ -279,7 +279,7 @@
  *
  * @param position the position of the row to remove
  */
-- (void)removeRow:(int)position;
+- (void)removeRowWithPosition:(int)position;
 
 /**
  * Sets which row defines the global baseline for the entire grid.
@@ -315,7 +315,7 @@
  * @param row a row index
  * @param pos a `GtkBaselinePosition`
  */
-- (void)setRowBaselinePositionWithRow:(int)row pos:(GtkBaselinePosition)pos;
+- (void)setRowBaselinePosition:(int)row pos:(GtkBaselinePosition)pos;
 
 /**
  * Sets whether all rows of @grid will have the same height.

@@ -85,7 +85,7 @@
 	return returnValue;
 }
 
-- (GtkBaselinePosition)rowBaselinePosition:(int)row
+- (GtkBaselinePosition)rowBaselinePositionWithRow:(int)row
 {
 	GtkBaselinePosition returnValue = (GtkBaselinePosition)gtk_grid_get_row_baseline_position([self castedGObject], row);
 
@@ -106,7 +106,7 @@
 	return returnValue;
 }
 
-- (void)insertColumn:(int)position
+- (void)insertColumnWithPosition:(int)position
 {
 	gtk_grid_insert_column([self castedGObject], position);
 }
@@ -116,27 +116,27 @@
 	gtk_grid_insert_next_to([self castedGObject], [sibling castedGObject], side);
 }
 
-- (void)insertRow:(int)position
+- (void)insertRowWithPosition:(int)position
 {
 	gtk_grid_insert_row([self castedGObject], position);
 }
 
-- (void)queryChildWithChild:(OGTKWidget*)child column:(int*)column row:(int*)row width:(int*)width height:(int*)height
+- (void)queryChild:(OGTKWidget*)child column:(int*)column row:(int*)row width:(int*)width height:(int*)height
 {
 	gtk_grid_query_child([self castedGObject], [child castedGObject], column, row, width, height);
 }
 
-- (void)remove:(OGTKWidget*)child
+- (void)removeWithChild:(OGTKWidget*)child
 {
 	gtk_grid_remove([self castedGObject], [child castedGObject]);
 }
 
-- (void)removeColumn:(int)position
+- (void)removeColumnWithPosition:(int)position
 {
 	gtk_grid_remove_column([self castedGObject], position);
 }
 
-- (void)removeRow:(int)position
+- (void)removeRowWithPosition:(int)position
 {
 	gtk_grid_remove_row([self castedGObject], position);
 }
@@ -156,7 +156,7 @@
 	gtk_grid_set_column_spacing([self castedGObject], spacing);
 }
 
-- (void)setRowBaselinePositionWithRow:(int)row pos:(GtkBaselinePosition)pos
+- (void)setRowBaselinePosition:(int)row pos:(GtkBaselinePosition)pos
 {
 	gtk_grid_set_row_baseline_position([self castedGObject], row, pos);
 }

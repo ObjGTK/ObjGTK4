@@ -55,15 +55,15 @@
  * @param callback a `GAsyncReadyCallback` to call when the pixbuf is loaded
  * @param userData the data to pass to the callback function
  */
-+ (void)newFromStreamAsyncWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
++ (void)newFromStreamAsync:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
 
 /**
  * Constructors
  */
-+ (instancetype)pixbufAnimationFromFile:(OFString*)filename;
-+ (instancetype)pixbufAnimationFromResource:(OFString*)resourcePath;
-+ (instancetype)pixbufAnimationFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
-+ (instancetype)pixbufAnimationFromStreamFinish:(GAsyncResult*)asyncResult;
++ (instancetype)pixbufAnimationFromFileWithFilename:(OFString*)filename;
++ (instancetype)pixbufAnimationFromResourceWithResourcePath:(OFString*)resourcePath;
++ (instancetype)pixbufAnimationFromStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
++ (instancetype)pixbufAnimationFromStreamFinishWithAsyncResult:(GAsyncResult*)asyncResult;
 
 /**
  * Methods
@@ -117,7 +117,7 @@
  * @param startTime time when the animation starts playing
  * @return an iterator to move over the animation
  */
-- (OGdkPixbufAnimationIter*)iter:(const GTimeVal*)startTime;
+- (OGdkPixbufAnimationIter*)iterWithStartTime:(const GTimeVal*)startTime;
 
 /**
  * Retrieves a static image for the animation.

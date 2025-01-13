@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)singleSelection:(GListModel*)model
++ (instancetype)singleSelectionWithModel:(GListModel*)model
 {
 	GtkSingleSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_single_selection_new(model), GtkSingleSelection, GtkSingleSelection);
 
@@ -93,7 +93,7 @@
 	gtk_single_selection_set_model([self castedGObject], model);
 }
 
-- (void)setSelected:(guint)position
+- (void)setSelectedWithPosition:(guint)position
 {
 	gtk_single_selection_set_selected([self castedGObject], position);
 }

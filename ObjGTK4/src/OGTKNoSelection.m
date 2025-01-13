@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)noSelection:(GListModel*)model
++ (instancetype)noSelectionWithModel:(GListModel*)model
 {
 	GtkNoSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_no_selection_new(model), GtkNoSelection, GtkNoSelection);
 

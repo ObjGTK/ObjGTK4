@@ -38,7 +38,7 @@
 + (instancetype)videoForFile:(GFile*)file;
 + (instancetype)videoForFilename:(OFString*)filename;
 + (instancetype)videoForMediaStream:(OGTKMediaStream*)stream;
-+ (instancetype)videoForResource:(OFString*)resourcePath;
++ (instancetype)videoForResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Methods
@@ -115,7 +115,7 @@
  *
  * @param enabled the new graphics offload status
  */
-- (void)setGraphicsOffload:(GtkGraphicsOffloadEnabled)enabled;
+- (void)setGraphicsOffloadWithEnabled:(GtkGraphicsOffloadEnabled)enabled;
 
 /**
  * Sets whether new files loaded by @self should be set to loop.
@@ -145,6 +145,6 @@
  *
  * @param resourcePath the resource to set
  */
-- (void)setResource:(OFString*)resourcePath;
+- (void)setResourceWithResourcePath:(OFString*)resourcePath;
 
 @end

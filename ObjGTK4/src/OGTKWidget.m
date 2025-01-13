@@ -87,7 +87,7 @@
 	gtk_widget_add_mnemonic_label([self castedGObject], [label castedGObject]);
 }
 
-- (guint)addTickCallbackWithCallback:(GtkTickCallback)callback userData:(gpointer)userData notify:(GDestroyNotify)notify
+- (guint)addTickCallback:(GtkTickCallback)callback userData:(gpointer)userData notify:(GDestroyNotify)notify
 {
 	guint returnValue = (guint)gtk_widget_add_tick_callback([self castedGObject], callback, userData, notify);
 
@@ -99,7 +99,7 @@
 	gtk_widget_allocate([self castedGObject], width, height, baseline, transform);
 }
 
-- (bool)childFocus:(GtkDirectionType)direction
+- (bool)childFocusWithDirection:(GtkDirectionType)direction
 {
 	bool returnValue = (bool)gtk_widget_child_focus([self castedGObject], direction);
 
@@ -113,7 +113,7 @@
 	return returnValue;
 }
 
-- (bool)computeExpand:(GtkOrientation)orientation
+- (bool)computeExpandWithOrientation:(GtkOrientation)orientation
 {
 	bool returnValue = (bool)gtk_widget_compute_expand([self castedGObject], orientation);
 
@@ -151,7 +151,7 @@
 	return returnValue;
 }
 
-- (OGPangoLayout*)createPangoLayout:(OFString*)text
+- (OGPangoLayout*)createPangoLayoutWithText:(OFString*)text
 {
 	PangoLayout* gobjectValue = gtk_widget_create_pango_layout([self castedGObject], [text UTF8String]);
 
@@ -161,7 +161,7 @@
 	return returnValue;
 }
 
-- (void)disposeTemplate:(GType)widgetType
+- (void)disposeTemplateWithWidgetType:(GType)widgetType
 {
 	gtk_widget_dispose_template([self castedGObject], widgetType);
 }
@@ -199,12 +199,12 @@
 	return returnValue;
 }
 
-- (void)allocation:(GtkAllocation*)allocation
+- (void)allocationWithAllocation:(GtkAllocation*)allocation
 {
 	gtk_widget_get_allocation([self castedGObject], allocation);
 }
 
-- (OGTKWidget*)ancestor:(GType)widgetType
+- (OGTKWidget*)ancestorWithWidgetType:(GType)widgetType
 {
 	GtkWidget* gobjectValue = gtk_widget_get_ancestor([self castedGObject], widgetType);
 
@@ -248,7 +248,7 @@
 	return returnValue;
 }
 
-- (void)color:(GdkRGBA*)color
+- (void)colorWithColor:(GdkRGBA*)color
 {
 	gtk_widget_get_color([self castedGObject], color);
 }
@@ -554,7 +554,7 @@
 	return returnValue;
 }
 
-- (int)size:(GtkOrientation)orientation
+- (int)sizeWithOrientation:(GtkOrientation)orientation
 {
 	int returnValue = (int)gtk_widget_get_size([self castedGObject], orientation);
 
@@ -742,7 +742,7 @@
 	return returnValue;
 }
 
-- (bool)keynavFailed:(GtkDirectionType)direction
+- (bool)keynavFailedWithDirection:(GtkDirectionType)direction
 {
 	bool returnValue = (bool)gtk_widget_keynav_failed([self castedGObject], direction);
 
@@ -766,7 +766,7 @@
 	gtk_widget_measure([self castedGObject], orientation, forSize, minimum, natural, minimumBaseline, naturalBaseline);
 }
 
-- (bool)mnemonicActivate:(bool)groupCycling
+- (bool)mnemonicActivateWithGroupCycling:(bool)groupCycling
 {
 	bool returnValue = (bool)gtk_widget_mnemonic_activate([self castedGObject], groupCycling);
 
@@ -830,7 +830,7 @@
 	gtk_widget_remove_mnemonic_label([self castedGObject], [label castedGObject]);
 }
 
-- (void)removeTickCallback:(guint)identifier
+- (void)removeTickCallbackWithIdentifier:(guint)identifier
 {
 	gtk_widget_remove_tick_callback([self castedGObject], identifier);
 }
@@ -910,7 +910,7 @@
 	gtk_widget_set_hexpand([self castedGObject], expand);
 }
 
-- (void)setHexpandSet:(bool)set
+- (void)setHexpandSetWithSet:(bool)set
 {
 	gtk_widget_set_hexpand_set([self castedGObject], set);
 }
@@ -975,7 +975,7 @@
 	gtk_widget_set_size_request([self castedGObject], width, height);
 }
 
-- (void)setStateFlagsWithFlags:(GtkStateFlags)flags clear:(bool)clear
+- (void)setStateFlags:(GtkStateFlags)flags clear:(bool)clear
 {
 	gtk_widget_set_state_flags([self castedGObject], flags, clear);
 }
@@ -1000,7 +1000,7 @@
 	gtk_widget_set_vexpand([self castedGObject], expand);
 }
 
-- (void)setVexpandSet:(bool)set
+- (void)setVexpandSetWithSet:(bool)set
 {
 	gtk_widget_set_vexpand_set([self castedGObject], set);
 }
@@ -1027,7 +1027,7 @@
 	gtk_widget_size_allocate([self castedGObject], allocation, baseline);
 }
 
-- (void)snapshotChildWithChild:(OGTKWidget*)child snapshot:(OGTKSnapshot*)snapshot
+- (void)snapshotChild:(OGTKWidget*)child snapshot:(OGTKSnapshot*)snapshot
 {
 	gtk_widget_snapshot_child([self castedGObject], [child castedGObject], [snapshot castedGObject]);
 }

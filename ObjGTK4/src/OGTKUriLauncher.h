@@ -35,7 +35,7 @@
 /**
  * Constructors
  */
-+ (instancetype)uriLauncher:(OFString*)uri;
++ (instancetype)uriLauncherWithUri:(OFString*)uri;
 
 /**
  * Methods
@@ -74,7 +74,7 @@
  * @return `TRUE` if an application was launched,
  *     or `FALSE` and @error is set
  */
-- (bool)launchFinish:(GAsyncResult*)result;
+- (bool)launchFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Sets the uri that will be opened.

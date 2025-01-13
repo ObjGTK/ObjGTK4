@@ -45,7 +45,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkPixbufSimpleAnim, GdkPixbufSimpleAnim);
 }
 
-- (void)addFrame:(OGdkPixbuf*)pixbuf
+- (void)addFrameWithPixbuf:(OGdkPixbuf*)pixbuf
 {
 	gdk_pixbuf_simple_anim_add_frame([self castedGObject], [pixbuf castedGObject]);
 }

@@ -23,12 +23,12 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (void)newFromStreamAsyncWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
++ (void)newFromStreamAsync:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
 {
 	gdk_pixbuf_animation_new_from_stream_async([stream castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-+ (instancetype)pixbufAnimationFromFile:(OFString*)filename
++ (instancetype)pixbufAnimationFromFileWithFilename:(OFString*)filename
 {
 	GError* err = NULL;
 
@@ -52,7 +52,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufAnimationFromResource:(OFString*)resourcePath
++ (instancetype)pixbufAnimationFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	GError* err = NULL;
 
@@ -76,7 +76,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufAnimationFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable
++ (instancetype)pixbufAnimationFromStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable
 {
 	GError* err = NULL;
 
@@ -100,7 +100,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufAnimationFromStreamFinish:(GAsyncResult*)asyncResult
++ (instancetype)pixbufAnimationFromStreamFinishWithAsyncResult:(GAsyncResult*)asyncResult
 {
 	GError* err = NULL;
 
@@ -136,7 +136,7 @@
 	return returnValue;
 }
 
-- (OGdkPixbufAnimationIter*)iter:(const GTimeVal*)startTime
+- (OGdkPixbufAnimationIter*)iterWithStartTime:(const GTimeVal*)startTime
 {
 	GdkPixbufAnimationIter* gobjectValue = gdk_pixbuf_animation_get_iter([self castedGObject], startTime);
 

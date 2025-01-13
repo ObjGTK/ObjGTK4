@@ -38,7 +38,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)printSettingsFromFile:(OFString*)fileName
++ (instancetype)printSettingsFromFileWithFileName:(OFString*)fileName
 {
 	GError* err = NULL;
 
@@ -82,7 +82,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)printSettingsFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
++ (instancetype)printSettingsFromKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	GError* err = NULL;
 
@@ -126,7 +126,7 @@
 	gtk_print_settings_foreach([self castedGObject], func, userData);
 }
 
-- (OFString*)get:(OFString*)key
+- (OFString*)getWithKey:(OFString*)key
 {
 	const char* gobjectValue = gtk_print_settings_get([self castedGObject], [key UTF8String]);
 
@@ -134,7 +134,7 @@
 	return returnValue;
 }
 
-- (bool)bool:(OFString*)key
+- (bool)boolWithKey:(OFString*)key
 {
 	bool returnValue = (bool)gtk_print_settings_get_bool([self castedGObject], [key UTF8String]);
 
@@ -164,7 +164,7 @@
 	return returnValue;
 }
 
-- (double)double:(OFString*)key
+- (double)doubleWithKey:(OFString*)key
 {
 	double returnValue = (double)gtk_print_settings_get_double([self castedGObject], [key UTF8String]);
 
@@ -193,7 +193,7 @@
 	return returnValue;
 }
 
-- (int)int:(OFString*)key
+- (int)intWithKey:(OFString*)key
 {
 	int returnValue = (int)gtk_print_settings_get_int([self castedGObject], [key UTF8String]);
 
@@ -258,7 +258,7 @@
 	return returnValue;
 }
 
-- (GtkPageRange*)pageRanges:(int*)numRanges
+- (GtkPageRange*)pageRangesWithNumRanges:(int*)numRanges
 {
 	GtkPageRange* returnValue = (GtkPageRange*)gtk_print_settings_get_page_ranges([self castedGObject], numRanges);
 
@@ -272,7 +272,7 @@
 	return returnValue;
 }
 
-- (double)paperHeight:(GtkUnit)unit
+- (double)paperHeightWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_print_settings_get_paper_height([self castedGObject], unit);
 
@@ -286,7 +286,7 @@
 	return returnValue;
 }
 
-- (double)paperWidth:(GtkUnit)unit
+- (double)paperWidthWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_print_settings_get_paper_width([self castedGObject], unit);
 
@@ -371,7 +371,7 @@
 	return returnValue;
 }
 
-- (bool)loadFile:(OFString*)fileName
+- (bool)loadFileWithFileName:(OFString*)fileName
 {
 	GError* err = NULL;
 
@@ -382,7 +382,7 @@
 	return returnValue;
 }
 
-- (bool)loadKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
+- (bool)loadKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	GError* err = NULL;
 
@@ -448,7 +448,7 @@
 	gtk_print_settings_set_media_type([self castedGObject], [mediaType UTF8String]);
 }
 
-- (void)setNcopies:(int)numCopies
+- (void)setNcopiesWithNumCopies:(int)numCopies
 {
 	gtk_print_settings_set_n_copies([self castedGObject], numCopies);
 }
@@ -473,7 +473,7 @@
 	gtk_print_settings_set_output_bin([self castedGObject], [outputBin UTF8String]);
 }
 
-- (void)setPageRangesWithPageRanges:(GtkPageRange*)pageRanges numRanges:(int)numRanges
+- (void)setPageRanges:(GtkPageRange*)pageRanges numRanges:(int)numRanges
 {
 	gtk_print_settings_set_page_ranges([self castedGObject], pageRanges, numRanges);
 }
@@ -483,7 +483,7 @@
 	gtk_print_settings_set_page_set([self castedGObject], pageSet);
 }
 
-- (void)setPaperHeightWithHeight:(double)height unit:(GtkUnit)unit
+- (void)setPaperHeight:(double)height unit:(GtkUnit)unit
 {
 	gtk_print_settings_set_paper_height([self castedGObject], height, unit);
 }
@@ -493,7 +493,7 @@
 	gtk_print_settings_set_paper_size([self castedGObject], paperSize);
 }
 
-- (void)setPaperWidthWithWidth:(double)width unit:(GtkUnit)unit
+- (void)setPaperWidth:(double)width unit:(GtkUnit)unit
 {
 	gtk_print_settings_set_paper_width([self castedGObject], width, unit);
 }
@@ -523,7 +523,7 @@
 	gtk_print_settings_set_resolution([self castedGObject], resolution);
 }
 
-- (void)setResolutionXyWithResolutionX:(int)resolutionX resolutionY:(int)resolutionY
+- (void)setResolutionXy:(int)resolutionX resolutionY:(int)resolutionY
 {
 	gtk_print_settings_set_resolution_xy([self castedGObject], resolutionX, resolutionY);
 }
@@ -543,7 +543,7 @@
 	gtk_print_settings_set_use_color([self castedGObject], useColor);
 }
 
-- (bool)toFile:(OFString*)fileName
+- (bool)toFileWithFileName:(OFString*)fileName
 {
 	GError* err = NULL;
 
@@ -561,12 +561,12 @@
 	return returnValue;
 }
 
-- (void)toKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
+- (void)toKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	gtk_print_settings_to_key_file([self castedGObject], keyFile, [groupName UTF8String]);
 }
 
-- (void)unset:(OFString*)key
+- (void)unsetWithKey:(OFString*)key
 {
 	gtk_print_settings_unset([self castedGObject], [key UTF8String]);
 }

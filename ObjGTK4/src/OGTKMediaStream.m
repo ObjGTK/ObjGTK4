@@ -146,12 +146,12 @@
 	gtk_media_stream_prepared([self castedGObject], hasAudio, hasVideo, seekable, duration);
 }
 
-- (void)realize:(OGdkSurface*)surface
+- (void)realizeWithSurface:(OGdkSurface*)surface
 {
 	gtk_media_stream_realize([self castedGObject], [surface castedGObject]);
 }
 
-- (void)seek:(gint64)timestamp
+- (void)seekWithTimestamp:(gint64)timestamp
 {
 	gtk_media_stream_seek([self castedGObject], timestamp);
 }
@@ -206,12 +206,12 @@
 	gtk_media_stream_unprepared([self castedGObject]);
 }
 
-- (void)unrealize:(OGdkSurface*)surface
+- (void)unrealizeWithSurface:(OGdkSurface*)surface
 {
 	gtk_media_stream_unrealize([self castedGObject], [surface castedGObject]);
 }
 
-- (void)update:(gint64)timestamp
+- (void)updateWithTimestamp:(gint64)timestamp
 {
 	gtk_media_stream_update([self castedGObject], timestamp);
 }

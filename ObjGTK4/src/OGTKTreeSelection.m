@@ -53,7 +53,7 @@
 	return returnValue;
 }
 
-- (GList*)selectedRows:(GtkTreeModel**)model
+- (GList*)selectedRowsWithModel:(GtkTreeModel**)model
 {
 	GList* returnValue = (GList*)gtk_tree_selection_get_selected_rows([self castedGObject], model);
 
@@ -75,14 +75,14 @@
 	return returnValue;
 }
 
-- (bool)iterIsSelected:(GtkTreeIter*)iter
+- (bool)iterIsSelectedWithIter:(GtkTreeIter*)iter
 {
 	bool returnValue = (bool)gtk_tree_selection_iter_is_selected([self castedGObject], iter);
 
 	return returnValue;
 }
 
-- (bool)pathIsSelected:(GtkTreePath*)path
+- (bool)pathIsSelectedWithPath:(GtkTreePath*)path
 {
 	bool returnValue = (bool)gtk_tree_selection_path_is_selected([self castedGObject], path);
 
@@ -114,12 +114,12 @@
 	gtk_tree_selection_selected_foreach([self castedGObject], func, data);
 }
 
-- (void)setMode:(GtkSelectionMode)type
+- (void)setModeWithType:(GtkSelectionMode)type
 {
 	gtk_tree_selection_set_mode([self castedGObject], type);
 }
 
-- (void)setSelectFunctionWithFunc:(GtkTreeSelectionFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
+- (void)setSelectFunction:(GtkTreeSelectionFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
 {
 	gtk_tree_selection_set_select_function([self castedGObject], func, data, destroy);
 }

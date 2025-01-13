@@ -39,7 +39,7 @@
  *
  * @param sorter a sorter to add
  */
-- (void)append:(OGTKSorter*)sorter;
+- (void)appendWithSorter:(OGTKSorter*)sorter;
 
 /**
  * Removes the sorter at the given @position from the list of sorter
@@ -49,6 +49,6 @@
  *
  * @param position position of sorter to remove
  */
-- (void)remove:(guint)position;
+- (void)removeWithPosition:(guint)position;
 
 @end

@@ -46,7 +46,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBox, GtkBox);
 }
 
-- (void)append:(OGTKWidget*)child
+- (void)appendWithChild:(OGTKWidget*)child
 {
 	gtk_box_append([self castedGObject], [child castedGObject]);
 }
@@ -79,22 +79,22 @@
 	return returnValue;
 }
 
-- (void)insertChildAfterWithChild:(OGTKWidget*)child sibling:(OGTKWidget*)sibling
+- (void)insertChildAfter:(OGTKWidget*)child sibling:(OGTKWidget*)sibling
 {
 	gtk_box_insert_child_after([self castedGObject], [child castedGObject], [sibling castedGObject]);
 }
 
-- (void)prepend:(OGTKWidget*)child
+- (void)prependWithChild:(OGTKWidget*)child
 {
 	gtk_box_prepend([self castedGObject], [child castedGObject]);
 }
 
-- (void)remove:(OGTKWidget*)child
+- (void)removeWithChild:(OGTKWidget*)child
 {
 	gtk_box_remove([self castedGObject], [child castedGObject]);
 }
 
-- (void)reorderChildAfterWithChild:(OGTKWidget*)child sibling:(OGTKWidget*)sibling
+- (void)reorderChildAfter:(OGTKWidget*)child sibling:(OGTKWidget*)sibling
 {
 	gtk_box_reorder_child_after([self castedGObject], [child castedGObject], [sibling castedGObject]);
 }

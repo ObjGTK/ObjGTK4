@@ -68,7 +68,7 @@
 	return returnValue;
 }
 
-- (int)fd:(unsigned int)plane
+- (int)fdWithPlane:(unsigned int)plane
 {
 	int returnValue = (int)gdk_dmabuf_texture_builder_get_fd([self castedGObject], plane);
 
@@ -103,7 +103,7 @@
 	return returnValue;
 }
 
-- (unsigned int)offset:(unsigned int)plane
+- (unsigned int)offsetWithPlane:(unsigned int)plane
 {
 	unsigned int returnValue = (unsigned int)gdk_dmabuf_texture_builder_get_offset([self castedGObject], plane);
 
@@ -117,7 +117,7 @@
 	return returnValue;
 }
 
-- (unsigned int)stride:(unsigned int)plane
+- (unsigned int)strideWithPlane:(unsigned int)plane
 {
 	unsigned int returnValue = (unsigned int)gdk_dmabuf_texture_builder_get_stride([self castedGObject], plane);
 

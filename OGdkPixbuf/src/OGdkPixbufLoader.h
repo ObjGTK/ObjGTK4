@@ -70,7 +70,7 @@
  */
 + (instancetype)pixbufLoader;
 + (instancetype)pixbufLoaderWithMimeType:(OFString*)mimeType;
-+ (instancetype)pixbufLoaderWithType:(OFString*)imageType;
++ (instancetype)pixbufLoaderWithTypeWithImageType:(OFString*)imageType;
 
 /**
  * Methods
@@ -177,6 +177,6 @@
  * @return `TRUE` if the write was successful, or `FALSE` if
  *   the loader cannot parse the buffer
  */
-- (bool)writeBytes:(GBytes*)buffer;
+- (bool)writeBytesWithBuffer:(GBytes*)buffer;
 
 @end

@@ -174,7 +174,7 @@
 	return returnValue;
 }
 
-- (void)stopEditing:(bool)canceled
+- (void)stopEditingWithCanceled:(bool)canceled
 {
 	gtk_cell_renderer_stop_editing([self castedGObject], canceled);
 }

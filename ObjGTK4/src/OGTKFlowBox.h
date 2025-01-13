@@ -85,7 +85,7 @@
  *
  * @param child the `GtkWidget` to add
  */
-- (void)append:(OGTKWidget*)child;
+- (void)appendWithChild:(OGTKWidget*)child;
 
 /**
  * Binds @model to @box.
@@ -109,7 +109,7 @@
  * @param userData user data passed to @create_widget_func
  * @param userDataFreeFunc function for freeing @user_data
  */
-- (void)bindModelWithModel:(GListModel*)model createWidgetFunc:(GtkFlowBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc;
+- (void)bindModel:(GListModel*)model createWidgetFunc:(GtkFlowBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc;
 
 /**
  * Returns whether children activate on single clicks.
@@ -127,7 +127,7 @@
  *   always be a `GtkFlowBoxChild` or %NULL in case no child widget
  *   with the given index exists.
  */
-- (OGTKFlowBoxChild*)childAtIndex:(int)idx;
+- (OGTKFlowBoxChild*)childAtIndexWithIdx:(int)idx;
 
 /**
  * Gets the child in the (@x, @y) position.
@@ -237,14 +237,14 @@
  *
  * @param child the `GtkWidget` to add
  */
-- (void)prepend:(OGTKWidget*)child;
+- (void)prependWithChild:(OGTKWidget*)child;
 
 /**
  * Removes a child from @box.
  *
  * @param widget the child widget to remove
  */
-- (void)remove:(OGTKWidget*)widget;
+- (void)removeWithWidget:(OGTKWidget*)widget;
 
 /**
  * Removes all children from @box.
@@ -315,7 +315,7 @@
  * @param userData user data passed to @filter_func
  * @param destroy destroy notifier for @user_data
  */
-- (void)setFilterFuncWithFilterFunc:(GtkFlowBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
+- (void)setFilterFunc:(GtkFlowBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
 
 /**
  * Hooks up an adjustment to focus handling in @box.
@@ -354,7 +354,7 @@
  *
  * @param nchildren the maximum number of children per line
  */
-- (void)setMaxChildrenPerLine:(guint)nchildren;
+- (void)setMaxChildrenPerLineWithNchildren:(guint)nchildren;
 
 /**
  * Sets the minimum number of children to line up
@@ -395,7 +395,7 @@
  * @param userData user data passed to @sort_func
  * @param destroy destroy notifier for @user_data
  */
-- (void)setSortFuncWithSortFunc:(GtkFlowBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
+- (void)setSortFunc:(GtkFlowBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
 
 /**
  * Hooks up an adjustment to focus handling in @box.

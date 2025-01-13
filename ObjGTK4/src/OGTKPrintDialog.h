@@ -123,7 +123,7 @@
  * @param result a `GAsyncResult`
  * @return Whether the call was successful
  */
-- (bool)printFileFinish:(GAsyncResult*)result;
+- (bool)printFileFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Finishes the [method@Gtk.PrintDialog.print] call and
@@ -142,7 +142,7 @@
  * @param result a `GAsyncResult`
  * @return a [class@Gio.OutputStream]
  */
-- (OGOutputStream*)printFinish:(GAsyncResult*)result;
+- (OGOutputStream*)printFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Sets the label that will be shown on the
@@ -216,6 +216,6 @@
  * @return The `GtkPrintSetup` object that resulted from the call,
  *   or `NULL` if the call was not successful
  */
-- (GtkPrintSetup*)setupFinish:(GAsyncResult*)result;
+- (GtkPrintSetup*)setupFinishWithResult:(GAsyncResult*)result;
 
 @end

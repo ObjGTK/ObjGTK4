@@ -119,7 +119,7 @@
  *   string containing the currently active text.
  *   Must be freed with g_free().
  */
-- (char*)activeText;
+- (OFString*)activeText;
 
 /**
  * Inserts @text at @position in the list of strings stored in @combo_box.
@@ -176,7 +176,7 @@
  *
  * @param position Index of the item to remove
  */
-- (void)remove:(int)position;
+- (void)removeWithPosition:(int)position;
 
 /**
  * Removes all the text entries from the combo box.

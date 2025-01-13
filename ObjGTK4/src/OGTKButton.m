@@ -87,7 +87,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)buttonWithMnemonic:(OFString*)label
++ (instancetype)buttonWithMnemonicWithLabel:(OFString*)label
 {
 	GtkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_button_new_with_mnemonic([label UTF8String]), GtkButton, GtkButton);
 

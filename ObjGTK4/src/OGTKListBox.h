@@ -90,7 +90,7 @@
  *
  * @param child the `GtkWidget` to add
  */
-- (void)append:(OGTKWidget*)child;
+- (void)appendWithChild:(OGTKWidget*)child;
 
 /**
  * Binds @model to @box.
@@ -115,7 +115,7 @@
  * @param userData user data passed to @create_widget_func
  * @param userDataFreeFunc function for freeing @user_data
  */
-- (void)bindModelWithModel:(GListModel*)model createWidgetFunc:(GtkListBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc;
+- (void)bindModel:(GListModel*)model createWidgetFunc:(GtkListBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc;
 
 /**
  * Add a drag highlight to a row.
@@ -261,14 +261,14 @@
  *
  * @param child the `GtkWidget` to add
  */
-- (void)prepend:(OGTKWidget*)child;
+- (void)prependWithChild:(OGTKWidget*)child;
 
 /**
  * Removes a child from @box.
  *
  * @param child the child to remove
  */
-- (void)remove:(OGTKWidget*)child;
+- (void)removeWithChild:(OGTKWidget*)child;
 
 /**
  * Removes all rows from @box.
@@ -344,7 +344,7 @@
  * @param userData user data passed to @filter_func
  * @param destroy destroy notifier for @user_data
  */
-- (void)setFilterFuncWithFilterFunc:(GtkListBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
+- (void)setFilterFunc:(GtkListBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
 
 /**
  * Sets a header function.
@@ -420,7 +420,7 @@
  * @param userData user data passed to @sort_func
  * @param destroy destroy notifier for @user_data
  */
-- (void)setSortFuncWithSortFunc:(GtkListBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
+- (void)setSortFunc:(GtkListBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
 
 /**
  * Unselect all children of @box, if the selection mode allows it.

@@ -88,7 +88,7 @@
  * @param userData user data passed to @map_func
  * @param userDestroy destroy notifier for @user_data
  */
-- (void)setMapFuncWithMapFunc:(GtkMapListModelMapFunc)mapFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
+- (void)setMapFunc:(GtkMapListModelMapFunc)mapFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
 
 /**
  * Sets the model to be mapped.

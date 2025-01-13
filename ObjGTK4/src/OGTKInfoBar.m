@@ -59,7 +59,7 @@
 	return returnValue;
 }
 
-- (void)addChild:(OGTKWidget*)widget
+- (void)addChildWithWidget:(OGTKWidget*)widget
 {
 	gtk_info_bar_add_child([self castedGObject], [widget castedGObject]);
 }
@@ -90,17 +90,17 @@
 	gtk_info_bar_remove_action_widget([self castedGObject], [widget castedGObject]);
 }
 
-- (void)removeChild:(OGTKWidget*)widget
+- (void)removeChildWithWidget:(OGTKWidget*)widget
 {
 	gtk_info_bar_remove_child([self castedGObject], [widget castedGObject]);
 }
 
-- (void)response:(int)responseId
+- (void)responseWithResponseId:(int)responseId
 {
 	gtk_info_bar_response([self castedGObject], responseId);
 }
 
-- (void)setDefaultResponse:(int)responseId
+- (void)setDefaultResponseWithResponseId:(int)responseId
 {
 	gtk_info_bar_set_default_response([self castedGObject], responseId);
 }
@@ -120,7 +120,7 @@
 	gtk_info_bar_set_revealed([self castedGObject], revealed);
 }
 
-- (void)setShowCloseButton:(bool)setting
+- (void)setShowCloseButtonWithSetting:(bool)setting
 {
 	gtk_info_bar_set_show_close_button([self castedGObject], setting);
 }

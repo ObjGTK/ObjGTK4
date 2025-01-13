@@ -68,7 +68,7 @@
  *
  * @param geometry a `GdkRectangle` to be filled with the monitor geometry
  */
-- (void)geometry:(GdkRectangle*)geometry;
+- (void)geometryWithGeometry:(GdkRectangle*)geometry;
 
 /**
  * Gets the height in millimeters of the monitor.

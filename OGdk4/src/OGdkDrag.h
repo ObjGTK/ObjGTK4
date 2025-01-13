@@ -84,7 +84,7 @@
  *
  * @param success whether the drag was ultimatively successful
  */
-- (void)dropDone:(bool)success;
+- (void)dropDoneWithSuccess:(bool)success;
 
 /**
  * Determines the bitmask of possible actions proposed by the source.

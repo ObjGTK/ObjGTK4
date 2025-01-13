@@ -39,7 +39,7 @@
  * @param nbytes the size of @bytes in bytes
  * @return a newly allocated `PangoCoverage`
  */
-+ (OGPangoCoverage*)fromBytesWithBytes:(guchar*)bytes nbytes:(int)nbytes;
++ (OGPangoCoverage*)fromBytes:(guchar*)bytes nbytes:(int)nbytes;
 
 /**
  * Constructors
@@ -67,7 +67,7 @@
  * @param index the index to check
  * @return the coverage level of @coverage for character @index_.
  */
-- (PangoCoverageLevel)get:(int)index;
+- (PangoCoverageLevel)getWithIndex:(int)index;
 
 /**
  * Set the coverage for each index in @coverage to be the max (better)
@@ -76,7 +76,7 @@
  *
  * @param other another `PangoCoverage`
  */
-- (void)max:(OGPangoCoverage*)other;
+- (void)maxWithOther:(OGPangoCoverage*)other;
 
 /**
  * Modify a particular index within @coverage
@@ -92,6 +92,6 @@
  * @param bytes location to store result (must be freed with g_free())
  * @param nbytes location to store size of result
  */
-- (void)toBytesWithBytes:(guchar**)bytes nbytes:(int*)nbytes;
+- (void)toBytes:(guchar**)bytes nbytes:(int*)nbytes;
 
 @end

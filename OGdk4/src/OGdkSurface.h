@@ -38,7 +38,7 @@
  * Constructors
  */
 + (instancetype)surfacePopupWithParent:(OGdkSurface*)parent autohide:(bool)autohide;
-+ (instancetype)surfaceToplevel:(OGdkDisplay*)display;
++ (instancetype)surfaceToplevelWithDisplay:(OGdkDisplay*)display;
 
 /**
  * Methods
@@ -146,7 +146,7 @@
  * @param device a pointer `GdkDevice`
  * @return a `GdkCursor`
  */
-- (OGdkCursor*)deviceCursor:(OGdkDevice*)device;
+- (OGdkCursor*)deviceCursorWithDevice:(OGdkDevice*)device;
 
 /**
  * Obtains the current device position and modifier state.
@@ -305,7 +305,7 @@
  * @param device a pointer `GdkDevice`
  * @param cursor a `GdkCursor`
  */
-- (void)setDeviceCursorWithDevice:(OGdkDevice*)device cursor:(OGdkCursor*)cursor;
+- (void)setDeviceCursor:(OGdkDevice*)device cursor:(OGdkCursor*)cursor;
 
 /**
  * Apply the region to the surface for the purpose of event

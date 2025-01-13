@@ -25,7 +25,7 @@
 /**
  * Constructors
  */
-+ (instancetype)fontsetSimple:(PangoLanguage*)language;
++ (instancetype)fontsetSimpleWithLanguage:(PangoLanguage*)language;
 
 /**
  * Methods
@@ -40,7 +40,7 @@
  *
  * @param font a `PangoFont`.
  */
-- (void)append:(OGPangoFont*)font;
+- (void)appendWithFont:(OGPangoFont*)font;
 
 /**
  * Returns the number of fonts in the fontset.

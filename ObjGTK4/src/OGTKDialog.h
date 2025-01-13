@@ -214,7 +214,7 @@
  * @return the @widget button that uses the given
  *   @response_id
  */
-- (OGTKWidget*)widgetForResponse:(int)responseId;
+- (OGTKWidget*)widgetForResponseWithResponseId:(int)responseId;
 
 /**
  * Emits the ::response signal with the given response ID.
@@ -223,7 +223,7 @@
  *
  * @param responseId response ID
  */
-- (void)response:(int)responseId;
+- (void)responseWithResponseId:(int)responseId;
 
 /**
  * Sets the default widget for the dialog based on the response ID.
@@ -232,7 +232,7 @@
  *
  * @param responseId a response ID
  */
-- (void)setDefaultResponse:(int)responseId;
+- (void)setDefaultResponseWithResponseId:(int)responseId;
 
 /**
  * A convenient way to sensitize/desensitize dialog buttons.

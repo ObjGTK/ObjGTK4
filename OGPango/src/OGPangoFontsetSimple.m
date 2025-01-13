@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)fontsetSimple:(PangoLanguage*)language
++ (instancetype)fontsetSimpleWithLanguage:(PangoLanguage*)language
 {
 	PangoFontsetSimple* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_fontset_simple_new(language), PangoFontsetSimple, PangoFontsetSimple);
 
@@ -45,7 +45,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoFontsetSimple, PangoFontsetSimple);
 }
 
-- (void)append:(OGPangoFont*)font
+- (void)appendWithFont:(OGPangoFont*)font
 {
 	pango_fontset_simple_append([self castedGObject], [font castedGObject]);
 }

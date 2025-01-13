@@ -65,7 +65,7 @@
  *
  * @param child the `GtkWidget` to append
  */
-- (void)append:(OGTKWidget*)child;
+- (void)appendWithChild:(OGTKWidget*)child;
 
 /**
  * Gets the value set by gtk_box_set_baseline_child().
@@ -105,14 +105,14 @@
  * @param child the `GtkWidget` to insert
  * @param sibling the sibling after which to insert @child
  */
-- (void)insertChildAfterWithChild:(OGTKWidget*)child sibling:(OGTKWidget*)sibling;
+- (void)insertChildAfter:(OGTKWidget*)child sibling:(OGTKWidget*)sibling;
 
 /**
  * Adds @child as the first child to @box.
  *
  * @param child the `GtkWidget` to prepend
  */
-- (void)prepend:(OGTKWidget*)child;
+- (void)prependWithChild:(OGTKWidget*)child;
 
 /**
  * Removes a child widget from @box.
@@ -123,7 +123,7 @@
  *
  * @param child the child to remove
  */
-- (void)remove:(OGTKWidget*)child;
+- (void)removeWithChild:(OGTKWidget*)child;
 
 /**
  * Moves @child to the position after @sibling in the list
@@ -134,7 +134,7 @@
  * @param child the `GtkWidget` to move, must be a child of @box
  * @param sibling the sibling to move @child after
  */
-- (void)reorderChildAfterWithChild:(OGTKWidget*)child sibling:(OGTKWidget*)sibling;
+- (void)reorderChildAfter:(OGTKWidget*)child sibling:(OGTKWidget*)sibling;
 
 /**
  * Sets the baseline child of a box.

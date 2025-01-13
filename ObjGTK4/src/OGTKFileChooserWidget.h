@@ -27,7 +27,7 @@
 /**
  * Constructors
  */
-+ (instancetype)fileChooserWidget:(GtkFileChooserAction)action;
++ (instancetype)fileChooserWidgetWithAction:(GtkFileChooserAction)action;
 
 /**
  * Methods

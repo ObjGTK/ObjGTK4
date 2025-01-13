@@ -134,7 +134,7 @@
 	gtk_scale_set_draw_value([self castedGObject], drawValue);
 }
 
-- (void)setFormatValueFuncWithFunc:(GtkScaleFormatValueFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify
+- (void)setFormatValueFunc:(GtkScaleFormatValueFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify
 {
 	gtk_scale_set_format_value_func([self castedGObject], func, userData, destroyNotify);
 }

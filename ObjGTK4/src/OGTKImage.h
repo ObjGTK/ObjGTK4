@@ -60,12 +60,12 @@
  * Constructors
  */
 + (instancetype)image;
-+ (instancetype)imageFromFile:(OFString*)filename;
++ (instancetype)imageFromFileWithFilename:(OFString*)filename;
 + (instancetype)imageFromGicon:(GIcon*)icon;
 + (instancetype)imageFromIconName:(OFString*)iconName;
 + (instancetype)imageFromPaintable:(GdkPaintable*)paintable;
 + (instancetype)imageFromPixbuf:(OGdkPixbuf*)pixbuf;
-+ (instancetype)imageFromResource:(OFString*)resourcePath;
++ (instancetype)imageFromResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Methods
@@ -147,7 +147,7 @@
  *
  * @param filename a filename
  */
-- (void)setFromFile:(OFString*)filename;
+- (void)setFromFileWithFilename:(OFString*)filename;
 
 /**
  * Sets a `GtkImage` to show a `GIcon`.
@@ -196,7 +196,7 @@
  *
  * @param resourcePath a resource path
  */
-- (void)setFromResource:(OFString*)resourcePath;
+- (void)setFromResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Suggests an icon size to the theme for named icons.

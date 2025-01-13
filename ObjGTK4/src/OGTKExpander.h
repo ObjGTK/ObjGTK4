@@ -110,8 +110,8 @@
 /**
  * Constructors
  */
-+ (instancetype)expander:(OFString*)label;
-+ (instancetype)expanderWithMnemonic:(OFString*)label;
++ (instancetype)expanderWithLabel:(OFString*)label;
++ (instancetype)expanderWithMnemonicWithLabel:(OFString*)label;
 
 /**
  * Methods

@@ -82,7 +82,7 @@
  * @param widget a `GtkWidget`, child of @fixed
  * @return a `GskTransform`
  */
-- (GskTransform*)childTransform:(OGTKWidget*)widget;
+- (GskTransform*)childTransformWithWidget:(OGTKWidget*)widget;
 
 /**
  * Sets a translation transformation to the given @x and @y
@@ -108,7 +108,7 @@
  *
  * @param widget the child widget to remove
  */
-- (void)remove:(OGTKWidget*)widget;
+- (void)removeWithWidget:(OGTKWidget*)widget;
 
 /**
  * Sets the transformation for @widget.

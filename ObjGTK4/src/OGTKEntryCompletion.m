@@ -71,11 +71,11 @@
 	gtk_entry_completion_complete([self castedGObject]);
 }
 
-- (char*)computePrefix:(OFString*)key
+- (OFString*)computePrefixWithKey:(OFString*)key
 {
 	char* gobjectValue = gtk_entry_completion_compute_prefix([self castedGObject], [key UTF8String]);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
@@ -166,7 +166,7 @@
 	gtk_entry_completion_set_inline_selection([self castedGObject], inlineSelection);
 }
 
-- (void)setMatchFuncWithFunc:(GtkEntryCompletionMatchFunc)func funcData:(gpointer)funcData funcNotify:(GDestroyNotify)funcNotify
+- (void)setMatchFunc:(GtkEntryCompletionMatchFunc)func funcData:(gpointer)funcData funcNotify:(GDestroyNotify)funcNotify
 {
 	gtk_entry_completion_set_match_func([self castedGObject], func, funcData, funcNotify);
 }

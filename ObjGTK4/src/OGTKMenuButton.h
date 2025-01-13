@@ -257,7 +257,7 @@
  * @param userData user data to pass to @func.
  * @param destroyNotify destroy notify for @user_data
  */
-- (void)setCreatePopupFuncWithFunc:(GtkMenuButtonCreatePopupFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify;
+- (void)setCreatePopupFunc:(GtkMenuButtonCreatePopupFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify;
 
 /**
  * Sets the direction in which the popup will be popped up.

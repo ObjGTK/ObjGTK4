@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)mediaControls:(OGTKMediaStream*)stream
++ (instancetype)mediaControlsWithStream:(OGTKMediaStream*)stream
 {
 	GtkMediaControls* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_controls_new([stream castedGObject]), GtkMediaControls, GtkMediaControls);
 

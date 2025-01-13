@@ -25,12 +25,12 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTooltip, GtkTooltip);
 }
 
-- (void)setCustom:(OGTKWidget*)customWidget
+- (void)setCustomWithCustomWidget:(OGTKWidget*)customWidget
 {
 	gtk_tooltip_set_custom([self castedGObject], [customWidget castedGObject]);
 }
 
-- (void)setIcon:(GdkPaintable*)paintable
+- (void)setIconWithPaintable:(GdkPaintable*)paintable
 {
 	gtk_tooltip_set_icon([self castedGObject], paintable);
 }
@@ -55,7 +55,7 @@
 	gtk_tooltip_set_text([self castedGObject], [text UTF8String]);
 }
 
-- (void)setTipArea:(const GdkRectangle*)rect
+- (void)setTipAreaWithRect:(const GdkRectangle*)rect
 {
 	gtk_tooltip_set_tip_area([self castedGObject], rect);
 }

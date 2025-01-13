@@ -55,7 +55,7 @@
 	return returnValue;
 }
 
-- (void)listSizesWithSizes:(int**)sizes nsizes:(int*)nsizes
+- (void)listSizes:(int**)sizes nsizes:(int*)nsizes
 {
 	pango_font_face_list_sizes([self castedGObject], sizes, nsizes);
 }

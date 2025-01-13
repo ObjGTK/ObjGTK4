@@ -62,7 +62,7 @@
  * @param tag a `GtkTextTag`
  * @return %TRUE on success.
  */
-- (bool)add:(OGTKTextTag*)tag;
+- (bool)addWithTag:(OGTKTextTag*)tag;
 
 /**
  * Calls @func on each tag in @table, with user data @data.
@@ -88,7 +88,7 @@
  * @param name name of a tag
  * @return The tag
  */
-- (OGTKTextTag*)lookup:(OFString*)name;
+- (OGTKTextTag*)lookupWithName:(OFString*)name;
 
 /**
  * Remove a tag from the table.
@@ -100,6 +100,6 @@
  *
  * @param tag a `GtkTextTag`
  */
-- (void)remove:(OGTKTextTag*)tag;
+- (void)removeWithTag:(OGTKTextTag*)tag;
 
 @end

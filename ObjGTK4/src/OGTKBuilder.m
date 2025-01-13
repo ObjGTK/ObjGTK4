@@ -38,7 +38,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)builderFromFile:(OFString*)filename
++ (instancetype)builderFromFileWithFilename:(OFString*)filename
 {
 	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_file([filename UTF8String]), GtkBuilder, GtkBuilder);
 
@@ -58,7 +58,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)builderFromResource:(OFString*)resourcePath
++ (instancetype)builderFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_resource([resourcePath UTF8String]), GtkBuilder, GtkBuilder);
 
@@ -78,7 +78,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)builderFromStringWithString:(OFString*)string length:(gssize)length
++ (instancetype)builderFromString:(OFString*)string length:(gssize)length
 {
 	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_string([string UTF8String], length), GtkBuilder, GtkBuilder);
 
@@ -103,7 +103,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBuilder, GtkBuilder);
 }
 
-- (bool)addFromFile:(OFString*)filename
+- (bool)addFromFileWithFilename:(OFString*)filename
 {
 	GError* err = NULL;
 
@@ -114,7 +114,7 @@
 	return returnValue;
 }
 
-- (bool)addFromResource:(OFString*)resourcePath
+- (bool)addFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	GError* err = NULL;
 
@@ -204,7 +204,7 @@
 	return returnValue;
 }
 
-- (OGObject*)object:(OFString*)name
+- (OGObject*)objectWithName:(OFString*)name
 {
 	GObject* gobjectValue = gtk_builder_get_object([self castedGObject], [name UTF8String]);
 
@@ -234,7 +234,7 @@
 	return returnValue;
 }
 
-- (GType)typeFromName:(OFString*)typeName
+- (GType)typeFromNameWithTypeName:(OFString*)typeName
 {
 	GType returnValue = (GType)gtk_builder_get_type_from_name([self castedGObject], [typeName UTF8String]);
 
@@ -267,7 +267,7 @@
 	return returnValue;
 }
 
-- (bool)valueFromStringTypeWithType:(GType)type string:(OFString*)string value:(GValue*)value
+- (bool)valueFromStringType:(GType)type string:(OFString*)string value:(GValue*)value
 {
 	GError* err = NULL;
 

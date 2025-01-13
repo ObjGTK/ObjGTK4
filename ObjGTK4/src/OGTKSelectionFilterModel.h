@@ -22,7 +22,7 @@
 /**
  * Constructors
  */
-+ (instancetype)selectionFilterModel:(GtkSelectionModel*)model;
++ (instancetype)selectionFilterModelWithModel:(GtkSelectionModel*)model;
 
 /**
  * Methods

@@ -23,7 +23,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSorter, GtkSorter);
 }
 
-- (void)changed:(GtkSorterChange)change
+- (void)changedWithChange:(GtkSorterChange)change
 {
 	gtk_sorter_changed([self castedGObject], change);
 }

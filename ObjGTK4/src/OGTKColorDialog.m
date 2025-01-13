@@ -51,7 +51,7 @@
 	gtk_color_dialog_choose_rgba([self castedGObject], [parent castedGObject], initialColor, [cancellable castedGObject], callback, userData);
 }
 
-- (GdkRGBA*)chooseRgbaFinish:(GAsyncResult*)result
+- (GdkRGBA*)chooseRgbaFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

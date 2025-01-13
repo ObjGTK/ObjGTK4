@@ -46,7 +46,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererText, GtkCellRendererText);
 }
 
-- (void)setFixedHeightFromFont:(int)numberOfRows
+- (void)setFixedHeightFromFontWithNumberOfRows:(int)numberOfRows
 {
 	gtk_cell_renderer_text_set_fixed_height_from_font([self castedGObject], numberOfRows);
 }

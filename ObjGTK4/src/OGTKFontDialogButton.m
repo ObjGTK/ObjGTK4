@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)fontDialogButton:(OGTKFontDialog*)dialog
++ (instancetype)fontDialogButtonWithDialog:(OGTKFontDialog*)dialog
 {
 	GtkFontDialogButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_font_dialog_button_new([dialog castedGObject]), GtkFontDialogButton, GtkFontDialogButton);
 

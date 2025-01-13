@@ -37,7 +37,7 @@
 /**
  * Constructors
  */
-+ (instancetype)fontDialogButton:(OGTKFontDialog*)dialog;
++ (instancetype)fontDialogButtonWithDialog:(OGTKFontDialog*)dialog;
 
 /**
  * Methods

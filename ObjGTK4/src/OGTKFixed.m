@@ -51,7 +51,7 @@
 	gtk_fixed_get_child_position([self castedGObject], [widget castedGObject], x, y);
 }
 
-- (GskTransform*)childTransform:(OGTKWidget*)widget
+- (GskTransform*)childTransformWithWidget:(OGTKWidget*)widget
 {
 	GskTransform* returnValue = (GskTransform*)gtk_fixed_get_child_transform([self castedGObject], [widget castedGObject]);
 
@@ -68,7 +68,7 @@
 	gtk_fixed_put([self castedGObject], [widget castedGObject], x, y);
 }
 
-- (void)remove:(OGTKWidget*)widget
+- (void)removeWithWidget:(OGTKWidget*)widget
 {
 	gtk_fixed_remove([self castedGObject], [widget castedGObject]);
 }

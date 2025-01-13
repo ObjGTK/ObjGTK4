@@ -86,7 +86,7 @@
 /**
  * Constructors
  */
-+ (instancetype)sizeGroup:(GtkSizeGroupMode)mode;
++ (instancetype)sizeGroupWithMode:(GtkSizeGroupMode)mode;
 
 /**
  * Methods

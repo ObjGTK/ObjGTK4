@@ -42,7 +42,7 @@
  * @param widget a `GtkWidget`
  * @return whether the @widget handled the event
  */
-- (bool)forward:(OGTKWidget*)widget;
+- (bool)forwardWithWidget:(OGTKWidget*)widget;
 
 /**
  * Gets the key group of the current event of this @controller.

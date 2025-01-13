@@ -21,7 +21,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)mountOperation:(OGTKWindow*)parent
++ (instancetype)mountOperationWithParent:(OGTKWindow*)parent
 {
 	GtkMountOperation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_mount_operation_new([parent castedGObject]), GtkMountOperation, GtkMountOperation);
 

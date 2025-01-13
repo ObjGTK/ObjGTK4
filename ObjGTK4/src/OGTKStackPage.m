@@ -78,27 +78,27 @@
 	return returnValue;
 }
 
-- (void)setIconName:(OFString*)setting
+- (void)setIconNameWithSetting:(OFString*)setting
 {
 	gtk_stack_page_set_icon_name([self castedGObject], [setting UTF8String]);
 }
 
-- (void)setName:(OFString*)setting
+- (void)setNameWithSetting:(OFString*)setting
 {
 	gtk_stack_page_set_name([self castedGObject], [setting UTF8String]);
 }
 
-- (void)setNeedsAttention:(bool)setting
+- (void)setNeedsAttentionWithSetting:(bool)setting
 {
 	gtk_stack_page_set_needs_attention([self castedGObject], setting);
 }
 
-- (void)setTitle:(OFString*)setting
+- (void)setTitleWithSetting:(OFString*)setting
 {
 	gtk_stack_page_set_title([self castedGObject], [setting UTF8String]);
 }
 
-- (void)setUseUnderline:(bool)setting
+- (void)setUseUnderlineWithSetting:(bool)setting
 {
 	gtk_stack_page_set_use_underline([self castedGObject], setting);
 }

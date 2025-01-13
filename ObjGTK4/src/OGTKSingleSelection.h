@@ -27,7 +27,7 @@
 /**
  * Constructors
  */
-+ (instancetype)singleSelection:(GListModel*)model;
++ (instancetype)singleSelectionWithModel:(GListModel*)model;
 
 /**
  * Methods
@@ -120,6 +120,6 @@
  *
  * @param position the item to select or %GTK_INVALID_LIST_POSITION
  */
-- (void)setSelected:(guint)position;
+- (void)setSelectedWithPosition:(guint)position;
 
 @end

@@ -188,7 +188,7 @@
  *   be freed with g_free().
  * @param nfamilies location to store the number of elements in @descs
  */
-- (void)listFamiliesWithFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies;
+- (void)listFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies;
 
 /**
  * Loads the font in one of the fontmaps in the context
@@ -198,7 +198,7 @@
  * @return the newly allocated `PangoFont`
  *   that was loaded, or %NULL if no font matched.
  */
-- (OGPangoFont*)loadFont:(const PangoFontDescription*)desc;
+- (OGPangoFont*)loadFontWithDesc:(const PangoFontDescription*)desc;
 
 /**
  * Load a set of fonts in the context that can be used to render
@@ -223,7 +223,7 @@
  *
  * @param direction the new base direction
  */
-- (void)setBaseDir:(PangoDirection)direction;
+- (void)setBaseDirWithDirection:(PangoDirection)direction;
 
 /**
  * Sets the base gravity for the context.
@@ -303,6 +303,6 @@
  *
  * @param roundPositions whether to round glyph positions
  */
-- (void)setRoundGlyphPositions:(bool)roundPositions;
+- (void)setRoundGlyphPositionsWithRoundPositions:(bool)roundPositions;
 
 @end

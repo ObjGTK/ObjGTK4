@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)linkButton:(OFString*)uri
++ (instancetype)linkButtonWithUri:(OFString*)uri
 {
 	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new([uri UTF8String]), GtkLinkButton, GtkLinkButton);
 

@@ -80,7 +80,7 @@
  *
  * @param args arguments to pass when activating @self
  */
-- (void)setArguments:(GVariant*)args;
+- (void)setArgumentsWithArgs:(GVariant*)args;
 
 /**
  * Sets the new trigger for @self to be @trigger.

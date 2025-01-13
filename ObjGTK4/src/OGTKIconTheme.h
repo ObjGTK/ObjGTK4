@@ -137,7 +137,7 @@
  *   available. The array should be freed with g_free() when it is no
  *   longer needed.
  */
-- (int*)iconSizes:(OFString*)iconName;
+- (int*)iconSizesWithIconName:(OFString*)iconName;
 
 /**
  * Gets the current resource path.
@@ -164,7 +164,7 @@
  *
  * @return
  */
-- (char*)themeName;
+- (OFString*)themeName;
 
 /**
  * Checks whether an icon theme includes an icon
@@ -183,7 +183,7 @@
  * @return %TRUE if @self includes an
  *  icon for @icon_name.
  */
-- (bool)hasIcon:(OFString*)iconName;
+- (bool)hasIconWithIconName:(OFString*)iconName;
 
 /**
  * Looks up a icon for a desired size and window scale.
@@ -199,7 +199,7 @@
  * @return a `GtkIconPaintable` containing
  *   information about the icon. Unref with g_object_unref()
  */
-- (OGTKIconPaintable*)lookupByGiconWithIcon:(GIcon*)icon size:(int)size scale:(int)scale direction:(GtkTextDirection)direction flags:(GtkIconLookupFlags)flags;
+- (OGTKIconPaintable*)lookupByGicon:(GIcon*)icon size:(int)size scale:(int)scale direction:(GtkTextDirection)direction flags:(GtkIconLookupFlags)flags;
 
 /**
  * Looks up a named icon for a desired size and window scale,

@@ -47,7 +47,7 @@
 /**
  * Constructors
  */
-+ (instancetype)stringList:(const char* const*)strings;
++ (instancetype)stringListWithStrings:(const char* const*)strings;
 
 /**
  * Methods
@@ -63,7 +63,7 @@
  *
  * @param string the string to insert
  */
-- (void)append:(OFString*)string;
+- (void)appendWithString:(OFString*)string;
 
 /**
  * Gets the string that is at @position in @self.
@@ -76,7 +76,7 @@
  * @param position the position to get the string for
  * @return the string at the given position
  */
-- (OFString*)string:(guint)position;
+- (OFString*)stringWithPosition:(guint)position;
 
 /**
  * Removes the string at @position from @self.
@@ -86,7 +86,7 @@
  *
  * @param position the position of the string that is to be removed
  */
-- (void)remove:(guint)position;
+- (void)removeWithPosition:(guint)position;
 
 /**
  * Changes @self by removing @n_removals strings and adding @additions
@@ -121,6 +121,6 @@
  *
  * @param string the string to insert
  */
-- (void)take:(char*)string;
+- (void)takeWithString:(OFString*)string;
 
 @end

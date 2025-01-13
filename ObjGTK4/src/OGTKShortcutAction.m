@@ -52,16 +52,16 @@
 	return returnValue;
 }
 
-- (void)print:(GString*)string
+- (void)printWithString:(GString*)string
 {
 	gtk_shortcut_action_print([self castedGObject], string);
 }
 
-- (char*)toString
+- (OFString*)toString
 {
 	char* gobjectValue = gtk_shortcut_action_to_string([self castedGObject]);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 

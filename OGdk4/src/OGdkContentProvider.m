@@ -91,7 +91,7 @@
 	gdk_content_provider_content_changed([self castedGObject]);
 }
 
-- (bool)value:(GValue*)value
+- (bool)valueWithValue:(GValue*)value
 {
 	GError* err = NULL;
 
@@ -116,12 +116,12 @@
 	return returnValue;
 }
 
-- (void)writeMimeTypeAsyncWithMimeType:(OFString*)mimeType stream:(OGOutputStream*)stream ioPriority:(int)ioPriority cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
+- (void)writeMimeTypeAsync:(OFString*)mimeType stream:(OGOutputStream*)stream ioPriority:(int)ioPriority cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
 {
 	gdk_content_provider_write_mime_type_async([self castedGObject], [mimeType UTF8String], [stream castedGObject], ioPriority, [cancellable castedGObject], callback, userData);
 }
 
-- (bool)writeMimeTypeFinish:(GAsyncResult*)result
+- (bool)writeMimeTypeFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

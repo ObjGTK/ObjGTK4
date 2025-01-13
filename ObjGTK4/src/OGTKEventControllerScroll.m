@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)eventControllerScroll:(GtkEventControllerScrollFlags)flags
++ (instancetype)eventControllerScrollWithFlags:(GtkEventControllerScrollFlags)flags
 {
 	GtkEventControllerScroll* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_scroll_new(flags), GtkEventControllerScroll, GtkEventControllerScroll);
 

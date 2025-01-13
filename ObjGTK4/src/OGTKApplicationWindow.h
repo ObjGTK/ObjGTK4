@@ -93,7 +93,7 @@
 /**
  * Constructors
  */
-+ (instancetype)applicationWindow:(OGTKApplication*)application;
++ (instancetype)applicationWindowWithApplication:(OGTKApplication*)application;
 
 /**
  * Methods

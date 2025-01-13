@@ -127,7 +127,7 @@
  *
  * @param child the `GtkWidget` to be added to @bar
  */
-- (void)packEnd:(OGTKWidget*)child;
+- (void)packEndWithChild:(OGTKWidget*)child;
 
 /**
  * Adds @child to @bar, packed with reference to the
@@ -135,7 +135,7 @@
  *
  * @param child the `GtkWidget` to be added to @bar
  */
-- (void)packStart:(OGTKWidget*)child;
+- (void)packStartWithChild:(OGTKWidget*)child;
 
 /**
  * Removes a child from the `GtkHeaderBar`.
@@ -147,7 +147,7 @@
  *
  * @param child the child to remove
  */
-- (void)remove:(OGTKWidget*)child;
+- (void)removeWithChild:(OGTKWidget*)child;
 
 /**
  * Sets the decoration layout for this header bar.
@@ -178,7 +178,7 @@
  *
  * @param setting %TRUE to show standard title buttons
  */
-- (void)setShowTitleButtons:(bool)setting;
+- (void)setShowTitleButtonsWithSetting:(bool)setting;
 
 /**
  * Sets the title for the `GtkHeaderBar`.

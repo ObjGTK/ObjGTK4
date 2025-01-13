@@ -130,7 +130,7 @@
  * @param plane the plane to get the fd for
  * @return the file descriptor
  */
-- (int)fd:(unsigned int)plane;
+- (int)fdWithPlane:(unsigned int)plane;
 
 /**
  * Gets the format previously set via gdk_dmabuf_texture_builder_set_fourcc()
@@ -170,7 +170,7 @@
  * @param plane the plane to get the offset for
  * @return the offset
  */
-- (unsigned int)offset:(unsigned int)plane;
+- (unsigned int)offsetWithPlane:(unsigned int)plane;
 
 /**
  * Whether the data is premultiplied.
@@ -185,7 +185,7 @@
  * @param plane the plane to get the stride for
  * @return the stride
  */
-- (unsigned int)stride:(unsigned int)plane;
+- (unsigned int)strideWithPlane:(unsigned int)plane;
 
 /**
  * Gets the region previously set via gdk_dmabuf_texture_builder_set_update_region() or

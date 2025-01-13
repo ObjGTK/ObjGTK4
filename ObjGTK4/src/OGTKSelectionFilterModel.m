@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)selectionFilterModel:(GtkSelectionModel*)model
++ (instancetype)selectionFilterModelWithModel:(GtkSelectionModel*)model
 {
 	GtkSelectionFilterModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_selection_filter_model_new(model), GtkSelectionFilterModel, GtkSelectionFilterModel);
 

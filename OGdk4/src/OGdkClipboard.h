@@ -138,7 +138,7 @@
  * @param result a `GAsyncResult`
  * @return a new string
  */
-- (char*)readTextFinish:(GAsyncResult*)result;
+- (OFString*)readTextFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Asynchronously request the @clipboard contents converted to a `GdkPixbuf`.
@@ -164,7 +164,7 @@
  * @param result a `GAsyncResult`
  * @return a new `GdkTexture`
  */
-- (OGdkTexture*)readTextureFinish:(GAsyncResult*)result;
+- (OGdkTexture*)readTextureFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Asynchronously request the @clipboard contents converted to the given
@@ -193,7 +193,7 @@
  * @param result a `GAsyncResult`
  * @return a `GValue` containing the result.
  */
-- (const GValue*)readValueFinish:(GAsyncResult*)result;
+- (const GValue*)readValueFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Sets a new content provider on @clipboard.
@@ -213,7 +213,7 @@
  *   or %NULL to clear the clipboard
  * @return %TRUE if setting the clipboard succeeded
  */
-- (bool)setContent:(OGdkContentProvider*)provider;
+- (bool)setContentWithProvider:(OGdkContentProvider*)provider;
 
 /**
  * Puts the given @text into the clipboard.
@@ -275,6 +275,6 @@
  * @param result a `GAsyncResult`
  * @return %TRUE if storing was successful.
  */
-- (bool)storeFinish:(GAsyncResult*)result;
+- (bool)storeFinishWithResult:(GAsyncResult*)result;
 
 @end

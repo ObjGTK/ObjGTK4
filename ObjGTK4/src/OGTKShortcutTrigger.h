@@ -52,7 +52,7 @@
  *   @trigger1 is found, respectively, to be less than, to match,
  *   or be greater than @trigger2.
  */
-- (int)compare:(gconstpointer)trigger2;
+- (int)compareWithTrigger2:(gconstpointer)trigger2;
 
 /**
  * Checks if @trigger1 and @trigger2 trigger under the same conditions.
@@ -63,7 +63,7 @@
  * @param trigger2 a `GtkShortcutTrigger`
  * @return %TRUE if @trigger1 and @trigger2 are equal
  */
-- (bool)equal:(gconstpointer)trigger2;
+- (bool)equalWithTrigger2:(gconstpointer)trigger2;
 
 /**
  * Generates a hash value for a `GtkShortcutTrigger`.
@@ -89,7 +89,7 @@
  *
  * @param string a `GString` to print into
  */
-- (void)print:(GString*)string;
+- (void)printWithString:(GString*)string;
 
 /**
  * Prints the given trigger into a string.
@@ -129,7 +129,7 @@
  * @param display `GdkDisplay` to print for
  * @return a new string
  */
-- (char*)toLabel:(OGdkDisplay*)display;
+- (OFString*)toLabelWithDisplay:(OGdkDisplay*)display;
 
 /**
  * Prints the given trigger into a human-readable string.
@@ -139,7 +139,7 @@
  *
  * @return a new string
  */
-- (char*)toString;
+- (OFString*)toString;
 
 /**
  * Checks if the given @event triggers @self.

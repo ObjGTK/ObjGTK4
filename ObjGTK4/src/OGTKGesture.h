@@ -128,7 +128,7 @@
  * @param rect bounding box containing all active touches.
  * @return %TRUE if there are active touches, %FALSE otherwise
  */
-- (bool)boundingBox:(GdkRectangle*)rect;
+- (bool)boundingBoxWithRect:(GdkRectangle*)rect;
 
 /**
  * If there are touch sequences being currently handled by @gesture,
@@ -141,7 +141,7 @@
  * @param y Y coordinate for the bounding box center
  * @return %FALSE if no active touches are present, %TRUE otherwise
  */
-- (bool)boundingBoxCenterWithX:(double*)x y:(double*)y;
+- (bool)boundingBoxCenter:(double*)x y:(double*)y;
 
 /**
  * Returns the logical `GdkDevice` that is currently operating
@@ -171,7 +171,7 @@
  * @param sequence a `GdkEventSequence`
  * @return The last event from @sequence
  */
-- (GdkEvent*)lastEvent:(GdkEventSequence*)sequence;
+- (GdkEvent*)lastEventWithSequence:(GdkEventSequence*)sequence;
 
 /**
  * Returns the `GdkEventSequence` that was last updated on @gesture.
@@ -200,7 +200,7 @@
  * @param sequence a `GdkEventSequence`
  * @return The sequence state in @gesture
  */
-- (GtkEventSequenceState)sequenceState:(GdkEventSequence*)sequence;
+- (GtkEventSequenceState)sequenceStateWithSequence:(GdkEventSequence*)sequence;
 
 /**
  * Returns the list of `GdkEventSequences` currently being interpreted
@@ -234,7 +234,7 @@
  *
  * @param gesture a `GtkGesture`
  */
-- (void)group:(OGTKGesture*)gesture;
+- (void)groupWithGesture:(OGTKGesture*)gesture;
 
 /**
  * Returns %TRUE if @gesture is currently handling events
@@ -261,7 +261,7 @@
  * @param other another `GtkGesture`
  * @return whether the gestures are grouped
  */
-- (bool)isGroupedWith:(OGTKGesture*)other;
+- (bool)isGroupedWithWithOther:(OGTKGesture*)other;
 
 /**
  * Returns %TRUE if the gesture is currently recognized.
@@ -322,7 +322,7 @@
  * @return %TRUE if @sequence is handled by @gesture,
  *   and the state is changed successfully
  */
-- (bool)setSequenceStateWithSequence:(GdkEventSequence*)sequence state:(GtkEventSequenceState)state;
+- (bool)setSequenceState:(GdkEventSequence*)sequence state:(GtkEventSequenceState)state;
 
 /**
  * Sets the state of all sequences that @gesture is currently

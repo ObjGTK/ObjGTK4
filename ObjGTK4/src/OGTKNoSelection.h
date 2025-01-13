@@ -27,7 +27,7 @@
 /**
  * Constructors
  */
-+ (instancetype)noSelection:(GListModel*)model;
++ (instancetype)noSelectionWithModel:(GListModel*)model;
 
 /**
  * Methods

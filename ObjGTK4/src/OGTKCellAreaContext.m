@@ -48,7 +48,7 @@
 	gtk_cell_area_context_get_preferred_height([self castedGObject], minimumHeight, naturalHeight);
 }
 
-- (void)preferredHeightForWidthWithWidth:(int)width minimumHeight:(int*)minimumHeight naturalHeight:(int*)naturalHeight
+- (void)preferredHeightForWidth:(int)width minimumHeight:(int*)minimumHeight naturalHeight:(int*)naturalHeight
 {
 	gtk_cell_area_context_get_preferred_height_for_width([self castedGObject], width, minimumHeight, naturalHeight);
 }
@@ -58,7 +58,7 @@
 	gtk_cell_area_context_get_preferred_width([self castedGObject], minimumWidth, naturalWidth);
 }
 
-- (void)preferredWidthForHeightWithHeight:(int)height minimumWidth:(int*)minimumWidth naturalWidth:(int*)naturalWidth
+- (void)preferredWidthForHeight:(int)height minimumWidth:(int*)minimumWidth naturalWidth:(int*)naturalWidth
 {
 	gtk_cell_area_context_get_preferred_width_for_height([self castedGObject], height, minimumWidth, naturalWidth);
 }

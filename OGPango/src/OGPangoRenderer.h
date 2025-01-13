@@ -135,7 +135,7 @@
  * @param y Y position of left edge of baseline, in user space coordinates
  *   in Pango units.
  */
-- (void)drawLayoutWithLayout:(OGPangoLayout*)layout x:(int)x y:(int)y;
+- (void)drawLayout:(OGPangoLayout*)layout x:(int)x y:(int)y;
 
 /**
  * Draws @line with the specified `PangoRenderer`.
@@ -150,7 +150,7 @@
  * @param y Y position of left edge of baseline, in user space coordinates
  *   in Pango units.
  */
-- (void)drawLayoutLineWithLine:(PangoLayoutLine*)line x:(int)x y:(int)y;
+- (void)drawLayoutLine:(PangoLayoutLine*)line x:(int)x y:(int)y;
 
 /**
  * Draws an axis-aligned rectangle in user space coordinates with the
@@ -191,7 +191,7 @@
  *   or 0 if it hasn't been set and should be
  *   inherited from the environment.
  */
-- (guint16)alpha:(PangoRenderPart)part;
+- (guint16)alphaWithPart:(PangoRenderPart)part;
 
 /**
  * Gets the current rendering color for the specified part.
@@ -201,7 +201,7 @@
  *   specified part, or %NULL if it hasn't been set and should be
  *   inherited from the environment.
  */
-- (PangoColor*)color:(PangoRenderPart)part;
+- (PangoColor*)colorWithPart:(PangoRenderPart)part;
 
 /**
  * Gets the layout currently being rendered using @renderer.
@@ -262,7 +262,7 @@
  *
  * @param part the part for which rendering has changed.
  */
-- (void)partChanged:(PangoRenderPart)part;
+- (void)partChangedWithPart:(PangoRenderPart)part;
 
 /**
  * Sets the alpha for part of the rendering.

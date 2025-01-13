@@ -104,6 +104,6 @@
  * @param entries the action entries to set on @controller
  * @param nentries the number of elements in @entries
  */
-- (void)setActionEntriesWithEntries:(const GtkPadActionEntry*)entries nentries:(int)nentries;
+- (void)setActionEntries:(const GtkPadActionEntry*)entries nentries:(int)nentries;
 
 @end

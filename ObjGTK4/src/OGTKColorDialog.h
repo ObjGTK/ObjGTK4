@@ -67,7 +67,7 @@
  * @return the selected color, or
  *   `NULL` and @error is set
  */
-- (GdkRGBA*)chooseRgbaFinish:(GAsyncResult*)result;
+- (GdkRGBA*)chooseRgbaFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Returns whether the color chooser dialog

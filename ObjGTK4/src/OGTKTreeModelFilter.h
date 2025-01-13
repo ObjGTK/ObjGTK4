@@ -131,7 +131,7 @@
  * @param childIter An uninitialized `GtkTreeIter`
  * @param filterIter A valid `GtkTreeIter` pointing to a row on @filter.
  */
-- (void)convertIterToChildIterWithChildIter:(GtkTreeIter*)childIter filterIter:(GtkTreeIter*)filterIter;
+- (void)convertIterToChildIter:(GtkTreeIter*)childIter filterIter:(GtkTreeIter*)filterIter;
 
 /**
  * Converts @filter_path to a path on the child model of @filter. That is,
@@ -142,7 +142,7 @@
  * @param filterPath A `GtkTreePath` to convert.
  * @return A newly allocated `GtkTreePath`
  */
-- (GtkTreePath*)convertPathToChildPath:(GtkTreePath*)filterPath;
+- (GtkTreePath*)convertPathToChildPathWithFilterPath:(GtkTreePath*)filterPath;
 
 /**
  * Returns a pointer to the child model of @filter.
@@ -233,6 +233,6 @@
  * @param data User data to pass to the visible function
  * @param destroy Destroy notifier of @data
  */
-- (void)setVisibleFuncWithFunc:(GtkTreeModelFilterVisibleFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
+- (void)setVisibleFunc:(GtkTreeModelFilterVisibleFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
 
 @end

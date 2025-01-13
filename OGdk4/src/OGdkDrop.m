@@ -30,7 +30,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkDrop, GdkDrop);
 }
 
-- (void)finish:(GdkDragAction)action
+- (void)finishWithAction:(GdkDragAction)action
 {
 	gdk_drop_finish([self castedGObject], action);
 }
@@ -105,7 +105,7 @@
 	gdk_drop_read_value_async([self castedGObject], type, ioPriority, [cancellable castedGObject], callback, userData);
 }
 
-- (const GValue*)readValueFinish:(GAsyncResult*)result
+- (const GValue*)readValueFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

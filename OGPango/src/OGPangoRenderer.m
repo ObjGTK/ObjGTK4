@@ -56,12 +56,12 @@
 	pango_renderer_draw_glyphs([self castedGObject], [font castedGObject], glyphs, x, y);
 }
 
-- (void)drawLayoutWithLayout:(OGPangoLayout*)layout x:(int)x y:(int)y
+- (void)drawLayout:(OGPangoLayout*)layout x:(int)x y:(int)y
 {
 	pango_renderer_draw_layout([self castedGObject], [layout castedGObject], x, y);
 }
 
-- (void)drawLayoutLineWithLine:(PangoLayoutLine*)line x:(int)x y:(int)y
+- (void)drawLayoutLine:(PangoLayoutLine*)line x:(int)x y:(int)y
 {
 	pango_renderer_draw_layout_line([self castedGObject], line, x, y);
 }
@@ -76,14 +76,14 @@
 	pango_renderer_draw_trapezoid([self castedGObject], part, y1, x11, x21, y2, x12, x22);
 }
 
-- (guint16)alpha:(PangoRenderPart)part
+- (guint16)alphaWithPart:(PangoRenderPart)part
 {
 	guint16 returnValue = (guint16)pango_renderer_get_alpha([self castedGObject], part);
 
 	return returnValue;
 }
 
-- (PangoColor*)color:(PangoRenderPart)part
+- (PangoColor*)colorWithPart:(PangoRenderPart)part
 {
 	PangoColor* returnValue = (PangoColor*)pango_renderer_get_color([self castedGObject], part);
 
@@ -112,7 +112,7 @@
 	return returnValue;
 }
 
-- (void)partChanged:(PangoRenderPart)part
+- (void)partChangedWithPart:(PangoRenderPart)part
 {
 	pango_renderer_part_changed([self castedGObject], part);
 }

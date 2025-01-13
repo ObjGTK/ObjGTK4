@@ -449,7 +449,7 @@
  *
  * @param trackStatus %TRUE to track status after printing
  */
-- (void)setTrackPrintStatus:(bool)trackStatus;
+- (void)setTrackPrintStatusWithTrackStatus:(bool)trackStatus;
 
 /**
  * Sets up the transformation for the cairo context obtained from

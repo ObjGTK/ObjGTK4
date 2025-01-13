@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)shortcutLabel:(OFString*)accelerator
++ (instancetype)shortcutLabelWithAccelerator:(OFString*)accelerator
 {
 	GtkShortcutLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_label_new([accelerator UTF8String]), GtkShortcutLabel, GtkShortcutLabel);
 

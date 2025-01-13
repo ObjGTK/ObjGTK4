@@ -253,7 +253,7 @@
  *
  * @param surface a `GdkSurface`
  */
-- (void)realize:(OGdkSurface*)surface;
+- (void)realizeWithSurface:(OGdkSurface*)surface;
 
 /**
  * Start a seek operation on @self to @timestamp.
@@ -270,7 +270,7 @@
  *
  * @param timestamp timestamp to seek to.
  */
-- (void)seek:(gint64)timestamp;
+- (void)seekWithTimestamp:(gint64)timestamp;
 
 /**
  * Ends a seek operation started via GtkMediaStream.seek() as a failure.
@@ -402,7 +402,7 @@
  *
  * @param surface the `GdkSurface` the stream was realized with
  */
-- (void)unrealize:(OGdkSurface*)surface;
+- (void)unrealizeWithSurface:(OGdkSurface*)surface;
 
 /**
  * Media stream implementations should regularly call this
@@ -415,6 +415,6 @@
  *
  * @param timestamp the new timestamp
  */
-- (void)update:(gint64)timestamp;
+- (void)updateWithTimestamp:(gint64)timestamp;
 
 @end

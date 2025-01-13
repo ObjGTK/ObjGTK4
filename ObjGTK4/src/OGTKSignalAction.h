@@ -22,7 +22,7 @@
 /**
  * Constructors
  */
-+ (instancetype)signalAction:(OFString*)signalName;
++ (instancetype)signalActionWithSignalName:(OFString*)signalName;
 
 /**
  * Methods

@@ -46,7 +46,7 @@
 /**
  * Constructors
  */
-+ (instancetype)linkButton:(OFString*)uri;
++ (instancetype)linkButtonWithUri:(OFString*)uri;
 + (instancetype)linkButtonWithLabelWithUri:(OFString*)uri label:(OFString*)label;
 
 /**

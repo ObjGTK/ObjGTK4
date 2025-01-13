@@ -377,7 +377,7 @@
  *
  * @param renderer the `GtkCellRenderer` to add to @area
  */
-- (void)add:(OGTKCellRenderer*)renderer;
+- (void)addWithRenderer:(OGTKCellRenderer*)renderer;
 
 /**
  * Adds @sibling to @renderer’s focusable area, focus will be drawn
@@ -526,7 +526,7 @@
  * @param direction the `GtkDirectionType`
  * @return %TRUE if focus remains inside @area as a result of this call.
  */
-- (bool)focus:(GtkDirectionType)direction;
+- (bool)focusWithDirection:(GtkDirectionType)direction;
 
 /**
  * Calls @callback for every `GtkCellRenderer` in @area.
@@ -627,7 +627,7 @@
  * @return the `GtkCellRenderer`
  *   for which @renderer is a sibling
  */
-- (OGTKCellRenderer*)focusFromSibling:(OGTKCellRenderer*)renderer;
+- (OGTKCellRenderer*)focusFromSiblingWithRenderer:(OGTKCellRenderer*)renderer;
 
 /**
  * Gets the focus sibling cell renderers for @renderer.
@@ -636,7 +636,7 @@
  * @return A `GList` of `GtkCellRenderer`s.
  *       The returned list is internal and should not be freed.
  */
-- (const GList*)focusSiblings:(OGTKCellRenderer*)renderer;
+- (const GList*)focusSiblingsWithRenderer:(OGTKCellRenderer*)renderer;
 
 /**
  * Retrieves a cell area’s initial minimum and natural height.
@@ -769,7 +769,7 @@
  *
  * @param renderer the `GtkCellRenderer` to remove from @area
  */
-- (void)remove:(OGTKCellRenderer*)renderer;
+- (void)removeWithRenderer:(OGTKCellRenderer*)renderer;
 
 /**
  * Removes @sibling from @renderer’s focus sibling list
@@ -795,7 +795,7 @@
  * @param minimumSize location to store the minimum size
  * @param naturalSize location to store the natural size
  */
-- (void)requestRendererWithRenderer:(OGTKCellRenderer*)renderer orientation:(GtkOrientation)orientation widget:(OGTKWidget*)widget forSize:(int)forSize minimumSize:(int*)minimumSize naturalSize:(int*)naturalSize;
+- (void)requestRenderer:(OGTKCellRenderer*)renderer orientation:(GtkOrientation)orientation widget:(OGTKWidget*)widget forSize:(int)forSize minimumSize:(int*)minimumSize naturalSize:(int*)naturalSize;
 
 /**
  * Explicitly sets the currently focused cell to @renderer.
@@ -807,7 +807,7 @@
  *
  * @param renderer the `GtkCellRenderer` to give focus to
  */
-- (void)setFocusCell:(OGTKCellRenderer*)renderer;
+- (void)setFocusCellWithRenderer:(OGTKCellRenderer*)renderer;
 
 /**
  * Snapshots @area’s cells according to @area’s layout onto at
@@ -835,6 +835,6 @@
  *
  * @param canceled whether editing was canceled.
  */
-- (void)stopEditing:(bool)canceled;
+- (void)stopEditingWithCanceled:(bool)canceled;
 
 @end

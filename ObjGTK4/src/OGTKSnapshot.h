@@ -66,7 +66,7 @@
  * @return a `cairo_t` suitable for drawing the contents of
  *   the newly created render node
  */
-- (cairo_t*)appendCairo:(const graphene_rect_t*)bounds;
+- (cairo_t*)appendCairoWithBounds:(const graphene_rect_t*)bounds;
 
 /**
  * Creates a new render node drawing the @color into the
@@ -79,7 +79,7 @@
  * @param color the color to draw
  * @param bounds the bounds for the new node
  */
-- (void)appendColorWithColor:(const GdkRGBA*)color bounds:(const graphene_rect_t*)bounds;
+- (void)appendColor:(const GdkRGBA*)color bounds:(const graphene_rect_t*)bounds;
 
 /**
  * Appends a conic gradient node with the given stops to @snapshot.
@@ -123,7 +123,7 @@
  * @param layout
  * @param color
  */
-- (void)appendLayoutWithLayout:(OGPangoLayout*)layout color:(const GdkRGBA*)color;
+- (void)appendLayout:(OGPangoLayout*)layout color:(const GdkRGBA*)color;
 
 /**
  * Appends a linear gradient node with the given stops to @snapshot.
@@ -211,7 +211,7 @@
  * @param filter the filter to use
  * @param bounds the bounds for the new node
  */
-- (void)appendScaledTextureWithTexture:(OGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds;
+- (void)appendScaledTexture:(OGdkTexture*)texture filter:(GskScalingFilter)filter bounds:(const graphene_rect_t*)bounds;
 
 /**
  * A convenience method to stroke a path with a color.
@@ -238,7 +238,7 @@
  * @param texture the texture to render
  * @param bounds the bounds for the new node
  */
-- (void)appendTextureWithTexture:(OGdkTexture*)texture bounds:(const graphene_rect_t*)bounds;
+- (void)appendTexture:(OGdkTexture*)texture bounds:(const graphene_rect_t*)bounds;
 
 /**
  * Returns the node that was constructed by @snapshot
@@ -258,7 +258,7 @@
  *   or %NULL to use the bounds of the snapshot
  * @return a newly-created [iface@Gdk.Paintable]
  */
-- (GdkPaintable*)freeToPaintable:(const graphene_size_t*)size;
+- (GdkPaintable*)freeToPaintableWithSize:(const graphene_size_t*)size;
 
 /**
  * Removes the top element from the stack of render nodes and
@@ -278,7 +278,7 @@
  *
  * @param depth distance of the z=0 plane
  */
-- (void)perspective:(float)depth;
+- (void)perspectiveWithDepth:(float)depth;
 
 /**
  * Removes the top element from the stack of render nodes,
@@ -300,7 +300,7 @@
  *
  * @param blendMode blend mode to use
  */
-- (void)pushBlend:(GskBlendMode)blendMode;
+- (void)pushBlendWithBlendMode:(GskBlendMode)blendMode;
 
 /**
  * Blurs an image.
@@ -309,7 +309,7 @@
  *
  * @param radius the blur radius to use. Must be positive
  */
-- (void)pushBlur:(double)radius;
+- (void)pushBlurWithRadius:(double)radius;
 
 /**
  * Clips an image to a rectangle.
@@ -318,7 +318,7 @@
  *
  * @param bounds the rectangle to clip to
  */
-- (void)pushClip:(const graphene_rect_t*)bounds;
+- (void)pushClipWithBounds:(const graphene_rect_t*)bounds;
 
 /**
  * Modifies the colors of an image by applying an affine transformation
@@ -336,7 +336,7 @@
  * @param colorMatrix the color matrix to use
  * @param colorOffset the color offset to use
  */
-- (void)pushColorMatrixWithColorMatrix:(const graphene_matrix_t*)colorMatrix colorOffset:(const graphene_vec4_t*)colorOffset;
+- (void)pushColorMatrix:(const graphene_matrix_t*)colorMatrix colorOffset:(const graphene_vec4_t*)colorOffset;
 
 /**
  * Snapshots a cross-fade operation between two images with the
@@ -351,7 +351,7 @@
  *
  * @param progress progress between 0.0 and 1.0
  */
-- (void)pushCrossFade:(double)progress;
+- (void)pushCrossFadeWithProgress:(double)progress;
 
 /**
  * Fills the area given by @path and @fill_rule with an image and discards everything
@@ -407,7 +407,7 @@
  * @param bounds the rectangle to render into
  * @param takeArgs Data block with arguments for the shader.
  */
-- (void)pushGlShaderWithShader:(OGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs;
+- (void)pushGlShader:(OGskGLShader*)shader bounds:(const graphene_rect_t*)bounds takeArgs:(GBytes*)takeArgs;
 
 /**
  * Until the first call to [method@Gtk.Snapshot.pop], the
@@ -420,7 +420,7 @@
  *
  * @param maskMode mask mode to use
  */
-- (void)pushMask:(GskMaskMode)maskMode;
+- (void)pushMaskWithMaskMode:(GskMaskMode)maskMode;
 
 /**
  * Modifies the opacity of an image.
@@ -449,7 +449,7 @@
  *
  * @param bounds the rounded rectangle to clip to
  */
-- (void)pushRoundedClip:(const GskRoundedRect*)bounds;
+- (void)pushRoundedClipWithBounds:(const GskRoundedRect*)bounds;
 
 /**
  * Applies a shadow to an image.
@@ -459,7 +459,7 @@
  * @param shadow the first shadow specification
  * @param nshadows number of shadow specifications
  */
-- (void)pushShadowWithShadow:(const GskShadow*)shadow nshadows:(gsize)nshadows;
+- (void)pushShadow:(const GskShadow*)shadow nshadows:(gsize)nshadows;
 
 /**
  * Strokes the given @path with the attributes given by @stroke and
@@ -559,7 +559,7 @@
  *
  * @param angle the rotation angle, in degrees (clockwise)
  */
-- (void)rotate:(float)angle;
+- (void)rotateWithAngle:(float)angle;
 
 /**
  * Rotates @snapshot's coordinate system by @angle degrees around @axis.
@@ -637,14 +637,14 @@
  *   or %NULL to use the bounds of the snapshot
  * @return a new `GdkPaintable`
  */
-- (GdkPaintable*)toPaintable:(const graphene_size_t*)size;
+- (GdkPaintable*)toPaintableWithSize:(const graphene_size_t*)size;
 
 /**
  * Transforms @snapshot's coordinate system with the given @transform.
  *
  * @param transform the transform to apply
  */
-- (void)transform:(GskTransform*)transform;
+- (void)transformWithTransform:(GskTransform*)transform;
 
 /**
  * Transforms @snapshot's coordinate system with the given @matrix.
@@ -658,13 +658,13 @@
  *
  * @param point the point to translate the snapshot by
  */
-- (void)translate:(const graphene_point_t*)point;
+- (void)translateWithPoint:(const graphene_point_t*)point;
 
 /**
  * Translates @snapshot's coordinate system by @point.
  *
  * @param point the point to translate the snapshot by
  */
-- (void)translate3d:(const graphene_point3d_t*)point;
+- (void)translate3dWithPoint:(const graphene_point3d_t*)point;
 
 @end

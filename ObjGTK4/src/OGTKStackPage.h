@@ -84,35 +84,35 @@
  *
  * @param setting the new value to set
  */
-- (void)setIconName:(OFString*)setting;
+- (void)setIconNameWithSetting:(OFString*)setting;
 
 /**
  * Sets the name of the page.
  *
  * @param setting the new value to set
  */
-- (void)setName:(OFString*)setting;
+- (void)setNameWithSetting:(OFString*)setting;
 
 /**
  * Sets whether the page is marked as “needs attention”.
  *
  * @param setting the new value to set
  */
-- (void)setNeedsAttention:(bool)setting;
+- (void)setNeedsAttentionWithSetting:(bool)setting;
 
 /**
  * Sets the page title.
  *
  * @param setting the new value to set
  */
-- (void)setTitle:(OFString*)setting;
+- (void)setTitleWithSetting:(OFString*)setting;
 
 /**
  * Sets whether underlines in the page title indicate mnemonics.
  *
  * @param setting the new value to set
  */
-- (void)setUseUnderline:(bool)setting;
+- (void)setUseUnderlineWithSetting:(bool)setting;
 
 /**
  * Sets whether @page is visible in its `GtkStack`.

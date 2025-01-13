@@ -316,6 +316,6 @@
  *
  * @param canceled %TRUE if the editing has been canceled
  */
-- (void)stopEditing:(bool)canceled;
+- (void)stopEditingWithCanceled:(bool)canceled;
 
 @end

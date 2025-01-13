@@ -33,7 +33,7 @@
 	return returnValue;
 }
 
-- (void)setMarkup:(OFString*)str
+- (void)setMarkupWithStr:(OFString*)str
 {
 	gtk_message_dialog_set_markup([self castedGObject], [str UTF8String]);
 }

@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)graphicsOffload:(OGTKWidget*)child
++ (instancetype)graphicsOffloadWithChild:(OGTKWidget*)child
 {
 	GtkGraphicsOffload* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_graphics_offload_new([child castedGObject]), GtkGraphicsOffload, GtkGraphicsOffload);
 

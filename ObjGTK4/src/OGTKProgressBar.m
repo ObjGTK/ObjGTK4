@@ -94,7 +94,7 @@
 	gtk_progress_bar_pulse([self castedGObject]);
 }
 
-- (void)setEllipsize:(PangoEllipsizeMode)mode
+- (void)setEllipsizeWithMode:(PangoEllipsizeMode)mode
 {
 	gtk_progress_bar_set_ellipsize([self castedGObject], mode);
 }
@@ -109,7 +109,7 @@
 	gtk_progress_bar_set_inverted([self castedGObject], inverted);
 }
 
-- (void)setPulseStep:(double)fraction
+- (void)setPulseStepWithFraction:(double)fraction
 {
 	gtk_progress_bar_set_pulse_step([self castedGObject], fraction);
 }

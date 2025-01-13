@@ -62,7 +62,7 @@
  * @param path a `GtkTreePath` in @icon_view
  * @return a newly-allocated `GdkPaintable` of the drag icon.
  */
-- (GdkPaintable*)createDragIcon:(GtkTreePath*)path;
+- (GdkPaintable*)createDragIconWithPath:(GtkTreePath*)path;
 
 /**
  * Turns @icon_view into a drop destination for automatic DND. Calling this
@@ -173,7 +173,7 @@
  * @param path the `GtkTreePath` of the item
  * @return The column in which the item is displayed
  */
-- (int)itemColumn:(GtkTreePath*)path;
+- (int)itemColumnWithPath:(GtkTreePath*)path;
 
 /**
  * Returns the value of the ::item-orientation property which determines
@@ -197,7 +197,7 @@
  * @param path the `GtkTreePath` of the item
  * @return The row in which the item is displayed
  */
-- (int)itemRow:(GtkTreePath*)path;
+- (int)itemRowWithPath:(GtkTreePath*)path;
 
 /**
  * Returns the value of the ::item-width property.
@@ -332,7 +332,7 @@
  * @param iter a pointer to receive a `GtkTreeIter`
  * @return whether or not the given tooltip context points to an item
  */
-- (bool)tooltipContextWithX:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter;
+- (bool)tooltipContext:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter;
 
 /**
  * Sets @start_path and @end_path to be the first and last visible path.
@@ -351,7 +351,7 @@
  *
  * @param path The `GtkTreePath` to be activated
  */
-- (void)itemActivated:(GtkTreePath*)path;
+- (void)itemActivatedWithPath:(GtkTreePath*)path;
 
 /**
  * Returns %TRUE if the icon pointed to by @path is currently
@@ -360,7 +360,7 @@
  * @param path A `GtkTreePath` to check selection on.
  * @return %TRUE if @path is selected.
  */
-- (bool)pathIsSelected:(GtkTreePath*)path;
+- (bool)pathIsSelectedWithPath:(GtkTreePath*)path;
 
 /**
  * Moves the alignments of @icon_view to the position specified by @path.
@@ -383,7 +383,7 @@
  * @param rowAlign The vertical alignment of the item specified by @path.
  * @param colAlign The horizontal alignment of the item specified by @path.
  */
-- (void)scrollToPathWithPath:(GtkTreePath*)path useAlign:(bool)useAlign rowAlign:(float)rowAlign colAlign:(float)colAlign;
+- (void)scrollToPath:(GtkTreePath*)path useAlign:(bool)useAlign rowAlign:(float)rowAlign colAlign:(float)colAlign;
 
 /**
  * Selects all the icons. @icon_view must has its selection mode set
@@ -581,7 +581,7 @@
  * @param path a `GtkTreePath`
  * @param cell a `GtkCellRenderer`
  */
-- (void)setTooltipCellWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path cell:(OGTKCellRenderer*)cell;
+- (void)setTooltipCell:(OGTKTooltip*)tooltip path:(GtkTreePath*)path cell:(OGTKCellRenderer*)cell;
 
 /**
  * If you only plan to have simple (text-only) tooltips on full items, you
@@ -607,7 +607,7 @@
  * @param tooltip a `GtkTooltip`
  * @param path a `GtkTreePath`
  */
-- (void)setTooltipItemWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path;
+- (void)setTooltipItem:(OGTKTooltip*)tooltip path:(GtkTreePath*)path;
 
 /**
  * Unselects all the icons.

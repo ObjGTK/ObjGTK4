@@ -128,7 +128,7 @@
  *   and target to obtain accelerators for
  * @return accelerators for `detailed_action_name`
  */
-- (char**)accelsForAction:(OFString*)detailedActionName;
+- (char**)accelsForActionWithDetailedActionName:(OFString*)detailedActionName;
 
 /**
  * Returns the list of actions (possibly empty) that `accel` maps to.
@@ -176,7 +176,7 @@
  * @return Gets the menu with the
  *   given id from the automatically loaded resources
  */
-- (OGMenu*)menuById:(OFString*)identifier;
+- (OGMenu*)menuByIdWithIdentifier:(OFString*)identifier;
 
 /**
  * Returns the menu model that has been set with
@@ -195,7 +195,7 @@
  * @param identifier an identifier number
  * @return the window for the given `id`
  */
-- (OGTKWindow*)windowById:(guint)identifier;
+- (OGTKWindow*)windowByIdWithIdentifier:(guint)identifier;
 
 /**
  * Gets a list of the [class@Gtk.Window] instances associated with `application`.
@@ -325,6 +325,6 @@
  *
  * @param cookie a cookie that was returned by [method@Gtk.Application.inhibit]
  */
-- (void)uninhibit:(guint)cookie;
+- (void)uninhibitWithCookie:(guint)cookie;
 
 @end

@@ -62,7 +62,7 @@
 	return returnValue;
 }
 
-- (bool)realize:(OGdkSurface*)surface
+- (bool)realizeWithSurface:(OGdkSurface*)surface
 {
 	GError* err = NULL;
 

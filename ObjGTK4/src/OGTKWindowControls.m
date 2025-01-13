@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)windowControls:(GtkPackType)side
++ (instancetype)windowControlsWithSide:(GtkPackType)side
 {
 	GtkWindowControls* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_controls_new(side), GtkWindowControls, GtkWindowControls);
 

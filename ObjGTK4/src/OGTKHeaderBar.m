@@ -69,17 +69,17 @@
 	return returnValue;
 }
 
-- (void)packEnd:(OGTKWidget*)child
+- (void)packEndWithChild:(OGTKWidget*)child
 {
 	gtk_header_bar_pack_end([self castedGObject], [child castedGObject]);
 }
 
-- (void)packStart:(OGTKWidget*)child
+- (void)packStartWithChild:(OGTKWidget*)child
 {
 	gtk_header_bar_pack_start([self castedGObject], [child castedGObject]);
 }
 
-- (void)remove:(OGTKWidget*)child
+- (void)removeWithChild:(OGTKWidget*)child
 {
 	gtk_header_bar_remove([self castedGObject], [child castedGObject]);
 }
@@ -89,7 +89,7 @@
 	gtk_header_bar_set_decoration_layout([self castedGObject], [layout UTF8String]);
 }
 
-- (void)setShowTitleButtons:(bool)setting
+- (void)setShowTitleButtonsWithSetting:(bool)setting
 {
 	gtk_header_bar_set_show_title_buttons([self castedGObject], setting);
 }

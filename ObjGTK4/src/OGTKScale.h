@@ -235,7 +235,7 @@
  * @param userData user data to pass to @func
  * @param destroyNotify destroy function for @user_data
  */
-- (void)setFormatValueFuncWithFunc:(GtkScaleFormatValueFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify;
+- (void)setFormatValueFunc:(GtkScaleFormatValueFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify;
 
 /**
  * Sets whether the scale has an origin.

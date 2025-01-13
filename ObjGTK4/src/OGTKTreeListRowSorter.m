@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)treeListRowSorter:(OGTKSorter*)sorter
++ (instancetype)treeListRowSorterWithSorter:(OGTKSorter*)sorter
 {
 	GtkTreeListRowSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_list_row_sorter_new([sorter castedGObject]), GtkTreeListRowSorter, GtkTreeListRowSorter);
 

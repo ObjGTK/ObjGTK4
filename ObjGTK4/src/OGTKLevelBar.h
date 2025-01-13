@@ -193,7 +193,7 @@
  *
  * @param name the name of an offset in the bar
  */
-- (void)removeOffsetValue:(OFString*)name;
+- (void)removeOffsetValueWithName:(OFString*)name;
 
 /**
  * Sets whether the `GtkLevelBar` is inverted.

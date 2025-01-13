@@ -83,7 +83,7 @@
  *
  * @param string a `GString` to print into
  */
-- (void)print:(GString*)string;
+- (void)printWithString:(GString*)string;
 
 /**
  * Prints the given action into a human-readable string.
@@ -93,6 +93,6 @@
  *
  * @return a new string
  */
-- (char*)toString;
+- (OFString*)toString;
 
 @end

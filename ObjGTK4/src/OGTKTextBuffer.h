@@ -36,7 +36,7 @@
 /**
  * Constructors
  */
-+ (instancetype)textBuffer:(OGTKTextTagTable*)table;
++ (instancetype)textBufferWithTable:(OGTKTextTagTable*)table;
 
 /**
  * Methods
@@ -57,7 +57,7 @@
  * @param mark the mark to add
  * @param where location to place mark
  */
-- (void)addMarkWithMark:(OGTKTextMark*)mark where:(const GtkTextIter*)where;
+- (void)addMark:(OGTKTextMark*)mark where:(const GtkTextIter*)where;
 
 /**
  * Adds @clipboard to the list of clipboards in which the selection
@@ -81,7 +81,7 @@
  * @param start one bound of range to be tagged
  * @param end other bound of range to be tagged
  */
-- (void)applyTagWithTag:(OGTKTextTag*)tag start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
+- (void)applyTag:(OGTKTextTag*)tag start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
 
 /**
  * Emits the “apply-tag” signal on @buffer.
@@ -94,7 +94,7 @@
  * @param start one bound of range to be tagged
  * @param end other bound of range to be tagged
  */
-- (void)applyTagByNameWithName:(OFString*)name start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
+- (void)applyTagByName:(OFString*)name start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
 
 /**
  * Performs the appropriate action as if the user hit the delete
@@ -175,7 +175,7 @@
  * @param iter location in the buffer
  * @return the created child anchor
  */
-- (OGTKTextChildAnchor*)createChildAnchor:(GtkTextIter*)iter;
+- (OGTKTextChildAnchor*)createChildAnchorWithIter:(GtkTextIter*)iter;
 
 /**
  * Creates a mark at position @where.
@@ -212,7 +212,7 @@
  * @param clipboard the `GdkClipboard` object to cut to
  * @param defaultEditable default editability of the buffer
  */
-- (void)cutClipboardWithClipboard:(OGdkClipboard*)clipboard defaultEditable:(bool)defaultEditable;
+- (void)cutClipboard:(OGdkClipboard*)clipboard defaultEditable:(bool)defaultEditable;
 
 /**
  * Deletes text between @start and @end.
@@ -483,7 +483,7 @@
  * @param name a mark name
  * @return a `GtkTextMark`
  */
-- (OGTKTextMark*)mark:(OFString*)name;
+- (OGTKTextMark*)markWithName:(OFString*)name;
 
 /**
  * Gets the maximum number of undo levels to perform.
@@ -567,7 +567,7 @@
  * @param includeHiddenChars whether to include invisible text
  * @return an allocated UTF-8 string
  */
-- (char*)sliceWithStart:(const GtkTextIter*)start end:(const GtkTextIter*)end includeHiddenChars:(bool)includeHiddenChars;
+- (OFString*)sliceWithStart:(const GtkTextIter*)start end:(const GtkTextIter*)end includeHiddenChars:(bool)includeHiddenChars;
 
 /**
  * Initialized @iter with the first position in the text buffer.
@@ -601,7 +601,7 @@
  * @param includeHiddenChars whether to include invisible text
  * @return an allocated UTF-8 string
  */
-- (char*)textWithStart:(const GtkTextIter*)start end:(const GtkTextIter*)end includeHiddenChars:(bool)includeHiddenChars;
+- (OFString*)textWithStart:(const GtkTextIter*)start end:(const GtkTextIter*)end includeHiddenChars:(bool)includeHiddenChars;
 
 /**
  * Inserts @len bytes of @text at position @iter.
@@ -763,7 +763,7 @@
  * @param mark a `GtkTextMark`
  * @param where new location for @mark in @buffer
  */
-- (void)moveMarkWithMark:(OGTKTextMark*)mark where:(const GtkTextIter*)where;
+- (void)moveMark:(OGTKTextMark*)mark where:(const GtkTextIter*)where;
 
 /**
  * Moves the mark named @name (which must exist) to location @where.
@@ -773,7 +773,7 @@
  * @param name name of a mark
  * @param where new location for mark
  */
-- (void)moveMarkByNameWithName:(OFString*)name where:(const GtkTextIter*)where;
+- (void)moveMarkByName:(OFString*)name where:(const GtkTextIter*)where;
 
 /**
  * Pastes the contents of a clipboard.
@@ -790,7 +790,7 @@
  * @param overrideLocation location to insert pasted text
  * @param defaultEditable whether the buffer is editable by default
  */
-- (void)pasteClipboardWithClipboard:(OGdkClipboard*)clipboard overrideLocation:(GtkTextIter*)overrideLocation defaultEditable:(bool)defaultEditable;
+- (void)pasteClipboard:(OGdkClipboard*)clipboard overrideLocation:(GtkTextIter*)overrideLocation defaultEditable:(bool)defaultEditable;
 
 /**
  * This function moves the “insert” and “selection_bound” marks
@@ -805,7 +805,7 @@
  *
  * @param where where to put the cursor
  */
-- (void)placeCursor:(const GtkTextIter*)where;
+- (void)placeCursorWithWhere:(const GtkTextIter*)where;
 
 /**
  * Redoes the next redoable action on the buffer, if there is one.
@@ -846,7 +846,7 @@
  * @param start one bound of range to be untagged
  * @param end other bound of range to be untagged
  */
-- (void)removeTagWithTag:(OGTKTextTag*)tag start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
+- (void)removeTag:(OGTKTextTag*)tag start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
 
 /**
  * Emits the “remove-tag” signal.
@@ -859,7 +859,7 @@
  * @param start one bound of range to be untagged
  * @param end other bound of range to be untagged
  */
-- (void)removeTagByNameWithName:(OFString*)name start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
+- (void)removeTagByName:(OFString*)name start:(const GtkTextIter*)start end:(const GtkTextIter*)end;
 
 /**
  * This function moves the “insert” and “selection_bound” marks
@@ -918,7 +918,7 @@
  *
  * @param setting modification flag setting
  */
-- (void)setModified:(bool)setting;
+- (void)setModifiedWithSetting:(bool)setting;
 
 /**
  * Deletes current contents of @buffer, and inserts @text instead. This is
@@ -932,7 +932,7 @@
  * @param text UTF-8 text to insert
  * @param len length of @text in bytes
  */
-- (void)setTextWithText:(OFString*)text len:(int)len;
+- (void)setText:(OFString*)text len:(int)len;
 
 /**
  * Undoes the last undoable action on the buffer, if there is one.

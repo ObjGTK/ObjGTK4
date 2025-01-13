@@ -112,7 +112,7 @@
 	gtk_file_dialog_open([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (GFile*)openFinish:(GAsyncResult*)result
+- (GFile*)openFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -128,7 +128,7 @@
 	gtk_file_dialog_open_multiple([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (GListModel*)openMultipleFinish:(GAsyncResult*)result
+- (GListModel*)openMultipleFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -144,7 +144,7 @@
 	gtk_file_dialog_save([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (GFile*)saveFinish:(GAsyncResult*)result
+- (GFile*)saveFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -160,7 +160,7 @@
 	gtk_file_dialog_select_folder([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (GFile*)selectFolderFinish:(GAsyncResult*)result
+- (GFile*)selectFolderFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -176,7 +176,7 @@
 	gtk_file_dialog_select_multiple_folders([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (GListModel*)selectMultipleFoldersFinish:(GAsyncResult*)result
+- (GListModel*)selectMultipleFoldersFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

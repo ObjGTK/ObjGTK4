@@ -21,7 +21,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)uriLauncher:(OFString*)uri
++ (instancetype)uriLauncherWithUri:(OFString*)uri
 {
 	GtkUriLauncher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_uri_launcher_new([uri UTF8String]), GtkUriLauncher, GtkUriLauncher);
 
@@ -59,7 +59,7 @@
 	gtk_uri_launcher_launch([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (bool)launchFinish:(GAsyncResult*)result
+- (bool)launchFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

@@ -62,12 +62,12 @@
 	return returnValue;
 }
 
-- (void)detachTab:(OGTKWidget*)child
+- (void)detachTabWithChild:(OGTKWidget*)child
 {
 	gtk_notebook_detach_tab([self castedGObject], [child castedGObject]);
 }
 
-- (OGTKWidget*)actionWidget:(GtkPackType)packType
+- (OGTKWidget*)actionWidgetWithPackType:(GtkPackType)packType
 {
 	GtkWidget* gobjectValue = gtk_notebook_get_action_widget([self castedGObject], packType);
 
@@ -90,7 +90,7 @@
 	return returnValue;
 }
 
-- (OGTKWidget*)menuLabel:(OGTKWidget*)child
+- (OGTKWidget*)menuLabelWithChild:(OGTKWidget*)child
 {
 	GtkWidget* gobjectValue = gtk_notebook_get_menu_label([self castedGObject], [child castedGObject]);
 
@@ -98,7 +98,7 @@
 	return returnValue;
 }
 
-- (OFString*)menuLabelText:(OGTKWidget*)child
+- (OFString*)menuLabelTextWithChild:(OGTKWidget*)child
 {
 	const char* gobjectValue = gtk_notebook_get_menu_label_text([self castedGObject], [child castedGObject]);
 
@@ -113,7 +113,7 @@
 	return returnValue;
 }
 
-- (OGTKWidget*)nthPage:(int)pageNum
+- (OGTKWidget*)nthPageWithPageNum:(int)pageNum
 {
 	GtkWidget* gobjectValue = gtk_notebook_get_nth_page([self castedGObject], pageNum);
 
@@ -121,7 +121,7 @@
 	return returnValue;
 }
 
-- (OGTKNotebookPage*)page:(OGTKWidget*)child
+- (OGTKNotebookPage*)pageWithChild:(OGTKWidget*)child
 {
 	GtkNotebookPage* gobjectValue = gtk_notebook_get_page([self castedGObject], [child castedGObject]);
 
@@ -157,14 +157,14 @@
 	return returnValue;
 }
 
-- (bool)tabDetachable:(OGTKWidget*)child
+- (bool)tabDetachableWithChild:(OGTKWidget*)child
 {
 	bool returnValue = (bool)gtk_notebook_get_tab_detachable([self castedGObject], [child castedGObject]);
 
 	return returnValue;
 }
 
-- (OGTKWidget*)tabLabel:(OGTKWidget*)child
+- (OGTKWidget*)tabLabelWithChild:(OGTKWidget*)child
 {
 	GtkWidget* gobjectValue = gtk_notebook_get_tab_label([self castedGObject], [child castedGObject]);
 
@@ -172,7 +172,7 @@
 	return returnValue;
 }
 
-- (OFString*)tabLabelText:(OGTKWidget*)child
+- (OFString*)tabLabelTextWithChild:(OGTKWidget*)child
 {
 	const char* gobjectValue = gtk_notebook_get_tab_label_text([self castedGObject], [child castedGObject]);
 
@@ -187,7 +187,7 @@
 	return returnValue;
 }
 
-- (bool)tabReorderable:(OGTKWidget*)child
+- (bool)tabReorderableWithChild:(OGTKWidget*)child
 {
 	bool returnValue = (bool)gtk_notebook_get_tab_reorderable([self castedGObject], [child castedGObject]);
 
@@ -213,7 +213,7 @@
 	gtk_notebook_next_page([self castedGObject]);
 }
 
-- (int)pageNum:(OGTKWidget*)child
+- (int)pageNumWithChild:(OGTKWidget*)child
 {
 	int returnValue = (int)gtk_notebook_page_num([self castedGObject], [child castedGObject]);
 
@@ -249,22 +249,22 @@
 	gtk_notebook_prev_page([self castedGObject]);
 }
 
-- (void)removePage:(int)pageNum
+- (void)removePageWithPageNum:(int)pageNum
 {
 	gtk_notebook_remove_page([self castedGObject], pageNum);
 }
 
-- (void)reorderChildWithChild:(OGTKWidget*)child position:(int)position
+- (void)reorderChild:(OGTKWidget*)child position:(int)position
 {
 	gtk_notebook_reorder_child([self castedGObject], [child castedGObject], position);
 }
 
-- (void)setActionWidgetWithWidget:(OGTKWidget*)widget packType:(GtkPackType)packType
+- (void)setActionWidget:(OGTKWidget*)widget packType:(GtkPackType)packType
 {
 	gtk_notebook_set_action_widget([self castedGObject], [widget castedGObject], packType);
 }
 
-- (void)setCurrentPage:(int)pageNum
+- (void)setCurrentPageWithPageNum:(int)pageNum
 {
 	gtk_notebook_set_current_page([self castedGObject], pageNum);
 }

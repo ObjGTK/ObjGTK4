@@ -209,7 +209,7 @@
 	gtk_print_operation_set_support_selection([self castedGObject], supportSelection);
 }
 
-- (void)setTrackPrintStatus:(bool)trackStatus
+- (void)setTrackPrintStatusWithTrackStatus:(bool)trackStatus
 {
 	gtk_print_operation_set_track_print_status([self castedGObject], trackStatus);
 }

@@ -41,7 +41,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)fontButtonWithFont:(OFString*)fontname
++ (instancetype)fontButtonWithFontWithFontname:(OFString*)fontname
 {
 	GtkFontButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_font_button_new_with_font([fontname UTF8String]), GtkFontButton, GtkFontButton);
 

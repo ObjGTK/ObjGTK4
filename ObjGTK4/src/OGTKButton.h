@@ -51,7 +51,7 @@
 + (instancetype)button;
 + (instancetype)buttonFromIconName:(OFString*)iconName;
 + (instancetype)buttonWithLabel:(OFString*)label;
-+ (instancetype)buttonWithMnemonic:(OFString*)label;
++ (instancetype)buttonWithMnemonicWithLabel:(OFString*)label;
 
 /**
  * Methods

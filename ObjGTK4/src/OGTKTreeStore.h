@@ -174,7 +174,7 @@
  * @param iter A valid `GtkTreeIter`
  * @return The depth of the position pointed by the iterator
  */
-- (int)iterDepth:(GtkTreeIter*)iter;
+- (int)iterDepthWithIter:(GtkTreeIter*)iter;
 
 /**
  * Checks if the given iter is a valid iter for this `GtkTreeStore`.
@@ -185,7 +185,7 @@
  * @param iter the iterator to check
  * @return true if the iter is valid, and false otherwise
  */
-- (bool)iterIsValid:(GtkTreeIter*)iter;
+- (bool)iterIsValidWithIter:(GtkTreeIter*)iter;
 
 /**
  * Moves @iter in @tree_store to the position after @position.
@@ -238,7 +238,7 @@
  * @param iter A valid `GtkTreeIter`
  * @return true if @iter is still valid, and false otherwise
  */
-- (bool)remove:(GtkTreeIter*)iter;
+- (bool)removeWithIter:(GtkTreeIter*)iter;
 
 /**
  * Reorders the children of @parent in @tree_store to follow the order
@@ -312,6 +312,6 @@
  * @param a A `GtkTreeIter`.
  * @param b Another `GtkTreeIter`.
  */
-- (void)swapWithA:(GtkTreeIter*)a b:(GtkTreeIter*)b;
+- (void)swap:(GtkTreeIter*)a b:(GtkTreeIter*)b;
 
 @end

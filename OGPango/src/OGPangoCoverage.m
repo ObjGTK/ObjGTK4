@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (OGPangoCoverage*)fromBytesWithBytes:(guchar*)bytes nbytes:(int)nbytes
++ (OGPangoCoverage*)fromBytes:(guchar*)bytes nbytes:(int)nbytes
 {
 	PangoCoverage* gobjectValue = pango_coverage_from_bytes(bytes, nbytes);
 
@@ -63,14 +63,14 @@
 	return returnValue;
 }
 
-- (PangoCoverageLevel)get:(int)index
+- (PangoCoverageLevel)getWithIndex:(int)index
 {
 	PangoCoverageLevel returnValue = (PangoCoverageLevel)pango_coverage_get([self castedGObject], index);
 
 	return returnValue;
 }
 
-- (void)max:(OGPangoCoverage*)other
+- (void)maxWithOther:(OGPangoCoverage*)other
 {
 	pango_coverage_max([self castedGObject], [other castedGObject]);
 }
@@ -80,7 +80,7 @@
 	pango_coverage_set([self castedGObject], index, level);
 }
 
-- (void)toBytesWithBytes:(guchar**)bytes nbytes:(int*)nbytes
+- (void)toBytes:(guchar**)bytes nbytes:(int*)nbytes
 {
 	pango_coverage_to_bytes([self castedGObject], bytes, nbytes);
 }

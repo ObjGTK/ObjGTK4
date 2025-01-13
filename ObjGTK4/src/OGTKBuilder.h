@@ -360,9 +360,9 @@
  * Constructors
  */
 + (instancetype)builder;
-+ (instancetype)builderFromFile:(OFString*)filename;
-+ (instancetype)builderFromResource:(OFString*)resourcePath;
-+ (instancetype)builderFromStringWithString:(OFString*)string length:(gssize)length;
++ (instancetype)builderFromFileWithFilename:(OFString*)filename;
++ (instancetype)builderFromResourceWithResourcePath:(OFString*)resourcePath;
++ (instancetype)builderFromString:(OFString*)string length:(gssize)length;
 
 /**
  * Methods
@@ -393,7 +393,7 @@
  * @param filename the name of the file to parse
  * @return %TRUE on success, %FALSE if an error occurred
  */
-- (bool)addFromFile:(OFString*)filename;
+- (bool)addFromFileWithFilename:(OFString*)filename;
 
 /**
  * Parses a resource file containing a UI definition
@@ -415,7 +415,7 @@
  * @param resourcePath the path of the resource file to parse
  * @return %TRUE on success, %FALSE if an error occurred
  */
-- (bool)addFromResource:(OFString*)resourcePath;
+- (bool)addFromResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Parses a string containing a UI definition and merges it
@@ -558,7 +558,7 @@
  * @param name name of object to get
  * @return the object named @name
  */
-- (OGObject*)object:(OFString*)name;
+- (OGObject*)objectWithName:(OFString*)name;
 
 /**
  * Gets all objects that have been constructed by @builder.
@@ -598,7 +598,7 @@
  * @return the `GType` found for @type_name or %G_TYPE_INVALID
  *   if no type was found
  */
-- (GType)typeFromName:(OFString*)typeName;
+- (GType)typeFromNameWithTypeName:(OFString*)typeName;
 
 /**
  * Sets the current object for the @builder.
@@ -668,6 +668,6 @@
  * @param value the `GValue` to store the result in
  * @return %TRUE on success
  */
-- (bool)valueFromStringTypeWithType:(GType)type string:(OFString*)string value:(GValue*)value;
+- (bool)valueFromStringType:(GType)type string:(OFString*)string value:(GValue*)value;
 
 @end

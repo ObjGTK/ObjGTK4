@@ -27,6 +27,9 @@
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
 
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
+
 	OGTKStack* wrapperObject;
 	@try {
 		wrapperObject = [[OGTKStack alloc] initWithGObject:gobjectValue];
@@ -91,7 +94,7 @@
 	return returnValue;
 }
 
-- (OGTKStackPage*)page:(OGTKWidget*)child
+- (OGTKStackPage*)pageWithChild:(OGTKWidget*)child
 {
 	GtkStackPage* gobjectValue = gtk_stack_get_page([self castedGObject], [child castedGObject]);
 
@@ -150,7 +153,7 @@
 	return returnValue;
 }
 
-- (void)remove:(OGTKWidget*)child
+- (void)removeWithChild:(OGTKWidget*)child
 {
 	gtk_stack_remove([self castedGObject], [child castedGObject]);
 }

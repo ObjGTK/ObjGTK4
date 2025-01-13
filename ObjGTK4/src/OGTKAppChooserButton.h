@@ -45,7 +45,7 @@
 /**
  * Constructors
  */
-+ (instancetype)appChooserButton:(OFString*)contentType;
++ (instancetype)appChooserButtonWithContentType:(OFString*)contentType;
 
 /**
  * Methods
@@ -118,7 +118,7 @@
  *
  * @param name the name of the custom item
  */
-- (void)setActiveCustomItem:(OFString*)name;
+- (void)setActiveCustomItemWithName:(OFString*)name;
 
 /**
  * Sets the text to display at the top of the dialog.
@@ -142,7 +142,7 @@
  *
  * @param setting the new value for [property@Gtk.AppChooserButton:show-default-item]
  */
-- (void)setShowDefaultItem:(bool)setting;
+- (void)setShowDefaultItemWithSetting:(bool)setting;
 
 /**
  * Sets whether the dropdown menu of this button should show an
@@ -150,6 +150,6 @@
  *
  * @param setting the new value for [property@Gtk.AppChooserButton:show-dialog-item]
  */
-- (void)setShowDialogItem:(bool)setting;
+- (void)setShowDialogItemWithSetting:(bool)setting;
 
 @end

@@ -35,7 +35,7 @@
 /**
  * Constructors
  */
-+ (instancetype)fileLauncher:(GFile*)file;
++ (instancetype)fileLauncherWithFile:(GFile*)file;
 
 /**
  * Methods
@@ -88,7 +88,7 @@
  * @return `TRUE` if an application was launched,
  *     or `FALSE` and @error is set
  */
-- (bool)launchFinish:(GAsyncResult*)result;
+- (bool)launchFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Launch a file manager to show the file in its parent directory.
@@ -115,7 +115,7 @@
  * @return `TRUE` if an application was launched,
  *     or `FALSE` and @error is set
  */
-- (bool)openContainingFolderFinish:(GAsyncResult*)result;
+- (bool)openContainingFolderFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Sets whether to awlays ask the user to choose an app for opening the file.

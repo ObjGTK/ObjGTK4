@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)editableLabel:(OFString*)str
++ (instancetype)editableLabelWithStr:(OFString*)str
 {
 	GtkEditableLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_editable_label_new([str UTF8String]), GtkEditableLabel, GtkEditableLabel);
 
@@ -58,7 +58,7 @@
 	gtk_editable_label_start_editing([self castedGObject]);
 }
 
-- (void)stopEditing:(bool)commit
+- (void)stopEditingWithCommit:(bool)commit
 {
 	gtk_editable_label_stop_editing([self castedGObject], commit);
 }

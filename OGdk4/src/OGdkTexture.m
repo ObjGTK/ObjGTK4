@@ -88,7 +88,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)textureFromFilename:(OFString*)path
++ (instancetype)textureFromFilenameWithPath:(OFString*)path
 {
 	GError* err = NULL;
 
@@ -112,7 +112,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)textureFromResource:(OFString*)resourcePath
++ (instancetype)textureFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	GdkTexture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_texture_new_from_resource([resourcePath UTF8String]), GdkTexture, GdkTexture);
 
@@ -163,7 +163,7 @@
 	return returnValue;
 }
 
-- (bool)saveToPng:(OFString*)filename
+- (bool)saveToPngWithFilename:(OFString*)filename
 {
 	bool returnValue = (bool)gdk_texture_save_to_png([self castedGObject], [filename UTF8String]);
 
@@ -177,7 +177,7 @@
 	return returnValue;
 }
 
-- (bool)saveToTiff:(OFString*)filename
+- (bool)saveToTiffWithFilename:(OFString*)filename
 {
 	bool returnValue = (bool)gdk_texture_save_to_tiff([self castedGObject], [filename UTF8String]);
 

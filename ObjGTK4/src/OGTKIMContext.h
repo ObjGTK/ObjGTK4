@@ -66,7 +66,7 @@
  * @param event a [class@Gdk.Event]
  * @return %TRUE if an on-screen keyboard could be requested to the platform.
  */
-- (bool)activateOsk:(GdkEvent*)event;
+- (bool)activateOskWithEvent:(GdkEvent*)event;
 
 /**
  * Asks the widget that the input context is attached to delete
@@ -120,7 +120,7 @@
  * @param event the key event
  * @return %TRUE if the input method handled the key event.
  */
-- (bool)filterKeypress:(GdkEvent*)event;
+- (bool)filterKeypressWithEvent:(GdkEvent*)event;
 
 /**
  * Notify the input method that the widget to which this
@@ -156,7 +156,7 @@
  * @param cursorPos location to store position of cursor
  *   (in characters) within the preedit string.
  */
-- (void)preeditStringWithStr:(char**)str attrs:(PangoAttrList**)attrs cursorPos:(int*)cursorPos;
+- (void)preeditString:(char**)str attrs:(PangoAttrList**)attrs cursorPos:(int*)cursorPos;
 
 /**
  * Retrieves context around the insertion point.
@@ -245,7 +245,7 @@
  *
  * @param area new location
  */
-- (void)setCursorLocation:(const GdkRectangle*)area;
+- (void)setCursorLocationWithArea:(const GdkRectangle*)area;
 
 /**
  * Sets surrounding context around the insertion point and preedit

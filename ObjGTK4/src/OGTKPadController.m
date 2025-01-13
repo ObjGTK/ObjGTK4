@@ -50,7 +50,7 @@
 	gtk_pad_controller_set_action([self castedGObject], type, index, mode, [label UTF8String], [actionName UTF8String]);
 }
 
-- (void)setActionEntriesWithEntries:(const GtkPadActionEntry*)entries nentries:(int)nentries
+- (void)setActionEntries:(const GtkPadActionEntry*)entries nentries:(int)nentries
 {
 	gtk_pad_controller_set_action_entries([self castedGObject], entries, nentries);
 }

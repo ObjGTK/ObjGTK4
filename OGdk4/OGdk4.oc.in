@@ -1,8 +1,8 @@
 package_format 1
 package_depends_on OGObject
 package_depends_on OGdkPixbuf
-package_depends_on OGPango
 package_depends_on OGio
+package_depends_on OGPango
 
 CPPFLAGS="$CPPFLAGS -I@includedir@ @OGDK4_CPPFLAGS@"
 LIBS="-L@libdir@ -logdk4 @OGDK4_LIBS@ $LIBS"

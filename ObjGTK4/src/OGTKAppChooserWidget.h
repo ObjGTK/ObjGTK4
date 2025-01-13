@@ -41,7 +41,7 @@
 /**
  * Constructors
  */
-+ (instancetype)appChooserWidget:(OFString*)contentType;
++ (instancetype)appChooserWidgetWithContentType:(OFString*)contentType;
 
 /**
  * Methods
@@ -111,7 +111,7 @@
  *
  * @param setting the new value for [property@Gtk.AppChooserWidget:show-all]
  */
-- (void)setShowAll:(bool)setting;
+- (void)setShowAllWithSetting:(bool)setting;
 
 /**
  * Sets whether the app chooser should show the default handler
@@ -119,7 +119,7 @@
  *
  * @param setting the new value for [property@Gtk.AppChooserWidget:show-default]
  */
-- (void)setShowDefault:(bool)setting;
+- (void)setShowDefaultWithSetting:(bool)setting;
 
 /**
  * Sets whether the app chooser should show related applications
@@ -127,7 +127,7 @@
  *
  * @param setting the new value for [property@Gtk.AppChooserWidget:show-fallback]
  */
-- (void)setShowFallback:(bool)setting;
+- (void)setShowFallbackWithSetting:(bool)setting;
 
 /**
  * Sets whether the app chooser should show applications
@@ -135,7 +135,7 @@
  *
  * @param setting the new value for [property@Gtk.AppChooserWidget:show-other]
  */
-- (void)setShowOther:(bool)setting;
+- (void)setShowOtherWithSetting:(bool)setting;
 
 /**
  * Sets whether the app chooser should show recommended applications
@@ -143,6 +143,6 @@
  *
  * @param setting the new value for [property@Gtk.AppChooserWidget:show-recommended]
  */
-- (void)setShowRecommended:(bool)setting;
+- (void)setShowRecommendedWithSetting:(bool)setting;
 
 @end

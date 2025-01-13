@@ -64,7 +64,7 @@
 	return returnValue;
 }
 
-- (GtkBaselinePosition)rowBaselinePosition:(int)row
+- (GtkBaselinePosition)rowBaselinePositionWithRow:(int)row
 {
 	GtkBaselinePosition returnValue = (GtkBaselinePosition)gtk_grid_layout_get_row_baseline_position([self castedGObject], row);
 
@@ -100,7 +100,7 @@
 	gtk_grid_layout_set_column_spacing([self castedGObject], spacing);
 }
 
-- (void)setRowBaselinePositionWithRow:(int)row pos:(GtkBaselinePosition)pos
+- (void)setRowBaselinePosition:(int)row pos:(GtkBaselinePosition)pos
 {
 	gtk_grid_layout_set_row_baseline_position([self castedGObject], row, pos);
 }

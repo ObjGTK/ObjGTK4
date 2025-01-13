@@ -49,12 +49,12 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkListBox, GtkListBox);
 }
 
-- (void)append:(OGTKWidget*)child
+- (void)appendWithChild:(OGTKWidget*)child
 {
 	gtk_list_box_append([self castedGObject], [child castedGObject]);
 }
 
-- (void)bindModelWithModel:(GListModel*)model createWidgetFunc:(GtkListBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc
+- (void)bindModel:(GListModel*)model createWidgetFunc:(GtkListBoxCreateWidgetFunc)createWidgetFunc userData:(gpointer)userData userDataFreeFunc:(GDestroyNotify)userDataFreeFunc
 {
 	gtk_list_box_bind_model([self castedGObject], model, createWidgetFunc, userData, userDataFreeFunc);
 }
@@ -149,12 +149,12 @@
 	gtk_list_box_invalidate_sort([self castedGObject]);
 }
 
-- (void)prepend:(OGTKWidget*)child
+- (void)prependWithChild:(OGTKWidget*)child
 {
 	gtk_list_box_prepend([self castedGObject], [child castedGObject]);
 }
 
-- (void)remove:(OGTKWidget*)child
+- (void)removeWithChild:(OGTKWidget*)child
 {
 	gtk_list_box_remove([self castedGObject], [child castedGObject]);
 }
@@ -189,7 +189,7 @@
 	gtk_list_box_set_adjustment([self castedGObject], [adjustment castedGObject]);
 }
 
-- (void)setFilterFuncWithFilterFunc:(GtkListBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
+- (void)setFilterFunc:(GtkListBoxFilterFunc)filterFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
 {
 	gtk_list_box_set_filter_func([self castedGObject], filterFunc, userData, destroy);
 }
@@ -214,7 +214,7 @@
 	gtk_list_box_set_show_separators([self castedGObject], showSeparators);
 }
 
-- (void)setSortFuncWithSortFunc:(GtkListBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
+- (void)setSortFunc:(GtkListBoxSortFunc)sortFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
 {
 	gtk_list_box_set_sort_func([self castedGObject], sortFunc, userData, destroy);
 }

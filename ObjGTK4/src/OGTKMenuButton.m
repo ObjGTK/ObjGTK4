@@ -168,7 +168,7 @@
 	gtk_menu_button_set_child([self castedGObject], [child castedGObject]);
 }
 
-- (void)setCreatePopupFuncWithFunc:(GtkMenuButtonCreatePopupFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify
+- (void)setCreatePopupFunc:(GtkMenuButtonCreatePopupFunc)func userData:(gpointer)userData destroyNotify:(GDestroyNotify)destroyNotify
 {
 	gtk_menu_button_set_create_popup_func([self castedGObject], func, userData, destroyNotify);
 }

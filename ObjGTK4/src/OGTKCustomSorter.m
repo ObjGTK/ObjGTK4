@@ -43,7 +43,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCustomSorter, GtkCustomSorter);
 }
 
-- (void)setSortFuncWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
+- (void)setSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
 {
 	gtk_custom_sorter_set_sort_func([self castedGObject], sortFunc, userData, userDestroy);
 }

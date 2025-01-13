@@ -85,7 +85,7 @@
 /**
  * Constructors
  */
-+ (instancetype)paned:(GtkOrientation)orientation;
++ (instancetype)panedWithOrientation:(GtkOrientation)orientation;
 
 /**
  * Methods
@@ -185,14 +185,14 @@
  *
  * @param resize true to let the end child be shrunk
  */
-- (void)setShrinkEndChild:(bool)resize;
+- (void)setShrinkEndChildWithResize:(bool)resize;
 
 /**
  * Sets whether the [property@Gtk.Paned:start-child] can shrink.
  *
  * @param resize true to let the start child be shrunk
  */
-- (void)setShrinkStartChild:(bool)resize;
+- (void)setShrinkStartChildWithResize:(bool)resize;
 
 /**
  * Sets the start child of @paned to @child.

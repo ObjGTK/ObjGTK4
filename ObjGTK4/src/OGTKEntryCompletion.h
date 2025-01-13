@@ -91,7 +91,7 @@
  * @return The common prefix all rows
  *   starting with @key
  */
-- (char*)computePrefix:(OFString*)key;
+- (OFString*)computePrefixWithKey:(OFString*)key;
 
 /**
  * Get the original text entered by the user that triggered
@@ -203,7 +203,7 @@
  * @param funcData user data for @func
  * @param funcNotify destroy notify for @func_data.
  */
-- (void)setMatchFuncWithFunc:(GtkEntryCompletionMatchFunc)func funcData:(gpointer)funcData funcNotify:(GDestroyNotify)funcNotify;
+- (void)setMatchFunc:(GtkEntryCompletionMatchFunc)func funcData:(gpointer)funcData funcNotify:(GDestroyNotify)funcNotify;
 
 /**
  * Requires the length of the search key for @completion to be at least

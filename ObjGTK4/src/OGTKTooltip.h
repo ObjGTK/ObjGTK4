@@ -62,7 +62,7 @@
  *
  * @param customWidget a `GtkWidget`, or %NULL to unset the old custom widget.
  */
-- (void)setCustom:(OGTKWidget*)customWidget;
+- (void)setCustomWithCustomWidget:(OGTKWidget*)customWidget;
 
 /**
  * Sets the icon of the tooltip (which is in front of the text) to be
@@ -70,7 +70,7 @@
  *
  * @param paintable a `GdkPaintable`
  */
-- (void)setIcon:(GdkPaintable*)paintable;
+- (void)setIconWithPaintable:(GdkPaintable*)paintable;
 
 /**
  * Sets the icon of the tooltip (which is in front of the text)
@@ -122,6 +122,6 @@
  *
  * @param rect a `GdkRectangle`
  */
-- (void)setTipArea:(const GdkRectangle*)rect;
+- (void)setTipAreaWithRect:(const GdkRectangle*)rect;
 
 @end

@@ -97,7 +97,7 @@
  */
 + (instancetype)toggleButton;
 + (instancetype)toggleButtonWithLabel:(OFString*)label;
-+ (instancetype)toggleButtonWithMnemonic:(OFString*)label;
++ (instancetype)toggleButtonWithMnemonicWithLabel:(OFString*)label;
 
 /**
  * Methods
@@ -126,7 +126,7 @@
  *
  * @param isActive %TRUE or %FALSE.
  */
-- (void)setActive:(bool)isActive;
+- (void)setActiveWithIsActive:(bool)isActive;
 
 /**
  * Adds @self to the group of @group.

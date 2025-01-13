@@ -48,7 +48,7 @@
 	gtk_builder_cscope_add_callback_symbol([self castedGObject], [callbackName UTF8String], callbackSymbol);
 }
 
-- (GCallback)lookupCallbackSymbol:(OFString*)callbackName
+- (GCallback)lookupCallbackSymbolWithCallbackName:(OFString*)callbackName
 {
 	GCallback returnValue = (GCallback)gtk_builder_cscope_lookup_callback_symbol([self castedGObject], [callbackName UTF8String]);
 

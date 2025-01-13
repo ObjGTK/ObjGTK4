@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)gesturePan:(GtkOrientation)orientation
++ (instancetype)gesturePanWithOrientation:(GtkOrientation)orientation
 {
 	GtkGesturePan* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_pan_new(orientation), GtkGesturePan, GtkGesturePan);
 

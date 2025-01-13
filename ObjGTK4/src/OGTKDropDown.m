@@ -179,7 +179,7 @@
 	gtk_drop_down_set_search_match_mode([self castedGObject], searchMatchMode);
 }
 
-- (void)setSelected:(guint)position
+- (void)setSelectedWithPosition:(guint)position
 {
 	gtk_drop_down_set_selected([self castedGObject], position);
 }

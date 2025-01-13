@@ -151,6 +151,6 @@
  *
  * @param visible whether the close button will be shown or not
  */
-- (void)setShowCloseButton:(bool)visible;
+- (void)setShowCloseButtonWithVisible:(bool)visible;
 
 @end

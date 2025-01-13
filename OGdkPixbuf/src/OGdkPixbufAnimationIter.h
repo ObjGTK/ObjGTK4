@@ -53,7 +53,7 @@
  * @param currentTime current time
  * @return `TRUE` if the image may need updating
  */
-- (bool)advance:(const GTimeVal*)currentTime;
+- (bool)advanceWithCurrentTime:(const GTimeVal*)currentTime;
 
 /**
  * Gets the number of milliseconds the current pixbuf should be displayed,

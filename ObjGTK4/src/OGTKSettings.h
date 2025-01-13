@@ -86,6 +86,6 @@
  *
  * @param name the name of the setting to reset
  */
-- (void)resetProperty:(OFString*)name;
+- (void)resetPropertyWithName:(OFString*)name;
 
 @end

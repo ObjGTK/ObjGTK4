@@ -73,7 +73,7 @@
  * @param child a `GtkWidget`
  * @param anchor a `GtkTextChildAnchor` in the `GtkTextBuffer` for @text_view
  */
-- (void)addChildAtAnchorWithChild:(OGTKWidget*)child anchor:(OGTKTextChildAnchor*)anchor;
+- (void)addChildAtAnchor:(OGTKWidget*)child anchor:(OGTKTextChildAnchor*)anchor;
 
 /**
  * Adds @child at a fixed coordinate in the `GtkTextView`'s text window.
@@ -107,7 +107,7 @@
  * @param iter a `GtkTextIter`
  * @return %TRUE if @iter was moved and is not on the end iterator
  */
-- (bool)backwardDisplayLine:(GtkTextIter*)iter;
+- (bool)backwardDisplayLineWithIter:(GtkTextIter*)iter;
 
 /**
  * Moves the given @iter backward to the next display line start.
@@ -123,7 +123,7 @@
  * @param iter a `GtkTextIter`
  * @return %TRUE if @iter was moved and is not on the end iterator
  */
-- (bool)backwardDisplayLineStart:(GtkTextIter*)iter;
+- (bool)backwardDisplayLineStartWithIter:(GtkTextIter*)iter;
 
 /**
  * Converts buffer coordinates to window coordinates.
@@ -134,7 +134,7 @@
  * @param windowX window x coordinate return location
  * @param windowY window y coordinate return location
  */
-- (void)bufferToWindowCoordsWithWin:(GtkTextWindowType)win bufferX:(int)bufferX bufferY:(int)bufferY windowX:(int*)windowX windowY:(int*)windowY;
+- (void)bufferToWindowCoords:(GtkTextWindowType)win bufferX:(int)bufferX bufferY:(int)bufferY windowX:(int*)windowX windowY:(int*)windowY;
 
 /**
  * Moves the given @iter forward by one display (wrapped) line.
@@ -150,7 +150,7 @@
  * @param iter a `GtkTextIter`
  * @return %TRUE if @iter was moved and is not on the end iterator
  */
-- (bool)forwardDisplayLine:(GtkTextIter*)iter;
+- (bool)forwardDisplayLineWithIter:(GtkTextIter*)iter;
 
 /**
  * Moves the given @iter forward to the next display line end.
@@ -166,7 +166,7 @@
  * @param iter a `GtkTextIter`
  * @return %TRUE if @iter was moved and is not on the end iterator
  */
-- (bool)forwardDisplayLineEnd:(GtkTextIter*)iter;
+- (bool)forwardDisplayLineEndWithIter:(GtkTextIter*)iter;
 
 /**
  * Returns whether pressing the <kbd>Tab</kbd> key inserts a tab characters.
@@ -258,7 +258,7 @@
  * @param win a `GtkTextWindowType`
  * @return a `GtkWidget`
  */
-- (OGTKWidget*)gutter:(GtkTextWindowType)win;
+- (OGTKWidget*)gutterWithWin:(GtkTextWindowType)win;
 
 /**
  * Gets the default indentation of paragraphs in @text_view.
@@ -525,7 +525,7 @@
  * @param event the key event
  * @return %TRUE if the input method handled the key event.
  */
-- (bool)imContextFilterKeypress:(GdkEvent*)event;
+- (bool)imContextFilterKeypressWithEvent:(GdkEvent*)event;
 
 /**
  * Moves a mark within the buffer so that it's
@@ -581,7 +581,7 @@
  *
  * @param child the child to remove
  */
-- (void)remove:(OGTKWidget*)child;
+- (void)removeWithChild:(OGTKWidget*)child;
 
 /**
  * Ensures that the cursor is shown.
@@ -638,7 +638,7 @@
  * @param yalign vertical alignment of mark within visible area
  * @return %TRUE if scrolling occurred
  */
-- (bool)scrollToIterWithIter:(GtkTextIter*)iter withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign;
+- (bool)scrollToIter:(GtkTextIter*)iter withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign;
 
 /**
  * Scrolls @text_view so that @mark is on the screen in the position
@@ -657,7 +657,7 @@
  * @param xalign horizontal alignment of mark within visible area
  * @param yalign vertical alignment of mark within visible area
  */
-- (void)scrollToMarkWithMark:(OGTKTextMark*)mark withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign;
+- (void)scrollToMark:(OGTKTextMark*)mark withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign;
 
 /**
  * Sets the behavior of the text widget when the <kbd>Tab</kbd> key is pressed.
@@ -707,7 +707,7 @@
  *
  * @param setting whether to show the insertion cursor
  */
-- (void)setCursorVisible:(bool)setting;
+- (void)setCursorVisibleWithSetting:(bool)setting;
 
 /**
  * Sets the default editability of the `GtkTextView`.
@@ -717,7 +717,7 @@
  *
  * @param setting whether it’s editable
  */
-- (void)setEditable:(bool)setting;
+- (void)setEditableWithSetting:(bool)setting;
 
 /**
  * Sets a menu model to add when constructing the context
@@ -727,7 +727,7 @@
  *
  * @param model a `GMenuModel`
  */
-- (void)setExtraMenu:(OGMenuModel*)model;
+- (void)setExtraMenuWithModel:(OGMenuModel*)model;
 
 /**
  * Places @widget into the gutter specified by @win.
@@ -881,7 +881,7 @@
  * @param iter a `GtkTextIter`
  * @return %TRUE if @iter begins a wrapped line
  */
-- (bool)startsDisplayLine:(const GtkTextIter*)iter;
+- (bool)startsDisplayLineWithIter:(const GtkTextIter*)iter;
 
 /**
  * Converts coordinates on the window identified by @win to buffer

@@ -62,7 +62,7 @@
  *   the dialog was cancelled and [property@Gtk.AlertDialog:cancel-button]
  *   is not set
  */
-- (int)chooseFinish:(GAsyncResult*)result;
+- (int)chooseFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Returns the button labels for the alert.
@@ -112,7 +112,7 @@
  *
  * @param labels the new button labels
  */
-- (void)setButtons:(const char* const*)labels;
+- (void)setButtonsWithLabels:(const char* const*)labels;
 
 /**
  * Sets the index of the cancel button.
@@ -167,6 +167,6 @@
  *
  * @param parent the parent `GtkWindow`
  */
-- (void)show:(OGTKWindow*)parent;
+- (void)showWithParent:(OGTKWindow*)parent;
 
 @end

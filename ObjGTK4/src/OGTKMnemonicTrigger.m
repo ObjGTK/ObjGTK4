@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)mnemonicTrigger:(guint)keyval
++ (instancetype)mnemonicTriggerWithKeyval:(guint)keyval
 {
 	GtkMnemonicTrigger* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_mnemonic_trigger_new(keyval), GtkMnemonicTrigger, GtkMnemonicTrigger);
 

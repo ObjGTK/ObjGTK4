@@ -104,7 +104,7 @@
  * @param day the day number between 1 and 31.
  * @return whether the day is marked.
  */
-- (bool)dayIsMarked:(guint)day;
+- (bool)dayIsMarkedWithDay:(guint)day;
 
 /**
  * Gets the month of the selected date.
@@ -164,7 +164,7 @@
  *
  * @param date a `GDateTime` representing the day to select
  */
-- (void)selectDay:(GDateTime*)date;
+- (void)selectDayWithDate:(GDateTime*)date;
 
 /**
  * Sets the day for the selected date.
@@ -191,7 +191,7 @@
  *
  * @param value Whether to show day names above the day numbers
  */
-- (void)setShowDayNames:(bool)value;
+- (void)setShowDayNamesWithValue:(bool)value;
 
 /**
  * Sets whether the calendar should show a heading.
@@ -201,14 +201,14 @@
  *
  * @param value Whether to show the heading in the calendar
  */
-- (void)setShowHeading:(bool)value;
+- (void)setShowHeadingWithValue:(bool)value;
 
 /**
  * Sets whether week numbers are shown in the calendar.
  *
  * @param value whether to show week numbers on the left of the days
  */
-- (void)setShowWeekNumbers:(bool)value;
+- (void)setShowWeekNumbersWithValue:(bool)value;
 
 /**
  * Sets the year for the selected date.

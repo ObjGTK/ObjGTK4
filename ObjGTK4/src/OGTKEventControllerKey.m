@@ -46,7 +46,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEventControllerKey, GtkEventControllerKey);
 }
 
-- (bool)forward:(OGTKWidget*)widget
+- (bool)forwardWithWidget:(OGTKWidget*)widget
 {
 	bool returnValue = (bool)gtk_event_controller_key_forward([self castedGObject], [widget castedGObject]);
 

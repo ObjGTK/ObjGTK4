@@ -98,7 +98,7 @@
  *
  * @param path a `GtkTreePath` or %NULL to unset.
  */
-- (void)setDisplayedRow:(GtkTreePath*)path;
+- (void)setDisplayedRowWithPath:(GtkTreePath*)path;
 
 /**
  * Sets whether @cell_view should draw all of its

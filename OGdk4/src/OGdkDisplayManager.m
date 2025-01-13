@@ -48,7 +48,7 @@
 	return returnValue;
 }
 
-- (OGdkDisplay*)openDisplay:(OFString*)name
+- (OGdkDisplay*)openDisplayWithName:(OFString*)name
 {
 	GdkDisplay* gobjectValue = gdk_display_manager_open_display([self castedGObject], [name UTF8String]);
 

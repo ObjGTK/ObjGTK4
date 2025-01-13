@@ -67,12 +67,12 @@
 	return returnValue;
 }
 
-- (void)setActivatable:(bool)setting
+- (void)setActivatableWithSetting:(bool)setting
 {
 	gtk_cell_renderer_toggle_set_activatable([self castedGObject], setting);
 }
 
-- (void)setActive:(bool)setting
+- (void)setActiveWithSetting:(bool)setting
 {
 	gtk_cell_renderer_toggle_set_active([self castedGObject], setting);
 }

@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)gLShaderFromBytes:(GBytes*)sourcecode
++ (instancetype)gLShaderFromBytesWithSourcecode:(GBytes*)sourcecode
 {
 	GskGLShader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_gl_shader_new_from_bytes(sourcecode), GskGLShader, GskGLShader);
 
@@ -40,7 +40,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)gLShaderFromResource:(OFString*)resourcePath
++ (instancetype)gLShaderFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	GskGLShader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_gl_shader_new_from_resource([resourcePath UTF8String]), GskGLShader, GskGLShader);
 
@@ -65,7 +65,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GskGLShader, GskGLShader);
 }
 
-- (bool)compile:(OGskRenderer*)renderer
+- (bool)compileWithRenderer:(OGskRenderer*)renderer
 {
 	GError* err = NULL;
 
@@ -83,7 +83,7 @@
 	return returnValue;
 }
 
-- (GBytes*)formatArgsVa:(va_list)uniforms
+- (GBytes*)formatArgsVaWithUniforms:(va_list)uniforms
 {
 	GBytes* returnValue = (GBytes*)gsk_gl_shader_format_args_va([self castedGObject], uniforms);
 
@@ -169,7 +169,7 @@
 	return returnValue;
 }
 
-- (OFString*)uniformName:(int)idx
+- (OFString*)uniformNameWithIdx:(int)idx
 {
 	const char* gobjectValue = gsk_gl_shader_get_uniform_name([self castedGObject], idx);
 
@@ -177,14 +177,14 @@
 	return returnValue;
 }
 
-- (int)uniformOffset:(int)idx
+- (int)uniformOffsetWithIdx:(int)idx
 {
 	int returnValue = (int)gsk_gl_shader_get_uniform_offset([self castedGObject], idx);
 
 	return returnValue;
 }
 
-- (GskGLUniformType)uniformType:(int)idx
+- (GskGLUniformType)uniformTypeWithIdx:(int)idx
 {
 	GskGLUniformType returnValue = (GskGLUniformType)gsk_gl_shader_get_uniform_type([self castedGObject], idx);
 

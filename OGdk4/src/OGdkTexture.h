@@ -40,8 +40,8 @@
 + (instancetype)textureForPixbuf:(OGdkPixbuf*)pixbuf;
 + (instancetype)textureFromBytes:(GBytes*)bytes;
 + (instancetype)textureFromFile:(GFile*)file;
-+ (instancetype)textureFromFilename:(OFString*)path;
-+ (instancetype)textureFromResource:(OFString*)resourcePath;
++ (instancetype)textureFromFilenameWithPath:(OFString*)path;
++ (instancetype)textureFromResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Methods
@@ -120,7 +120,7 @@
  * @param filename the filename to store to
  * @return %TRUE if saving succeeded, %FALSE on failure.
  */
-- (bool)saveToPng:(OFString*)filename;
+- (bool)saveToPngWithFilename:(OFString*)filename;
 
 /**
  * Store the given @texture in memory as a PNG file.
@@ -150,7 +150,7 @@
  * @param filename the filename to store to
  * @return %TRUE if saving succeeded, %FALSE on failure.
  */
-- (bool)saveToTiff:(OFString*)filename;
+- (bool)saveToTiffWithFilename:(OFString*)filename;
 
 /**
  * Store the given @texture in memory as a TIFF file.

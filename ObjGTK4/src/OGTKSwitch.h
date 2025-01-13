@@ -78,7 +78,7 @@
  *
  * @param isActive %TRUE if @self should be active, and %FALSE otherwise
  */
-- (void)setActive:(bool)isActive;
+- (void)setActiveWithIsActive:(bool)isActive;
 
 /**
  * Sets the underlying state of the `GtkSwitch`.

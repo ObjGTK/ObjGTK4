@@ -197,7 +197,7 @@
  *
  * @param setting %TRUE to invert the range
  */
-- (void)setInverted:(bool)setting;
+- (void)setInvertedWithSetting:(bool)setting;
 
 /**
  * Sets the allowable values in the `GtkRange`.

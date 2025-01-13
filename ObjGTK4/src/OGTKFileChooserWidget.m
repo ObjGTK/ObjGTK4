@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)fileChooserWidget:(GtkFileChooserAction)action
++ (instancetype)fileChooserWidgetWithAction:(GtkFileChooserAction)action
 {
 	GtkFileChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_chooser_widget_new(action), GtkFileChooserWidget, GtkFileChooserWidget);
 

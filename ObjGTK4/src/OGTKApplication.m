@@ -52,7 +52,7 @@
 	gtk_application_add_window([self castedGObject], [window castedGObject]);
 }
 
-- (char**)accelsForAction:(OFString*)detailedActionName
+- (char**)accelsForActionWithDetailedActionName:(OFString*)detailedActionName
 {
 	char** returnValue = (char**)gtk_application_get_accels_for_action([self castedGObject], [detailedActionName UTF8String]);
 
@@ -74,7 +74,7 @@
 	return returnValue;
 }
 
-- (OGMenu*)menuById:(OFString*)identifier
+- (OGMenu*)menuByIdWithIdentifier:(OFString*)identifier
 {
 	GMenu* gobjectValue = gtk_application_get_menu_by_id([self castedGObject], [identifier UTF8String]);
 
@@ -90,7 +90,7 @@
 	return returnValue;
 }
 
-- (OGTKWindow*)windowById:(guint)identifier
+- (OGTKWindow*)windowByIdWithIdentifier:(guint)identifier
 {
 	GtkWindow* gobjectValue = gtk_application_get_window_by_id([self castedGObject], identifier);
 
@@ -134,7 +134,7 @@
 	gtk_application_set_menubar([self castedGObject], [menubar castedGObject]);
 }
 
-- (void)uninhibit:(guint)cookie
+- (void)uninhibitWithCookie:(guint)cookie
 {
 	gtk_application_uninhibit([self castedGObject], cookie);
 }

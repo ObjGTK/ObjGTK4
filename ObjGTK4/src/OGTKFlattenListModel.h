@@ -24,7 +24,7 @@
 /**
  * Constructors
  */
-+ (instancetype)flattenListModel:(GListModel*)model;
++ (instancetype)flattenListModelWithModel:(GListModel*)model;
 
 /**
  * Methods
@@ -45,7 +45,7 @@
  * @param position a position
  * @return the model containing the item at @position
  */
-- (GListModel*)modelForItem:(guint)position;
+- (GListModel*)modelForItemWithPosition:(guint)position;
 
 /**
  * Sets a new model to be flattened.

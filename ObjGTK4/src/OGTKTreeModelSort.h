@@ -116,7 +116,7 @@
 /**
  * Constructors
  */
-+ (instancetype)treeModelSortWithModel:(GtkTreeModel*)childModel;
++ (instancetype)treeModelSortWithModelWithChildModel:(GtkTreeModel*)childModel;
 
 /**
  * Methods
@@ -164,7 +164,7 @@
  * @param childIter An uninitialized `GtkTreeIter`
  * @param sortedIter A valid `GtkTreeIter` pointing to a row on @tree_model_sort.
  */
-- (void)convertIterToChildIterWithChildIter:(GtkTreeIter*)childIter sortedIter:(GtkTreeIter*)sortedIter;
+- (void)convertIterToChildIter:(GtkTreeIter*)childIter sortedIter:(GtkTreeIter*)sortedIter;
 
 /**
  * Converts @sorted_path to a path on the child model of @tree_model_sort.
@@ -176,7 +176,7 @@
  * @param sortedPath A `GtkTreePath` to convert
  * @return A newly allocated `GtkTreePath`
  */
-- (GtkTreePath*)convertPathToChildPath:(GtkTreePath*)sortedPath;
+- (GtkTreePath*)convertPathToChildPathWithSortedPath:(GtkTreePath*)sortedPath;
 
 /**
  * Returns the model the `GtkTreeModelSort` is sorting.
@@ -194,7 +194,7 @@
  * @param iter A `GtkTreeIter`
  * @return %TRUE if the iter is valid, %FALSE if the iter is invalid.
  */
-- (bool)iterIsValid:(GtkTreeIter*)iter;
+- (bool)iterIsValidWithIter:(GtkTreeIter*)iter;
 
 /**
  * This resets the default sort function to be in the “unsorted” state.  That

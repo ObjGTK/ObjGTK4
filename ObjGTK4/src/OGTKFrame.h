@@ -64,7 +64,7 @@
 /**
  * Constructors
  */
-+ (instancetype)frame:(OFString*)label;
++ (instancetype)frameWithLabel:(OFString*)label;
 
 /**
  * Methods
@@ -129,7 +129,7 @@
  *   of the widget. A value of 0.0 represents left alignment;
  *   1.0 represents right alignment.
  */
-- (void)setLabelAlign:(float)xalign;
+- (void)setLabelAlignWithXalign:(float)xalign;
 
 /**
  * Sets the label widget for the frame.

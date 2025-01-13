@@ -31,7 +31,7 @@
 /**
  * Constructors
  */
-+ (instancetype)treeListRowSorter:(OGTKSorter*)sorter;
++ (instancetype)treeListRowSorterWithSorter:(OGTKSorter*)sorter;
 
 /**
  * Methods

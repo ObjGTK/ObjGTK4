@@ -144,7 +144,7 @@
 	gtk_column_view_column_set_header_menu([self castedGObject], [menu castedGObject]);
 }
 
-- (void)setId:(OFString*)identifier
+- (void)setIdWithIdentifier:(OFString*)identifier
 {
 	gtk_column_view_column_set_id([self castedGObject], [identifier UTF8String]);
 }

@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)stringFilter:(GtkExpression*)expression
++ (instancetype)stringFilterWithExpression:(GtkExpression*)expression
 {
 	GtkStringFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_filter_new(expression), GtkStringFilter, GtkStringFilter);
 

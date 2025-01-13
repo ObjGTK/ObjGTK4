@@ -20,7 +20,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)cursorFromNameWithName:(OFString*)name fallback:(OGdkCursor*)fallback
++ (instancetype)cursorFromName:(OFString*)name fallback:(OGdkCursor*)fallback
 {
 	GdkCursor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_cursor_new_from_name([name UTF8String], [fallback castedGObject]), GdkCursor, GdkCursor);
 
@@ -40,7 +40,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)cursorFromTextureWithTexture:(OGdkTexture*)texture hotspotX:(int)hotspotX hotspotY:(int)hotspotY fallback:(OGdkCursor*)fallback
++ (instancetype)cursorFromTexture:(OGdkTexture*)texture hotspotX:(int)hotspotX hotspotY:(int)hotspotY fallback:(OGdkCursor*)fallback
 {
 	GdkCursor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_cursor_new_from_texture([texture castedGObject], hotspotX, hotspotY, [fallback castedGObject]), GdkCursor, GdkCursor);
 

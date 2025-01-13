@@ -80,14 +80,14 @@
 	return returnValue;
 }
 
-- (int)iterDepth:(GtkTreeIter*)iter
+- (int)iterDepthWithIter:(GtkTreeIter*)iter
 {
 	int returnValue = (int)gtk_tree_store_iter_depth([self castedGObject], iter);
 
 	return returnValue;
 }
 
-- (bool)iterIsValid:(GtkTreeIter*)iter
+- (bool)iterIsValidWithIter:(GtkTreeIter*)iter
 {
 	bool returnValue = (bool)gtk_tree_store_iter_is_valid([self castedGObject], iter);
 
@@ -109,7 +109,7 @@
 	gtk_tree_store_prepend([self castedGObject], iter, parent);
 }
 
-- (bool)remove:(GtkTreeIter*)iter
+- (bool)removeWithIter:(GtkTreeIter*)iter
 {
 	bool returnValue = (bool)gtk_tree_store_remove([self castedGObject], iter);
 
@@ -141,7 +141,7 @@
 	gtk_tree_store_set_valuesv([self castedGObject], iter, columns, values, nvalues);
 }
 
-- (void)swapWithA:(GtkTreeIter*)a b:(GtkTreeIter*)b
+- (void)swap:(GtkTreeIter*)a b:(GtkTreeIter*)b
 {
 	gtk_tree_store_swap([self castedGObject], a, b);
 }

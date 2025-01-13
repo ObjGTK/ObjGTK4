@@ -52,7 +52,7 @@
 /**
  * Constructors
  */
-+ (instancetype)eventControllerScroll:(GtkEventControllerScrollFlags)flags;
++ (instancetype)eventControllerScrollWithFlags:(GtkEventControllerScrollFlags)flags;
 
 /**
  * Methods

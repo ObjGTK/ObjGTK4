@@ -178,7 +178,7 @@
  *
  * @param iter An unset `GtkTreeIter` to set to the appended row
  */
-- (void)append:(GtkTreeIter*)iter;
+- (void)appendWithIter:(GtkTreeIter*)iter;
 
 /**
  * Removes all rows from the list store.
@@ -244,7 +244,7 @@
  * @param iter the iterator to check
  * @return %TRUE if the iter is valid, %FALSE if the iter is invalid.
  */
-- (bool)iterIsValid:(GtkTreeIter*)iter;
+- (bool)iterIsValidWithIter:(GtkTreeIter*)iter;
 
 /**
  * Moves @iter in @store to the position after @position. Note that this
@@ -273,7 +273,7 @@
  *
  * @param iter An unset `GtkTreeIter` to set to the prepend row
  */
-- (void)prepend:(GtkTreeIter*)iter;
+- (void)prependWithIter:(GtkTreeIter*)iter;
 
 /**
  * Removes the given row from the list store.  After being removed,
@@ -283,7 +283,7 @@
  * @param iter A valid `GtkTreeIter`
  * @return %TRUE if @iter is valid, %FALSE if not.
  */
-- (bool)remove:(GtkTreeIter*)iter;
+- (bool)removeWithIter:(GtkTreeIter*)iter;
 
 /**
  * Reorders @store to follow the order indicated by @new_order. Note that
@@ -294,7 +294,7 @@
  *   i.e. @new_order`[newpos] = oldpos`. It must have
  *   exactly as many items as the list store’s length.
  */
-- (void)reorder:(int*)newOrder;
+- (void)reorderWithNewOrder:(int*)newOrder;
 
 /**
  * Sets the types of the columns of a list store.
@@ -352,6 +352,6 @@
  * @param a A `GtkTreeIter`
  * @param b Another `GtkTreeIter`
  */
-- (void)swapWithA:(GtkTreeIter*)a b:(GtkTreeIter*)b;
+- (void)swap:(GtkTreeIter*)a b:(GtkTreeIter*)b;
 
 @end

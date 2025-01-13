@@ -118,7 +118,7 @@
  *
  * @param cellRenderer a `GtkCellRenderer` to clear the attribute mapping on.
  */
-- (void)clearAttributes:(OGTKCellRenderer*)cellRenderer;
+- (void)clearAttributesWithCellRenderer:(OGTKCellRenderer*)cellRenderer;
 
 /**
  * Emits the “clicked” signal on the column.  This function will only work if
@@ -324,7 +324,7 @@
  *
  * @param xalign The alignment, which is between [0.0 and 1.0] inclusive.
  */
-- (void)setAlignment:(float)xalign;
+- (void)setAlignmentWithXalign:(float)xalign;
 
 /**
  * Sets the `GtkTreeCellDataFunc` to use for the column.
@@ -423,7 +423,7 @@
  *
  * @param type The `GtkTreeViewColumn`Sizing.
  */
-- (void)setSizing:(GtkTreeViewColumnSizing)type;
+- (void)setSizingWithType:(GtkTreeViewColumnSizing)type;
 
 /**
  * Sets the logical @sort_column_id that this column sorts on when this column
@@ -441,7 +441,7 @@
  *
  * @param setting %TRUE to display an indicator that the column is sorted
  */
-- (void)setSortIndicator:(bool)setting;
+- (void)setSortIndicatorWithSetting:(bool)setting;
 
 /**
  * Changes the appearance of the sort indicator.

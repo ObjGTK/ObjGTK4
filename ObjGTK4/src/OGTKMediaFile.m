@@ -100,7 +100,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)mediaFileForResource:(OFString*)resourcePath
++ (instancetype)mediaFileForResourceWithResourcePath:(OFString*)resourcePath
 {
 	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_resource([resourcePath UTF8String]), GtkMediaFile, GtkMediaFile);
 
@@ -160,7 +160,7 @@
 	gtk_media_file_set_input_stream([self castedGObject], [stream castedGObject]);
 }
 
-- (void)setResource:(OFString*)resourcePath
+- (void)setResourceWithResourcePath:(OFString*)resourcePath
 {
 	gtk_media_file_set_resource([self castedGObject], [resourcePath UTF8String]);
 }

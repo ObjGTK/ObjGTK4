@@ -21,7 +21,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)fileLauncher:(GFile*)file
++ (instancetype)fileLauncherWithFile:(GFile*)file
 {
 	GtkFileLauncher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_launcher_new(file), GtkFileLauncher, GtkFileLauncher);
 
@@ -72,7 +72,7 @@
 	gtk_file_launcher_launch([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (bool)launchFinish:(GAsyncResult*)result
+- (bool)launchFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -88,7 +88,7 @@
 	gtk_file_launcher_open_containing_folder([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (bool)openContainingFolderFinish:(GAsyncResult*)result
+- (bool)openContainingFolderFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

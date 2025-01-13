@@ -61,17 +61,17 @@
 	return returnValue;
 }
 
-- (void)packEnd:(OGTKWidget*)child
+- (void)packEndWithChild:(OGTKWidget*)child
 {
 	gtk_action_bar_pack_end([self castedGObject], [child castedGObject]);
 }
 
-- (void)packStart:(OGTKWidget*)child
+- (void)packStartWithChild:(OGTKWidget*)child
 {
 	gtk_action_bar_pack_start([self castedGObject], [child castedGObject]);
 }
 
-- (void)remove:(OGTKWidget*)child
+- (void)removeWithChild:(OGTKWidget*)child
 {
 	gtk_action_bar_remove([self castedGObject], [child castedGObject]);
 }

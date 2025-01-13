@@ -23,7 +23,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFilter, GtkFilter);
 }
 
-- (void)changed:(GtkFilterChange)change
+- (void)changedWithChange:(GtkFilterChange)change
 {
 	gtk_filter_changed([self castedGObject], change);
 }
@@ -35,7 +35,7 @@
 	return returnValue;
 }
 
-- (bool)match:(gpointer)item
+- (bool)matchWithItem:(gpointer)item
 {
 	bool returnValue = (bool)gtk_filter_match([self castedGObject], item);
 

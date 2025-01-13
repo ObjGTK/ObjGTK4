@@ -70,7 +70,7 @@
  *
  * @param child a `GtkWidget`
  */
-- (void)addActionWidget:(OGTKWidget*)child;
+- (void)addActionWidgetWithChild:(OGTKWidget*)child;
 
 /**
  * Appends a page to the @assistant.
@@ -119,7 +119,7 @@
  * @return the child widget, or %NULL
  *   if @page_num is out of bounds
  */
-- (OGTKWidget*)nthPage:(int)pageNum;
+- (OGTKWidget*)nthPageWithPageNum:(int)pageNum;
 
 /**
  * Returns the `GtkAssistantPage` object for @child.
@@ -127,7 +127,7 @@
  * @param child a child of @assistant
  * @return the `GtkAssistantPage` for @child
  */
-- (OGTKAssistantPage*)page:(OGTKWidget*)child;
+- (OGTKAssistantPage*)pageWithChild:(OGTKWidget*)child;
 
 /**
  * Gets whether @page is complete.
@@ -135,7 +135,7 @@
  * @param page a page of @assistant
  * @return %TRUE if @page is complete.
  */
-- (bool)pageComplete:(OGTKWidget*)page;
+- (bool)pageCompleteWithPage:(OGTKWidget*)page;
 
 /**
  * Gets the title for @page.
@@ -143,7 +143,7 @@
  * @param page a page of @assistant
  * @return the title for @page
  */
-- (OFString*)pageTitle:(OGTKWidget*)page;
+- (OFString*)pageTitleWithPage:(OGTKWidget*)page;
 
 /**
  * Gets the page type of @page.
@@ -151,7 +151,7 @@
  * @param page a page of @assistant
  * @return the page type of @page
  */
-- (GtkAssistantPageType)pageType:(OGTKWidget*)page;
+- (GtkAssistantPageType)pageTypeWithPage:(OGTKWidget*)page;
 
 /**
  * Gets a list model of the assistant pages.
@@ -168,7 +168,7 @@
  *   or -1 to append the page to the @assistant
  * @return the index (starting from 0) of the inserted page
  */
-- (int)insertPageWithPage:(OGTKWidget*)page position:(int)position;
+- (int)insertPage:(OGTKWidget*)page position:(int)position;
 
 /**
  * Navigate to the next page.
@@ -207,7 +207,7 @@
  *
  * @param child a `GtkWidget`
  */
-- (void)removeActionWidget:(OGTKWidget*)child;
+- (void)removeActionWidgetWithChild:(OGTKWidget*)child;
 
 /**
  * Removes the @page_num’s page from @assistant.
@@ -215,7 +215,7 @@
  * @param pageNum the index of a page in the @assistant,
  *   or -1 to remove the last page
  */
-- (void)removePage:(int)pageNum;
+- (void)removePageWithPageNum:(int)pageNum;
 
 /**
  * Switches the page to @page_num.
@@ -229,7 +229,7 @@
  *   than the number of pages in the @assistant, nothing
  *   will be done.
  */
-- (void)setCurrentPage:(int)pageNum;
+- (void)setCurrentPageWithPageNum:(int)pageNum;
 
 /**
  * Sets the page forwarding function to be @page_func.
@@ -245,7 +245,7 @@
  * @param data user data for @page_func
  * @param destroy destroy notifier for @data
  */
-- (void)setForwardPageFuncWithPageFunc:(GtkAssistantPageFunc)pageFunc data:(gpointer)data destroy:(GDestroyNotify)destroy;
+- (void)setForwardPageFunc:(GtkAssistantPageFunc)pageFunc data:(gpointer)data destroy:(GDestroyNotify)destroy;
 
 /**
  * Sets whether @page contents are complete.
@@ -256,7 +256,7 @@
  * @param page a page of @assistant
  * @param complete the completeness status of the page
  */
-- (void)setPageCompleteWithPage:(OGTKWidget*)page complete:(bool)complete;
+- (void)setPageComplete:(OGTKWidget*)page complete:(bool)complete;
 
 /**
  * Sets a title for @page.
@@ -267,7 +267,7 @@
  * @param page a page of @assistant
  * @param title the new title for @page
  */
-- (void)setPageTitleWithPage:(OGTKWidget*)page title:(OFString*)title;
+- (void)setPageTitle:(OGTKWidget*)page title:(OFString*)title;
 
 /**
  * Sets the page type for @page.
@@ -277,7 +277,7 @@
  * @param page a page of @assistant
  * @param type the new type for @page
  */
-- (void)setPageTypeWithPage:(OGTKWidget*)page type:(GtkAssistantPageType)type;
+- (void)setPageType:(OGTKWidget*)page type:(GtkAssistantPageType)type;
 
 /**
  * Forces @assistant to recompute the buttons state.

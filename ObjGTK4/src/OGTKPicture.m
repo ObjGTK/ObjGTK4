@@ -135,7 +135,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pictureForResource:(OFString*)resourcePath
++ (instancetype)pictureForResourceWithResourcePath:(OFString*)resourcePath
 {
 	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_resource([resourcePath UTF8String]), GtkPicture, GtkPicture);
 
@@ -246,7 +246,7 @@
 	gtk_picture_set_pixbuf([self castedGObject], [pixbuf castedGObject]);
 }
 
-- (void)setResource:(OFString*)resourcePath
+- (void)setResourceWithResourcePath:(OFString*)resourcePath
 {
 	gtk_picture_set_resource([self castedGObject], [resourcePath UTF8String]);
 }

@@ -74,7 +74,7 @@
  * @param surface the `GdkSurface` renderer will be used on
  * @return Whether the renderer was successfully realized
  */
-- (bool)realize:(OGdkSurface*)surface;
+- (bool)realizeWithSurface:(OGdkSurface*)surface;
 
 /**
  * Creates the resources needed by the @renderer to render the scene

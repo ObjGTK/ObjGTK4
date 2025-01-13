@@ -122,6 +122,6 @@
  * @param data data to associate with this operation
  * @param notify destroy notify for @data
  */
-- (void)setTaskDataWithData:(gpointer)data notify:(GDestroyNotify)notify;
+- (void)setTaskData:(gpointer)data notify:(GDestroyNotify)notify;
 
 @end

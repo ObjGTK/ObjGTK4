@@ -21,7 +21,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)label:(OFString*)str
++ (instancetype)labelWithStr:(OFString*)str
 {
 	GtkLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_label_new([str UTF8String]), GtkLabel, GtkLabel);
 
@@ -44,7 +44,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)labelWithMnemonic:(OFString*)str
++ (instancetype)labelWithMnemonicWithStr:(OFString*)str
 {
 	GtkLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_label_new_with_mnemonic([str UTF8String]), GtkLabel, GtkLabel);
 
@@ -256,27 +256,27 @@
 	gtk_label_select_region([self castedGObject], startOffset, endOffset);
 }
 
-- (void)setAttributes:(PangoAttrList*)attrs
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs
 {
 	gtk_label_set_attributes([self castedGObject], attrs);
 }
 
-- (void)setEllipsize:(PangoEllipsizeMode)mode
+- (void)setEllipsizeWithMode:(PangoEllipsizeMode)mode
 {
 	gtk_label_set_ellipsize([self castedGObject], mode);
 }
 
-- (void)setExtraMenu:(OGMenuModel*)model
+- (void)setExtraMenuWithModel:(OGMenuModel*)model
 {
 	gtk_label_set_extra_menu([self castedGObject], [model castedGObject]);
 }
 
-- (void)setJustify:(GtkJustification)jtype
+- (void)setJustifyWithJtype:(GtkJustification)jtype
 {
 	gtk_label_set_justify([self castedGObject], jtype);
 }
 
-- (void)setLabel:(OFString*)str
+- (void)setLabelWithStr:(OFString*)str
 {
 	gtk_label_set_label([self castedGObject], [str UTF8String]);
 }
@@ -286,17 +286,17 @@
 	gtk_label_set_lines([self castedGObject], lines);
 }
 
-- (void)setMarkup:(OFString*)str
+- (void)setMarkupWithStr:(OFString*)str
 {
 	gtk_label_set_markup([self castedGObject], [str UTF8String]);
 }
 
-- (void)setMarkupWithMnemonic:(OFString*)str
+- (void)setMarkupWithMnemonicWithStr:(OFString*)str
 {
 	gtk_label_set_markup_with_mnemonic([self castedGObject], [str UTF8String]);
 }
 
-- (void)setMaxWidthChars:(int)nchars
+- (void)setMaxWidthCharsWithNchars:(int)nchars
 {
 	gtk_label_set_max_width_chars([self castedGObject], nchars);
 }
@@ -311,7 +311,7 @@
 	gtk_label_set_natural_wrap_mode([self castedGObject], wrapMode);
 }
 
-- (void)setSelectable:(bool)setting
+- (void)setSelectableWithSetting:(bool)setting
 {
 	gtk_label_set_selectable([self castedGObject], setting);
 }
@@ -326,27 +326,27 @@
 	gtk_label_set_tabs([self castedGObject], tabs);
 }
 
-- (void)setText:(OFString*)str
+- (void)setTextWithStr:(OFString*)str
 {
 	gtk_label_set_text([self castedGObject], [str UTF8String]);
 }
 
-- (void)setTextWithMnemonic:(OFString*)str
+- (void)setTextWithMnemonicWithStr:(OFString*)str
 {
 	gtk_label_set_text_with_mnemonic([self castedGObject], [str UTF8String]);
 }
 
-- (void)setUseMarkup:(bool)setting
+- (void)setUseMarkupWithSetting:(bool)setting
 {
 	gtk_label_set_use_markup([self castedGObject], setting);
 }
 
-- (void)setUseUnderline:(bool)setting
+- (void)setUseUnderlineWithSetting:(bool)setting
 {
 	gtk_label_set_use_underline([self castedGObject], setting);
 }
 
-- (void)setWidthChars:(int)nchars
+- (void)setWidthCharsWithNchars:(int)nchars
 {
 	gtk_label_set_width_chars([self castedGObject], nchars);
 }

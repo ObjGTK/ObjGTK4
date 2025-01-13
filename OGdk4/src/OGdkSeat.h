@@ -43,7 +43,7 @@
  *   of `GdkDevices`. The list must be freed with g_list_free(),
  *   the elements are owned by GTK and must not be freed.
  */
-- (GList*)devices:(GdkSeatCapabilities)capabilities;
+- (GList*)devicesWithCapabilities:(GdkSeatCapabilities)capabilities;
 
 /**
  * Returns the `GdkDisplay` this seat belongs to.

@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)textTag:(OFString*)name
++ (instancetype)textTagWithName:(OFString*)name
 {
 	GtkTextTag* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_tag_new([name UTF8String]), GtkTextTag, GtkTextTag);
 
@@ -43,7 +43,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextTag, GtkTextTag);
 }
 
-- (void)changed:(bool)sizeChanged
+- (void)changedWithSizeChanged:(bool)sizeChanged
 {
 	gtk_text_tag_changed([self castedGObject], sizeChanged);
 }

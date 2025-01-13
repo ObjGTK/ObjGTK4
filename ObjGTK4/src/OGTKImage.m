@@ -43,7 +43,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)imageFromFile:(OFString*)filename
++ (instancetype)imageFromFileWithFilename:(OFString*)filename
 {
 	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_file([filename UTF8String]), GtkImage, GtkImage);
 
@@ -158,7 +158,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)imageFromResource:(OFString*)resourcePath
++ (instancetype)imageFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	GtkImage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_image_new_from_resource([resourcePath UTF8String]), GtkImage, GtkImage);
 
@@ -234,7 +234,7 @@
 	return returnValue;
 }
 
-- (void)setFromFile:(OFString*)filename
+- (void)setFromFileWithFilename:(OFString*)filename
 {
 	gtk_image_set_from_file([self castedGObject], [filename UTF8String]);
 }
@@ -259,7 +259,7 @@
 	gtk_image_set_from_pixbuf([self castedGObject], [pixbuf castedGObject]);
 }
 
-- (void)setFromResource:(OFString*)resourcePath
+- (void)setFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	gtk_image_set_from_resource([self castedGObject], [resourcePath UTF8String]);
 }

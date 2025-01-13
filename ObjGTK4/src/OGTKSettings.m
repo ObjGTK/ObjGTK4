@@ -41,7 +41,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSettings, GtkSettings);
 }
 
-- (void)resetProperty:(OFString*)name
+- (void)resetPropertyWithName:(OFString*)name
 {
 	gtk_settings_reset_property([self castedGObject], [name UTF8String]);
 }

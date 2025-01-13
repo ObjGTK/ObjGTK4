@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)boolFilter:(GtkExpression*)expression
++ (instancetype)boolFilterWithExpression:(GtkExpression*)expression
 {
 	GtkBoolFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bool_filter_new(expression), GtkBoolFilter, GtkBoolFilter);
 

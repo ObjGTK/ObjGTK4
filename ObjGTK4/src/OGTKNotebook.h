@@ -159,7 +159,7 @@
  *
  * @param child a child
  */
-- (void)detachTab:(OGTKWidget*)child;
+- (void)detachTabWithChild:(OGTKWidget*)child;
 
 /**
  * Gets one of the action widgets.
@@ -171,7 +171,7 @@
  *   with the given @pack_type or %NULL when this action
  *   widget has not been set
  */
-- (OGTKWidget*)actionWidget:(GtkPackType)packType;
+- (OGTKWidget*)actionWidgetWithPackType:(GtkPackType)packType;
 
 /**
  * Returns the page number of the current page.
@@ -198,7 +198,7 @@
  *   if the notebook page does not have a menu label other than
  *   the default (the tab label).
  */
-- (OGTKWidget*)menuLabel:(OGTKWidget*)child;
+- (OGTKWidget*)menuLabelWithChild:(OGTKWidget*)child;
 
 /**
  * Retrieves the text of the menu label for the page containing
@@ -210,7 +210,7 @@
  *   menu label, or the menu label widget is not a `GtkLabel`.
  *   The string is owned by the widget and must not be freed.
  */
-- (OFString*)menuLabelText:(OGTKWidget*)child;
+- (OFString*)menuLabelTextWithChild:(OGTKWidget*)child;
 
 /**
  * Gets the number of pages in a notebook.
@@ -227,7 +227,7 @@
  * @return the child widget, or %NULL if @page_num
  * is out of bounds
  */
-- (OGTKWidget*)nthPage:(int)pageNum;
+- (OGTKWidget*)nthPageWithPageNum:(int)pageNum;
 
 /**
  * Returns the `GtkNotebookPage` for @child.
@@ -235,7 +235,7 @@
  * @param child a child of @notebook
  * @return the `GtkNotebookPage` for @child
  */
-- (OGTKNotebookPage*)page:(OGTKWidget*)child;
+- (OGTKNotebookPage*)pageWithChild:(OGTKWidget*)child;
 
 /**
  * Returns a `GListModel` that contains the pages of the notebook.
@@ -276,7 +276,7 @@
  * @param child a child `GtkWidget`
  * @return %TRUE if the tab is detachable.
  */
-- (bool)tabDetachable:(OGTKWidget*)child;
+- (bool)tabDetachableWithChild:(OGTKWidget*)child;
 
 /**
  * Returns the tab label widget for the page @child.
@@ -287,7 +287,7 @@
  * @param child the page
  * @return the tab label
  */
-- (OGTKWidget*)tabLabel:(OGTKWidget*)child;
+- (OGTKWidget*)tabLabelWithChild:(OGTKWidget*)child;
 
 /**
  * Retrieves the text of the tab label for the page containing
@@ -298,7 +298,7 @@
  *   the tab label widget is not a `GtkLabel`. The string is owned
  *   by the widget and must not be freed.
  */
-- (OFString*)tabLabelText:(OGTKWidget*)child;
+- (OFString*)tabLabelTextWithChild:(OGTKWidget*)child;
 
 /**
  * Gets the edge at which the tabs are drawn.
@@ -313,7 +313,7 @@
  * @param child a child `GtkWidget`
  * @return %TRUE if the tab is reorderable.
  */
-- (bool)tabReorderable:(OGTKWidget*)child;
+- (bool)tabReorderableWithChild:(OGTKWidget*)child;
 
 /**
  * Insert a page into @notebook at the given position.
@@ -364,7 +364,7 @@
  * @return the index of the page containing @child, or
  *   -1 if @child is not in the notebook
  */
-- (int)pageNum:(OGTKWidget*)child;
+- (int)pageNumWithChild:(OGTKWidget*)child;
 
 /**
  * Disables the popup menu.
@@ -425,7 +425,7 @@
  * @param pageNum the index of a notebook page, starting
  *   from 0. If -1, the last page will be removed.
  */
-- (void)removePage:(int)pageNum;
+- (void)removePageWithPageNum:(int)pageNum;
 
 /**
  * Reorders the page containing @child, so that it appears in position
@@ -437,7 +437,7 @@
  * @param child the child to move
  * @param position the new position, or -1 to move to the end
  */
-- (void)reorderChildWithChild:(OGTKWidget*)child position:(int)position;
+- (void)reorderChild:(OGTKWidget*)child position:(int)position;
 
 /**
  * Sets @widget as one of the action widgets.
@@ -449,7 +449,7 @@
  * @param widget a `GtkWidget`
  * @param packType pack type of the action widget
  */
-- (void)setActionWidgetWithWidget:(OGTKWidget*)widget packType:(GtkPackType)packType;
+- (void)setActionWidget:(OGTKWidget*)widget packType:(GtkPackType)packType;
 
 /**
  * Switches to the page number @page_num.
@@ -464,7 +464,7 @@
  *   than the number of pages in the notebook, nothing
  *   will be done.
  */
-- (void)setCurrentPage:(int)pageNum;
+- (void)setCurrentPageWithPageNum:(int)pageNum;
 
 /**
  * Sets a group name for @notebook.

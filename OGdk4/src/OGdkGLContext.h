@@ -223,7 +223,7 @@
  * @param other the `GdkGLContext` that should be compatible with @self
  * @return %TRUE if the two GL contexts are compatible.
  */
-- (bool)isShared:(OGdkGLContext*)other;
+- (bool)isSharedWithOther:(OGdkGLContext*)other;
 
 /**
  * Makes the @context the current one.

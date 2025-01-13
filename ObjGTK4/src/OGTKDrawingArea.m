@@ -70,7 +70,7 @@
 	gtk_drawing_area_set_content_width([self castedGObject], width);
 }
 
-- (void)setDrawFuncWithDrawFunc:(GtkDrawingAreaDrawFunc)drawFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
+- (void)setDrawFunc:(GtkDrawingAreaDrawFunc)drawFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
 {
 	gtk_drawing_area_set_draw_func([self castedGObject], drawFunc, userData, destroy);
 }

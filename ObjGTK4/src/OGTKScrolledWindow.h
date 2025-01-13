@@ -334,7 +334,7 @@
  *
  * @param windowPlacement position of the child window
  */
-- (void)setPlacement:(GtkCornerType)windowPlacement;
+- (void)setPlacementWithWindowPlacement:(GtkCornerType)windowPlacement;
 
 /**
  * Sets the scrollbar policy for the horizontal and vertical scrollbars.

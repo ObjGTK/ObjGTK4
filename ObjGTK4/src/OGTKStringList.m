@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)stringList:(const char* const*)strings
++ (instancetype)stringListWithStrings:(const char* const*)strings
 {
 	GtkStringList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_list_new(strings), GtkStringList, GtkStringList);
 
@@ -43,12 +43,12 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStringList, GtkStringList);
 }
 
-- (void)append:(OFString*)string
+- (void)appendWithString:(OFString*)string
 {
 	gtk_string_list_append([self castedGObject], [string UTF8String]);
 }
 
-- (OFString*)string:(guint)position
+- (OFString*)stringWithPosition:(guint)position
 {
 	const char* gobjectValue = gtk_string_list_get_string([self castedGObject], position);
 
@@ -56,7 +56,7 @@
 	return returnValue;
 }
 
-- (void)remove:(guint)position
+- (void)removeWithPosition:(guint)position
 {
 	gtk_string_list_remove([self castedGObject], position);
 }
@@ -66,9 +66,9 @@
 	gtk_string_list_splice([self castedGObject], position, nremovals, additions);
 }
 
-- (void)take:(char*)string
+- (void)takeWithString:(OFString*)string
 {
-	gtk_string_list_take([self castedGObject], string);
+	gtk_string_list_take([self castedGObject], g_strdup([string UTF8String]));
 }
 
 

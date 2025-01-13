@@ -74,7 +74,7 @@
 	gtk_shortcut_set_action([self castedGObject], [action castedGObject]);
 }
 
-- (void)setArguments:(GVariant*)args
+- (void)setArgumentsWithArgs:(GVariant*)args
 {
 	gtk_shortcut_set_arguments([self castedGObject], args);
 }

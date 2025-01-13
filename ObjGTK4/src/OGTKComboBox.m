@@ -211,7 +211,7 @@
 	gtk_combo_box_popup_for_device([self castedGObject], [device castedGObject]);
 }
 
-- (void)setActive:(int)index
+- (void)setActiveWithIndex:(int)index
 {
 	gtk_combo_box_set_active([self castedGObject], index);
 }
@@ -258,7 +258,7 @@
 	gtk_combo_box_set_popup_fixed_width([self castedGObject], fixed);
 }
 
-- (void)setRowSeparatorFuncWithFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
+- (void)setRowSeparatorFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
 {
 	gtk_combo_box_set_row_separator_func([self castedGObject], func, data, destroy);
 }

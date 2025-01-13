@@ -49,7 +49,7 @@
  * @param wc a Unicode character
  * @return a `PangoFont`
  */
-- (OGPangoFont*)font:(guint)wc;
+- (OGPangoFont*)fontWithWc:(guint)wc;
 
 /**
  * Get overall metric information for the fonts in the fontset.

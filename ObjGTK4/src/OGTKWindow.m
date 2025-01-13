@@ -45,7 +45,7 @@
 	return returnValue;
 }
 
-+ (void)setAutoStartupNotification:(bool)setting
++ (void)setAutoStartupNotificationWithSetting:(bool)setting
 {
 	gtk_window_set_auto_startup_notification(setting);
 }
@@ -55,7 +55,7 @@
 	gtk_window_set_default_icon_name([name UTF8String]);
 }
 
-+ (void)setInteractiveDebugging:(bool)enable
++ (void)setInteractiveDebuggingWithEnable:(bool)enable
 {
 	gtk_window_set_interactive_debugging(enable);
 }
@@ -298,7 +298,7 @@
 	gtk_window_present([self castedGObject]);
 }
 
-- (void)presentWithTime:(guint32)timestamp
+- (void)presentWithTimeWithTimestamp:(guint32)timestamp
 {
 	gtk_window_present_with_time([self castedGObject], timestamp);
 }
@@ -313,7 +313,7 @@
 	gtk_window_set_child([self castedGObject], [child castedGObject]);
 }
 
-- (void)setDecorated:(bool)setting
+- (void)setDecoratedWithSetting:(bool)setting
 {
 	gtk_window_set_decorated([self castedGObject], setting);
 }
@@ -328,12 +328,12 @@
 	gtk_window_set_default_widget([self castedGObject], [defaultWidget castedGObject]);
 }
 
-- (void)setDeletable:(bool)setting
+- (void)setDeletableWithSetting:(bool)setting
 {
 	gtk_window_set_deletable([self castedGObject], setting);
 }
 
-- (void)setDestroyWithParent:(bool)setting
+- (void)setDestroyWithParentWithSetting:(bool)setting
 {
 	gtk_window_set_destroy_with_parent([self castedGObject], setting);
 }
@@ -348,7 +348,7 @@
 	gtk_window_set_focus([self castedGObject], [focus castedGObject]);
 }
 
-- (void)setFocusVisible:(bool)setting
+- (void)setFocusVisibleWithSetting:(bool)setting
 {
 	gtk_window_set_focus_visible([self castedGObject], setting);
 }
@@ -358,7 +358,7 @@
 	gtk_window_set_handle_menubar_accel([self castedGObject], handleMenubarAccel);
 }
 
-- (void)setHideOnClose:(bool)setting
+- (void)setHideOnCloseWithSetting:(bool)setting
 {
 	gtk_window_set_hide_on_close([self castedGObject], setting);
 }
@@ -368,7 +368,7 @@
 	gtk_window_set_icon_name([self castedGObject], [name UTF8String]);
 }
 
-- (void)setMnemonicsVisible:(bool)setting
+- (void)setMnemonicsVisibleWithSetting:(bool)setting
 {
 	gtk_window_set_mnemonics_visible([self castedGObject], setting);
 }
@@ -398,7 +398,7 @@
 	gtk_window_set_titlebar([self castedGObject], [titlebar castedGObject]);
 }
 
-- (void)setTransientFor:(OGTKWindow*)parent
+- (void)setTransientForWithParent:(OGTKWindow*)parent
 {
 	gtk_window_set_transient_for([self castedGObject], [parent castedGObject]);
 }

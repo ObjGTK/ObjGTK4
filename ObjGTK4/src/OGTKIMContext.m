@@ -27,7 +27,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIMContext, GtkIMContext);
 }
 
-- (bool)activateOsk:(GdkEvent*)event
+- (bool)activateOskWithEvent:(GdkEvent*)event
 {
 	bool returnValue = (bool)gtk_im_context_activate_osk([self castedGObject], event);
 
@@ -48,7 +48,7 @@
 	return returnValue;
 }
 
-- (bool)filterKeypress:(GdkEvent*)event
+- (bool)filterKeypressWithEvent:(GdkEvent*)event
 {
 	bool returnValue = (bool)gtk_im_context_filter_keypress([self castedGObject], event);
 
@@ -65,7 +65,7 @@
 	gtk_im_context_focus_out([self castedGObject]);
 }
 
-- (void)preeditStringWithStr:(char**)str attrs:(PangoAttrList**)attrs cursorPos:(int*)cursorPos
+- (void)preeditString:(char**)str attrs:(PangoAttrList**)attrs cursorPos:(int*)cursorPos
 {
 	gtk_im_context_get_preedit_string([self castedGObject], str, attrs, cursorPos);
 }
@@ -94,7 +94,7 @@
 	gtk_im_context_set_client_widget([self castedGObject], [widget castedGObject]);
 }
 
-- (void)setCursorLocation:(const GdkRectangle*)area
+- (void)setCursorLocationWithArea:(const GdkRectangle*)area
 {
 	gtk_im_context_set_cursor_location([self castedGObject], area);
 }

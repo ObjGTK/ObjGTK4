@@ -27,7 +27,7 @@
  * Constructors
  */
 + (instancetype)textChildAnchor;
-+ (instancetype)textChildAnchorWithReplacement:(OFString*)character;
++ (instancetype)textChildAnchorWithReplacementWithCharacter:(OFString*)character;
 
 /**
  * Methods
@@ -58,6 +58,6 @@
  * @return an
  *   array of widgets anchored at @anchor
  */
-- (GtkWidget**)widgets:(guint*)outLen;
+- (GtkWidget**)widgetsWithOutLen:(guint*)outLen;
 
 @end

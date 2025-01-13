@@ -75,7 +75,7 @@
 	return returnValue;
 }
 
-- (const GType*)gtypes:(gsize*)ntypes
+- (const GType*)gtypesWithNtypes:(gsize*)ntypes
 {
 	const GType* returnValue = (const GType*)gtk_drop_target_get_gtypes([self castedGObject], ntypes);
 
@@ -106,7 +106,7 @@
 	gtk_drop_target_set_actions([self castedGObject], actions);
 }
 
-- (void)setGtypesWithTypes:(GType*)types ntypes:(gsize)ntypes
+- (void)setGtypes:(GType*)types ntypes:(gsize)ntypes
 {
 	gtk_drop_target_set_gtypes([self castedGObject], types, ntypes);
 }

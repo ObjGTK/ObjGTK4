@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)paned:(GtkOrientation)orientation
++ (instancetype)panedWithOrientation:(GtkOrientation)orientation
 {
 	GtkPaned* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_paned_new(orientation), GtkPaned, GtkPaned);
 
@@ -124,12 +124,12 @@
 	gtk_paned_set_resize_start_child([self castedGObject], resize);
 }
 
-- (void)setShrinkEndChild:(bool)resize
+- (void)setShrinkEndChildWithResize:(bool)resize
 {
 	gtk_paned_set_shrink_end_child([self castedGObject], resize);
 }
 
-- (void)setShrinkStartChild:(bool)resize
+- (void)setShrinkStartChildWithResize:(bool)resize
 {
 	gtk_paned_set_shrink_start_child([self castedGObject], resize);
 }

@@ -112,7 +112,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)videoForResource:(OFString*)resourcePath
++ (instancetype)videoForResourceWithResourcePath:(OFString*)resourcePath
 {
 	GtkVideo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_video_new_for_resource([resourcePath UTF8String]), GtkVideo, GtkVideo);
 
@@ -191,7 +191,7 @@
 	gtk_video_set_filename([self castedGObject], [filename UTF8String]);
 }
 
-- (void)setGraphicsOffload:(GtkGraphicsOffloadEnabled)enabled
+- (void)setGraphicsOffloadWithEnabled:(GtkGraphicsOffloadEnabled)enabled
 {
 	gtk_video_set_graphics_offload([self castedGObject], enabled);
 }
@@ -206,7 +206,7 @@
 	gtk_video_set_media_stream([self castedGObject], [stream castedGObject]);
 }
 
-- (void)setResource:(OFString*)resourcePath
+- (void)setResourceWithResourcePath:(OFString*)resourcePath
 {
 	gtk_video_set_resource([self castedGObject], [resourcePath UTF8String]);
 }

@@ -55,7 +55,7 @@
 	gtk_font_dialog_choose_face([self castedGObject], [parent castedGObject], [initialValue castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (OGPangoFontFace*)chooseFaceFinish:(GAsyncResult*)result
+- (OGPangoFontFace*)chooseFaceFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -74,7 +74,7 @@
 	gtk_font_dialog_choose_family([self castedGObject], [parent castedGObject], [initialValue castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (OGPangoFontFamily*)chooseFamilyFinish:(GAsyncResult*)result
+- (OGPangoFontFamily*)chooseFamilyFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -109,7 +109,7 @@
 	return returnValue;
 }
 
-- (PangoFontDescription*)chooseFontFinish:(GAsyncResult*)result
+- (PangoFontDescription*)chooseFontFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

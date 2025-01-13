@@ -30,7 +30,7 @@
 	pango_fontset_foreach([self castedGObject], func, data);
 }
 
-- (OGPangoFont*)font:(guint)wc
+- (OGPangoFont*)fontWithWc:(guint)wc
 {
 	PangoFont* gobjectValue = pango_fontset_get_font([self castedGObject], wc);
 

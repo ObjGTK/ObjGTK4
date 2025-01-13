@@ -45,6 +45,6 @@
  *
  * @param numberOfRows Number of rows of text each cell renderer is allocated, or -1
  */
-- (void)setFixedHeightFromFont:(int)numberOfRows;
+- (void)setFixedHeightFromFontWithNumberOfRows:(int)numberOfRows;
 
 @end

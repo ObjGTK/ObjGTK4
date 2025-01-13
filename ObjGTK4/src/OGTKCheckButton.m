@@ -64,7 +64,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)checkButtonWithMnemonic:(OFString*)label
++ (instancetype)checkButtonWithMnemonicWithLabel:(OFString*)label
 {
 	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_mnemonic([label UTF8String]), GtkCheckButton, GtkCheckButton);
 
@@ -129,7 +129,7 @@
 	return returnValue;
 }
 
-- (void)setActive:(bool)setting
+- (void)setActiveWithSetting:(bool)setting
 {
 	gtk_check_button_set_active([self castedGObject], setting);
 }
@@ -154,7 +154,7 @@
 	gtk_check_button_set_label([self castedGObject], [label UTF8String]);
 }
 
-- (void)setUseUnderline:(bool)setting
+- (void)setUseUnderlineWithSetting:(bool)setting
 {
 	gtk_check_button_set_use_underline([self castedGObject], setting);
 }

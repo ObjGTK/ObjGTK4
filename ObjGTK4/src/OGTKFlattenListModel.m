@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)flattenListModel:(GListModel*)model
++ (instancetype)flattenListModelWithModel:(GListModel*)model
 {
 	GtkFlattenListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_flatten_list_model_new(model), GtkFlattenListModel, GtkFlattenListModel);
 
@@ -50,7 +50,7 @@
 	return returnValue;
 }
 
-- (GListModel*)modelForItem:(guint)position
+- (GListModel*)modelForItemWithPosition:(guint)position
 {
 	GListModel* returnValue = (GListModel*)gtk_flatten_list_model_get_model_for_item([self castedGObject], position);
 

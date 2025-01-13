@@ -34,7 +34,7 @@
 /**
  * Constructors
  */
-+ (instancetype)gesturePan:(GtkOrientation)orientation;
++ (instancetype)gesturePanWithOrientation:(GtkOrientation)orientation;
 
 /**
  * Methods

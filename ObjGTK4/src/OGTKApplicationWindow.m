@@ -22,7 +22,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)applicationWindow:(OGTKApplication*)application
++ (instancetype)applicationWindowWithApplication:(OGTKApplication*)application
 {
 	GtkApplicationWindow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_application_window_new([application castedGObject]), GtkApplicationWindow, GtkApplicationWindow);
 

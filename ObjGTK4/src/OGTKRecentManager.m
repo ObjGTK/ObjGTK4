@@ -58,7 +58,7 @@
 	return returnValue;
 }
 
-- (bool)addItem:(OFString*)uri
+- (bool)addItemWithUri:(OFString*)uri
 {
 	bool returnValue = (bool)gtk_recent_manager_add_item([self castedGObject], [uri UTF8String]);
 
@@ -72,14 +72,14 @@
 	return returnValue;
 }
 
-- (bool)hasItem:(OFString*)uri
+- (bool)hasItemWithUri:(OFString*)uri
 {
 	bool returnValue = (bool)gtk_recent_manager_has_item([self castedGObject], [uri UTF8String]);
 
 	return returnValue;
 }
 
-- (GtkRecentInfo*)lookupItem:(OFString*)uri
+- (GtkRecentInfo*)lookupItemWithUri:(OFString*)uri
 {
 	GError* err = NULL;
 
@@ -112,7 +112,7 @@
 	return returnValue;
 }
 
-- (bool)removeItem:(OFString*)uri
+- (bool)removeItemWithUri:(OFString*)uri
 {
 	GError* err = NULL;
 

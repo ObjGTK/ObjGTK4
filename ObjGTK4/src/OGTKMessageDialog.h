@@ -97,6 +97,6 @@
  *
  * @param str string with Pango markup
  */
-- (void)setMarkup:(OFString*)str;
+- (void)setMarkupWithStr:(OFString*)str;
 
 @end

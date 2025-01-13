@@ -245,7 +245,7 @@
  * @param path Path to directory where the `loaders.cache` is installed
  * @return
  */
-+ (bool)initModules:(OFString*)path;
++ (bool)initModulesWithPath:(OFString*)path;
 
 /**
  * Creates a new pixbuf by asynchronously loading an image from an input stream.
@@ -262,7 +262,7 @@
  * @param callback a `GAsyncReadyCallback` to call when the pixbuf is loaded
  * @param userData the data to pass to the callback function
  */
-+ (void)newFromStreamAsyncWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
++ (void)newFromStreamAsync:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
 
 /**
  * Creates a new pixbuf by asynchronously loading an image from an input stream.
@@ -281,7 +281,7 @@
  * @param callback a `GAsyncReadyCallback` to call when the pixbuf is loaded
  * @param userData the data to pass to the callback function
  */
-+ (void)newFromStreamAtScaleAsyncWithStream:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
++ (void)newFromStreamAtScaleAsync:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
 
 /**
  * Finishes an asynchronous pixbuf save operation started with
@@ -290,23 +290,23 @@
  * @param asyncResult a `GAsyncResult`
  * @return `TRUE` if the pixbuf was saved successfully, `FALSE` if an error was set.
  */
-+ (bool)saveToStreamFinish:(GAsyncResult*)asyncResult;
++ (bool)saveToStreamFinishWithAsyncResult:(GAsyncResult*)asyncResult;
 
 /**
  * Constructors
  */
 + (instancetype)pixbufWithColorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height;
 + (instancetype)pixbufFromBytesWithData:(GBytes*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride;
-+ (instancetype)pixbufFromDataWithData:(const guchar*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride destroyFn:(GdkPixbufDestroyNotify)destroyFn destroyFnData:(gpointer)destroyFnData;
-+ (instancetype)pixbufFromFile:(OFString*)filename;
++ (instancetype)pixbufFromData:(const guchar*)data colorspace:(GdkColorspace)colorspace hasAlpha:(bool)hasAlpha bitsPerSample:(int)bitsPerSample width:(int)width height:(int)height rowstride:(int)rowstride destroyFn:(GdkPixbufDestroyNotify)destroyFn destroyFnData:(gpointer)destroyFnData;
++ (instancetype)pixbufFromFileWithFilename:(OFString*)filename;
 + (instancetype)pixbufFromFileAtScaleWithFilename:(OFString*)filename width:(int)width height:(int)height preserveAspectRatio:(bool)preserveAspectRatio;
 + (instancetype)pixbufFromFileAtSizeWithFilename:(OFString*)filename width:(int)width height:(int)height;
 + (instancetype)pixbufFromInlineWithDataLength:(gint)dataLength data:(const guint8*)data copyPixels:(bool)copyPixels;
-+ (instancetype)pixbufFromResource:(OFString*)resourcePath;
++ (instancetype)pixbufFromResourceWithResourcePath:(OFString*)resourcePath;
 + (instancetype)pixbufFromResourceAtScaleWithResourcePath:(OFString*)resourcePath width:(int)width height:(int)height preserveAspectRatio:(bool)preserveAspectRatio;
-+ (instancetype)pixbufFromStreamWithStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
-+ (instancetype)pixbufFromStreamAtScaleWithStream:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable;
-+ (instancetype)pixbufFromStreamFinish:(GAsyncResult*)asyncResult;
++ (instancetype)pixbufFromStream:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable;
++ (instancetype)pixbufFromStreamAtScale:(OGInputStream*)stream width:(gint)width height:(gint)height preserveAspectRatio:(bool)preserveAspectRatio cancellable:(OGCancellable*)cancellable;
++ (instancetype)pixbufFromStreamFinishWithAsyncResult:(GAsyncResult*)asyncResult;
 + (instancetype)pixbufFromXpmData:(const char**)data;
 
 /**
@@ -473,7 +473,7 @@
  * @param destPixbuf the destination pixbuf
  * @return `TRUE` on success.
  */
-- (bool)copyOptions:(OGdkPixbuf*)destPixbuf;
+- (bool)copyOptionsWithDestPixbuf:(OGdkPixbuf*)destPixbuf;
 
 /**
  * Clears a pixbuf to the given RGBA value, converting the RGBA value into
@@ -485,7 +485,7 @@
  * @param pixel RGBA pixel to used to clear (`0xffffffff` is opaque white,
  *   `0x00000000` transparent black)
  */
-- (void)fill:(guint32)pixel;
+- (void)fillWithPixel:(guint32)pixel;
 
 /**
  * Flips a pixbuf horizontally or vertically and returns the
@@ -494,7 +494,7 @@
  * @param horizontal `TRUE` to flip horizontally, `FALSE` to flip vertically
  * @return the new pixbuf
  */
-- (OGdkPixbuf*)flip:(bool)horizontal;
+- (OGdkPixbuf*)flipWithHorizontal:(bool)horizontal;
 
 /**
  * Queries the number of bits per color sample in a pixbuf.
@@ -558,7 +558,7 @@
  * @param key a nul-terminated string.
  * @return the value associated with `key`
  */
-- (OFString*)option:(OFString*)key;
+- (OFString*)optionWithKey:(OFString*)key;
 
 /**
  * Returns a `GHashTable` with a list of all the options that may have been
@@ -662,7 +662,7 @@
  * @param key a nul-terminated string representing the key to remove.
  * @return `TRUE` if an option was removed, `FALSE` if not.
  */
-- (bool)removeOption:(OFString*)key;
+- (bool)removeOptionWithKey:(OFString*)key;
 
 /**
  * Rotates a pixbuf by a multiple of 90 degrees, and returns the
@@ -673,7 +673,7 @@
  * @param angle the angle to rotate by
  * @return the new pixbuf
  */
-- (OGdkPixbuf*)rotateSimple:(GdkPixbufRotation)angle;
+- (OGdkPixbuf*)rotateSimpleWithAngle:(GdkPixbufRotation)angle;
 
 /**
  * Modifies saturation and optionally pixelates `src`, placing the result in
@@ -712,7 +712,7 @@
  * @param optionValues values for named options
  * @return whether an error was set
  */
-- (bool)saveToBuffervWithBuffer:(gchar**)buffer bufferSize:(gsize*)bufferSize type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues;
+- (bool)saveToBufferv:(gchar**)buffer bufferSize:(gsize*)bufferSize type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues;
 
 /**
  * Vector version of `gdk_pixbuf_save_to_callback()`.
@@ -750,7 +750,7 @@
  * @return `TRUE` if the pixbuf was saved successfully, `FALSE` if an
  *   error was set.
  */
-- (bool)saveToStreamvWithStream:(OGOutputStream*)stream type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues cancellable:(OGCancellable*)cancellable;
+- (bool)saveToStreamv:(OGOutputStream*)stream type:(OFString*)type optionKeys:(char**)optionKeys optionValues:(char**)optionValues cancellable:(OGCancellable*)cancellable;
 
 /**
  * Saves `pixbuf` to an output stream asynchronously.
@@ -771,7 +771,7 @@
  * @param callback a `GAsyncReadyCallback` to call when the pixbuf is saved
  * @param userData the data to pass to the callback function
  */
-- (void)saveToStreamvAsyncWithStream:(OGOutputStream*)stream type:(OFString*)type optionKeys:(gchar**)optionKeys optionValues:(gchar**)optionValues cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
+- (void)saveToStreamvAsync:(OGOutputStream*)stream type:(OFString*)type optionKeys:(gchar**)optionKeys optionValues:(gchar**)optionValues cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
 
 /**
  * Vector version of `gdk_pixbuf_save()`.

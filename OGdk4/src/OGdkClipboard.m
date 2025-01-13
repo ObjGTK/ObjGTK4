@@ -83,7 +83,7 @@
 	gdk_clipboard_read_text_async([self castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (char*)readTextFinish:(GAsyncResult*)result
+- (OFString*)readTextFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -91,7 +91,7 @@
 
 	[OGErrorException throwForError:err];
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
@@ -100,7 +100,7 @@
 	gdk_clipboard_read_texture_async([self castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (OGdkTexture*)readTextureFinish:(GAsyncResult*)result
+- (OGdkTexture*)readTextureFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -119,7 +119,7 @@
 	gdk_clipboard_read_value_async([self castedGObject], type, ioPriority, [cancellable castedGObject], callback, userData);
 }
 
-- (const GValue*)readValueFinish:(GAsyncResult*)result
+- (const GValue*)readValueFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -130,7 +130,7 @@
 	return returnValue;
 }
 
-- (bool)setContent:(OGdkContentProvider*)provider
+- (bool)setContentWithProvider:(OGdkContentProvider*)provider
 {
 	bool returnValue = (bool)gdk_clipboard_set_content([self castedGObject], [provider castedGObject]);
 
@@ -162,7 +162,7 @@
 	gdk_clipboard_store_async([self castedGObject], ioPriority, [cancellable castedGObject], callback, userData);
 }
 
-- (bool)storeFinish:(GAsyncResult*)result
+- (bool)storeFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

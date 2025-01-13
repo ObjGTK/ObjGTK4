@@ -190,7 +190,7 @@
  * @param iconPos Icon position
  * @return %TRUE if the icon is activatable.
  */
-- (bool)iconActivatable:(GtkEntryIconPosition)iconPos;
+- (bool)iconActivatableWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Gets the area where entry’s icon at @icon_pos is drawn.
@@ -231,7 +231,7 @@
  * @param iconPos Icon position
  * @return A `GIcon`
  */
-- (GIcon*)iconGicon:(GtkEntryIconPosition)iconPos;
+- (GIcon*)iconGiconWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Retrieves the icon name used for the icon.
@@ -242,7 +242,7 @@
  * @param iconPos Icon position
  * @return An icon name
  */
-- (OFString*)iconName:(GtkEntryIconPosition)iconPos;
+- (OFString*)iconNameWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Retrieves the `GdkPaintable` used for the icon.
@@ -254,7 +254,7 @@
  *   if no icon is set for this position or the icon set is not
  *   a `GdkPaintable`.
  */
-- (GdkPaintable*)iconPaintable:(GtkEntryIconPosition)iconPos;
+- (GdkPaintable*)iconPaintableWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Returns whether the icon appears sensitive or insensitive.
@@ -262,7 +262,7 @@
  * @param iconPos Icon position
  * @return %TRUE if the icon is sensitive.
  */
-- (bool)iconSensitive:(GtkEntryIconPosition)iconPos;
+- (bool)iconSensitiveWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Gets the type of representation being used by the icon
@@ -274,7 +274,7 @@
  * @param iconPos Icon position
  * @return image representation being used
  */
-- (GtkImageType)iconStorageType:(GtkEntryIconPosition)iconPos;
+- (GtkImageType)iconStorageTypeWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Gets the contents of the tooltip on the icon at the specified
@@ -283,7 +283,7 @@
  * @param iconPos the icon position
  * @return the tooltip text
  */
-- (char*)iconTooltipMarkup:(GtkEntryIconPosition)iconPos;
+- (OFString*)iconTooltipMarkupWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Gets the contents of the tooltip on the icon at the specified
@@ -292,7 +292,7 @@
  * @param iconPos the icon position
  * @return the tooltip text
  */
-- (char*)iconTooltipText:(GtkEntryIconPosition)iconPos;
+- (OFString*)iconTooltipTextWithIconPos:(GtkEntryIconPosition)iconPos;
 
 /**
  * Gets the input hints of this `GtkEntry`.
@@ -435,7 +435,7 @@
  *
  * @param setting %TRUE to activate window’s default widget on Enter keypress
  */
-- (void)setActivatesDefault:(bool)setting;
+- (void)setActivatesDefaultWithSetting:(bool)setting;
 
 /**
  * Sets the alignment for the contents of the entry.
@@ -448,7 +448,7 @@
  * @param xalign The horizontal alignment, from 0 (left) to 1 (right).
  *   Reversed for RTL layouts
  */
-- (void)setAlignment:(float)xalign;
+- (void)setAlignmentWithXalign:(float)xalign;
 
 /**
  * Sets a `PangoAttrList`.
@@ -461,7 +461,7 @@
  *
  * @param attrs a `PangoAttrList`
  */
-- (void)setAttributes:(PangoAttrList*)attrs;
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs;
 
 /**
  * Set the `GtkEntryBuffer` object which holds the text for
@@ -489,14 +489,14 @@
  *
  * @param model a `GMenuModel`
  */
-- (void)setExtraMenu:(OGMenuModel*)model;
+- (void)setExtraMenuWithModel:(OGMenuModel*)model;
 
 /**
  * Sets whether the entry has a beveled frame around it.
  *
  * @param setting new value
  */
-- (void)setHasFrame:(bool)setting;
+- (void)setHasFrameWithSetting:(bool)setting;
 
 /**
  * Sets whether the icon is activatable.
@@ -690,7 +690,7 @@
  *
  * @param fraction fraction between 0.0 and 1.0
  */
-- (void)setProgressPulseStep:(double)fraction;
+- (void)setProgressPulseStepWithFraction:(double)fraction;
 
 /**
  * Sets a `PangoTabArray`.
@@ -719,7 +719,7 @@
  *
  * @param visible %TRUE if the contents of the entry are displayed as plaintext
  */
-- (void)setVisibility:(bool)visible;
+- (void)setVisibilityWithVisible:(bool)visible;
 
 /**
  * Unsets the invisible char, so that the default invisible char

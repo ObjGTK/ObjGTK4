@@ -99,7 +99,7 @@
  * @param model A pointer to set to the `GtkTreeModel`
  * @return A `GList` containing a `GtkTreePath` for each selected row.
  */
-- (GList*)selectedRows:(GtkTreeModel**)model;
+- (GList*)selectedRowsWithModel:(GtkTreeModel**)model;
 
 /**
  * Returns the tree view associated with @selection.
@@ -121,7 +121,7 @@
  * @param iter A valid `GtkTreeIter`
  * @return %TRUE, if @iter is selected
  */
-- (bool)iterIsSelected:(GtkTreeIter*)iter;
+- (bool)iterIsSelectedWithIter:(GtkTreeIter*)iter;
 
 /**
  * Returns %TRUE if the row pointed to by @path is currently selected.  If @path
@@ -130,7 +130,7 @@
  * @param path A `GtkTreePath` to check selection on.
  * @return %TRUE if @path is selected.
  */
-- (bool)pathIsSelected:(GtkTreePath*)path;
+- (bool)pathIsSelectedWithPath:(GtkTreePath*)path;
 
 /**
  * Selects all the nodes. @selection must be set to %GTK_SELECTION_MULTIPLE
@@ -179,7 +179,7 @@
  *
  * @param type The selection mode
  */
-- (void)setMode:(GtkSelectionMode)type;
+- (void)setModeWithType:(GtkSelectionMode)type;
 
 /**
  * Sets the selection function.
@@ -193,7 +193,7 @@
  * @param data The selection function’s data. May be %NULL
  * @param destroy The destroy function for user data.  May be %NULL
  */
-- (void)setSelectFunctionWithFunc:(GtkTreeSelectionFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
+- (void)setSelectFunction:(GtkTreeSelectionFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
 
 /**
  * Unselects all the nodes.

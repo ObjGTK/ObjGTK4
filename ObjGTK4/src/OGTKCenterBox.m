@@ -89,12 +89,12 @@
 	gtk_center_box_set_baseline_position([self castedGObject], position);
 }
 
-- (void)setCenterWidget:(OGTKWidget*)child
+- (void)setCenterWidgetWithChild:(OGTKWidget*)child
 {
 	gtk_center_box_set_center_widget([self castedGObject], [child castedGObject]);
 }
 
-- (void)setEndWidget:(OGTKWidget*)child
+- (void)setEndWidgetWithChild:(OGTKWidget*)child
 {
 	gtk_center_box_set_end_widget([self castedGObject], [child castedGObject]);
 }
@@ -104,7 +104,7 @@
 	gtk_center_box_set_shrink_center_last([self castedGObject], shrinkCenterLast);
 }
 
-- (void)setStartWidget:(OGTKWidget*)child
+- (void)setStartWidgetWithChild:(OGTKWidget*)child
 {
 	gtk_center_box_set_start_widget([self castedGObject], [child castedGObject]);
 }

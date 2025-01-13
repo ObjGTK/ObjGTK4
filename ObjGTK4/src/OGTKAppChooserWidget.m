@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)appChooserWidget:(OFString*)contentType
++ (instancetype)appChooserWidgetWithContentType:(OFString*)contentType
 {
 	GtkAppChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_widget_new([contentType UTF8String]), GtkAppChooserWidget, GtkAppChooserWidget);
 
@@ -94,27 +94,27 @@
 	gtk_app_chooser_widget_set_default_text([self castedGObject], [text UTF8String]);
 }
 
-- (void)setShowAll:(bool)setting
+- (void)setShowAllWithSetting:(bool)setting
 {
 	gtk_app_chooser_widget_set_show_all([self castedGObject], setting);
 }
 
-- (void)setShowDefault:(bool)setting
+- (void)setShowDefaultWithSetting:(bool)setting
 {
 	gtk_app_chooser_widget_set_show_default([self castedGObject], setting);
 }
 
-- (void)setShowFallback:(bool)setting
+- (void)setShowFallbackWithSetting:(bool)setting
 {
 	gtk_app_chooser_widget_set_show_fallback([self castedGObject], setting);
 }
 
-- (void)setShowOther:(bool)setting
+- (void)setShowOtherWithSetting:(bool)setting
 {
 	gtk_app_chooser_widget_set_show_other([self castedGObject], setting);
 }
 
-- (void)setShowRecommended:(bool)setting
+- (void)setShowRecommendedWithSetting:(bool)setting
 {
 	gtk_app_chooser_widget_set_show_recommended([self castedGObject], setting);
 }

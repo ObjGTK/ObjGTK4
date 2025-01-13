@@ -36,7 +36,7 @@
 /**
  * Constructors
  */
-+ (instancetype)mountOperation:(OGTKWindow*)parent;
++ (instancetype)mountOperationWithParent:(OGTKWindow*)parent;
 
 /**
  * Methods

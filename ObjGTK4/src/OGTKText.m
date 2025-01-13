@@ -204,7 +204,7 @@
 	gtk_text_set_activates_default([self castedGObject], activates);
 }
 
-- (void)setAttributes:(PangoAttrList*)attrs
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs
 {
 	gtk_text_set_attributes([self castedGObject], attrs);
 }
@@ -219,7 +219,7 @@
 	gtk_text_set_enable_emoji_completion([self castedGObject], enableEmojiCompletion);
 }
 
-- (void)setExtraMenu:(OGMenuModel*)model
+- (void)setExtraMenuWithModel:(OGMenuModel*)model
 {
 	gtk_text_set_extra_menu([self castedGObject], [model castedGObject]);
 }
@@ -269,7 +269,7 @@
 	gtk_text_set_truncate_multiline([self castedGObject], truncateMultiline);
 }
 
-- (void)setVisibility:(bool)visible
+- (void)setVisibilityWithVisible:(bool)visible
 {
 	gtk_text_set_visibility([self castedGObject], visible);
 }

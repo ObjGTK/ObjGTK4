@@ -86,7 +86,7 @@
 	gtk_tree_view_collapse_all([self castedGObject]);
 }
 
-- (bool)collapseRow:(GtkTreePath*)path
+- (bool)collapseRowWithPath:(GtkTreePath*)path
 {
 	bool returnValue = (bool)gtk_tree_view_collapse_row([self castedGObject], path);
 
@@ -128,7 +128,7 @@
 	gtk_tree_view_convert_widget_to_tree_coords([self castedGObject], wx, wy, tx, ty);
 }
 
-- (GdkPaintable*)createRowDragIcon:(GtkTreePath*)path
+- (GdkPaintable*)createRowDragIconWithPath:(GtkTreePath*)path
 {
 	GdkPaintable* returnValue = (GdkPaintable*)gtk_tree_view_create_row_drag_icon([self castedGObject], path);
 
@@ -367,7 +367,7 @@
 	return returnValue;
 }
 
-- (bool)tooltipContextWithX:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter
+- (bool)tooltipContext:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter
 {
 	bool returnValue = (bool)gtk_tree_view_get_tooltip_context([self castedGObject], x, y, keyboardTip, model, path, iter);
 
@@ -386,7 +386,7 @@
 	gtk_tree_view_get_visible_rect([self castedGObject], visibleRect);
 }
 
-- (int)insertColumnWithColumn:(OGTKTreeViewColumn*)column position:(int)position
+- (int)insertColumn:(OGTKTreeViewColumn*)column position:(int)position
 {
 	int returnValue = (int)gtk_tree_view_insert_column([self castedGObject], [column castedGObject], position);
 
@@ -419,7 +419,7 @@
 	gtk_tree_view_map_expanded_rows([self castedGObject], func, data);
 }
 
-- (void)moveColumnAfterWithColumn:(OGTKTreeViewColumn*)column baseColumn:(OGTKTreeViewColumn*)baseColumn
+- (void)moveColumnAfter:(OGTKTreeViewColumn*)column baseColumn:(OGTKTreeViewColumn*)baseColumn
 {
 	gtk_tree_view_move_column_after([self castedGObject], [column castedGObject], [baseColumn castedGObject]);
 }
@@ -436,7 +436,7 @@
 	gtk_tree_view_row_activated([self castedGObject], path, [column castedGObject]);
 }
 
-- (bool)rowExpanded:(GtkTreePath*)path
+- (bool)rowExpandedWithPath:(GtkTreePath*)path
 {
 	bool returnValue = (bool)gtk_tree_view_row_expanded([self castedGObject], path);
 
@@ -458,7 +458,7 @@
 	gtk_tree_view_set_activate_on_single_click([self castedGObject], single);
 }
 
-- (void)setColumnDragFunctionWithFunc:(GtkTreeViewColumnDropFunc)func userData:(gpointer)userData destroy:(GDestroyNotify)destroy
+- (void)setColumnDragFunction:(GtkTreeViewColumnDropFunc)func userData:(gpointer)userData destroy:(GDestroyNotify)destroy
 {
 	gtk_tree_view_set_column_drag_function([self castedGObject], func, userData, destroy);
 }
@@ -483,7 +483,7 @@
 	gtk_tree_view_set_enable_search([self castedGObject], enableSearch);
 }
 
-- (void)setEnableTreeLines:(bool)enabled
+- (void)setEnableTreeLinesWithEnabled:(bool)enabled
 {
 	gtk_tree_view_set_enable_tree_lines([self castedGObject], enabled);
 }
@@ -493,7 +493,7 @@
 	gtk_tree_view_set_expander_column([self castedGObject], [column castedGObject]);
 }
 
-- (void)setFixedHeightMode:(bool)enable
+- (void)setFixedHeightModeWithEnable:(bool)enable
 {
 	gtk_tree_view_set_fixed_height_mode([self castedGObject], enable);
 }
@@ -503,7 +503,7 @@
 	gtk_tree_view_set_grid_lines([self castedGObject], gridLines);
 }
 
-- (void)setHeadersClickable:(bool)setting
+- (void)setHeadersClickableWithSetting:(bool)setting
 {
 	gtk_tree_view_set_headers_clickable([self castedGObject], setting);
 }
@@ -538,12 +538,12 @@
 	gtk_tree_view_set_reorderable([self castedGObject], reorderable);
 }
 
-- (void)setRowSeparatorFuncWithFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
+- (void)setRowSeparatorFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
 {
 	gtk_tree_view_set_row_separator_func([self castedGObject], func, data, destroy);
 }
 
-- (void)setRubberBanding:(bool)enable
+- (void)setRubberBandingWithEnable:(bool)enable
 {
 	gtk_tree_view_set_rubber_banding([self castedGObject], enable);
 }
@@ -558,17 +558,17 @@
 	gtk_tree_view_set_search_entry([self castedGObject], entry);
 }
 
-- (void)setSearchEqualFuncWithSearchEqualFunc:(GtkTreeViewSearchEqualFunc)searchEqualFunc searchUserData:(gpointer)searchUserData searchDestroy:(GDestroyNotify)searchDestroy
+- (void)setSearchEqualFunc:(GtkTreeViewSearchEqualFunc)searchEqualFunc searchUserData:(gpointer)searchUserData searchDestroy:(GDestroyNotify)searchDestroy
 {
 	gtk_tree_view_set_search_equal_func([self castedGObject], searchEqualFunc, searchUserData, searchDestroy);
 }
 
-- (void)setShowExpanders:(bool)enabled
+- (void)setShowExpandersWithEnabled:(bool)enabled
 {
 	gtk_tree_view_set_show_expanders([self castedGObject], enabled);
 }
 
-- (void)setTooltipCellWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path column:(OGTKTreeViewColumn*)column cell:(OGTKCellRenderer*)cell
+- (void)setTooltipCell:(OGTKTooltip*)tooltip path:(GtkTreePath*)path column:(OGTKTreeViewColumn*)column cell:(OGTKCellRenderer*)cell
 {
 	gtk_tree_view_set_tooltip_cell([self castedGObject], [tooltip castedGObject], path, [column castedGObject], [cell castedGObject]);
 }
@@ -578,7 +578,7 @@
 	gtk_tree_view_set_tooltip_column([self castedGObject], column);
 }
 
-- (void)setTooltipRowWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path
+- (void)setTooltipRow:(OGTKTooltip*)tooltip path:(GtkTreePath*)path
 {
 	gtk_tree_view_set_tooltip_row([self castedGObject], [tooltip castedGObject], path);
 }

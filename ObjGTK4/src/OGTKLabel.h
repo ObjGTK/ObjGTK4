@@ -202,8 +202,8 @@
 /**
  * Constructors
  */
-+ (instancetype)label:(OFString*)str;
-+ (instancetype)labelWithMnemonic:(OFString*)str;
++ (instancetype)labelWithStr:(OFString*)str;
++ (instancetype)labelWithMnemonicWithStr:(OFString*)str;
 
 /**
  * Methods
@@ -489,7 +489,7 @@
  *
  * @param attrs a [struct@Pango.AttrList]
  */
-- (void)setAttributes:(PangoAttrList*)attrs;
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs;
 
 /**
  * Sets the mode used to ellipsize the text.
@@ -499,7 +499,7 @@
  *
  * @param mode a `PangoEllipsizeMode`
  */
-- (void)setEllipsize:(PangoEllipsizeMode)mode;
+- (void)setEllipsizeWithMode:(PangoEllipsizeMode)mode;
 
 /**
  * Sets a menu model to add when constructing
@@ -507,7 +507,7 @@
  *
  * @param model a `GMenuModel`
  */
-- (void)setExtraMenu:(OGMenuModel*)model;
+- (void)setExtraMenuWithModel:(OGMenuModel*)model;
 
 /**
  * Sets the alignment of the lines in the text of the label relative to
@@ -521,7 +521,7 @@
  *
  * @param jtype a `GtkJustification`
  */
-- (void)setJustify:(GtkJustification)jtype;
+- (void)setJustifyWithJtype:(GtkJustification)jtype;
 
 /**
  * Sets the text of the label.
@@ -532,7 +532,7 @@
  *
  * @param str the new text to set for the label
  */
-- (void)setLabel:(OFString*)str;
+- (void)setLabelWithStr:(OFString*)str;
 
 /**
  * Sets the number of lines to which an ellipsized, wrapping label
@@ -576,7 +576,7 @@
  *
  * @param str a markup string
  */
-- (void)setMarkup:(OFString*)str;
+- (void)setMarkupWithStr:(OFString*)str;
 
 /**
  * Sets the labels text, attributes and mnemonic from markup.
@@ -591,14 +591,14 @@
  *
  * @param str a markup string
  */
-- (void)setMarkupWithMnemonic:(OFString*)str;
+- (void)setMarkupWithMnemonicWithStr:(OFString*)str;
 
 /**
  * Sets the desired maximum width in characters of @label to @n_chars.
  *
  * @param nchars the new desired maximum width, in characters.
  */
-- (void)setMaxWidthChars:(int)nchars;
+- (void)setMaxWidthCharsWithNchars:(int)nchars;
 
 /**
  * Associate the label with its mnemonic target.
@@ -641,7 +641,7 @@
  *
  * @param setting %TRUE to allow selecting text in the label
  */
-- (void)setSelectable:(bool)setting;
+- (void)setSelectableWithSetting:(bool)setting;
 
 /**
  * Sets whether the label is in single line mode.
@@ -673,7 +673,7 @@
  *
  * @param str The text you want to set
  */
-- (void)setText:(OFString*)str;
+- (void)setTextWithStr:(OFString*)str;
 
 /**
  * Sets the label’s text from the string @str.
@@ -685,7 +685,7 @@
  *
  * @param str a string
  */
-- (void)setTextWithMnemonic:(OFString*)str;
+- (void)setTextWithMnemonicWithStr:(OFString*)str;
 
 /**
  * Sets whether the text of the label contains markup.
@@ -694,21 +694,21 @@
  *
  * @param setting %TRUE if the label’s text should be parsed for markup.
  */
-- (void)setUseMarkup:(bool)setting;
+- (void)setUseMarkupWithSetting:(bool)setting;
 
 /**
  * Sets whether underlines in the text indicate mnemonics.
  *
  * @param setting %TRUE if underlines in the text indicate mnemonics
  */
-- (void)setUseUnderline:(bool)setting;
+- (void)setUseUnderlineWithSetting:(bool)setting;
 
 /**
  * Sets the desired width in characters of @label to @n_chars.
  *
  * @param nchars the new desired width, in characters.
  */
-- (void)setWidthChars:(int)nchars;
+- (void)setWidthCharsWithNchars:(int)nchars;
 
 /**
  * Toggles line wrapping within the `GtkLabel` widget.

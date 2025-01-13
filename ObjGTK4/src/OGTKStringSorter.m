@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)stringSorter:(GtkExpression*)expression
++ (instancetype)stringSorterWithExpression:(GtkExpression*)expression
 {
 	GtkStringSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_sorter_new(expression), GtkStringSorter, GtkStringSorter);
 

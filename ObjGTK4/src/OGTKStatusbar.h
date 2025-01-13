@@ -72,7 +72,7 @@
  *   the new message is being used in
  * @return an integer id
  */
-- (guint)contextId:(OFString*)contextDescription;
+- (guint)contextIdWithContextDescription:(OFString*)contextDescription;
 
 /**
  * Removes the first message in the `GtkStatusbar`’s stack
@@ -84,7 +84,7 @@
  *
  * @param contextId a context identifier
  */
-- (void)pop:(guint)contextId;
+- (void)popWithContextId:(guint)contextId;
 
 /**
  * Pushes a new message onto a statusbar’s stack.
@@ -112,6 +112,6 @@
  *
  * @param contextId a context identifier
  */
-- (void)removeAll:(guint)contextId;
+- (void)removeAllWithContextId:(guint)contextId;
 
 @end

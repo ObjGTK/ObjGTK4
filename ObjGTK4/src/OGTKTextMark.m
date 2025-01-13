@@ -82,7 +82,7 @@
 	return returnValue;
 }
 
-- (void)setVisible:(bool)setting
+- (void)setVisibleWithSetting:(bool)setting
 {
 	gtk_text_mark_set_visible([self castedGObject], setting);
 }

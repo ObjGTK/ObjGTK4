@@ -109,7 +109,7 @@
  * @return a `GdkDisplay`, or %NULL
  *   if the display could not be opened
  */
-- (OGdkDisplay*)openDisplay:(OFString*)name;
+- (OGdkDisplay*)openDisplayWithName:(OFString*)name;
 
 /**
  * Sets @display as the default display.

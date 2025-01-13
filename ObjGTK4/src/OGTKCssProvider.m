@@ -43,12 +43,12 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCssProvider, GtkCssProvider);
 }
 
-- (void)loadFromBytes:(GBytes*)data
+- (void)loadFromBytesWithData:(GBytes*)data
 {
 	gtk_css_provider_load_from_bytes([self castedGObject], data);
 }
 
-- (void)loadFromDataWithData:(OFString*)data length:(gssize)length
+- (void)loadFromData:(OFString*)data length:(gssize)length
 {
 	gtk_css_provider_load_from_data([self castedGObject], [data UTF8String], length);
 }
@@ -63,7 +63,7 @@
 	gtk_css_provider_load_from_path([self castedGObject], [path UTF8String]);
 }
 
-- (void)loadFromResource:(OFString*)resourcePath
+- (void)loadFromResourceWithResourcePath:(OFString*)resourcePath
 {
 	gtk_css_provider_load_from_resource([self castedGObject], [resourcePath UTF8String]);
 }
@@ -73,16 +73,16 @@
 	gtk_css_provider_load_from_string([self castedGObject], [string UTF8String]);
 }
 
-- (void)loadNamedWithName:(OFString*)name variant:(OFString*)variant
+- (void)loadNamed:(OFString*)name variant:(OFString*)variant
 {
 	gtk_css_provider_load_named([self castedGObject], [name UTF8String], [variant UTF8String]);
 }
 
-- (char*)toString
+- (OFString*)toString
 {
 	char* gobjectValue = gtk_css_provider_to_string([self castedGObject]);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 

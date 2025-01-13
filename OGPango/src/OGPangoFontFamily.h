@@ -39,7 +39,7 @@
  * @return the `PangoFontFace`,
  *   or %NULL if no face with the given name exists.
  */
-- (OGPangoFontFace*)face:(OFString*)name;
+- (OGPangoFontFace*)faceWithName:(OFString*)name;
 
 /**
  * Gets the name of the family.
@@ -101,6 +101,6 @@
  *   longer needed.
  * @param nfaces location to store number of elements in @faces.
  */
-- (void)listFacesWithFaces:(PangoFontFace***)faces nfaces:(int*)nfaces;
+- (void)listFaces:(PangoFontFace***)faces nfaces:(int*)nfaces;
 
 @end

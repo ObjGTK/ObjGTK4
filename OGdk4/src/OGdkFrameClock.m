@@ -73,7 +73,7 @@
 	gdk_frame_clock_get_refresh_info([self castedGObject], baseTime, refreshIntervalReturn, presentationTimeReturn);
 }
 
-- (GdkFrameTimings*)timings:(gint64)frameCounter
+- (GdkFrameTimings*)timingsWithFrameCounter:(gint64)frameCounter
 {
 	GdkFrameTimings* returnValue = (GdkFrameTimings*)gdk_frame_clock_get_timings([self castedGObject], frameCounter);
 

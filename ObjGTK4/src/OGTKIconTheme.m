@@ -79,7 +79,7 @@
 	return returnValue;
 }
 
-- (int*)iconSizes:(OFString*)iconName
+- (int*)iconSizesWithIconName:(OFString*)iconName
 {
 	int* returnValue = (int*)gtk_icon_theme_get_icon_sizes([self castedGObject], [iconName UTF8String]);
 
@@ -100,11 +100,11 @@
 	return returnValue;
 }
 
-- (char*)themeName
+- (OFString*)themeName
 {
 	char* gobjectValue = gtk_icon_theme_get_theme_name([self castedGObject]);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
@@ -115,14 +115,14 @@
 	return returnValue;
 }
 
-- (bool)hasIcon:(OFString*)iconName
+- (bool)hasIconWithIconName:(OFString*)iconName
 {
 	bool returnValue = (bool)gtk_icon_theme_has_icon([self castedGObject], [iconName UTF8String]);
 
 	return returnValue;
 }
 
-- (OGTKIconPaintable*)lookupByGiconWithIcon:(GIcon*)icon size:(int)size scale:(int)scale direction:(GtkTextDirection)direction flags:(GtkIconLookupFlags)flags
+- (OGTKIconPaintable*)lookupByGicon:(GIcon*)icon size:(int)size scale:(int)scale direction:(GtkTextDirection)direction flags:(GtkIconLookupFlags)flags
 {
 	GtkIconPaintable* gobjectValue = gtk_icon_theme_lookup_by_gicon([self castedGObject], icon, size, scale, direction, flags);
 

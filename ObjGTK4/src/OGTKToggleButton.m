@@ -66,7 +66,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)toggleButtonWithMnemonic:(OFString*)label
++ (instancetype)toggleButtonWithMnemonicWithLabel:(OFString*)label
 {
 	GtkToggleButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_toggle_button_new_with_mnemonic([label UTF8String]), GtkToggleButton, GtkToggleButton);
 
@@ -101,7 +101,7 @@
 	return returnValue;
 }
 
-- (void)setActive:(bool)isActive
+- (void)setActiveWithIsActive:(bool)isActive
 {
 	gtk_toggle_button_set_active([self castedGObject], isActive);
 }

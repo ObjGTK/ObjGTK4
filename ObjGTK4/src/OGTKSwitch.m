@@ -60,7 +60,7 @@
 	return returnValue;
 }
 
-- (void)setActive:(bool)isActive
+- (void)setActiveWithIsActive:(bool)isActive
 {
 	gtk_switch_set_active([self castedGObject], isActive);
 }

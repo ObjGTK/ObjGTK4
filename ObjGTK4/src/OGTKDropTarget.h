@@ -143,7 +143,7 @@
  * @return the `G_TYPE_INVALID`-terminated array of types included in
  *   formats
  */
-- (const GType*)gtypes:(gsize*)ntypes;
+- (const GType*)gtypesWithNtypes:(gsize*)ntypes;
 
 /**
  * Gets whether data should be preloaded on hover.
@@ -186,7 +186,7 @@
  *   that can be dropped on the target
  * @param ntypes number of @types
  */
-- (void)setGtypesWithTypes:(GType*)types ntypes:(gsize)ntypes;
+- (void)setGtypes:(GType*)types ntypes:(gsize)ntypes;
 
 /**
  * Sets whether data should be preloaded on hover.

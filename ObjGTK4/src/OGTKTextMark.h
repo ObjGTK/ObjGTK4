@@ -111,6 +111,6 @@
  *
  * @param setting
  */
-- (void)setVisible:(bool)setting;
+- (void)setVisibleWithSetting:(bool)setting;
 
 @end

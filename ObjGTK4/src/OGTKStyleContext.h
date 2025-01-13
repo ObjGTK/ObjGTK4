@@ -80,7 +80,7 @@
  *   %GTK_STYLE_PROVIDER_PRIORITY_FALLBACK and
  *   %GTK_STYLE_PROVIDER_PRIORITY_USER
  */
-+ (void)addProviderForDisplayWithDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider priority:(guint)priority;
++ (void)addProviderForDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider priority:(guint)priority;
 
 /**
  * Removes @provider from the global style providers list in @display.
@@ -88,7 +88,7 @@
  * @param display a `GdkDisplay`
  * @param provider a `GtkStyleProvider`
  */
-+ (void)removeProviderForDisplayWithDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider;
++ (void)removeProviderForDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider;
 
 /**
  * Methods
@@ -115,7 +115,7 @@
  *
  * @param className class name to use in styling
  */
-- (void)addClass:(OFString*)className;
+- (void)addClassWithClassName:(OFString*)className;
 
 /**
  * Adds a style provider to @context, to be used in style construction.
@@ -136,21 +136,21 @@
  *   %GTK_STYLE_PROVIDER_PRIORITY_FALLBACK and
  *   %GTK_STYLE_PROVIDER_PRIORITY_USER
  */
-- (void)addProviderWithProvider:(GtkStyleProvider*)provider priority:(guint)priority;
+- (void)addProvider:(GtkStyleProvider*)provider priority:(guint)priority;
 
 /**
  * Gets the border for a given state as a `GtkBorder`.
  *
  * @param border return value for the border settings
  */
-- (void)border:(GtkBorder*)border;
+- (void)borderWithBorder:(GtkBorder*)border;
 
 /**
  * Gets the foreground color for a given state.
  *
  * @param color return value for the foreground color
  */
-- (void)color:(GdkRGBA*)color;
+- (void)colorWithColor:(GdkRGBA*)color;
 
 /**
  * Returns the `GdkDisplay` to which @context is attached.
@@ -164,14 +164,14 @@
  *
  * @param margin return value for the margin settings
  */
-- (void)margin:(GtkBorder*)margin;
+- (void)marginWithMargin:(GtkBorder*)margin;
 
 /**
  * Gets the padding for a given state as a `GtkBorder`.
  *
  * @param padding return value for the padding settings
  */
-- (void)padding:(GtkBorder*)padding;
+- (void)paddingWithPadding:(GtkBorder*)padding;
 
 /**
  * Returns the scale used for assets.
@@ -200,7 +200,7 @@
  * @param className a class name
  * @return %TRUE if @context has @class_name defined
  */
-- (bool)hasClass:(OFString*)className;
+- (bool)hasClassWithClassName:(OFString*)className;
 
 /**
  * Looks up and resolves a color name in the @context color map.
@@ -216,7 +216,7 @@
  *
  * @param className class name to remove
  */
-- (void)removeClass:(OFString*)className;
+- (void)removeClassWithClassName:(OFString*)className;
 
 /**
  * Removes @provider from the style providers list in @context.
@@ -274,7 +274,7 @@
  *
  * @param flags state to represent
  */
-- (void)setState:(GtkStateFlags)flags;
+- (void)setStateWithFlags:(GtkStateFlags)flags;
 
 /**
  * Converts the style context into a string representation.
@@ -291,6 +291,6 @@
  * @param flags Flags that determine what to print
  * @return a newly allocated string representing @context
  */
-- (char*)toString:(GtkStyleContextPrintFlags)flags;
+- (OFString*)toStringWithFlags:(GtkStyleContextPrintFlags)flags;
 
 @end

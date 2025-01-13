@@ -61,7 +61,7 @@
 	return returnValue;
 }
 
-- (OGPangoCoverage*)coverage:(PangoLanguage*)language
+- (OGPangoCoverage*)coverageWithLanguage:(PangoLanguage*)language
 {
 	PangoCoverage* gobjectValue = pango_font_get_coverage([self castedGObject], language);
 
@@ -111,14 +111,14 @@
 	return returnValue;
 }
 
-- (PangoFontMetrics*)metrics:(PangoLanguage*)language
+- (PangoFontMetrics*)metricsWithLanguage:(PangoLanguage*)language
 {
 	PangoFontMetrics* returnValue = (PangoFontMetrics*)pango_font_get_metrics([self castedGObject], language);
 
 	return returnValue;
 }
 
-- (bool)hasChar:(gunichar)wc
+- (bool)hasCharWithWc:(gunichar)wc
 {
 	bool returnValue = (bool)pango_font_has_char([self castedGObject], wc);
 

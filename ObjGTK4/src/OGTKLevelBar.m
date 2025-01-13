@@ -116,7 +116,7 @@
 	return returnValue;
 }
 
-- (void)removeOffsetValue:(OFString*)name
+- (void)removeOffsetValueWithName:(OFString*)name
 {
 	gtk_level_bar_remove_offset_value([self castedGObject], [name UTF8String]);
 }

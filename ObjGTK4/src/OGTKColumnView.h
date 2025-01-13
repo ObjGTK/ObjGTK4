@@ -87,7 +87,7 @@
 /**
  * Constructors
  */
-+ (instancetype)columnView:(GtkSelectionModel*)model;
++ (instancetype)columnViewWithModel:(GtkSelectionModel*)model;
 
 /**
  * Methods
@@ -333,6 +333,6 @@
  * @param column the `GtkColumnViewColumn` to sort by
  * @param direction the direction to sort in
  */
-- (void)sortByColumnWithColumn:(OGTKColumnViewColumn*)column direction:(GtkSortType)direction;
+- (void)sortByColumn:(OGTKColumnViewColumn*)column direction:(GtkSortType)direction;
 
 @end

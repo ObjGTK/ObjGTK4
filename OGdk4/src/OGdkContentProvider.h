@@ -61,7 +61,7 @@
  * @return %TRUE if the value was set successfully. Otherwise
  *   @error will be set to describe the failure.
  */
-- (bool)value:(GValue*)value;
+- (bool)valueWithValue:(GValue*)value;
 
 /**
  * Gets the formats that the provider can provide its current contents in.
@@ -103,7 +103,7 @@
  * @param callback callback to call when the request is satisfied
  * @param userData the data to pass to callback function
  */
-- (void)writeMimeTypeAsyncWithMimeType:(OFString*)mimeType stream:(OGOutputStream*)stream ioPriority:(int)ioPriority cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
+- (void)writeMimeTypeAsync:(OFString*)mimeType stream:(OGOutputStream*)stream ioPriority:(int)ioPriority cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData;
 
 /**
  * Finishes an asynchronous write operation.
@@ -114,6 +114,6 @@
  * @return %TRUE if the operation was completed successfully. Otherwise
  *   @error will be set to describe the failure.
  */
-- (bool)writeMimeTypeFinish:(GAsyncResult*)result;
+- (bool)writeMimeTypeFinishWithResult:(GAsyncResult*)result;
 
 @end

@@ -49,7 +49,7 @@
 	return returnValue;
 }
 
-- (void)geometry:(GdkRectangle*)geometry
+- (void)geometryWithGeometry:(GdkRectangle*)geometry
 {
 	gdk_monitor_get_geometry([self castedGObject], geometry);
 }

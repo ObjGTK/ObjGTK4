@@ -23,12 +23,12 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMultiFilter, GtkMultiFilter);
 }
 
-- (void)append:(OGTKFilter*)filter
+- (void)appendWithFilter:(OGTKFilter*)filter
 {
 	gtk_multi_filter_append([self castedGObject], [filter castedGObject]);
 }
 
-- (void)remove:(guint)position
+- (void)removeWithPosition:(guint)position
 {
 	gtk_multi_filter_remove([self castedGObject], position);
 }

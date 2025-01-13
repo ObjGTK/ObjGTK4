@@ -25,7 +25,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkPixbufAnimationIter, GdkPixbufAnimationIter);
 }
 
-- (bool)advance:(const GTimeVal*)currentTime
+- (bool)advanceWithCurrentTime:(const GTimeVal*)currentTime
 {
 	bool returnValue = (bool)gdk_pixbuf_animation_iter_advance([self castedGObject], currentTime);
 

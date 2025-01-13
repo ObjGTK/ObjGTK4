@@ -34,7 +34,7 @@
 	return returnValue;
 }
 
-+ (OGdkDisplay*)open:(OFString*)displayName
++ (OGdkDisplay*)openWithDisplayName:(OFString*)displayName
 {
 	GdkDisplay* gobjectValue = gdk_display_open([displayName UTF8String]);
 
@@ -71,7 +71,7 @@
 	return returnValue;
 }
 
-- (bool)deviceIsGrabbed:(OGdkDevice*)device
+- (bool)deviceIsGrabbedWithDevice:(OGdkDevice*)device
 {
 	bool returnValue = (bool)gdk_display_device_is_grabbed([self castedGObject], [device castedGObject]);
 
@@ -190,21 +190,21 @@
 	return returnValue;
 }
 
-- (bool)mapKeycodeWithKeycode:(guint)keycode keys:(GdkKeymapKey**)keys keyvals:(guint**)keyvals nentries:(int*)nentries
+- (bool)mapKeycode:(guint)keycode keys:(GdkKeymapKey**)keys keyvals:(guint**)keyvals nentries:(int*)nentries
 {
 	bool returnValue = (bool)gdk_display_map_keycode([self castedGObject], keycode, keys, keyvals, nentries);
 
 	return returnValue;
 }
 
-- (bool)mapKeyvalWithKeyval:(guint)keyval keys:(GdkKeymapKey**)keys nkeys:(int*)nkeys
+- (bool)mapKeyval:(guint)keyval keys:(GdkKeymapKey**)keys nkeys:(int*)nkeys
 {
 	bool returnValue = (bool)gdk_display_map_keyval([self castedGObject], keyval, keys, nkeys);
 
 	return returnValue;
 }
 
-- (void)notifyStartupComplete:(OFString*)startupId
+- (void)notifyStartupCompleteWithStartupId:(OFString*)startupId
 {
 	gdk_display_notify_startup_complete([self castedGObject], [startupId UTF8String]);
 }

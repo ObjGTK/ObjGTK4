@@ -52,7 +52,7 @@
 	return returnValue;
 }
 
-- (OGTKTreeListRow*)childRow:(guint)position
+- (OGTKTreeListRow*)childRowWithPosition:(guint)position
 {
 	GtkTreeListRow* gobjectValue = gtk_tree_list_model_get_child_row([self castedGObject], position);
 
@@ -76,7 +76,7 @@
 	return returnValue;
 }
 
-- (OGTKTreeListRow*)row:(guint)position
+- (OGTKTreeListRow*)rowWithPosition:(guint)position
 {
 	GtkTreeListRow* gobjectValue = gtk_tree_list_model_get_row([self castedGObject], position);
 

@@ -82,6 +82,6 @@
  *   should be freed with g_free().
  * @param nsizes location to store the number of elements in @sizes
  */
-- (void)listSizesWithSizes:(int**)sizes nsizes:(int*)nsizes;
+- (void)listSizes:(int**)sizes nsizes:(int*)nsizes;
 
 @end

@@ -140,7 +140,7 @@
  * @param child a child of @stack
  * @return the `GtkStackPage` for @child
  */
-- (OGTKStackPage*)page:(OGTKWidget*)child;
+- (OGTKStackPage*)pageWithChild:(OGTKWidget*)child;
 
 /**
  * Returns a `GListModel` that contains the pages of the stack.
@@ -208,7 +208,7 @@
  *
  * @param child the child to remove
  */
-- (void)remove:(OGTKWidget*)child;
+- (void)removeWithChild:(OGTKWidget*)child;
 
 /**
  * Sets the `GtkStack` to be horizontally homogeneous or not.

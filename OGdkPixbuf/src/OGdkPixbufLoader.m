@@ -65,7 +65,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pixbufLoaderWithType:(OFString*)imageType
++ (instancetype)pixbufLoaderWithTypeWithImageType:(OFString*)imageType
 {
 	GError* err = NULL;
 
@@ -144,7 +144,7 @@
 	return returnValue;
 }
 
-- (bool)writeBytes:(GBytes*)buffer
+- (bool)writeBytesWithBuffer:(GBytes*)buffer
 {
 	GError* err = NULL;
 

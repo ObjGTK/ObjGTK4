@@ -43,6 +43,6 @@
  * @param userData user data to pass to @match_func
  * @param userDestroy destroy notify for @user_data
  */
-- (void)setSortFuncWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
+- (void)setSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy;
 
 @end

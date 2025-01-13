@@ -52,7 +52,7 @@
  *
  * @param action the action performed by the destination or 0 if the drop failed
  */
-- (void)finish:(GdkDragAction)action;
+- (void)finishWithAction:(GdkDragAction)action;
 
 /**
  * Returns the possible actions for this `GdkDrop`.
@@ -170,7 +170,7 @@
  * @param result a `GAsyncResult`
  * @return a `GValue` containing the result.
  */
-- (const GValue*)readValueFinish:(GAsyncResult*)result;
+- (const GValue*)readValueFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Selects all actions that are potentially supported by the destination.

@@ -57,7 +57,7 @@
  *
  * @param change How the filter changed
  */
-- (void)changed:(GtkFilterChange)change;
+- (void)changedWithChange:(GtkFilterChange)change;
 
 /**
  * Gets the known strictness of @filters.
@@ -81,6 +81,6 @@
  * @return %TRUE if the filter matches the item and a filter model should
  *   keep it, %FALSE if not.
  */
-- (bool)match:(gpointer)item;
+- (bool)matchWithItem:(gpointer)item;
 
 @end

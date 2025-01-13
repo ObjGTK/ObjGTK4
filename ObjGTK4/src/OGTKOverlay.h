@@ -70,7 +70,7 @@
  *
  * @param widget a `GtkWidget` to be added to the container
  */
-- (void)addOverlay:(OGTKWidget*)widget;
+- (void)addOverlayWithWidget:(OGTKWidget*)widget;
 
 /**
  * Gets the child widget of @overlay.
@@ -85,7 +85,7 @@
  * @param widget an overlay child of `GtkOverlay`
  * @return whether the widget is clipped within the parent.
  */
-- (bool)clipOverlay:(OGTKWidget*)widget;
+- (bool)clipOverlayWithWidget:(OGTKWidget*)widget;
 
 /**
  * Gets whether @widget's size is included in the measurement of
@@ -94,14 +94,14 @@
  * @param widget an overlay child of `GtkOverlay`
  * @return whether the widget is measured
  */
-- (bool)measureOverlay:(OGTKWidget*)widget;
+- (bool)measureOverlayWithWidget:(OGTKWidget*)widget;
 
 /**
  * Removes an overlay that was added with gtk_overlay_add_overlay().
  *
  * @param widget a `GtkWidget` to be removed
  */
-- (void)removeOverlay:(OGTKWidget*)widget;
+- (void)removeOverlayWithWidget:(OGTKWidget*)widget;
 
 /**
  * Sets the child widget of @overlay.

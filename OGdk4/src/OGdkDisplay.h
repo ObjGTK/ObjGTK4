@@ -64,7 +64,7 @@
  * @param displayName the name of the display to open
  * @return a `GdkDisplay`
  */
-+ (OGdkDisplay*)open:(OFString*)displayName;
++ (OGdkDisplay*)openWithDisplayName:(OFString*)displayName;
 
 /**
  * Methods
@@ -107,7 +107,7 @@
  * @param device a `GdkDevice`
  * @return %TRUE if there is a grab in effect for @device.
  */
-- (bool)deviceIsGrabbed:(OGdkDevice*)device;
+- (bool)deviceIsGrabbedWithDevice:(OGdkDevice*)device;
 
 /**
  * Flushes any requests queued for the windowing system.
@@ -294,7 +294,7 @@
  * @param nentries length of @keys and @keyvals
  * @return %TRUE if there were any entries
  */
-- (bool)mapKeycodeWithKeycode:(guint)keycode keys:(GdkKeymapKey**)keys keyvals:(guint**)keyvals nentries:(int*)nentries;
+- (bool)mapKeycode:(guint)keycode keys:(GdkKeymapKey**)keys keyvals:(guint**)keyvals nentries:(int*)nentries;
 
 /**
  * Obtains a list of keycode/group/level combinations that will
@@ -319,7 +319,7 @@
  * @param nkeys return location for number of elements in returned array
  * @return %TRUE if keys were found and returned
  */
-- (bool)mapKeyvalWithKeyval:(guint)keyval keys:(GdkKeymapKey**)keys nkeys:(int*)nkeys;
+- (bool)mapKeyval:(guint)keyval keys:(GdkKeymapKey**)keys nkeys:(int*)nkeys;
 
 /**
  * Indicates to the GUI environment that the application has
@@ -333,7 +333,7 @@
  * @param startupId a startup-notification identifier, for which
  *   notification process should be completed
  */
-- (void)notifyStartupComplete:(OFString*)startupId;
+- (void)notifyStartupCompleteWithStartupId:(OFString*)startupId;
 
 /**
  * Checks that OpenGL is available for @self and ensures that it is

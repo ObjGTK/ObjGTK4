@@ -132,7 +132,7 @@
  *
  * @param parent parent window
  */
-- (void)setTransientFor:(OGTKWindow*)parent;
+- (void)setTransientForWithParent:(OGTKWindow*)parent;
 
 /**
  * Shows the dialog on the display.

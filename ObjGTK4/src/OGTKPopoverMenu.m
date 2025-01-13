@@ -44,7 +44,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)popoverMenuFromModelFullWithModel:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags
++ (instancetype)popoverMenuFromModelFull:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags
 {
 	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model_full([model castedGObject], flags), GtkPopoverMenu, GtkPopoverMenu);
 
@@ -72,7 +72,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPopoverMenu, GtkPopoverMenu);
 }
 
-- (bool)addChildWithChild:(OGTKWidget*)child identifier:(OFString*)identifier
+- (bool)addChild:(OGTKWidget*)child identifier:(OFString*)identifier
 {
 	bool returnValue = (bool)gtk_popover_menu_add_child([self castedGObject], [child castedGObject], [identifier UTF8String]);
 

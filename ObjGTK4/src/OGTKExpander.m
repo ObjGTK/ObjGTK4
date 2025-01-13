@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)expander:(OFString*)label
++ (instancetype)expanderWithLabel:(OFString*)label
 {
 	GtkExpander* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_expander_new([label UTF8String]), GtkExpander, GtkExpander);
 
@@ -41,7 +41,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)expanderWithMnemonic:(OFString*)label
++ (instancetype)expanderWithMnemonicWithLabel:(OFString*)label
 {
 	GtkExpander* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_expander_new_with_mnemonic([label UTF8String]), GtkExpander, GtkExpander);
 

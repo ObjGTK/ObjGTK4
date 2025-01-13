@@ -21,7 +21,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)lockButton:(OGPermission*)permission
++ (instancetype)lockButtonWithPermission:(OGPermission*)permission
 {
 	GtkLockButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_lock_button_new([permission castedGObject]), GtkLockButton, GtkLockButton);
 

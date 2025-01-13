@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)appChooserButton:(OFString*)contentType
++ (instancetype)appChooserButtonWithContentType:(OFString*)contentType
 {
 	GtkAppChooserButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_button_new([contentType UTF8String]), GtkAppChooserButton, GtkAppChooserButton);
 
@@ -85,7 +85,7 @@
 	return returnValue;
 }
 
-- (void)setActiveCustomItem:(OFString*)name
+- (void)setActiveCustomItemWithName:(OFString*)name
 {
 	gtk_app_chooser_button_set_active_custom_item([self castedGObject], [name UTF8String]);
 }
@@ -100,12 +100,12 @@
 	gtk_app_chooser_button_set_modal([self castedGObject], modal);
 }
 
-- (void)setShowDefaultItem:(bool)setting
+- (void)setShowDefaultItemWithSetting:(bool)setting
 {
 	gtk_app_chooser_button_set_show_default_item([self castedGObject], setting);
 }
 
-- (void)setShowDialogItem:(bool)setting
+- (void)setShowDialogItemWithSetting:(bool)setting
 {
 	gtk_app_chooser_button_set_show_dialog_item([self castedGObject], setting);
 }

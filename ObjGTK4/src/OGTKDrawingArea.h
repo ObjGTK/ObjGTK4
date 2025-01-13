@@ -167,6 +167,6 @@
  * @param userData user data passed to @draw_func
  * @param destroy destroy notifier for @user_data
  */
-- (void)setDrawFuncWithDrawFunc:(GtkDrawingAreaDrawFunc)drawFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
+- (void)setDrawFunc:(GtkDrawingAreaDrawFunc)drawFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
 
 @end

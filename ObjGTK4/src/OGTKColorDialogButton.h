@@ -38,7 +38,7 @@
 /**
  * Constructors
  */
-+ (instancetype)colorDialogButton:(OGTKColorDialog*)dialog;
++ (instancetype)colorDialogButtonWithDialog:(OGTKColorDialog*)dialog;
 
 /**
  * Methods
@@ -78,6 +78,6 @@
  *
  * @param color the new color
  */
-- (void)setRgba:(const GdkRGBA*)color;
+- (void)setRgbaWithColor:(const GdkRGBA*)color;
 
 @end

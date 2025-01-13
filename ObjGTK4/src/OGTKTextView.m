@@ -75,7 +75,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextView, GtkTextView);
 }
 
-- (void)addChildAtAnchorWithChild:(OGTKWidget*)child anchor:(OGTKTextChildAnchor*)anchor
+- (void)addChildAtAnchor:(OGTKWidget*)child anchor:(OGTKTextChildAnchor*)anchor
 {
 	gtk_text_view_add_child_at_anchor([self castedGObject], [child castedGObject], [anchor castedGObject]);
 }
@@ -85,33 +85,33 @@
 	gtk_text_view_add_overlay([self castedGObject], [child castedGObject], xpos, ypos);
 }
 
-- (bool)backwardDisplayLine:(GtkTextIter*)iter
+- (bool)backwardDisplayLineWithIter:(GtkTextIter*)iter
 {
 	bool returnValue = (bool)gtk_text_view_backward_display_line([self castedGObject], iter);
 
 	return returnValue;
 }
 
-- (bool)backwardDisplayLineStart:(GtkTextIter*)iter
+- (bool)backwardDisplayLineStartWithIter:(GtkTextIter*)iter
 {
 	bool returnValue = (bool)gtk_text_view_backward_display_line_start([self castedGObject], iter);
 
 	return returnValue;
 }
 
-- (void)bufferToWindowCoordsWithWin:(GtkTextWindowType)win bufferX:(int)bufferX bufferY:(int)bufferY windowX:(int*)windowX windowY:(int*)windowY
+- (void)bufferToWindowCoords:(GtkTextWindowType)win bufferX:(int)bufferX bufferY:(int)bufferY windowX:(int*)windowX windowY:(int*)windowY
 {
 	gtk_text_view_buffer_to_window_coords([self castedGObject], win, bufferX, bufferY, windowX, windowY);
 }
 
-- (bool)forwardDisplayLine:(GtkTextIter*)iter
+- (bool)forwardDisplayLineWithIter:(GtkTextIter*)iter
 {
 	bool returnValue = (bool)gtk_text_view_forward_display_line([self castedGObject], iter);
 
 	return returnValue;
 }
 
-- (bool)forwardDisplayLineEnd:(GtkTextIter*)iter
+- (bool)forwardDisplayLineEndWithIter:(GtkTextIter*)iter
 {
 	bool returnValue = (bool)gtk_text_view_forward_display_line_end([self castedGObject], iter);
 
@@ -167,7 +167,7 @@
 	return returnValue;
 }
 
-- (OGTKWidget*)gutter:(GtkTextWindowType)win
+- (OGTKWidget*)gutterWithWin:(GtkTextWindowType)win
 {
 	GtkWidget* gobjectValue = gtk_text_view_get_gutter([self castedGObject], win);
 
@@ -323,7 +323,7 @@
 	return returnValue;
 }
 
-- (bool)imContextFilterKeypress:(GdkEvent*)event
+- (bool)imContextFilterKeypressWithEvent:(GdkEvent*)event
 {
 	bool returnValue = (bool)gtk_text_view_im_context_filter_keypress([self castedGObject], event);
 
@@ -356,7 +356,7 @@
 	return returnValue;
 }
 
-- (void)remove:(OGTKWidget*)child
+- (void)removeWithChild:(OGTKWidget*)child
 {
 	gtk_text_view_remove([self castedGObject], [child castedGObject]);
 }
@@ -376,14 +376,14 @@
 	gtk_text_view_scroll_mark_onscreen([self castedGObject], [mark castedGObject]);
 }
 
-- (bool)scrollToIterWithIter:(GtkTextIter*)iter withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign
+- (bool)scrollToIter:(GtkTextIter*)iter withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign
 {
 	bool returnValue = (bool)gtk_text_view_scroll_to_iter([self castedGObject], iter, withinMargin, useAlign, xalign, yalign);
 
 	return returnValue;
 }
 
-- (void)scrollToMarkWithMark:(OGTKTextMark*)mark withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign
+- (void)scrollToMark:(OGTKTextMark*)mark withinMargin:(double)withinMargin useAlign:(bool)useAlign xalign:(double)xalign yalign:(double)yalign
 {
 	gtk_text_view_scroll_to_mark([self castedGObject], [mark castedGObject], withinMargin, useAlign, xalign, yalign);
 }
@@ -403,17 +403,17 @@
 	gtk_text_view_set_buffer([self castedGObject], [buffer castedGObject]);
 }
 
-- (void)setCursorVisible:(bool)setting
+- (void)setCursorVisibleWithSetting:(bool)setting
 {
 	gtk_text_view_set_cursor_visible([self castedGObject], setting);
 }
 
-- (void)setEditable:(bool)setting
+- (void)setEditableWithSetting:(bool)setting
 {
 	gtk_text_view_set_editable([self castedGObject], setting);
 }
 
-- (void)setExtraMenu:(OGMenuModel*)model
+- (void)setExtraMenuWithModel:(OGMenuModel*)model
 {
 	gtk_text_view_set_extra_menu([self castedGObject], [model castedGObject]);
 }
@@ -493,7 +493,7 @@
 	gtk_text_view_set_wrap_mode([self castedGObject], wrapMode);
 }
 
-- (bool)startsDisplayLine:(const GtkTextIter*)iter
+- (bool)startsDisplayLineWithIter:(const GtkTextIter*)iter
 {
 	bool returnValue = (bool)gtk_text_view_starts_display_line([self castedGObject], iter);
 

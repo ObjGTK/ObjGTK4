@@ -75,7 +75,7 @@
 	gtk_native_dialog_set_title([self castedGObject], [title UTF8String]);
 }
 
-- (void)setTransientFor:(OGTKWindow*)parent
+- (void)setTransientForWithParent:(OGTKWindow*)parent
 {
 	gtk_native_dialog_set_transient_for([self castedGObject], [parent castedGObject]);
 }

@@ -81,7 +81,7 @@
 /**
  * Constructors
  */
-+ (instancetype)layout:(OGPangoContext*)context;
++ (instancetype)layoutWithContext:(OGPangoContext*)context;
 
 /**
  * Methods
@@ -218,7 +218,7 @@
  * @param index the byte index of the char
  * @return the text direction at @index
  */
-- (PangoDirection)direction:(int)index;
+- (PangoDirection)directionWithIndex:(int)index;
 
 /**
  * Gets the type of ellipsization being performed for @layout.
@@ -315,7 +315,7 @@
  *   and retained, but will become invalid if changes are made to the
  *   `PangoLayout`.
  */
-- (PangoLayoutLine*)line:(int)line;
+- (PangoLayoutLine*)lineWithLine:(int)line;
 
 /**
  * Retrieves the count of lines for the @layout.
@@ -338,7 +338,7 @@
  *   and retained, but will become invalid if changes are made to the
  *   `PangoLayout`. No changes should be made to the line.
  */
-- (PangoLayoutLine*)lineReadonly:(int)line;
+- (PangoLayoutLine*)lineReadonlyWithLine:(int)line;
 
 /**
  * Gets the line spacing factor of @layout.
@@ -389,7 +389,7 @@
  *   corresponding to both the position before the first character
  *   and the position after the last character.)
  */
-- (void)logAttrsWithAttrs:(PangoLogAttr**)attrs nattrs:(gint*)nattrs;
+- (void)logAttrs:(PangoLogAttr**)attrs nattrs:(gint*)nattrs;
 
 /**
  * Retrieves an array of logical attributes for each character in
@@ -408,7 +408,7 @@
  *   the array
  * @return an array of logical attributes
  */
-- (const PangoLogAttr*)logAttrsReadonly:(gint*)nattrs;
+- (const PangoLogAttr*)logAttrsReadonlyWithNattrs:(gint*)nattrs;
 
 /**
  * Computes the logical and ink extents of @layout in device units.
@@ -548,7 +548,7 @@
  * @param xpos location to store resulting position within line
  *   (%PANGO_SCALE units per device unit)
  */
-- (void)indexToLineXWithIndex:(int)index trailing:(bool)trailing line:(int*)line xpos:(int*)xpos;
+- (void)indexToLineX:(int)index trailing:(bool)trailing line:(int*)line xpos:(int*)xpos;
 
 /**
  * Converts from an index within a `PangoLayout` to the onscreen position
@@ -562,7 +562,7 @@
  * @param index byte index within @layout
  * @param pos rectangle in which to store the position of the grapheme
  */
-- (void)indexToPosWithIndex:(int)index pos:(PangoRectangle*)pos;
+- (void)indexToPos:(int)index pos:(PangoRectangle*)pos;
 
 /**
  * Queries whether the layout had to ellipsize any paragraphs.
@@ -642,7 +642,7 @@
  * @param flags `PangoLayoutSerializeFlags`
  * @return a `GBytes` containing the serialized form of @layout
  */
-- (GBytes*)serialize:(PangoLayoutSerializeFlags)flags;
+- (GBytes*)serializeWithFlags:(PangoLayoutSerializeFlags)flags;
 
 /**
  * Sets the alignment for the layout: how partial lines are
@@ -661,7 +661,7 @@
  *
  * @param attrs a `PangoAttrList`
  */
-- (void)setAttributes:(PangoAttrList*)attrs;
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs;
 
 /**
  * Sets whether to calculate the base direction
@@ -822,7 +822,7 @@
  *
  * @param factor the new line spacing factor
  */
-- (void)setLineSpacing:(float)factor;
+- (void)setLineSpacingWithFactor:(float)factor;
 
 /**
  * Sets the layout text and attribute list from marked-up text.
@@ -838,7 +838,7 @@
  * @param length length of marked-up text in bytes, or -1 if @markup is
  *   `NUL`-terminated
  */
-- (void)setMarkupWithMarkup:(OFString*)markup length:(int)length;
+- (void)setMarkup:(OFString*)markup length:(int)length;
 
 /**
  * Sets the layout text and attribute list from marked-up text.
@@ -862,7 +862,7 @@
  * @param accelChar return location
  *   for first located accelerator
  */
-- (void)setMarkupWithAccelWithMarkup:(OFString*)markup length:(int)length accelMarker:(gunichar)accelMarker accelChar:(gunichar*)accelChar;
+- (void)setMarkupWithAccel:(OFString*)markup length:(int)length accelMarker:(gunichar)accelMarker accelChar:(gunichar*)accelChar;
 
 /**
  * Sets the single paragraph mode of @layout.
@@ -876,7 +876,7 @@
  *
  * @param setting new setting
  */
-- (void)setSingleParagraphMode:(bool)setting;
+- (void)setSingleParagraphModeWithSetting:(bool)setting;
 
 /**
  * Sets the amount of spacing in Pango units between
@@ -937,7 +937,7 @@
  *   The text will also be truncated on encountering a nul-termination
  *   even when @length is positive.
  */
-- (void)setTextWithText:(OFString*)text length:(int)length;
+- (void)setText:(OFString*)text length:(int)length;
 
 /**
  * Sets the width to which the lines of the `PangoLayout` should wrap or

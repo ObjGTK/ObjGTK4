@@ -141,7 +141,7 @@
 	gdk_gl_texture_builder_set_height([self castedGObject], height);
 }
 
-- (void)setId:(guint)identifier
+- (void)setIdWithIdentifier:(guint)identifier
 {
 	gdk_gl_texture_builder_set_id([self castedGObject], identifier);
 }

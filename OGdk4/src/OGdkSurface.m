@@ -46,7 +46,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)surfaceToplevel:(OGdkDisplay*)display
++ (instancetype)surfaceToplevelWithDisplay:(OGdkDisplay*)display
 {
 	GdkSurface* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_surface_new_toplevel([display castedGObject]), GdkSurface, GdkSurface);
 
@@ -134,7 +134,7 @@
 	return returnValue;
 }
 
-- (OGdkCursor*)deviceCursor:(OGdkDevice*)device
+- (OGdkCursor*)deviceCursorWithDevice:(OGdkDevice*)device
 {
 	GdkCursor* gobjectValue = gdk_surface_get_device_cursor([self castedGObject], [device castedGObject]);
 
@@ -227,7 +227,7 @@
 	gdk_surface_set_cursor([self castedGObject], [cursor castedGObject]);
 }
 
-- (void)setDeviceCursorWithDevice:(OGdkDevice*)device cursor:(OGdkCursor*)cursor
+- (void)setDeviceCursor:(OGdkDevice*)device cursor:(OGdkCursor*)cursor
 {
 	gdk_surface_set_device_cursor([self castedGObject], [device castedGObject], [cursor castedGObject]);
 }

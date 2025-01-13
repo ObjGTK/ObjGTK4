@@ -98,7 +98,7 @@
 	gtk_print_dialog_print_file([self castedGObject], [parent castedGObject], setup, file, [cancellable castedGObject], callback, userData);
 }
 
-- (bool)printFileFinish:(GAsyncResult*)result
+- (bool)printFileFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -109,7 +109,7 @@
 	return returnValue;
 }
 
-- (OGOutputStream*)printFinish:(GAsyncResult*)result
+- (OGOutputStream*)printFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 
@@ -153,7 +153,7 @@
 	gtk_print_dialog_setup([self castedGObject], [parent castedGObject], [cancellable castedGObject], callback, userData);
 }
 
-- (GtkPrintSetup*)setupFinish:(GAsyncResult*)result
+- (GtkPrintSetup*)setupFinishWithResult:(GAsyncResult*)result
 {
 	GError* err = NULL;
 

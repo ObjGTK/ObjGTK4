@@ -235,7 +235,7 @@
  * @param index An index in the model passed during construction,
  *   or -1 to have no active item
  */
-- (void)setActive:(int)index;
+- (void)setActiveWithIndex:(int)index;
 
 /**
  * Changes the active row of @combo_box to the one that has an ID equal to
@@ -343,6 +343,6 @@
  * @param data user data to pass to @func
  * @param destroy destroy notifier for @data
  */
-- (void)setRowSeparatorFuncWithFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
+- (void)setRowSeparatorFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
 
 @end

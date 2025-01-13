@@ -22,7 +22,7 @@
 /**
  * Constructors
  */
-+ (instancetype)multiSelection:(GListModel*)model;
++ (instancetype)multiSelectionWithModel:(GListModel*)model;
 
 /**
  * Methods

@@ -131,12 +131,12 @@
 	return returnValue;
 }
 
-- (void)listFamiliesWithFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies
+- (void)listFamilies:(PangoFontFamily***)families nfamilies:(int*)nfamilies
 {
 	pango_context_list_families([self castedGObject], families, nfamilies);
 }
 
-- (OGPangoFont*)loadFont:(const PangoFontDescription*)desc
+- (OGPangoFont*)loadFontWithDesc:(const PangoFontDescription*)desc
 {
 	PangoFont* gobjectValue = pango_context_load_font([self castedGObject], desc);
 
@@ -156,7 +156,7 @@
 	return returnValue;
 }
 
-- (void)setBaseDir:(PangoDirection)direction
+- (void)setBaseDirWithDirection:(PangoDirection)direction
 {
 	pango_context_set_base_dir([self castedGObject], direction);
 }
@@ -191,7 +191,7 @@
 	pango_context_set_matrix([self castedGObject], matrix);
 }
 
-- (void)setRoundGlyphPositions:(bool)roundPositions
+- (void)setRoundGlyphPositionsWithRoundPositions:(bool)roundPositions
 {
 	pango_context_set_round_glyph_positions([self castedGObject], roundPositions);
 }

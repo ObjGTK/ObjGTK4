@@ -140,7 +140,7 @@
  * @param path path to a row in the @tree_view
  * @return %TRUE if the row was collapsed.
  */
-- (bool)collapseRow:(GtkTreePath*)path;
+- (bool)collapseRowWithPath:(GtkTreePath*)path;
 
 /**
  * Resizes all columns to their optimal width. Only works after the
@@ -220,7 +220,7 @@
  * @param path a `GtkTreePath` in @tree_view
  * @return a newly-allocated surface of the drag icon.
  */
-- (GdkPaintable*)createRowDragIcon:(GtkTreePath*)path;
+- (GdkPaintable*)createRowDragIconWithPath:(GtkTreePath*)path;
 
 /**
  * Turns @tree_view into a drop destination for automatic DND. Calling
@@ -581,7 +581,7 @@
  * @param iter a pointer to receive a `GtkTreeIter`
  * @return whether or not the given tooltip context points to a row
  */
-- (bool)tooltipContextWithX:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter;
+- (bool)tooltipContext:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter;
 
 /**
  * Sets @start_path and @end_path to be the first and last visible path.
@@ -616,7 +616,7 @@
  * @param position The position to insert @column in.
  * @return The number of columns in @tree_view after insertion.
  */
-- (int)insertColumnWithColumn:(OGTKTreeViewColumn*)column position:(int)position;
+- (int)insertColumn:(OGTKTreeViewColumn*)column position:(int)position;
 
 /**
  * Convenience function that inserts a new column into the `GtkTreeView`
@@ -694,7 +694,7 @@
  * @param column The `GtkTreeViewColumn` to be moved.
  * @param baseColumn The `GtkTreeViewColumn` to be moved relative to
  */
-- (void)moveColumnAfterWithColumn:(OGTKTreeViewColumn*)column baseColumn:(OGTKTreeViewColumn*)baseColumn;
+- (void)moveColumnAfter:(OGTKTreeViewColumn*)column baseColumn:(OGTKTreeViewColumn*)baseColumn;
 
 /**
  * Removes @column from @tree_view.
@@ -718,7 +718,7 @@
  * @param path A `GtkTreePath` to test expansion state.
  * @return %TRUE if #path is expanded.
  */
-- (bool)rowExpanded:(GtkTreePath*)path;
+- (bool)rowExpandedWithPath:(GtkTreePath*)path;
 
 /**
  * Moves the alignments of @tree_view to the position specified by @column and
@@ -783,7 +783,7 @@
  * @param userData User data to be passed to @func
  * @param destroy Destroy notifier for @user_data
  */
-- (void)setColumnDragFunctionWithFunc:(GtkTreeViewColumnDropFunc)func userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
+- (void)setColumnDragFunction:(GtkTreeViewColumnDropFunc)func userData:(gpointer)userData destroy:(GDestroyNotify)destroy;
 
 /**
  * Sets the current keyboard focus to be at @path, and selects it.  This is
@@ -853,7 +853,7 @@
  *
  * @param enabled %TRUE to enable tree line drawing, %FALSE otherwise.
  */
-- (void)setEnableTreeLines:(bool)enabled;
+- (void)setEnableTreeLinesWithEnabled:(bool)enabled;
 
 /**
  * Sets the column to draw the expander arrow at. It must be in @tree_view.
@@ -876,7 +876,7 @@
  *
  * @param enable %TRUE to enable fixed height mode
  */
-- (void)setFixedHeightMode:(bool)enable;
+- (void)setFixedHeightModeWithEnable:(bool)enable;
 
 /**
  * Sets which grid lines to draw in @tree_view.
@@ -891,7 +891,7 @@
  *
  * @param setting %TRUE if the columns are clickable.
  */
-- (void)setHeadersClickable:(bool)setting;
+- (void)setHeadersClickableWithSetting:(bool)setting;
 
 /**
  * Sets the visibility state of the headers.
@@ -968,7 +968,7 @@
  * @param data user data to pass to @func
  * @param destroy destroy notifier for @data
  */
-- (void)setRowSeparatorFuncWithFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
+- (void)setRowSeparatorFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy;
 
 /**
  * Enables or disables rubber banding in @tree_view.  If the selection mode
@@ -977,7 +977,7 @@
  *
  * @param enable %TRUE to enable rubber banding
  */
-- (void)setRubberBanding:(bool)enable;
+- (void)setRubberBandingWithEnable:(bool)enable;
 
 /**
  * Sets @column as the column where the interactive search code should
@@ -1014,7 +1014,7 @@
  * @param searchUserData user data to pass to @search_equal_func
  * @param searchDestroy Destroy notifier for @search_user_data
  */
-- (void)setSearchEqualFuncWithSearchEqualFunc:(GtkTreeViewSearchEqualFunc)searchEqualFunc searchUserData:(gpointer)searchUserData searchDestroy:(GDestroyNotify)searchDestroy;
+- (void)setSearchEqualFunc:(GtkTreeViewSearchEqualFunc)searchEqualFunc searchUserData:(gpointer)searchUserData searchDestroy:(GDestroyNotify)searchDestroy;
 
 /**
  * Sets whether to draw and enable expanders and indent child rows in
@@ -1027,7 +1027,7 @@
  *
  * @param enabled %TRUE to enable expander drawing, %FALSE otherwise.
  */
-- (void)setShowExpanders:(bool)enabled;
+- (void)setShowExpandersWithEnabled:(bool)enabled;
 
 /**
  * Sets the tip area of @tooltip to the area @path, @column and @cell have
@@ -1047,7 +1047,7 @@
  * @param column a `GtkTreeViewColumn`
  * @param cell a `GtkCellRenderer`
  */
-- (void)setTooltipCellWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path column:(OGTKTreeViewColumn*)column cell:(OGTKCellRenderer*)cell;
+- (void)setTooltipCell:(OGTKTooltip*)tooltip path:(GtkTreePath*)path column:(OGTKTreeViewColumn*)column cell:(OGTKCellRenderer*)cell;
 
 /**
  * If you only plan to have simple (text-only) tooltips on full rows, you
@@ -1073,7 +1073,7 @@
  * @param tooltip a `GtkTooltip`
  * @param path a `GtkTreePath`
  */
-- (void)setTooltipRowWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path;
+- (void)setTooltipRow:(OGTKTooltip*)tooltip path:(GtkTreePath*)path;
 
 /**
  * Undoes the effect of

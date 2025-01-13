@@ -193,7 +193,7 @@
  *
  * @param identifier The texture id to be used for creating the texture
  */
-- (void)setId:(guint)identifier;
+- (void)setIdWithIdentifier:(guint)identifier;
 
 /**
  * Sets the GLSync object to use for the texture.

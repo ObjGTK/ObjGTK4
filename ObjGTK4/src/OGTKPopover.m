@@ -87,7 +87,7 @@
 	gtk_popover_get_offset([self castedGObject], xoffset, yoffset);
 }
 
-- (bool)pointingTo:(GdkRectangle*)rect
+- (bool)pointingToWithRect:(GdkRectangle*)rect
 {
 	bool returnValue = (bool)gtk_popover_get_pointing_to([self castedGObject], rect);
 
@@ -151,7 +151,7 @@
 	gtk_popover_set_offset([self castedGObject], xoffset, yoffset);
 }
 
-- (void)setPointingTo:(const GdkRectangle*)rect
+- (void)setPointingToWithRect:(const GdkRectangle*)rect
 {
 	gtk_popover_set_pointing_to([self castedGObject], rect);
 }

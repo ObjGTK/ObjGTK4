@@ -38,7 +38,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pageSetupFromFile:(OFString*)fileName
++ (instancetype)pageSetupFromFileWithFileName:(OFString*)fileName
 {
 	GError* err = NULL;
 
@@ -82,7 +82,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)pageSetupFromKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
++ (instancetype)pageSetupFromKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	GError* err = NULL;
 
@@ -121,14 +121,14 @@
 	return returnValue;
 }
 
-- (double)bottomMargin:(GtkUnit)unit
+- (double)bottomMarginWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_bottom_margin([self castedGObject], unit);
 
 	return returnValue;
 }
 
-- (double)leftMargin:(GtkUnit)unit
+- (double)leftMarginWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_left_margin([self castedGObject], unit);
 
@@ -142,21 +142,21 @@
 	return returnValue;
 }
 
-- (double)pageHeight:(GtkUnit)unit
+- (double)pageHeightWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_page_height([self castedGObject], unit);
 
 	return returnValue;
 }
 
-- (double)pageWidth:(GtkUnit)unit
+- (double)pageWidthWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_page_width([self castedGObject], unit);
 
 	return returnValue;
 }
 
-- (double)paperHeight:(GtkUnit)unit
+- (double)paperHeightWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_paper_height([self castedGObject], unit);
 
@@ -170,28 +170,28 @@
 	return returnValue;
 }
 
-- (double)paperWidth:(GtkUnit)unit
+- (double)paperWidthWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_paper_width([self castedGObject], unit);
 
 	return returnValue;
 }
 
-- (double)rightMargin:(GtkUnit)unit
+- (double)rightMarginWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_right_margin([self castedGObject], unit);
 
 	return returnValue;
 }
 
-- (double)topMargin:(GtkUnit)unit
+- (double)topMarginWithUnit:(GtkUnit)unit
 {
 	double returnValue = (double)gtk_page_setup_get_top_margin([self castedGObject], unit);
 
 	return returnValue;
 }
 
-- (bool)loadFile:(OFString*)fileName
+- (bool)loadFileWithFileName:(OFString*)fileName
 {
 	GError* err = NULL;
 
@@ -202,7 +202,7 @@
 	return returnValue;
 }
 
-- (bool)loadKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
+- (bool)loadKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	GError* err = NULL;
 
@@ -213,12 +213,12 @@
 	return returnValue;
 }
 
-- (void)setBottomMarginWithMargin:(double)margin unit:(GtkUnit)unit
+- (void)setBottomMargin:(double)margin unit:(GtkUnit)unit
 {
 	gtk_page_setup_set_bottom_margin([self castedGObject], margin, unit);
 }
 
-- (void)setLeftMarginWithMargin:(double)margin unit:(GtkUnit)unit
+- (void)setLeftMargin:(double)margin unit:(GtkUnit)unit
 {
 	gtk_page_setup_set_left_margin([self castedGObject], margin, unit);
 }
@@ -238,17 +238,17 @@
 	gtk_page_setup_set_paper_size_and_default_margins([self castedGObject], size);
 }
 
-- (void)setRightMarginWithMargin:(double)margin unit:(GtkUnit)unit
+- (void)setRightMargin:(double)margin unit:(GtkUnit)unit
 {
 	gtk_page_setup_set_right_margin([self castedGObject], margin, unit);
 }
 
-- (void)setTopMarginWithMargin:(double)margin unit:(GtkUnit)unit
+- (void)setTopMargin:(double)margin unit:(GtkUnit)unit
 {
 	gtk_page_setup_set_top_margin([self castedGObject], margin, unit);
 }
 
-- (bool)toFile:(OFString*)fileName
+- (bool)toFileWithFileName:(OFString*)fileName
 {
 	GError* err = NULL;
 
@@ -266,7 +266,7 @@
 	return returnValue;
 }
 
-- (void)toKeyFileWithKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
+- (void)toKeyFile:(GKeyFile*)keyFile groupName:(OFString*)groupName
 {
 	gtk_page_setup_to_key_file([self castedGObject], keyFile, [groupName UTF8String]);
 }

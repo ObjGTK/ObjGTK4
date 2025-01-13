@@ -60,15 +60,6 @@ AS_IF([$OBJFW_CONFIG --package OGObject], [AC_MSG_RESULT(yes)
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGObject installed.)
 ])
-AC_MSG_CHECKING(for ObjFW package OGPango)
-AS_IF([$OBJFW_CONFIG --package OGPango], [AC_MSG_RESULT(yes)
-	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGPango --cppflags)"
-	LIBS="$LIBS $($OBJFW_CONFIG --package OGPango --libs)"
-	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGPango --framework-libs) $FRAMEWORK_LIBS"
-], [
-	AC_MSG_ERROR(You need ObjFW package OGPango installed.)
-])
-
 AC_MSG_CHECKING(for ObjFW package OGdkPixbuf)
 AS_IF([$OBJFW_CONFIG --package OGdkPixbuf], [AC_MSG_RESULT(yes)
 	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGdkPixbuf --cppflags)"
@@ -85,6 +76,15 @@ AS_IF([$OBJFW_CONFIG --package OGio], [AC_MSG_RESULT(yes)
 	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGio --framework-libs) $FRAMEWORK_LIBS"
 ], [
 	AC_MSG_ERROR(You need ObjFW package OGio installed.)
+])
+
+AC_MSG_CHECKING(for ObjFW package OGPango)
+AS_IF([$OBJFW_CONFIG --package OGPango], [AC_MSG_RESULT(yes)
+	CPPFLAGS="$CPPFLAGS $($OBJFW_CONFIG --package OGPango --cppflags)"
+	LIBS="$LIBS $($OBJFW_CONFIG --package OGPango --libs)"
+	FRAMEWORK_LIBS="$($OBJFW_CONFIG --package OGPango --framework-libs) $FRAMEWORK_LIBS"
+], [
+	AC_MSG_ERROR(You need ObjFW package OGPango installed.)
 ])
 
 

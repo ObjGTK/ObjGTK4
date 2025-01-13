@@ -42,7 +42,7 @@
 	return returnValue;
 }
 
-- (void)add:(OGTKCellRenderer*)renderer
+- (void)addWithRenderer:(OGTKCellRenderer*)renderer
 {
 	gtk_cell_area_add([self castedGObject], [renderer castedGObject]);
 }
@@ -121,7 +121,7 @@
 	return returnValue;
 }
 
-- (bool)focus:(GtkDirectionType)direction
+- (bool)focusWithDirection:(GtkDirectionType)direction
 {
 	bool returnValue = (bool)gtk_cell_area_focus([self castedGObject], direction);
 
@@ -182,7 +182,7 @@
 	return returnValue;
 }
 
-- (OGTKCellRenderer*)focusFromSibling:(OGTKCellRenderer*)renderer
+- (OGTKCellRenderer*)focusFromSiblingWithRenderer:(OGTKCellRenderer*)renderer
 {
 	GtkCellRenderer* gobjectValue = gtk_cell_area_get_focus_from_sibling([self castedGObject], [renderer castedGObject]);
 
@@ -190,7 +190,7 @@
 	return returnValue;
 }
 
-- (const GList*)focusSiblings:(OGTKCellRenderer*)renderer
+- (const GList*)focusSiblingsWithRenderer:(OGTKCellRenderer*)renderer
 {
 	const GList* returnValue = (const GList*)gtk_cell_area_get_focus_siblings([self castedGObject], [renderer castedGObject]);
 
@@ -250,7 +250,7 @@
 	return returnValue;
 }
 
-- (void)remove:(OGTKCellRenderer*)renderer
+- (void)removeWithRenderer:(OGTKCellRenderer*)renderer
 {
 	gtk_cell_area_remove([self castedGObject], [renderer castedGObject]);
 }
@@ -260,12 +260,12 @@
 	gtk_cell_area_remove_focus_sibling([self castedGObject], [renderer castedGObject], [sibling castedGObject]);
 }
 
-- (void)requestRendererWithRenderer:(OGTKCellRenderer*)renderer orientation:(GtkOrientation)orientation widget:(OGTKWidget*)widget forSize:(int)forSize minimumSize:(int*)minimumSize naturalSize:(int*)naturalSize
+- (void)requestRenderer:(OGTKCellRenderer*)renderer orientation:(GtkOrientation)orientation widget:(OGTKWidget*)widget forSize:(int)forSize minimumSize:(int*)minimumSize naturalSize:(int*)naturalSize
 {
 	gtk_cell_area_request_renderer([self castedGObject], [renderer castedGObject], orientation, [widget castedGObject], forSize, minimumSize, naturalSize);
 }
 
-- (void)setFocusCell:(OGTKCellRenderer*)renderer
+- (void)setFocusCellWithRenderer:(OGTKCellRenderer*)renderer
 {
 	gtk_cell_area_set_focus_cell([self castedGObject], [renderer castedGObject]);
 }
@@ -275,7 +275,7 @@
 	gtk_cell_area_snapshot([self castedGObject], [context castedGObject], [widget castedGObject], [snapshot castedGObject], backgroundArea, cellArea, flags, paintFocus);
 }
 
-- (void)stopEditing:(bool)canceled
+- (void)stopEditingWithCanceled:(bool)canceled
 {
 	gtk_cell_area_stop_editing([self castedGObject], canceled);
 }

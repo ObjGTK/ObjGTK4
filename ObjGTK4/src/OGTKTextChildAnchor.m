@@ -40,7 +40,7 @@
 	return [wrapperObject autorelease];
 }
 
-+ (instancetype)textChildAnchorWithReplacement:(OFString*)character
++ (instancetype)textChildAnchorWithReplacementWithCharacter:(OFString*)character
 {
 	GtkTextChildAnchor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_child_anchor_new_with_replacement([character UTF8String]), GtkTextChildAnchor, GtkTextChildAnchor);
 
@@ -72,7 +72,7 @@
 	return returnValue;
 }
 
-- (GtkWidget**)widgets:(guint*)outLen
+- (GtkWidget**)widgetsWithOutLen:(guint*)outLen
 {
 	GtkWidget** returnValue = (GtkWidget**)gtk_text_child_anchor_get_widgets([self castedGObject], outLen);
 

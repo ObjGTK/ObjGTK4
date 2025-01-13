@@ -166,7 +166,7 @@
  * @return the `GdkFrameTimings` object
  *   for the specified frame, or %NULL if it is not available
  */
-- (GdkFrameTimings*)timings:(gint64)frameCounter;
+- (GdkFrameTimings*)timingsWithFrameCounter:(gint64)frameCounter;
 
 /**
  * Asks the frame clock to run a particular phase.

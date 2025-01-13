@@ -32,7 +32,7 @@
 + (instancetype)mediaFileForFile:(GFile*)file;
 + (instancetype)mediaFileForFilename:(OFString*)filename;
 + (instancetype)mediaFileForInputStream:(OGInputStream*)stream;
-+ (instancetype)mediaFileForResource:(OFString*)resourcePath;
++ (instancetype)mediaFileForResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Methods
@@ -105,6 +105,6 @@
  *
  * @param resourcePath path to resource to play
  */
-- (void)setResource:(OFString*)resourcePath;
+- (void)setResourceWithResourcePath:(OFString*)resourcePath;
 
 @end

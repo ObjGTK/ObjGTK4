@@ -18,7 +18,7 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
-+ (instancetype)boxLayout:(GtkOrientation)orientation
++ (instancetype)boxLayoutWithOrientation:(GtkOrientation)orientation
 {
 	GtkBoxLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_box_layout_new(orientation), GtkBoxLayout, GtkBoxLayout);
 

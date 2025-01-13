@@ -22,7 +22,7 @@
 /**
  * Constructors
  */
-+ (instancetype)numericSorter:(GtkExpression*)expression;
++ (instancetype)numericSorterWithExpression:(GtkExpression*)expression;
 
 /**
  * Methods

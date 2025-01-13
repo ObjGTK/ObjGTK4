@@ -133,7 +133,7 @@
 	return returnValue;
 }
 
-- (bool)iconActivatable:(GtkEntryIconPosition)iconPos
+- (bool)iconActivatableWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	bool returnValue = (bool)gtk_entry_get_icon_activatable([self castedGObject], iconPos);
 
@@ -152,14 +152,14 @@
 	return returnValue;
 }
 
-- (GIcon*)iconGicon:(GtkEntryIconPosition)iconPos
+- (GIcon*)iconGiconWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	GIcon* returnValue = (GIcon*)gtk_entry_get_icon_gicon([self castedGObject], iconPos);
 
 	return returnValue;
 }
 
-- (OFString*)iconName:(GtkEntryIconPosition)iconPos
+- (OFString*)iconNameWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	const char* gobjectValue = gtk_entry_get_icon_name([self castedGObject], iconPos);
 
@@ -167,40 +167,40 @@
 	return returnValue;
 }
 
-- (GdkPaintable*)iconPaintable:(GtkEntryIconPosition)iconPos
+- (GdkPaintable*)iconPaintableWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	GdkPaintable* returnValue = (GdkPaintable*)gtk_entry_get_icon_paintable([self castedGObject], iconPos);
 
 	return returnValue;
 }
 
-- (bool)iconSensitive:(GtkEntryIconPosition)iconPos
+- (bool)iconSensitiveWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	bool returnValue = (bool)gtk_entry_get_icon_sensitive([self castedGObject], iconPos);
 
 	return returnValue;
 }
 
-- (GtkImageType)iconStorageType:(GtkEntryIconPosition)iconPos
+- (GtkImageType)iconStorageTypeWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	GtkImageType returnValue = (GtkImageType)gtk_entry_get_icon_storage_type([self castedGObject], iconPos);
 
 	return returnValue;
 }
 
-- (char*)iconTooltipMarkup:(GtkEntryIconPosition)iconPos
+- (OFString*)iconTooltipMarkupWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	char* gobjectValue = gtk_entry_get_icon_tooltip_markup([self castedGObject], iconPos);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
-- (char*)iconTooltipText:(GtkEntryIconPosition)iconPos
+- (OFString*)iconTooltipTextWithIconPos:(GtkEntryIconPosition)iconPos
 {
 	char* gobjectValue = gtk_entry_get_icon_tooltip_text([self castedGObject], iconPos);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
@@ -299,17 +299,17 @@
 	gtk_entry_reset_im_context([self castedGObject]);
 }
 
-- (void)setActivatesDefault:(bool)setting
+- (void)setActivatesDefaultWithSetting:(bool)setting
 {
 	gtk_entry_set_activates_default([self castedGObject], setting);
 }
 
-- (void)setAlignment:(float)xalign
+- (void)setAlignmentWithXalign:(float)xalign
 {
 	gtk_entry_set_alignment([self castedGObject], xalign);
 }
 
-- (void)setAttributes:(PangoAttrList*)attrs
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs
 {
 	gtk_entry_set_attributes([self castedGObject], attrs);
 }
@@ -324,12 +324,12 @@
 	gtk_entry_set_completion([self castedGObject], [completion castedGObject]);
 }
 
-- (void)setExtraMenu:(OGMenuModel*)model
+- (void)setExtraMenuWithModel:(OGMenuModel*)model
 {
 	gtk_entry_set_extra_menu([self castedGObject], [model castedGObject]);
 }
 
-- (void)setHasFrame:(bool)setting
+- (void)setHasFrameWithSetting:(bool)setting
 {
 	gtk_entry_set_has_frame([self castedGObject], setting);
 }
@@ -409,7 +409,7 @@
 	gtk_entry_set_progress_fraction([self castedGObject], fraction);
 }
 
-- (void)setProgressPulseStep:(double)fraction
+- (void)setProgressPulseStepWithFraction:(double)fraction
 {
 	gtk_entry_set_progress_pulse_step([self castedGObject], fraction);
 }
@@ -419,7 +419,7 @@
 	gtk_entry_set_tabs([self castedGObject], tabs);
 }
 
-- (void)setVisibility:(bool)visible
+- (void)setVisibilityWithVisible:(bool)visible
 {
 	gtk_entry_set_visibility([self castedGObject], visible);
 }

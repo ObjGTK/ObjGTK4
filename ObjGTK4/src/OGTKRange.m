@@ -119,7 +119,7 @@
 	gtk_range_set_increments([self castedGObject], step, page);
 }
 
-- (void)setInverted:(bool)setting
+- (void)setInvertedWithSetting:(bool)setting
 {
 	gtk_range_set_inverted([self castedGObject], setting);
 }

@@ -128,7 +128,7 @@
  * @return the file that was selected.
  *   Otherwise, `NULL` is returned and @error is set
  */
-- (GFile*)openFinish:(GAsyncResult*)result;
+- (GFile*)openFinishWithResult:(GAsyncResult*)result;
 
 /**
  * This function initiates a multi-file selection operation by
@@ -157,7 +157,7 @@
  *   as a `GListModel` of `GFiles`. Otherwise, `NULL` is returned
  *   and @error is set
  */
-- (GListModel*)openMultipleFinish:(GAsyncResult*)result;
+- (GListModel*)openMultipleFinishWithResult:(GAsyncResult*)result;
 
 /**
  * This function initiates a file save operation by
@@ -182,7 +182,7 @@
  * @return the file that was selected.
  *   Otherwise, `NULL` is returned and @error is set
  */
-- (GFile*)saveFinish:(GAsyncResult*)result;
+- (GFile*)saveFinishWithResult:(GAsyncResult*)result;
 
 /**
  * This function initiates a directory selection operation by
@@ -211,7 +211,7 @@
  * @return the file that was selected.
  *   Otherwise, `NULL` is returned and @error is set
  */
-- (GFile*)selectFolderFinish:(GAsyncResult*)result;
+- (GFile*)selectFolderFinishWithResult:(GAsyncResult*)result;
 
 /**
  * This function initiates a multi-directory selection operation by
@@ -240,7 +240,7 @@
  *   as a `GListModel` of `GFiles`. Otherwise, `NULL` is returned
  *   and @error is set
  */
-- (GListModel*)selectMultipleFoldersFinish:(GAsyncResult*)result;
+- (GListModel*)selectMultipleFoldersFinishWithResult:(GAsyncResult*)result;
 
 /**
  * Sets the label shown on the file chooser's accept button.

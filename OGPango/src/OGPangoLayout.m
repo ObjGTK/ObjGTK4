@@ -34,7 +34,7 @@
 	return returnValue;
 }
 
-+ (instancetype)layout:(OGPangoContext*)context
++ (instancetype)layoutWithContext:(OGPangoContext*)context
 {
 	PangoLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_layout_new([context castedGObject]), PangoLayout, PangoLayout);
 
@@ -127,7 +127,7 @@
 	pango_layout_get_cursor_pos([self castedGObject], index, strongPos, weakPos);
 }
 
-- (PangoDirection)direction:(int)index
+- (PangoDirection)directionWithIndex:(int)index
 {
 	PangoDirection returnValue = (PangoDirection)pango_layout_get_direction([self castedGObject], index);
 
@@ -188,7 +188,7 @@
 	return returnValue;
 }
 
-- (PangoLayoutLine*)line:(int)line
+- (PangoLayoutLine*)lineWithLine:(int)line
 {
 	PangoLayoutLine* returnValue = (PangoLayoutLine*)pango_layout_get_line([self castedGObject], line);
 
@@ -202,7 +202,7 @@
 	return returnValue;
 }
 
-- (PangoLayoutLine*)lineReadonly:(int)line
+- (PangoLayoutLine*)lineReadonlyWithLine:(int)line
 {
 	PangoLayoutLine* returnValue = (PangoLayoutLine*)pango_layout_get_line_readonly([self castedGObject], line);
 
@@ -230,12 +230,12 @@
 	return returnValue;
 }
 
-- (void)logAttrsWithAttrs:(PangoLogAttr**)attrs nattrs:(gint*)nattrs
+- (void)logAttrs:(PangoLogAttr**)attrs nattrs:(gint*)nattrs
 {
 	pango_layout_get_log_attrs([self castedGObject], attrs, nattrs);
 }
 
-- (const PangoLogAttr*)logAttrsReadonly:(gint*)nattrs
+- (const PangoLogAttr*)logAttrsReadonlyWithNattrs:(gint*)nattrs
 {
 	const PangoLogAttr* returnValue = (const PangoLogAttr*)pango_layout_get_log_attrs_readonly([self castedGObject], nattrs);
 
@@ -314,12 +314,12 @@
 	return returnValue;
 }
 
-- (void)indexToLineXWithIndex:(int)index trailing:(bool)trailing line:(int*)line xpos:(int*)xpos
+- (void)indexToLineX:(int)index trailing:(bool)trailing line:(int*)line xpos:(int*)xpos
 {
 	pango_layout_index_to_line_x([self castedGObject], index, trailing, line, xpos);
 }
 
-- (void)indexToPosWithIndex:(int)index pos:(PangoRectangle*)pos
+- (void)indexToPos:(int)index pos:(PangoRectangle*)pos
 {
 	pango_layout_index_to_pos([self castedGObject], index, pos);
 }
@@ -343,7 +343,7 @@
 	pango_layout_move_cursor_visually([self castedGObject], strong, oldIndex, oldTrailing, direction, newIndex, newTrailing);
 }
 
-- (GBytes*)serialize:(PangoLayoutSerializeFlags)flags
+- (GBytes*)serializeWithFlags:(PangoLayoutSerializeFlags)flags
 {
 	GBytes* returnValue = (GBytes*)pango_layout_serialize([self castedGObject], flags);
 
@@ -355,7 +355,7 @@
 	pango_layout_set_alignment([self castedGObject], alignment);
 }
 
-- (void)setAttributes:(PangoAttrList*)attrs
+- (void)setAttributesWithAttrs:(PangoAttrList*)attrs
 {
 	pango_layout_set_attributes([self castedGObject], attrs);
 }
@@ -395,22 +395,22 @@
 	pango_layout_set_justify_last_line([self castedGObject], justify);
 }
 
-- (void)setLineSpacing:(float)factor
+- (void)setLineSpacingWithFactor:(float)factor
 {
 	pango_layout_set_line_spacing([self castedGObject], factor);
 }
 
-- (void)setMarkupWithMarkup:(OFString*)markup length:(int)length
+- (void)setMarkup:(OFString*)markup length:(int)length
 {
 	pango_layout_set_markup([self castedGObject], [markup UTF8String], length);
 }
 
-- (void)setMarkupWithAccelWithMarkup:(OFString*)markup length:(int)length accelMarker:(gunichar)accelMarker accelChar:(gunichar*)accelChar
+- (void)setMarkupWithAccel:(OFString*)markup length:(int)length accelMarker:(gunichar)accelMarker accelChar:(gunichar*)accelChar
 {
 	pango_layout_set_markup_with_accel([self castedGObject], [markup UTF8String], length, accelMarker, accelChar);
 }
 
-- (void)setSingleParagraphMode:(bool)setting
+- (void)setSingleParagraphModeWithSetting:(bool)setting
 {
 	pango_layout_set_single_paragraph_mode([self castedGObject], setting);
 }
@@ -425,7 +425,7 @@
 	pango_layout_set_tabs([self castedGObject], tabs);
 }
 
-- (void)setTextWithText:(OFString*)text length:(int)length
+- (void)setText:(OFString*)text length:(int)length
 {
 	pango_layout_set_text([self castedGObject], [text UTF8String], length);
 }

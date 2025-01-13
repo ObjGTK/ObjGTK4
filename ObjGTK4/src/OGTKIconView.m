@@ -96,7 +96,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIconView, GtkIconView);
 }
 
-- (GdkPaintable*)createDragIcon:(GtkTreePath*)path
+- (GdkPaintable*)createDragIconWithPath:(GtkTreePath*)path
 {
 	GdkPaintable* returnValue = (GdkPaintable*)gtk_icon_view_create_drag_icon([self castedGObject], path);
 
@@ -167,7 +167,7 @@
 	return returnValue;
 }
 
-- (int)itemColumn:(GtkTreePath*)path
+- (int)itemColumnWithPath:(GtkTreePath*)path
 {
 	int returnValue = (int)gtk_icon_view_get_item_column([self castedGObject], path);
 
@@ -188,7 +188,7 @@
 	return returnValue;
 }
 
-- (int)itemRow:(GtkTreePath*)path
+- (int)itemRowWithPath:(GtkTreePath*)path
 {
 	int returnValue = (int)gtk_icon_view_get_item_row([self castedGObject], path);
 
@@ -286,7 +286,7 @@
 	return returnValue;
 }
 
-- (bool)tooltipContextWithX:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter
+- (bool)tooltipContext:(int)x y:(int)y keyboardTip:(bool)keyboardTip model:(GtkTreeModel**)model path:(GtkTreePath**)path iter:(GtkTreeIter*)iter
 {
 	bool returnValue = (bool)gtk_icon_view_get_tooltip_context([self castedGObject], x, y, keyboardTip, model, path, iter);
 
@@ -300,19 +300,19 @@
 	return returnValue;
 }
 
-- (void)itemActivated:(GtkTreePath*)path
+- (void)itemActivatedWithPath:(GtkTreePath*)path
 {
 	gtk_icon_view_item_activated([self castedGObject], path);
 }
 
-- (bool)pathIsSelected:(GtkTreePath*)path
+- (bool)pathIsSelectedWithPath:(GtkTreePath*)path
 {
 	bool returnValue = (bool)gtk_icon_view_path_is_selected([self castedGObject], path);
 
 	return returnValue;
 }
 
-- (void)scrollToPathWithPath:(GtkTreePath*)path useAlign:(bool)useAlign rowAlign:(float)rowAlign colAlign:(float)colAlign
+- (void)scrollToPath:(GtkTreePath*)path useAlign:(bool)useAlign rowAlign:(float)rowAlign colAlign:(float)colAlign
 {
 	gtk_icon_view_scroll_to_path([self castedGObject], path, useAlign, rowAlign, colAlign);
 }
@@ -417,7 +417,7 @@
 	gtk_icon_view_set_text_column([self castedGObject], column);
 }
 
-- (void)setTooltipCellWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path cell:(OGTKCellRenderer*)cell
+- (void)setTooltipCell:(OGTKTooltip*)tooltip path:(GtkTreePath*)path cell:(OGTKCellRenderer*)cell
 {
 	gtk_icon_view_set_tooltip_cell([self castedGObject], [tooltip castedGObject], path, [cell castedGObject]);
 }
@@ -427,7 +427,7 @@
 	gtk_icon_view_set_tooltip_column([self castedGObject], column);
 }
 
-- (void)setTooltipItemWithTooltip:(OGTKTooltip*)tooltip path:(GtkTreePath*)path
+- (void)setTooltipItem:(OGTKTooltip*)tooltip path:(GtkTreePath*)path
 {
 	gtk_icon_view_set_tooltip_item([self castedGObject], [tooltip castedGObject], path);
 }

@@ -49,7 +49,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAssistant, GtkAssistant);
 }
 
-- (void)addActionWidget:(OGTKWidget*)child
+- (void)addActionWidgetWithChild:(OGTKWidget*)child
 {
 	gtk_assistant_add_action_widget([self castedGObject], [child castedGObject]);
 }
@@ -80,7 +80,7 @@
 	return returnValue;
 }
 
-- (OGTKWidget*)nthPage:(int)pageNum
+- (OGTKWidget*)nthPageWithPageNum:(int)pageNum
 {
 	GtkWidget* gobjectValue = gtk_assistant_get_nth_page([self castedGObject], pageNum);
 
@@ -88,7 +88,7 @@
 	return returnValue;
 }
 
-- (OGTKAssistantPage*)page:(OGTKWidget*)child
+- (OGTKAssistantPage*)pageWithChild:(OGTKWidget*)child
 {
 	GtkAssistantPage* gobjectValue = gtk_assistant_get_page([self castedGObject], [child castedGObject]);
 
@@ -96,14 +96,14 @@
 	return returnValue;
 }
 
-- (bool)pageComplete:(OGTKWidget*)page
+- (bool)pageCompleteWithPage:(OGTKWidget*)page
 {
 	bool returnValue = (bool)gtk_assistant_get_page_complete([self castedGObject], [page castedGObject]);
 
 	return returnValue;
 }
 
-- (OFString*)pageTitle:(OGTKWidget*)page
+- (OFString*)pageTitleWithPage:(OGTKWidget*)page
 {
 	const char* gobjectValue = gtk_assistant_get_page_title([self castedGObject], [page castedGObject]);
 
@@ -111,7 +111,7 @@
 	return returnValue;
 }
 
-- (GtkAssistantPageType)pageType:(OGTKWidget*)page
+- (GtkAssistantPageType)pageTypeWithPage:(OGTKWidget*)page
 {
 	GtkAssistantPageType returnValue = (GtkAssistantPageType)gtk_assistant_get_page_type([self castedGObject], [page castedGObject]);
 
@@ -125,7 +125,7 @@
 	return returnValue;
 }
 
-- (int)insertPageWithPage:(OGTKWidget*)page position:(int)position
+- (int)insertPage:(OGTKWidget*)page position:(int)position
 {
 	int returnValue = (int)gtk_assistant_insert_page([self castedGObject], [page castedGObject], position);
 
@@ -149,37 +149,37 @@
 	gtk_assistant_previous_page([self castedGObject]);
 }
 
-- (void)removeActionWidget:(OGTKWidget*)child
+- (void)removeActionWidgetWithChild:(OGTKWidget*)child
 {
 	gtk_assistant_remove_action_widget([self castedGObject], [child castedGObject]);
 }
 
-- (void)removePage:(int)pageNum
+- (void)removePageWithPageNum:(int)pageNum
 {
 	gtk_assistant_remove_page([self castedGObject], pageNum);
 }
 
-- (void)setCurrentPage:(int)pageNum
+- (void)setCurrentPageWithPageNum:(int)pageNum
 {
 	gtk_assistant_set_current_page([self castedGObject], pageNum);
 }
 
-- (void)setForwardPageFuncWithPageFunc:(GtkAssistantPageFunc)pageFunc data:(gpointer)data destroy:(GDestroyNotify)destroy
+- (void)setForwardPageFunc:(GtkAssistantPageFunc)pageFunc data:(gpointer)data destroy:(GDestroyNotify)destroy
 {
 	gtk_assistant_set_forward_page_func([self castedGObject], pageFunc, data, destroy);
 }
 
-- (void)setPageCompleteWithPage:(OGTKWidget*)page complete:(bool)complete
+- (void)setPageComplete:(OGTKWidget*)page complete:(bool)complete
 {
 	gtk_assistant_set_page_complete([self castedGObject], [page castedGObject], complete);
 }
 
-- (void)setPageTitleWithPage:(OGTKWidget*)page title:(OFString*)title
+- (void)setPageTitle:(OGTKWidget*)page title:(OFString*)title
 {
 	gtk_assistant_set_page_title([self castedGObject], [page castedGObject], [title UTF8String]);
 }
 
-- (void)setPageTypeWithPage:(OGTKWidget*)page type:(GtkAssistantPageType)type
+- (void)setPageType:(OGTKWidget*)page type:(GtkAssistantPageType)type
 {
 	gtk_assistant_set_page_type([self castedGObject], [page castedGObject], type);
 }

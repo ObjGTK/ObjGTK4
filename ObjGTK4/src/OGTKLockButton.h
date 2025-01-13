@@ -58,7 +58,7 @@
 /**
  * Constructors
  */
-+ (instancetype)lockButton:(OGPermission*)permission;
++ (instancetype)lockButtonWithPermission:(OGPermission*)permission;
 
 /**
  * Methods

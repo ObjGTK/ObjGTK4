@@ -25,7 +25,7 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoFontFamily, PangoFontFamily);
 }
 
-- (OGPangoFontFace*)face:(OFString*)name
+- (OGPangoFontFace*)faceWithName:(OFString*)name
 {
 	PangoFontFace* gobjectValue = pango_font_family_get_face([self castedGObject], [name UTF8String]);
 
@@ -55,7 +55,7 @@
 	return returnValue;
 }
 
-- (void)listFacesWithFaces:(PangoFontFace***)faces nfaces:(int*)nfaces
+- (void)listFaces:(PangoFontFace***)faces nfaces:(int*)nfaces
 {
 	pango_font_family_list_faces([self castedGObject], faces, nfaces);
 }

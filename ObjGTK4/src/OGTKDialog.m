@@ -84,7 +84,7 @@
 	return returnValue;
 }
 
-- (OGTKWidget*)widgetForResponse:(int)responseId
+- (OGTKWidget*)widgetForResponseWithResponseId:(int)responseId
 {
 	GtkWidget* gobjectValue = gtk_dialog_get_widget_for_response([self castedGObject], responseId);
 
@@ -92,12 +92,12 @@
 	return returnValue;
 }
 
-- (void)response:(int)responseId
+- (void)responseWithResponseId:(int)responseId
 {
 	gtk_dialog_response([self castedGObject], responseId);
 }
 
-- (void)setDefaultResponse:(int)responseId
+- (void)setDefaultResponseWithResponseId:(int)responseId
 {
 	gtk_dialog_set_default_response([self castedGObject], responseId);
 }

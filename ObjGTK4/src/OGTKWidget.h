@@ -574,7 +574,7 @@
  *   by passing the id returned from this function to
  *   [method@Gtk.Widget.remove_tick_callback]
  */
-- (guint)addTickCallbackWithCallback:(GtkTickCallback)callback userData:(gpointer)userData notify:(GDestroyNotify)notify;
+- (guint)addTickCallback:(GtkTickCallback)callback userData:(gpointer)userData notify:(GDestroyNotify)notify;
 
 /**
  * This function is only used by `GtkWidget` subclasses, to
@@ -620,7 +620,7 @@
  * @param direction direction of focus movement
  * @return %TRUE if focus ended up inside @widget
  */
-- (bool)childFocus:(GtkDirectionType)direction;
+- (bool)childFocusWithDirection:(GtkDirectionType)direction;
 
 /**
  * Computes the bounds for @widget in the coordinate space of @target.
@@ -660,7 +660,7 @@
  * @param orientation expand direction
  * @return whether widget tree rooted here should be expanded
  */
-- (bool)computeExpand:(GtkOrientation)orientation;
+- (bool)computeExpandWithOrientation:(GtkOrientation)orientation;
 
 /**
  * Translates the given @point in @widget's coordinates to coordinates
@@ -732,7 +732,7 @@
  * @param text text to set on the layout
  * @return the new `PangoLayout`
  */
-- (OGPangoLayout*)createPangoLayout:(OFString*)text;
+- (OGPangoLayout*)createPangoLayoutWithText:(OFString*)text;
 
 /**
  * Clears the template children for the given widget.
@@ -763,7 +763,7 @@
  *
  * @param widgetType the type of the widget to finalize the template for
  */
-- (void)disposeTemplate:(GType)widgetType;
+- (void)disposeTemplateWithWidgetType:(GType)widgetType;
 
 /**
  * Checks to see if a drag movement has passed the GTK drag threshold.
@@ -839,7 +839,7 @@
  *
  * @param allocation a pointer to a `GtkAllocation` to copy to
  */
-- (void)allocation:(GtkAllocation*)allocation;
+- (void)allocationWithAllocation:(GtkAllocation*)allocation;
 
 /**
  * Gets the first ancestor of @widget with type @widget_type.
@@ -855,7 +855,7 @@
  * @param widgetType ancestor type
  * @return the ancestor widget
  */
-- (OGTKWidget*)ancestor:(GType)widgetType;
+- (OGTKWidget*)ancestorWithWidgetType:(GType)widgetType;
 
 /**
  * Returns the baseline that has currently been allocated to @widget.
@@ -921,7 +921,7 @@
  *
  * @param color return location for the color
  */
-- (void)color:(GdkRGBA*)color;
+- (void)colorWithColor:(GdkRGBA*)color;
 
 /**
  * Returns the list of style classes applied to @widget.
@@ -1397,7 +1397,7 @@
  * @param orientation the orientation to query
  * @return The size of @widget in @orientation.
  */
-- (int)size:(GtkOrientation)orientation;
+- (int)sizeWithOrientation:(GtkOrientation)orientation;
 
 /**
  * Gets the size request that was explicitly set for the widget using
@@ -1794,7 +1794,7 @@
  *   if the emitting widget should try to handle the keyboard
  *   navigation attempt in its parent container(s).
  */
-- (bool)keynavFailed:(GtkDirectionType)direction;
+- (bool)keynavFailedWithDirection:(GtkDirectionType)direction;
 
 /**
  * Returns the widgets for which this widget is the target of a
@@ -1856,7 +1856,7 @@
  * @param groupCycling %TRUE if there are other widgets with the same mnemonic
  * @return %TRUE if the signal has been handled
  */
-- (bool)mnemonicActivate:(bool)groupCycling;
+- (bool)mnemonicActivateWithGroupCycling:(bool)groupCycling;
 
 /**
  * Returns a `GListModel` to track the children of @widget.
@@ -2016,7 +2016,7 @@
  *
  * @param identifier an id returned by [method@Gtk.Widget.add_tick_callback]
  */
-- (void)removeTickCallback:(guint)identifier;
+- (void)removeTickCallbackWithIdentifier:(guint)identifier;
 
 /**
  * Specifies whether the input focus can enter the widget
@@ -2261,7 +2261,7 @@
  *
  * @param set value for hexpand-set property
  */
-- (void)setHexpandSet:(bool)set;
+- (void)setHexpandSetWithSet:(bool)set;
 
 /**
  * Sets the layout manager delegate instance that provides an
@@ -2450,7 +2450,7 @@
  * @param flags State flags to turn on
  * @param clear Whether to clear state before turning on @flags
  */
-- (void)setStateFlagsWithFlags:(GtkStateFlags)flags clear:(bool)clear;
+- (void)setStateFlags:(GtkStateFlags)flags clear:(bool)clear;
 
 /**
  * Sets @markup as the contents of the tooltip, which is marked
@@ -2506,7 +2506,7 @@
  *
  * @param set value for vexpand-set property
  */
-- (void)setVexpandSet:(bool)set;
+- (void)setVexpandSetWithSet:(bool)set;
 
 /**
  * Sets the visibility state of @widget.
@@ -2577,7 +2577,7 @@
  *   calls to gtk_snapshot_translate() or other transform calls should
  *   have been made.
  */
-- (void)snapshotChildWithChild:(OGTKWidget*)child snapshot:(OGTKSnapshot*)snapshot;
+- (void)snapshotChild:(OGTKWidget*)child snapshot:(OGTKSnapshot*)snapshot;
 
 /**
  * Translate coordinates relative to @src_widget’s allocation

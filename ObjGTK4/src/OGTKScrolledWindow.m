@@ -208,7 +208,7 @@
 	gtk_scrolled_window_set_overlay_scrolling([self castedGObject], overlayScrolling);
 }
 
-- (void)setPlacement:(GtkCornerType)windowPlacement
+- (void)setPlacementWithWindowPlacement:(GtkCornerType)windowPlacement
 {
 	gtk_scrolled_window_set_placement([self castedGObject], windowPlacement);
 }

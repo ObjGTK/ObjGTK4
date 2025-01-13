@@ -107,7 +107,7 @@
 	gtk_tree_view_column_clear([self castedGObject]);
 }
 
-- (void)clearAttributes:(OGTKCellRenderer*)cellRenderer
+- (void)clearAttributesWithCellRenderer:(OGTKCellRenderer*)cellRenderer
 {
 	gtk_tree_view_column_clear_attributes([self castedGObject], [cellRenderer castedGObject]);
 }
@@ -281,7 +281,7 @@
 	gtk_tree_view_column_queue_resize([self castedGObject]);
 }
 
-- (void)setAlignment:(float)xalign
+- (void)setAlignmentWithXalign:(float)xalign
 {
 	gtk_tree_view_column_set_alignment([self castedGObject], xalign);
 }
@@ -326,7 +326,7 @@
 	gtk_tree_view_column_set_resizable([self castedGObject], resizable);
 }
 
-- (void)setSizing:(GtkTreeViewColumnSizing)type
+- (void)setSizingWithType:(GtkTreeViewColumnSizing)type
 {
 	gtk_tree_view_column_set_sizing([self castedGObject], type);
 }
@@ -336,7 +336,7 @@
 	gtk_tree_view_column_set_sort_column_id([self castedGObject], sortColumnId);
 }
 
-- (void)setSortIndicator:(bool)setting
+- (void)setSortIndicatorWithSetting:(bool)setting
 {
 	gtk_tree_view_column_set_sort_indicator([self castedGObject], setting);
 }

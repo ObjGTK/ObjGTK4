@@ -71,7 +71,7 @@
 + (instancetype)pictureForFilename:(OFString*)filename;
 + (instancetype)pictureForPaintable:(GdkPaintable*)paintable;
 + (instancetype)pictureForPixbuf:(OGdkPixbuf*)pixbuf;
-+ (instancetype)pictureForResource:(OFString*)resourcePath;
++ (instancetype)pictureForResourceWithResourcePath:(OFString*)resourcePath;
 
 /**
  * Methods
@@ -228,6 +228,6 @@
  *
  * @param resourcePath the resource to set
  */
-- (void)setResource:(OFString*)resourcePath;
+- (void)setResourceWithResourcePath:(OFString*)resourcePath;
 
 @end

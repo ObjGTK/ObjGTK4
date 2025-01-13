@@ -45,14 +45,14 @@
 	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkShortcutTrigger, GtkShortcutTrigger);
 }
 
-- (int)compare:(gconstpointer)trigger2
+- (int)compareWithTrigger2:(gconstpointer)trigger2
 {
 	int returnValue = (int)gtk_shortcut_trigger_compare([self castedGObject], trigger2);
 
 	return returnValue;
 }
 
-- (bool)equal:(gconstpointer)trigger2
+- (bool)equalWithTrigger2:(gconstpointer)trigger2
 {
 	bool returnValue = (bool)gtk_shortcut_trigger_equal([self castedGObject], trigger2);
 
@@ -66,7 +66,7 @@
 	return returnValue;
 }
 
-- (void)print:(GString*)string
+- (void)printWithString:(GString*)string
 {
 	gtk_shortcut_trigger_print([self castedGObject], string);
 }
@@ -78,19 +78,19 @@
 	return returnValue;
 }
 
-- (char*)toLabel:(OGdkDisplay*)display
+- (OFString*)toLabelWithDisplay:(OGdkDisplay*)display
 {
 	char* gobjectValue = gtk_shortcut_trigger_to_label([self castedGObject], [display castedGObject]);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
-- (char*)toString
+- (OFString*)toString
 {
 	char* gobjectValue = gtk_shortcut_trigger_to_string([self castedGObject]);
 
-	char* returnValue = gobjectValue;
+	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
 }
 
