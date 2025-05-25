@@ -12,6 +12,8 @@
 
 @implementation OGTKIMContext
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_IM_CONTEXT;
@@ -22,96 +24,105 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_IM_CONTEXT);
+	return gObjectClass;
+}
+
 - (GtkIMContext*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIMContext, GtkIMContext);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_IM_CONTEXT, GtkIMContext);
 }
 
 - (bool)activateOskWithEvent:(GdkEvent*)event
 {
-	bool returnValue = (bool)gtk_im_context_activate_osk([self castedGObject], event);
+	bool returnValue = (bool)gtk_im_context_activate_osk((GtkIMContext*)[self castedGObject], event);
 
 	return returnValue;
 }
 
 - (bool)deleteSurroundingWithOffset:(int)offset nchars:(int)nchars
 {
-	bool returnValue = (bool)gtk_im_context_delete_surrounding([self castedGObject], offset, nchars);
+	bool returnValue = (bool)gtk_im_context_delete_surrounding((GtkIMContext*)[self castedGObject], offset, nchars);
 
 	return returnValue;
 }
 
 - (bool)filterKeyWithPress:(bool)press surface:(OGdkSurface*)surface device:(OGdkDevice*)device time:(guint32)time keycode:(guint)keycode state:(GdkModifierType)state group:(int)group
 {
-	bool returnValue = (bool)gtk_im_context_filter_key([self castedGObject], press, [surface castedGObject], [device castedGObject], time, keycode, state, group);
+	bool returnValue = (bool)gtk_im_context_filter_key((GtkIMContext*)[self castedGObject], press, [surface castedGObject], [device castedGObject], time, keycode, state, group);
 
 	return returnValue;
 }
 
 - (bool)filterKeypressWithEvent:(GdkEvent*)event
 {
-	bool returnValue = (bool)gtk_im_context_filter_keypress([self castedGObject], event);
+	bool returnValue = (bool)gtk_im_context_filter_keypress((GtkIMContext*)[self castedGObject], event);
 
 	return returnValue;
 }
 
 - (void)focusIn
 {
-	gtk_im_context_focus_in([self castedGObject]);
+	gtk_im_context_focus_in((GtkIMContext*)[self castedGObject]);
 }
 
 - (void)focusOut
 {
-	gtk_im_context_focus_out([self castedGObject]);
+	gtk_im_context_focus_out((GtkIMContext*)[self castedGObject]);
 }
 
 - (void)preeditString:(char**)str attrs:(PangoAttrList**)attrs cursorPos:(int*)cursorPos
 {
-	gtk_im_context_get_preedit_string([self castedGObject], str, attrs, cursorPos);
+	gtk_im_context_get_preedit_string((GtkIMContext*)[self castedGObject], str, attrs, cursorPos);
 }
 
 - (bool)surroundingWithText:(char**)text cursorIndex:(int*)cursorIndex
 {
-	bool returnValue = (bool)gtk_im_context_get_surrounding([self castedGObject], text, cursorIndex);
+	bool returnValue = (bool)gtk_im_context_get_surrounding((GtkIMContext*)[self castedGObject], text, cursorIndex);
 
 	return returnValue;
 }
 
 - (bool)surroundingWithSelectionWithText:(char**)text cursorIndex:(int*)cursorIndex anchorIndex:(int*)anchorIndex
 {
-	bool returnValue = (bool)gtk_im_context_get_surrounding_with_selection([self castedGObject], text, cursorIndex, anchorIndex);
+	bool returnValue = (bool)gtk_im_context_get_surrounding_with_selection((GtkIMContext*)[self castedGObject], text, cursorIndex, anchorIndex);
 
 	return returnValue;
 }
 
 - (void)reset
 {
-	gtk_im_context_reset([self castedGObject]);
+	gtk_im_context_reset((GtkIMContext*)[self castedGObject]);
 }
 
 - (void)setClientWidget:(OGTKWidget*)widget
 {
-	gtk_im_context_set_client_widget([self castedGObject], [widget castedGObject]);
+	gtk_im_context_set_client_widget((GtkIMContext*)[self castedGObject], [widget castedGObject]);
 }
 
 - (void)setCursorLocationWithArea:(const GdkRectangle*)area
 {
-	gtk_im_context_set_cursor_location([self castedGObject], area);
+	gtk_im_context_set_cursor_location((GtkIMContext*)[self castedGObject], area);
 }
 
 - (void)setSurroundingWithText:(OFString*)text len:(int)len cursorIndex:(int)cursorIndex
 {
-	gtk_im_context_set_surrounding([self castedGObject], [text UTF8String], len, cursorIndex);
+	gtk_im_context_set_surrounding((GtkIMContext*)[self castedGObject], [text UTF8String], len, cursorIndex);
 }
 
 - (void)setSurroundingWithSelectionWithText:(OFString*)text len:(int)len cursorIndex:(int)cursorIndex anchorIndex:(int)anchorIndex
 {
-	gtk_im_context_set_surrounding_with_selection([self castedGObject], [text UTF8String], len, cursorIndex, anchorIndex);
+	gtk_im_context_set_surrounding_with_selection((GtkIMContext*)[self castedGObject], [text UTF8String], len, cursorIndex, anchorIndex);
 }
 
 - (void)setUsePreedit:(bool)usePreedit
 {
-	gtk_im_context_set_use_preedit([self castedGObject], usePreedit);
+	gtk_im_context_set_use_preedit((GtkIMContext*)[self castedGObject], usePreedit);
 }
 
 

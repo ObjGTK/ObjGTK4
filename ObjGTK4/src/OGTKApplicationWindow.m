@@ -12,6 +12,8 @@
 
 @implementation OGTKApplicationWindow
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_APPLICATION_WINDOW;
@@ -22,9 +24,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_APPLICATION_WINDOW);
+	return gObjectClass;
+}
+
 + (instancetype)applicationWindowWithApplication:(OGTKApplication*)application
 {
-	GtkApplicationWindow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_application_window_new([application castedGObject]), GtkApplicationWindow, GtkApplicationWindow);
+	GtkApplicationWindow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_application_window_new([application castedGObject]), GTK_TYPE_APPLICATION_WINDOW, GtkApplicationWindow);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -47,12 +58,12 @@
 
 - (GtkApplicationWindow*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkApplicationWindow, GtkApplicationWindow);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_APPLICATION_WINDOW, GtkApplicationWindow);
 }
 
 - (OGTKShortcutsWindow*)helpOverlay
 {
-	GtkShortcutsWindow* gobjectValue = gtk_application_window_get_help_overlay([self castedGObject]);
+	GtkShortcutsWindow* gobjectValue = gtk_application_window_get_help_overlay((GtkApplicationWindow*)[self castedGObject]);
 
 	OGTKShortcutsWindow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -60,26 +71,26 @@
 
 - (guint)id
 {
-	guint returnValue = (guint)gtk_application_window_get_id([self castedGObject]);
+	guint returnValue = (guint)gtk_application_window_get_id((GtkApplicationWindow*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showMenubar
 {
-	bool returnValue = (bool)gtk_application_window_get_show_menubar([self castedGObject]);
+	bool returnValue = (bool)gtk_application_window_get_show_menubar((GtkApplicationWindow*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setHelpOverlay:(OGTKShortcutsWindow*)helpOverlay
 {
-	gtk_application_window_set_help_overlay([self castedGObject], [helpOverlay castedGObject]);
+	gtk_application_window_set_help_overlay((GtkApplicationWindow*)[self castedGObject], [helpOverlay castedGObject]);
 }
 
 - (void)setShowMenubar:(bool)showMenubar
 {
-	gtk_application_window_set_show_menubar([self castedGObject], showMenubar);
+	gtk_application_window_set_show_menubar((GtkApplicationWindow*)[self castedGObject], showMenubar);
 }
 
 

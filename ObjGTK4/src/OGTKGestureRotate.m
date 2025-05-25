@@ -8,6 +8,8 @@
 
 @implementation OGTKGestureRotate
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_GESTURE_ROTATE;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_GESTURE_ROTATE);
+	return gObjectClass;
+}
+
 + (instancetype)gestureRotate
 {
-	GtkGestureRotate* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_rotate_new(), GtkGestureRotate, GtkGestureRotate);
+	GtkGestureRotate* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_rotate_new(), GTK_TYPE_GESTURE_ROTATE, GtkGestureRotate);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkGestureRotate*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureRotate, GtkGestureRotate);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_GESTURE_ROTATE, GtkGestureRotate);
 }
 
 - (double)angleDelta
 {
-	double returnValue = (double)gtk_gesture_rotate_get_angle_delta([self castedGObject]);
+	double returnValue = (double)gtk_gesture_rotate_get_angle_delta((GtkGestureRotate*)[self castedGObject]);
 
 	return returnValue;
 }

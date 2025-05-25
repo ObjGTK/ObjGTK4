@@ -10,6 +10,8 @@
 
 @implementation OGTKGestureDrag
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_GESTURE_DRAG;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_GESTURE_DRAG);
+	return gObjectClass;
+}
+
 + (instancetype)gestureDrag
 {
-	GtkGestureDrag* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_drag_new(), GtkGestureDrag, GtkGestureDrag);
+	GtkGestureDrag* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_drag_new(), GTK_TYPE_GESTURE_DRAG, GtkGestureDrag);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,19 +53,19 @@
 
 - (GtkGestureDrag*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureDrag, GtkGestureDrag);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_GESTURE_DRAG, GtkGestureDrag);
 }
 
 - (bool)offsetWithX:(double*)x y:(double*)y
 {
-	bool returnValue = (bool)gtk_gesture_drag_get_offset([self castedGObject], x, y);
+	bool returnValue = (bool)gtk_gesture_drag_get_offset((GtkGestureDrag*)[self castedGObject], x, y);
 
 	return returnValue;
 }
 
 - (bool)startPointWithX:(double*)x y:(double*)y
 {
-	bool returnValue = (bool)gtk_gesture_drag_get_start_point([self castedGObject], x, y);
+	bool returnValue = (bool)gtk_gesture_drag_get_start_point((GtkGestureDrag*)[self castedGObject], x, y);
 
 	return returnValue;
 }

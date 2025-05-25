@@ -10,6 +10,8 @@
 
 @implementation OGTKStackSwitcher
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_STACK_SWITCHER;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_STACK_SWITCHER);
+	return gObjectClass;
+}
+
 + (instancetype)stackSwitcher
 {
-	GtkStackSwitcher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_stack_switcher_new(), GtkStackSwitcher, GtkStackSwitcher);
+	GtkStackSwitcher* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_stack_switcher_new(), GTK_TYPE_STACK_SWITCHER, GtkStackSwitcher);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,12 +56,12 @@
 
 - (GtkStackSwitcher*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStackSwitcher, GtkStackSwitcher);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_STACK_SWITCHER, GtkStackSwitcher);
 }
 
 - (OGTKStack*)stack
 {
-	GtkStack* gobjectValue = gtk_stack_switcher_get_stack([self castedGObject]);
+	GtkStack* gobjectValue = gtk_stack_switcher_get_stack((GtkStackSwitcher*)[self castedGObject]);
 
 	OGTKStack* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,7 +69,7 @@
 
 - (void)setStack:(OGTKStack*)stack
 {
-	gtk_stack_switcher_set_stack([self castedGObject], [stack castedGObject]);
+	gtk_stack_switcher_set_stack((GtkStackSwitcher*)[self castedGObject], [stack castedGObject]);
 }
 
 

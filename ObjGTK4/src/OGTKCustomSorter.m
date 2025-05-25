@@ -8,6 +8,8 @@
 
 @implementation OGTKCustomSorter
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CUSTOM_SORTER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CUSTOM_SORTER);
+	return gObjectClass;
+}
+
 + (instancetype)customSorterWithSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
 {
-	GtkCustomSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_custom_sorter_new(sortFunc, userData, userDestroy), GtkCustomSorter, GtkCustomSorter);
+	GtkCustomSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_custom_sorter_new(sortFunc, userData, userDestroy), GTK_TYPE_CUSTOM_SORTER, GtkCustomSorter);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkCustomSorter*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCustomSorter, GtkCustomSorter);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CUSTOM_SORTER, GtkCustomSorter);
 }
 
 - (void)setSortFunc:(GCompareDataFunc)sortFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
 {
-	gtk_custom_sorter_set_sort_func([self castedGObject], sortFunc, userData, userDestroy);
+	gtk_custom_sorter_set_sort_func((GtkCustomSorter*)[self castedGObject], sortFunc, userData, userDestroy);
 }
 
 

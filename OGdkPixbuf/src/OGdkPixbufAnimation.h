@@ -35,10 +35,11 @@
 }
 
 /**
- * Functions
+ * Functions and class methods
  */
 + (void)load;
 
++ (GTypeClass*)gObjectClass;
 
 /**
  * Creates a new animation by asynchronously loading an image from an input stream.

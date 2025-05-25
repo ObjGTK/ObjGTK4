@@ -28,10 +28,11 @@
 }
 
 /**
- * Functions
+ * Functions and class methods
  */
 + (void)load;
 
++ (GTypeClass*)gObjectClass;
 
 /**
  * Creates a widget that can be used as a drag icon for the given

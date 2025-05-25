@@ -8,6 +8,8 @@
 
 @implementation OGTKFlattenListModel
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FLATTEN_LIST_MODEL;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FLATTEN_LIST_MODEL);
+	return gObjectClass;
+}
+
 + (instancetype)flattenListModelWithModel:(GListModel*)model
 {
-	GtkFlattenListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_flatten_list_model_new(model), GtkFlattenListModel, GtkFlattenListModel);
+	GtkFlattenListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_flatten_list_model_new(model), GTK_TYPE_FLATTEN_LIST_MODEL, GtkFlattenListModel);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,26 +51,26 @@
 
 - (GtkFlattenListModel*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFlattenListModel, GtkFlattenListModel);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FLATTEN_LIST_MODEL, GtkFlattenListModel);
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = (GListModel*)gtk_flatten_list_model_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_flatten_list_model_get_model((GtkFlattenListModel*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)modelForItemWithPosition:(guint)position
 {
-	GListModel* returnValue = (GListModel*)gtk_flatten_list_model_get_model_for_item([self castedGObject], position);
+	GListModel* returnValue = (GListModel*)gtk_flatten_list_model_get_model_for_item((GtkFlattenListModel*)[self castedGObject], position);
 
 	return returnValue;
 }
 
 - (void)setModel:(GListModel*)model
 {
-	gtk_flatten_list_model_set_model([self castedGObject], model);
+	gtk_flatten_list_model_set_model((GtkFlattenListModel*)[self castedGObject], model);
 }
 
 

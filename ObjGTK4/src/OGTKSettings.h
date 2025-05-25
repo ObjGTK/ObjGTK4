@@ -47,10 +47,11 @@
 }
 
 /**
- * Functions
+ * Functions and class methods
  */
 + (void)load;
 
++ (GTypeClass*)gObjectClass;
 
 /**
  * Gets the `GtkSettings` object for the default display, creating

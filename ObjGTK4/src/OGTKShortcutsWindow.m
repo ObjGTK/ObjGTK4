@@ -10,6 +10,8 @@
 
 @implementation OGTKShortcutsWindow
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SHORTCUTS_WINDOW;
@@ -20,14 +22,23 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SHORTCUTS_WINDOW);
+	return gObjectClass;
+}
+
 - (GtkShortcutsWindow*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkShortcutsWindow, GtkShortcutsWindow);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SHORTCUTS_WINDOW, GtkShortcutsWindow);
 }
 
 - (void)addSection:(OGTKShortcutsSection*)section
 {
-	gtk_shortcuts_window_add_section([self castedGObject], [section castedGObject]);
+	gtk_shortcuts_window_add_section((GtkShortcutsWindow*)[self castedGObject], [section castedGObject]);
 }
 
 

@@ -11,6 +11,8 @@
 
 @implementation OGTKLockButton
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_LOCK_BUTTON;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_LOCK_BUTTON);
+	return gObjectClass;
+}
+
 + (instancetype)lockButtonWithPermission:(OGPermission*)permission
 {
-	GtkLockButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_lock_button_new([permission castedGObject]), GtkLockButton, GtkLockButton);
+	GtkLockButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_lock_button_new([permission castedGObject]), GTK_TYPE_LOCK_BUTTON, GtkLockButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -46,12 +57,12 @@
 
 - (GtkLockButton*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkLockButton, GtkLockButton);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_LOCK_BUTTON, GtkLockButton);
 }
 
 - (OGPermission*)permission
 {
-	GPermission* gobjectValue = gtk_lock_button_get_permission([self castedGObject]);
+	GPermission* gobjectValue = gtk_lock_button_get_permission((GtkLockButton*)[self castedGObject]);
 
 	OGPermission* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -59,7 +70,7 @@
 
 - (void)setPermission:(OGPermission*)permission
 {
-	gtk_lock_button_set_permission([self castedGObject], [permission castedGObject]);
+	gtk_lock_button_set_permission((GtkLockButton*)[self castedGObject], [permission castedGObject]);
 }
 
 

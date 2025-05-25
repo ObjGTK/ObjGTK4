@@ -10,6 +10,8 @@
 
 @implementation OGTKComboBox
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_COMBO_BOX;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_COMBO_BOX);
+	return gObjectClass;
+}
+
 + (instancetype)comboBox
 {
-	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new(), GtkComboBox, GtkComboBox);
+	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new(), GTK_TYPE_COMBO_BOX, GtkComboBox);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 + (instancetype)comboBoxWithEntry
 {
-	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new_with_entry(), GtkComboBox, GtkComboBox);
+	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new_with_entry(), GTK_TYPE_COMBO_BOX, GtkComboBox);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -68,7 +79,7 @@
 
 + (instancetype)comboBoxWithModel:(GtkTreeModel*)model
 {
-	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new_with_model(model), GtkComboBox, GtkComboBox);
+	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new_with_model(model), GTK_TYPE_COMBO_BOX, GtkComboBox);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -91,7 +102,7 @@
 
 + (instancetype)comboBoxWithModelAndEntry:(GtkTreeModel*)model
 {
-	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new_with_model_and_entry(model), GtkComboBox, GtkComboBox);
+	GtkComboBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_combo_box_new_with_model_and_entry(model), GTK_TYPE_COMBO_BOX, GtkComboBox);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -114,19 +125,19 @@
 
 - (GtkComboBox*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkComboBox, GtkComboBox);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_COMBO_BOX, GtkComboBox);
 }
 
 - (int)active
 {
-	int returnValue = (int)gtk_combo_box_get_active([self castedGObject]);
+	int returnValue = (int)gtk_combo_box_get_active((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)activeId
 {
-	const char* gobjectValue = gtk_combo_box_get_active_id([self castedGObject]);
+	const char* gobjectValue = gtk_combo_box_get_active_id((GtkComboBox*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -134,21 +145,21 @@
 
 - (bool)activeIter:(GtkTreeIter*)iter
 {
-	bool returnValue = (bool)gtk_combo_box_get_active_iter([self castedGObject], iter);
+	bool returnValue = (bool)gtk_combo_box_get_active_iter((GtkComboBox*)[self castedGObject], iter);
 
 	return returnValue;
 }
 
 - (GtkSensitivityType)buttonSensitivity
 {
-	GtkSensitivityType returnValue = (GtkSensitivityType)gtk_combo_box_get_button_sensitivity([self castedGObject]);
+	GtkSensitivityType returnValue = (GtkSensitivityType)gtk_combo_box_get_button_sensitivity((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_combo_box_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_combo_box_get_child((GtkComboBox*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -156,111 +167,111 @@
 
 - (int)entryTextColumn
 {
-	int returnValue = (int)gtk_combo_box_get_entry_text_column([self castedGObject]);
+	int returnValue = (int)gtk_combo_box_get_entry_text_column((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasEntry
 {
-	bool returnValue = (bool)gtk_combo_box_get_has_entry([self castedGObject]);
+	bool returnValue = (bool)gtk_combo_box_get_has_entry((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)idColumn
 {
-	int returnValue = (int)gtk_combo_box_get_id_column([self castedGObject]);
+	int returnValue = (int)gtk_combo_box_get_id_column((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeModel*)model
 {
-	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_combo_box_get_model([self castedGObject]);
+	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_combo_box_get_model((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)popupFixedWidth
 {
-	bool returnValue = (bool)gtk_combo_box_get_popup_fixed_width([self castedGObject]);
+	bool returnValue = (bool)gtk_combo_box_get_popup_fixed_width((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeViewRowSeparatorFunc)rowSeparatorFunc
 {
-	GtkTreeViewRowSeparatorFunc returnValue = (GtkTreeViewRowSeparatorFunc)gtk_combo_box_get_row_separator_func([self castedGObject]);
+	GtkTreeViewRowSeparatorFunc returnValue = (GtkTreeViewRowSeparatorFunc)gtk_combo_box_get_row_separator_func((GtkComboBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)popdown
 {
-	gtk_combo_box_popdown([self castedGObject]);
+	gtk_combo_box_popdown((GtkComboBox*)[self castedGObject]);
 }
 
 - (void)popup
 {
-	gtk_combo_box_popup([self castedGObject]);
+	gtk_combo_box_popup((GtkComboBox*)[self castedGObject]);
 }
 
 - (void)popupForDevice:(OGdkDevice*)device
 {
-	gtk_combo_box_popup_for_device([self castedGObject], [device castedGObject]);
+	gtk_combo_box_popup_for_device((GtkComboBox*)[self castedGObject], [device castedGObject]);
 }
 
 - (void)setActiveWithIndex:(int)index
 {
-	gtk_combo_box_set_active([self castedGObject], index);
+	gtk_combo_box_set_active((GtkComboBox*)[self castedGObject], index);
 }
 
 - (bool)setActiveId:(OFString*)activeId
 {
-	bool returnValue = (bool)gtk_combo_box_set_active_id([self castedGObject], [activeId UTF8String]);
+	bool returnValue = (bool)gtk_combo_box_set_active_id((GtkComboBox*)[self castedGObject], [activeId UTF8String]);
 
 	return returnValue;
 }
 
 - (void)setActiveIter:(GtkTreeIter*)iter
 {
-	gtk_combo_box_set_active_iter([self castedGObject], iter);
+	gtk_combo_box_set_active_iter((GtkComboBox*)[self castedGObject], iter);
 }
 
 - (void)setButtonSensitivity:(GtkSensitivityType)sensitivity
 {
-	gtk_combo_box_set_button_sensitivity([self castedGObject], sensitivity);
+	gtk_combo_box_set_button_sensitivity((GtkComboBox*)[self castedGObject], sensitivity);
 }
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_combo_box_set_child([self castedGObject], [child castedGObject]);
+	gtk_combo_box_set_child((GtkComboBox*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setEntryTextColumn:(int)textColumn
 {
-	gtk_combo_box_set_entry_text_column([self castedGObject], textColumn);
+	gtk_combo_box_set_entry_text_column((GtkComboBox*)[self castedGObject], textColumn);
 }
 
 - (void)setIdColumn:(int)idColumn
 {
-	gtk_combo_box_set_id_column([self castedGObject], idColumn);
+	gtk_combo_box_set_id_column((GtkComboBox*)[self castedGObject], idColumn);
 }
 
 - (void)setModel:(GtkTreeModel*)model
 {
-	gtk_combo_box_set_model([self castedGObject], model);
+	gtk_combo_box_set_model((GtkComboBox*)[self castedGObject], model);
 }
 
 - (void)setPopupFixedWidth:(bool)fixed
 {
-	gtk_combo_box_set_popup_fixed_width([self castedGObject], fixed);
+	gtk_combo_box_set_popup_fixed_width((GtkComboBox*)[self castedGObject], fixed);
 }
 
 - (void)setRowSeparatorFunc:(GtkTreeViewRowSeparatorFunc)func data:(gpointer)data destroy:(GDestroyNotify)destroy
 {
-	gtk_combo_box_set_row_separator_func([self castedGObject], func, data, destroy);
+	gtk_combo_box_set_row_separator_func((GtkComboBox*)[self castedGObject], func, data, destroy);
 }
 
 

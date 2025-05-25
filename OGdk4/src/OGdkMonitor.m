@@ -10,6 +10,8 @@
 
 @implementation OGdkMonitor
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GDK_TYPE_MONITOR;
@@ -20,14 +22,23 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GDK_TYPE_MONITOR);
+	return gObjectClass;
+}
+
 - (GdkMonitor*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkMonitor, GdkMonitor);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GDK_TYPE_MONITOR, GdkMonitor);
 }
 
 - (OFString*)connector
 {
-	const char* gobjectValue = gdk_monitor_get_connector([self castedGObject]);
+	const char* gobjectValue = gdk_monitor_get_connector((GdkMonitor*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -35,7 +46,7 @@
 
 - (OFString*)description
 {
-	const char* gobjectValue = gdk_monitor_get_description([self castedGObject]);
+	const char* gobjectValue = gdk_monitor_get_description((GdkMonitor*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -43,7 +54,7 @@
 
 - (OGdkDisplay*)display
 {
-	GdkDisplay* gobjectValue = gdk_monitor_get_display([self castedGObject]);
+	GdkDisplay* gobjectValue = gdk_monitor_get_display((GdkMonitor*)[self castedGObject]);
 
 	OGdkDisplay* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -51,19 +62,19 @@
 
 - (void)geometryWithGeometry:(GdkRectangle*)geometry
 {
-	gdk_monitor_get_geometry([self castedGObject], geometry);
+	gdk_monitor_get_geometry((GdkMonitor*)[self castedGObject], geometry);
 }
 
 - (int)heightMm
 {
-	int returnValue = (int)gdk_monitor_get_height_mm([self castedGObject]);
+	int returnValue = (int)gdk_monitor_get_height_mm((GdkMonitor*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)manufacturer
 {
-	const char* gobjectValue = gdk_monitor_get_manufacturer([self castedGObject]);
+	const char* gobjectValue = gdk_monitor_get_manufacturer((GdkMonitor*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -71,7 +82,7 @@
 
 - (OFString*)model
 {
-	const char* gobjectValue = gdk_monitor_get_model([self castedGObject]);
+	const char* gobjectValue = gdk_monitor_get_model((GdkMonitor*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -79,42 +90,42 @@
 
 - (int)refreshRate
 {
-	int returnValue = (int)gdk_monitor_get_refresh_rate([self castedGObject]);
+	int returnValue = (int)gdk_monitor_get_refresh_rate((GdkMonitor*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)scale
 {
-	double returnValue = (double)gdk_monitor_get_scale([self castedGObject]);
+	double returnValue = (double)gdk_monitor_get_scale((GdkMonitor*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)scaleFactor
 {
-	int returnValue = (int)gdk_monitor_get_scale_factor([self castedGObject]);
+	int returnValue = (int)gdk_monitor_get_scale_factor((GdkMonitor*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkSubpixelLayout)subpixelLayout
 {
-	GdkSubpixelLayout returnValue = (GdkSubpixelLayout)gdk_monitor_get_subpixel_layout([self castedGObject]);
+	GdkSubpixelLayout returnValue = (GdkSubpixelLayout)gdk_monitor_get_subpixel_layout((GdkMonitor*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)widthMm
 {
-	int returnValue = (int)gdk_monitor_get_width_mm([self castedGObject]);
+	int returnValue = (int)gdk_monitor_get_width_mm((GdkMonitor*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isValid
 {
-	bool returnValue = (bool)gdk_monitor_is_valid([self castedGObject]);
+	bool returnValue = (bool)gdk_monitor_is_valid((GdkMonitor*)[self castedGObject]);
 
 	return returnValue;
 }

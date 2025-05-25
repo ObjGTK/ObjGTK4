@@ -8,6 +8,8 @@
 
 @implementation OGTKBuilder
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_BUILDER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_BUILDER);
+	return gObjectClass;
+}
+
 + (instancetype)builder
 {
-	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new(), GtkBuilder, GtkBuilder);
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new(), GTK_TYPE_BUILDER, GtkBuilder);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 + (instancetype)builderFromFileWithFilename:(OFString*)filename
 {
-	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_file([filename UTF8String]), GtkBuilder, GtkBuilder);
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_file([filename UTF8String]), GTK_TYPE_BUILDER, GtkBuilder);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -60,7 +71,7 @@
 
 + (instancetype)builderFromResourceWithResourcePath:(OFString*)resourcePath
 {
-	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_resource([resourcePath UTF8String]), GtkBuilder, GtkBuilder);
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_resource([resourcePath UTF8String]), GTK_TYPE_BUILDER, GtkBuilder);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -80,7 +91,7 @@
 
 + (instancetype)builderFromString:(OFString*)string length:(gssize)length
 {
-	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_string([string UTF8String], length), GtkBuilder, GtkBuilder);
+	GtkBuilder* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_new_from_string([string UTF8String], length), GTK_TYPE_BUILDER, GtkBuilder);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -100,14 +111,14 @@
 
 - (GtkBuilder*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBuilder, GtkBuilder);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_BUILDER, GtkBuilder);
 }
 
 - (bool)addFromFileWithFilename:(OFString*)filename
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_add_from_file([self castedGObject], [filename UTF8String], &err);
+	bool returnValue = (bool)gtk_builder_add_from_file((GtkBuilder*)[self castedGObject], [filename UTF8String], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -118,7 +129,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_add_from_resource([self castedGObject], [resourcePath UTF8String], &err);
+	bool returnValue = (bool)gtk_builder_add_from_resource((GtkBuilder*)[self castedGObject], [resourcePath UTF8String], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -129,7 +140,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_add_from_string([self castedGObject], [buffer UTF8String], length, &err);
+	bool returnValue = (bool)gtk_builder_add_from_string((GtkBuilder*)[self castedGObject], [buffer UTF8String], length, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -140,7 +151,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_add_objects_from_file([self castedGObject], [filename UTF8String], objectIds, &err);
+	bool returnValue = (bool)gtk_builder_add_objects_from_file((GtkBuilder*)[self castedGObject], [filename UTF8String], objectIds, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -151,7 +162,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_add_objects_from_resource([self castedGObject], [resourcePath UTF8String], objectIds, &err);
+	bool returnValue = (bool)gtk_builder_add_objects_from_resource((GtkBuilder*)[self castedGObject], [resourcePath UTF8String], objectIds, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -162,7 +173,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_add_objects_from_string([self castedGObject], [buffer UTF8String], length, objectIds, &err);
+	bool returnValue = (bool)gtk_builder_add_objects_from_string((GtkBuilder*)[self castedGObject], [buffer UTF8String], length, objectIds, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -173,7 +184,7 @@
 {
 	GError* err = NULL;
 
-	GClosure* returnValue = (GClosure*)gtk_builder_create_closure([self castedGObject], [functionName UTF8String], flags, [object gObject], &err);
+	GClosure* returnValue = (GClosure*)gtk_builder_create_closure((GtkBuilder*)[self castedGObject], [functionName UTF8String], flags, [object gObject], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -182,14 +193,14 @@
 
 - (void)exposeObjectWithName:(OFString*)name object:(OGObject*)object
 {
-	gtk_builder_expose_object([self castedGObject], [name UTF8String], [object gObject]);
+	gtk_builder_expose_object((GtkBuilder*)[self castedGObject], [name UTF8String], [object gObject]);
 }
 
 - (bool)extendWithTemplateWithObject:(OGObject*)object templateType:(GType)templateType buffer:(OFString*)buffer length:(gssize)length
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_extend_with_template([self castedGObject], [object gObject], templateType, [buffer UTF8String], length, &err);
+	bool returnValue = (bool)gtk_builder_extend_with_template((GtkBuilder*)[self castedGObject], [object gObject], templateType, [buffer UTF8String], length, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -198,7 +209,7 @@
 
 - (OGObject*)currentObject
 {
-	GObject* gobjectValue = gtk_builder_get_current_object([self castedGObject]);
+	GObject* gobjectValue = gtk_builder_get_current_object((GtkBuilder*)[self castedGObject]);
 
 	OGObject* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -206,7 +217,7 @@
 
 - (OGObject*)objectWithName:(OFString*)name
 {
-	GObject* gobjectValue = gtk_builder_get_object([self castedGObject], [name UTF8String]);
+	GObject* gobjectValue = gtk_builder_get_object((GtkBuilder*)[self castedGObject], [name UTF8String]);
 
 	OGObject* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -214,21 +225,21 @@
 
 - (GSList*)objects
 {
-	GSList* returnValue = (GSList*)gtk_builder_get_objects([self castedGObject]);
+	GSList* returnValue = (GSList*)gtk_builder_get_objects((GtkBuilder*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkBuilderScope*)scope
 {
-	GtkBuilderScope* returnValue = (GtkBuilderScope*)gtk_builder_get_scope([self castedGObject]);
+	GtkBuilderScope* returnValue = (GtkBuilderScope*)gtk_builder_get_scope((GtkBuilder*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)translationDomain
 {
-	const char* gobjectValue = gtk_builder_get_translation_domain([self castedGObject]);
+	const char* gobjectValue = gtk_builder_get_translation_domain((GtkBuilder*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -236,31 +247,31 @@
 
 - (GType)typeFromNameWithTypeName:(OFString*)typeName
 {
-	GType returnValue = (GType)gtk_builder_get_type_from_name([self castedGObject], [typeName UTF8String]);
+	GType returnValue = (GType)gtk_builder_get_type_from_name((GtkBuilder*)[self castedGObject], [typeName UTF8String]);
 
 	return returnValue;
 }
 
 - (void)setCurrentObject:(OGObject*)currentObject
 {
-	gtk_builder_set_current_object([self castedGObject], [currentObject gObject]);
+	gtk_builder_set_current_object((GtkBuilder*)[self castedGObject], [currentObject gObject]);
 }
 
 - (void)setScope:(GtkBuilderScope*)scope
 {
-	gtk_builder_set_scope([self castedGObject], scope);
+	gtk_builder_set_scope((GtkBuilder*)[self castedGObject], scope);
 }
 
 - (void)setTranslationDomain:(OFString*)domain
 {
-	gtk_builder_set_translation_domain([self castedGObject], [domain UTF8String]);
+	gtk_builder_set_translation_domain((GtkBuilder*)[self castedGObject], [domain UTF8String]);
 }
 
 - (bool)valueFromStringWithPspec:(GParamSpec*)pspec string:(OFString*)string value:(GValue*)value
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_value_from_string([self castedGObject], pspec, [string UTF8String], value, &err);
+	bool returnValue = (bool)gtk_builder_value_from_string((GtkBuilder*)[self castedGObject], pspec, [string UTF8String], value, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -271,7 +282,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_builder_value_from_string_type([self castedGObject], type, [string UTF8String], value, &err);
+	bool returnValue = (bool)gtk_builder_value_from_string_type((GtkBuilder*)[self castedGObject], type, [string UTF8String], value, &err);
 
 	[OGErrorException throwForError:err];
 

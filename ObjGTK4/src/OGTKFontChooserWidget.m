@@ -8,6 +8,8 @@
 
 @implementation OGTKFontChooserWidget
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FONT_CHOOSER_WIDGET;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FONT_CHOOSER_WIDGET);
+	return gObjectClass;
+}
+
 + (instancetype)fontChooserWidget
 {
-	GtkFontChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_font_chooser_widget_new(), GtkFontChooserWidget, GtkFontChooserWidget);
+	GtkFontChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_font_chooser_widget_new(), GTK_TYPE_FONT_CHOOSER_WIDGET, GtkFontChooserWidget);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 - (GtkFontChooserWidget*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFontChooserWidget, GtkFontChooserWidget);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FONT_CHOOSER_WIDGET, GtkFontChooserWidget);
 }
 
 

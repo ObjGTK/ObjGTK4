@@ -8,6 +8,8 @@
 
 @implementation OGTKStringFilter
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_STRING_FILTER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_STRING_FILTER);
+	return gObjectClass;
+}
+
 + (instancetype)stringFilterWithExpression:(GtkExpression*)expression
 {
-	GtkStringFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_filter_new(expression), GtkStringFilter, GtkStringFilter);
+	GtkStringFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_filter_new(expression), GTK_TYPE_STRING_FILTER, GtkStringFilter);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,33 +51,33 @@
 
 - (GtkStringFilter*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStringFilter, GtkStringFilter);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_STRING_FILTER, GtkStringFilter);
 }
 
 - (GtkExpression*)expression
 {
-	GtkExpression* returnValue = (GtkExpression*)gtk_string_filter_get_expression([self castedGObject]);
+	GtkExpression* returnValue = (GtkExpression*)gtk_string_filter_get_expression((GtkStringFilter*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)ignoreCase
 {
-	bool returnValue = (bool)gtk_string_filter_get_ignore_case([self castedGObject]);
+	bool returnValue = (bool)gtk_string_filter_get_ignore_case((GtkStringFilter*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStringFilterMatchMode)matchMode
 {
-	GtkStringFilterMatchMode returnValue = (GtkStringFilterMatchMode)gtk_string_filter_get_match_mode([self castedGObject]);
+	GtkStringFilterMatchMode returnValue = (GtkStringFilterMatchMode)gtk_string_filter_get_match_mode((GtkStringFilter*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)search
 {
-	const char* gobjectValue = gtk_string_filter_get_search([self castedGObject]);
+	const char* gobjectValue = gtk_string_filter_get_search((GtkStringFilter*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -74,22 +85,22 @@
 
 - (void)setExpression:(GtkExpression*)expression
 {
-	gtk_string_filter_set_expression([self castedGObject], expression);
+	gtk_string_filter_set_expression((GtkStringFilter*)[self castedGObject], expression);
 }
 
 - (void)setIgnoreCase:(bool)ignoreCase
 {
-	gtk_string_filter_set_ignore_case([self castedGObject], ignoreCase);
+	gtk_string_filter_set_ignore_case((GtkStringFilter*)[self castedGObject], ignoreCase);
 }
 
 - (void)setMatchMode:(GtkStringFilterMatchMode)mode
 {
-	gtk_string_filter_set_match_mode([self castedGObject], mode);
+	gtk_string_filter_set_match_mode((GtkStringFilter*)[self castedGObject], mode);
 }
 
 - (void)setSearch:(OFString*)search
 {
-	gtk_string_filter_set_search([self castedGObject], [search UTF8String]);
+	gtk_string_filter_set_search((GtkStringFilter*)[self castedGObject], [search UTF8String]);
 }
 
 

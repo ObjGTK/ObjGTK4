@@ -8,6 +8,8 @@
 
 @implementation OGTKGraphicsOffload
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_GRAPHICS_OFFLOAD;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_GRAPHICS_OFFLOAD);
+	return gObjectClass;
+}
+
 + (instancetype)graphicsOffloadWithChild:(OGTKWidget*)child
 {
-	GtkGraphicsOffload* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_graphics_offload_new([child castedGObject]), GtkGraphicsOffload, GtkGraphicsOffload);
+	GtkGraphicsOffload* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_graphics_offload_new([child castedGObject]), GTK_TYPE_GRAPHICS_OFFLOAD, GtkGraphicsOffload);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkGraphicsOffload*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGraphicsOffload, GtkGraphicsOffload);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_GRAPHICS_OFFLOAD, GtkGraphicsOffload);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_graphics_offload_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_graphics_offload_get_child((GtkGraphicsOffload*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -56,19 +67,19 @@
 
 - (GtkGraphicsOffloadEnabled)enabled
 {
-	GtkGraphicsOffloadEnabled returnValue = (GtkGraphicsOffloadEnabled)gtk_graphics_offload_get_enabled([self castedGObject]);
+	GtkGraphicsOffloadEnabled returnValue = (GtkGraphicsOffloadEnabled)gtk_graphics_offload_get_enabled((GtkGraphicsOffload*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_graphics_offload_set_child([self castedGObject], [child castedGObject]);
+	gtk_graphics_offload_set_child((GtkGraphicsOffload*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setEnabled:(GtkGraphicsOffloadEnabled)enabled
 {
-	gtk_graphics_offload_set_enabled([self castedGObject], enabled);
+	gtk_graphics_offload_set_enabled((GtkGraphicsOffload*)[self castedGObject], enabled);
 }
 
 

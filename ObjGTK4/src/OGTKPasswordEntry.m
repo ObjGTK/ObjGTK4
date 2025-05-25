@@ -10,6 +10,8 @@
 
 @implementation OGTKPasswordEntry
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_PASSWORD_ENTRY;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_PASSWORD_ENTRY);
+	return gObjectClass;
+}
+
 + (instancetype)passwordEntry
 {
-	GtkPasswordEntry* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_password_entry_new(), GtkPasswordEntry, GtkPasswordEntry);
+	GtkPasswordEntry* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_password_entry_new(), GTK_TYPE_PASSWORD_ENTRY, GtkPasswordEntry);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,12 +56,12 @@
 
 - (GtkPasswordEntry*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPasswordEntry, GtkPasswordEntry);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_PASSWORD_ENTRY, GtkPasswordEntry);
 }
 
 - (OGMenuModel*)extraMenu
 {
-	GMenuModel* gobjectValue = gtk_password_entry_get_extra_menu([self castedGObject]);
+	GMenuModel* gobjectValue = gtk_password_entry_get_extra_menu((GtkPasswordEntry*)[self castedGObject]);
 
 	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,19 +69,19 @@
 
 - (bool)showPeekIcon
 {
-	bool returnValue = (bool)gtk_password_entry_get_show_peek_icon([self castedGObject]);
+	bool returnValue = (bool)gtk_password_entry_get_show_peek_icon((GtkPasswordEntry*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setExtraMenuWithModel:(OGMenuModel*)model
 {
-	gtk_password_entry_set_extra_menu([self castedGObject], [model castedGObject]);
+	gtk_password_entry_set_extra_menu((GtkPasswordEntry*)[self castedGObject], [model castedGObject]);
 }
 
 - (void)setShowPeekIcon:(bool)showPeekIcon
 {
-	gtk_password_entry_set_show_peek_icon([self castedGObject], showPeekIcon);
+	gtk_password_entry_set_show_peek_icon((GtkPasswordEntry*)[self castedGObject], showPeekIcon);
 }
 
 

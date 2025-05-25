@@ -8,6 +8,8 @@
 
 @implementation OGTKBinLayout
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_BIN_LAYOUT;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_BIN_LAYOUT);
+	return gObjectClass;
+}
+
 + (instancetype)binLayout
 {
-	GtkBinLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bin_layout_new(), GtkBinLayout, GtkBinLayout);
+	GtkBinLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_bin_layout_new(), GTK_TYPE_BIN_LAYOUT, GtkBinLayout);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkBinLayout*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBinLayout, GtkBinLayout);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_BIN_LAYOUT, GtkBinLayout);
 }
 
 

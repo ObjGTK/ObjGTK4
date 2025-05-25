@@ -8,6 +8,8 @@
 
 @implementation OGTKOverlayLayout
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_OVERLAY_LAYOUT;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_OVERLAY_LAYOUT);
+	return gObjectClass;
+}
+
 + (instancetype)overlayLayout
 {
-	GtkOverlayLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_overlay_layout_new(), GtkOverlayLayout, GtkOverlayLayout);
+	GtkOverlayLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_overlay_layout_new(), GTK_TYPE_OVERLAY_LAYOUT, GtkOverlayLayout);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkOverlayLayout*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkOverlayLayout, GtkOverlayLayout);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_OVERLAY_LAYOUT, GtkOverlayLayout);
 }
 
 

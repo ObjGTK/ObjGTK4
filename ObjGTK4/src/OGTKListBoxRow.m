@@ -8,6 +8,8 @@
 
 @implementation OGTKListBoxRow
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_LIST_BOX_ROW;
@@ -18,12 +20,24 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_LIST_BOX_ROW);
+	return gObjectClass;
+}
+
 + (instancetype)listBoxRow
 {
-	GtkListBoxRow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_list_box_row_new(), GtkListBoxRow, GtkListBoxRow);
+	GtkListBoxRow* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_list_box_row_new(), GTK_TYPE_LIST_BOX_ROW, GtkListBoxRow);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
+
+	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
+	g_object_ref_sink(gobjectValue);
 
 	OGTKListBoxRow* wrapperObject;
 	@try {
@@ -40,24 +54,24 @@
 
 - (GtkListBoxRow*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkListBoxRow, GtkListBoxRow);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_LIST_BOX_ROW, GtkListBoxRow);
 }
 
 - (void)changed
 {
-	gtk_list_box_row_changed([self castedGObject]);
+	gtk_list_box_row_changed((GtkListBoxRow*)[self castedGObject]);
 }
 
 - (bool)activatable
 {
-	bool returnValue = (bool)gtk_list_box_row_get_activatable([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_row_get_activatable((GtkListBoxRow*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_list_box_row_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_list_box_row_get_child((GtkListBoxRow*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -65,7 +79,7 @@
 
 - (OGTKWidget*)header
 {
-	GtkWidget* gobjectValue = gtk_list_box_row_get_header([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_list_box_row_get_header((GtkListBoxRow*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -73,43 +87,43 @@
 
 - (int)index
 {
-	int returnValue = (int)gtk_list_box_row_get_index([self castedGObject]);
+	int returnValue = (int)gtk_list_box_row_get_index((GtkListBoxRow*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)selectable
 {
-	bool returnValue = (bool)gtk_list_box_row_get_selectable([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_row_get_selectable((GtkListBoxRow*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isSelected
 {
-	bool returnValue = (bool)gtk_list_box_row_is_selected([self castedGObject]);
+	bool returnValue = (bool)gtk_list_box_row_is_selected((GtkListBoxRow*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setActivatable:(bool)activatable
 {
-	gtk_list_box_row_set_activatable([self castedGObject], activatable);
+	gtk_list_box_row_set_activatable((GtkListBoxRow*)[self castedGObject], activatable);
 }
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_list_box_row_set_child([self castedGObject], [child castedGObject]);
+	gtk_list_box_row_set_child((GtkListBoxRow*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setHeader:(OGTKWidget*)header
 {
-	gtk_list_box_row_set_header([self castedGObject], [header castedGObject]);
+	gtk_list_box_row_set_header((GtkListBoxRow*)[self castedGObject], [header castedGObject]);
 }
 
 - (void)setSelectable:(bool)selectable
 {
-	gtk_list_box_row_set_selectable([self castedGObject], selectable);
+	gtk_list_box_row_set_selectable((GtkListBoxRow*)[self castedGObject], selectable);
 }
 
 

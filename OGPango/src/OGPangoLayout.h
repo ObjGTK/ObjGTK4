@@ -57,10 +57,11 @@
 }
 
 /**
- * Functions
+ * Functions and class methods
  */
 + (void)load;
 
++ (GTypeClass*)gObjectClass;
 
 /**
  * Loads data previously created via [method@Pango.Layout.serialize].

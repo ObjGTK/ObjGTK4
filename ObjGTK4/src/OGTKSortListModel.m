@@ -10,6 +10,8 @@
 
 @implementation OGTKSortListModel
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SORT_LIST_MODEL;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SORT_LIST_MODEL);
+	return gObjectClass;
+}
+
 + (instancetype)sortListModelWithModel:(GListModel*)model sorter:(OGTKSorter*)sorter
 {
-	GtkSortListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_sort_list_model_new(model, [sorter castedGObject]), GtkSortListModel, GtkSortListModel);
+	GtkSortListModel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_sort_list_model_new(model, [sorter castedGObject]), GTK_TYPE_SORT_LIST_MODEL, GtkSortListModel);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,33 +53,33 @@
 
 - (GtkSortListModel*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSortListModel, GtkSortListModel);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SORT_LIST_MODEL, GtkSortListModel);
 }
 
 - (bool)incremental
 {
-	bool returnValue = (bool)gtk_sort_list_model_get_incremental([self castedGObject]);
+	bool returnValue = (bool)gtk_sort_list_model_get_incremental((GtkSortListModel*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = (GListModel*)gtk_sort_list_model_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_sort_list_model_get_model((GtkSortListModel*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)pending
 {
-	guint returnValue = (guint)gtk_sort_list_model_get_pending([self castedGObject]);
+	guint returnValue = (guint)gtk_sort_list_model_get_pending((GtkSortListModel*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKSorter*)sectionSorter
 {
-	GtkSorter* gobjectValue = gtk_sort_list_model_get_section_sorter([self castedGObject]);
+	GtkSorter* gobjectValue = gtk_sort_list_model_get_section_sorter((GtkSortListModel*)[self castedGObject]);
 
 	OGTKSorter* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -76,7 +87,7 @@
 
 - (OGTKSorter*)sorter
 {
-	GtkSorter* gobjectValue = gtk_sort_list_model_get_sorter([self castedGObject]);
+	GtkSorter* gobjectValue = gtk_sort_list_model_get_sorter((GtkSortListModel*)[self castedGObject]);
 
 	OGTKSorter* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -84,22 +95,22 @@
 
 - (void)setIncremental:(bool)incremental
 {
-	gtk_sort_list_model_set_incremental([self castedGObject], incremental);
+	gtk_sort_list_model_set_incremental((GtkSortListModel*)[self castedGObject], incremental);
 }
 
 - (void)setModel:(GListModel*)model
 {
-	gtk_sort_list_model_set_model([self castedGObject], model);
+	gtk_sort_list_model_set_model((GtkSortListModel*)[self castedGObject], model);
 }
 
 - (void)setSectionSorter:(OGTKSorter*)sorter
 {
-	gtk_sort_list_model_set_section_sorter([self castedGObject], [sorter castedGObject]);
+	gtk_sort_list_model_set_section_sorter((GtkSortListModel*)[self castedGObject], [sorter castedGObject]);
 }
 
 - (void)setSorter:(OGTKSorter*)sorter
 {
-	gtk_sort_list_model_set_sorter([self castedGObject], [sorter castedGObject]);
+	gtk_sort_list_model_set_sorter((GtkSortListModel*)[self castedGObject], [sorter castedGObject]);
 }
 
 

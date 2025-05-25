@@ -8,6 +8,8 @@
 
 @implementation OGTKColorButton
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_COLOR_BUTTON;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_COLOR_BUTTON);
+	return gObjectClass;
+}
+
 + (instancetype)colorButton
 {
-	GtkColorButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_button_new(), GtkColorButton, GtkColorButton);
+	GtkColorButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_button_new(), GTK_TYPE_COLOR_BUTTON, GtkColorButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 + (instancetype)colorButtonWithRgba:(const GdkRGBA*)rgba
 {
-	GtkColorButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_button_new_with_rgba(rgba), GtkColorButton, GtkColorButton);
+	GtkColorButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_button_new_with_rgba(rgba), GTK_TYPE_COLOR_BUTTON, GtkColorButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -66,19 +77,19 @@
 
 - (GtkColorButton*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColorButton, GtkColorButton);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_COLOR_BUTTON, GtkColorButton);
 }
 
 - (bool)modal
 {
-	bool returnValue = (bool)gtk_color_button_get_modal([self castedGObject]);
+	bool returnValue = (bool)gtk_color_button_get_modal((GtkColorButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)title
 {
-	const char* gobjectValue = gtk_color_button_get_title([self castedGObject]);
+	const char* gobjectValue = gtk_color_button_get_title((GtkColorButton*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -86,12 +97,12 @@
 
 - (void)setModal:(bool)modal
 {
-	gtk_color_button_set_modal([self castedGObject], modal);
+	gtk_color_button_set_modal((GtkColorButton*)[self castedGObject], modal);
 }
 
 - (void)setTitle:(OFString*)title
 {
-	gtk_color_button_set_title([self castedGObject], [title UTF8String]);
+	gtk_color_button_set_title((GtkColorButton*)[self castedGObject], [title UTF8String]);
 }
 
 

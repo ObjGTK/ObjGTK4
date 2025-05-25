@@ -10,6 +10,8 @@
 
 @implementation OGTKATContext
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_AT_CONTEXT;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_AT_CONTEXT);
+	return gObjectClass;
+}
+
 + (instancetype)aTContextCreateWithAccessibleRole:(GtkAccessibleRole)accessibleRole accessible:(GtkAccessible*)accessible display:(OGdkDisplay*)display
 {
-	GtkATContext* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_at_context_create(accessibleRole, accessible, [display castedGObject]), GtkATContext, GtkATContext);
+	GtkATContext* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_at_context_create(accessibleRole, accessible, [display castedGObject]), GTK_TYPE_AT_CONTEXT, GtkATContext);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,19 +53,19 @@
 
 - (GtkATContext*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkATContext, GtkATContext);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_AT_CONTEXT, GtkATContext);
 }
 
 - (GtkAccessible*)accessible
 {
-	GtkAccessible* returnValue = (GtkAccessible*)gtk_at_context_get_accessible([self castedGObject]);
+	GtkAccessible* returnValue = (GtkAccessible*)gtk_at_context_get_accessible((GtkATContext*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkAccessibleRole)accessibleRole
 {
-	GtkAccessibleRole returnValue = (GtkAccessibleRole)gtk_at_context_get_accessible_role([self castedGObject]);
+	GtkAccessibleRole returnValue = (GtkAccessibleRole)gtk_at_context_get_accessible_role((GtkATContext*)[self castedGObject]);
 
 	return returnValue;
 }

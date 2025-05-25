@@ -10,6 +10,8 @@
 
 @implementation OGTKMediaFile
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_MEDIA_FILE;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_MEDIA_FILE);
+	return gObjectClass;
+}
+
 + (instancetype)mediaFile
 {
-	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new(), GtkMediaFile, GtkMediaFile);
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new(), GTK_TYPE_MEDIA_FILE, GtkMediaFile);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,7 +53,7 @@
 
 + (instancetype)mediaFileForFile:(GFile*)file
 {
-	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_file(file), GtkMediaFile, GtkMediaFile);
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_file(file), GTK_TYPE_MEDIA_FILE, GtkMediaFile);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -62,7 +73,7 @@
 
 + (instancetype)mediaFileForFilename:(OFString*)filename
 {
-	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_filename([filename UTF8String]), GtkMediaFile, GtkMediaFile);
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_filename([filename UTF8String]), GTK_TYPE_MEDIA_FILE, GtkMediaFile);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -82,7 +93,7 @@
 
 + (instancetype)mediaFileForInputStream:(OGInputStream*)stream
 {
-	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_input_stream([stream castedGObject]), GtkMediaFile, GtkMediaFile);
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_input_stream([stream castedGObject]), GTK_TYPE_MEDIA_FILE, GtkMediaFile);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -102,7 +113,7 @@
 
 + (instancetype)mediaFileForResourceWithResourcePath:(OFString*)resourcePath
 {
-	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_resource([resourcePath UTF8String]), GtkMediaFile, GtkMediaFile);
+	GtkMediaFile* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_file_new_for_resource([resourcePath UTF8String]), GTK_TYPE_MEDIA_FILE, GtkMediaFile);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -122,24 +133,24 @@
 
 - (GtkMediaFile*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMediaFile, GtkMediaFile);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_MEDIA_FILE, GtkMediaFile);
 }
 
 - (void)clear
 {
-	gtk_media_file_clear([self castedGObject]);
+	gtk_media_file_clear((GtkMediaFile*)[self castedGObject]);
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = (GFile*)gtk_media_file_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_media_file_get_file((GtkMediaFile*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGInputStream*)inputStream
 {
-	GInputStream* gobjectValue = gtk_media_file_get_input_stream([self castedGObject]);
+	GInputStream* gobjectValue = gtk_media_file_get_input_stream((GtkMediaFile*)[self castedGObject]);
 
 	OGInputStream* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -147,22 +158,22 @@
 
 - (void)setFile:(GFile*)file
 {
-	gtk_media_file_set_file([self castedGObject], file);
+	gtk_media_file_set_file((GtkMediaFile*)[self castedGObject], file);
 }
 
 - (void)setFilename:(OFString*)filename
 {
-	gtk_media_file_set_filename([self castedGObject], [filename UTF8String]);
+	gtk_media_file_set_filename((GtkMediaFile*)[self castedGObject], [filename UTF8String]);
 }
 
 - (void)setInputStream:(OGInputStream*)stream
 {
-	gtk_media_file_set_input_stream([self castedGObject], [stream castedGObject]);
+	gtk_media_file_set_input_stream((GtkMediaFile*)[self castedGObject], [stream castedGObject]);
 }
 
 - (void)setResourceWithResourcePath:(OFString*)resourcePath
 {
-	gtk_media_file_set_resource([self castedGObject], [resourcePath UTF8String]);
+	gtk_media_file_set_resource((GtkMediaFile*)[self castedGObject], [resourcePath UTF8String]);
 }
 
 

@@ -156,10 +156,11 @@
 }
 
 /**
- * Functions
+ * Functions and class methods
  */
 + (void)load;
 
++ (GTypeClass*)gObjectClass;
 
 /**
  * Calculates the rowstride that an image created with those values would
@@ -245,7 +246,7 @@
  * @param path Path to directory where the `loaders.cache` is installed
  * @return
  */
-+ (bool)initModulesWithPath:(OFString*)path;
++ (bool)prepareModulesWithPath:(OFString*)path;
 
 /**
  * Creates a new pixbuf by asynchronously loading an image from an input stream.

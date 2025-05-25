@@ -10,6 +10,8 @@
 
 @implementation OGTKFileChooserNative
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FILE_CHOOSER_NATIVE;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FILE_CHOOSER_NATIVE);
+	return gObjectClass;
+}
+
 + (instancetype)fileChooserNativeWithTitle:(OFString*)title parent:(OGTKWindow*)parent action:(GtkFileChooserAction)action acceptLabel:(OFString*)acceptLabel cancelLabel:(OFString*)cancelLabel
 {
-	GtkFileChooserNative* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_chooser_native_new([title UTF8String], [parent castedGObject], action, [acceptLabel UTF8String], [cancelLabel UTF8String]), GtkFileChooserNative, GtkFileChooserNative);
+	GtkFileChooserNative* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_chooser_native_new([title UTF8String], [parent castedGObject], action, [acceptLabel UTF8String], [cancelLabel UTF8String]), GTK_TYPE_FILE_CHOOSER_NATIVE, GtkFileChooserNative);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,12 +53,12 @@
 
 - (GtkFileChooserNative*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFileChooserNative, GtkFileChooserNative);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FILE_CHOOSER_NATIVE, GtkFileChooserNative);
 }
 
 - (OFString*)acceptLabel
 {
-	const char* gobjectValue = gtk_file_chooser_native_get_accept_label([self castedGObject]);
+	const char* gobjectValue = gtk_file_chooser_native_get_accept_label((GtkFileChooserNative*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -55,7 +66,7 @@
 
 - (OFString*)cancelLabel
 {
-	const char* gobjectValue = gtk_file_chooser_native_get_cancel_label([self castedGObject]);
+	const char* gobjectValue = gtk_file_chooser_native_get_cancel_label((GtkFileChooserNative*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -63,12 +74,12 @@
 
 - (void)setAcceptLabel:(OFString*)acceptLabel
 {
-	gtk_file_chooser_native_set_accept_label([self castedGObject], [acceptLabel UTF8String]);
+	gtk_file_chooser_native_set_accept_label((GtkFileChooserNative*)[self castedGObject], [acceptLabel UTF8String]);
 }
 
 - (void)setCancelLabel:(OFString*)cancelLabel
 {
-	gtk_file_chooser_native_set_cancel_label([self castedGObject], [cancelLabel UTF8String]);
+	gtk_file_chooser_native_set_cancel_label((GtkFileChooserNative*)[self castedGObject], [cancelLabel UTF8String]);
 }
 
 

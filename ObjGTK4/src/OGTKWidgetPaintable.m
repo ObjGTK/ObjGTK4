@@ -10,6 +10,8 @@
 
 @implementation OGTKWidgetPaintable
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_WIDGET_PAINTABLE;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_WIDGET_PAINTABLE);
+	return gObjectClass;
+}
+
 + (instancetype)widgetPaintableWithWidget:(OGTKWidget*)widget
 {
-	GtkWidgetPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_widget_paintable_new([widget castedGObject]), GtkWidgetPaintable, GtkWidgetPaintable);
+	GtkWidgetPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_widget_paintable_new([widget castedGObject]), GTK_TYPE_WIDGET_PAINTABLE, GtkWidgetPaintable);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,12 +53,12 @@
 
 - (GtkWidgetPaintable*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWidgetPaintable, GtkWidgetPaintable);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_WIDGET_PAINTABLE, GtkWidgetPaintable);
 }
 
 - (OGTKWidget*)widget
 {
-	GtkWidget* gobjectValue = gtk_widget_paintable_get_widget([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_widget_paintable_get_widget((GtkWidgetPaintable*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -55,7 +66,7 @@
 
 - (void)setWidget:(OGTKWidget*)widget
 {
-	gtk_widget_paintable_set_widget([self castedGObject], [widget castedGObject]);
+	gtk_widget_paintable_set_widget((GtkWidgetPaintable*)[self castedGObject], [widget castedGObject]);
 }
 
 

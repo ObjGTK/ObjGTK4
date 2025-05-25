@@ -10,6 +10,8 @@
 
 @implementation OGTKGestureClick
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_GESTURE_CLICK;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_GESTURE_CLICK);
+	return gObjectClass;
+}
+
 + (instancetype)gestureClick
 {
-	GtkGestureClick* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_click_new(), GtkGestureClick, GtkGestureClick);
+	GtkGestureClick* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_click_new(), GTK_TYPE_GESTURE_CLICK, GtkGestureClick);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,7 +53,7 @@
 
 - (GtkGestureClick*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureClick, GtkGestureClick);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_GESTURE_CLICK, GtkGestureClick);
 }
 
 

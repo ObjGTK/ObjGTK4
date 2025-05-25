@@ -10,6 +10,8 @@
 
 @implementation OGTKMediaControls
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_MEDIA_CONTROLS;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_MEDIA_CONTROLS);
+	return gObjectClass;
+}
+
 + (instancetype)mediaControlsWithStream:(OGTKMediaStream*)stream
 {
-	GtkMediaControls* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_controls_new([stream castedGObject]), GtkMediaControls, GtkMediaControls);
+	GtkMediaControls* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_media_controls_new([stream castedGObject]), GTK_TYPE_MEDIA_CONTROLS, GtkMediaControls);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,12 +56,12 @@
 
 - (GtkMediaControls*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMediaControls, GtkMediaControls);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_MEDIA_CONTROLS, GtkMediaControls);
 }
 
 - (OGTKMediaStream*)mediaStream
 {
-	GtkMediaStream* gobjectValue = gtk_media_controls_get_media_stream([self castedGObject]);
+	GtkMediaStream* gobjectValue = gtk_media_controls_get_media_stream((GtkMediaControls*)[self castedGObject]);
 
 	OGTKMediaStream* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,7 +69,7 @@
 
 - (void)setMediaStream:(OGTKMediaStream*)stream
 {
-	gtk_media_controls_set_media_stream([self castedGObject], [stream castedGObject]);
+	gtk_media_controls_set_media_stream((GtkMediaControls*)[self castedGObject], [stream castedGObject]);
 }
 
 

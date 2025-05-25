@@ -8,6 +8,8 @@
 
 @implementation OGTKSwitch
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SWITCH;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SWITCH);
+	return gObjectClass;
+}
+
 + (instancetype)switch
 {
-	GtkSwitch* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_switch_new(), GtkSwitch, GtkSwitch);
+	GtkSwitch* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_switch_new(), GTK_TYPE_SWITCH, GtkSwitch);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,31 +54,31 @@
 
 - (GtkSwitch*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSwitch, GtkSwitch);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SWITCH, GtkSwitch);
 }
 
 - (bool)active
 {
-	bool returnValue = (bool)gtk_switch_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_switch_get_active((GtkSwitch*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)state
 {
-	bool returnValue = (bool)gtk_switch_get_state([self castedGObject]);
+	bool returnValue = (bool)gtk_switch_get_state((GtkSwitch*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setActiveWithIsActive:(bool)isActive
 {
-	gtk_switch_set_active([self castedGObject], isActive);
+	gtk_switch_set_active((GtkSwitch*)[self castedGObject], isActive);
 }
 
 - (void)setState:(bool)state
 {
-	gtk_switch_set_state([self castedGObject], state);
+	gtk_switch_set_state((GtkSwitch*)[self castedGObject], state);
 }
 
 

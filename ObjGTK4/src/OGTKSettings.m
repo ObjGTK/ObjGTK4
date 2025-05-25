@@ -10,6 +10,8 @@
 
 @implementation OGTKSettings
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SETTINGS;
@@ -18,6 +20,15 @@
 		return;
 
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SETTINGS);
+	return gObjectClass;
 }
 
 + (OGTKSettings*)default
@@ -38,12 +49,12 @@
 
 - (GtkSettings*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSettings, GtkSettings);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SETTINGS, GtkSettings);
 }
 
 - (void)resetPropertyWithName:(OFString*)name
 {
-	gtk_settings_reset_property([self castedGObject], [name UTF8String]);
+	gtk_settings_reset_property((GtkSettings*)[self castedGObject], [name UTF8String]);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKCallbackAction
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CALLBACK_ACTION;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CALLBACK_ACTION);
+	return gObjectClass;
+}
+
 + (instancetype)callbackActionWithCallback:(GtkShortcutFunc)callback data:(gpointer)data destroy:(GDestroyNotify)destroy
 {
-	GtkCallbackAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_callback_action_new(callback, data, destroy), GtkCallbackAction, GtkCallbackAction);
+	GtkCallbackAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_callback_action_new(callback, data, destroy), GTK_TYPE_CALLBACK_ACTION, GtkCallbackAction);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkCallbackAction*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCallbackAction, GtkCallbackAction);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CALLBACK_ACTION, GtkCallbackAction);
 }
 
 

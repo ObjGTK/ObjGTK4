@@ -11,6 +11,8 @@
 
 @implementation OGTKConstraintLayout
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CONSTRAINT_LAYOUT;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CONSTRAINT_LAYOUT);
+	return gObjectClass;
+}
+
 + (instancetype)constraintLayout
 {
-	GtkConstraintLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_constraint_layout_new(), GtkConstraintLayout, GtkConstraintLayout);
+	GtkConstraintLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_constraint_layout_new(), GTK_TYPE_CONSTRAINT_LAYOUT, GtkConstraintLayout);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,19 +54,19 @@
 
 - (GtkConstraintLayout*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkConstraintLayout, GtkConstraintLayout);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CONSTRAINT_LAYOUT, GtkConstraintLayout);
 }
 
 - (void)addConstraint:(OGTKConstraint*)constraint
 {
-	gtk_constraint_layout_add_constraint([self castedGObject], [constraint castedGObject]);
+	gtk_constraint_layout_add_constraint((GtkConstraintLayout*)[self castedGObject], [constraint castedGObject]);
 }
 
 - (GList*)addConstraintsFromDescriptionvWithLines:(const char* const*)lines nlines:(gsize)nlines hspacing:(int)hspacing vspacing:(int)vspacing views:(GHashTable*)views
 {
 	GError* err = NULL;
 
-	GList* returnValue = (GList*)gtk_constraint_layout_add_constraints_from_descriptionv([self castedGObject], lines, nlines, hspacing, vspacing, views, &err);
+	GList* returnValue = (GList*)gtk_constraint_layout_add_constraints_from_descriptionv((GtkConstraintLayout*)[self castedGObject], lines, nlines, hspacing, vspacing, views, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -64,36 +75,36 @@
 
 - (void)addGuide:(OGTKConstraintGuide*)guide
 {
-	gtk_constraint_layout_add_guide([self castedGObject], [guide castedGObject]);
+	gtk_constraint_layout_add_guide((GtkConstraintLayout*)[self castedGObject], [guide castedGObject]);
 }
 
 - (GListModel*)observeConstraints
 {
-	GListModel* returnValue = (GListModel*)gtk_constraint_layout_observe_constraints([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_constraint_layout_observe_constraints((GtkConstraintLayout*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)observeGuides
 {
-	GListModel* returnValue = (GListModel*)gtk_constraint_layout_observe_guides([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_constraint_layout_observe_guides((GtkConstraintLayout*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)removeAllConstraints
 {
-	gtk_constraint_layout_remove_all_constraints([self castedGObject]);
+	gtk_constraint_layout_remove_all_constraints((GtkConstraintLayout*)[self castedGObject]);
 }
 
 - (void)removeConstraint:(OGTKConstraint*)constraint
 {
-	gtk_constraint_layout_remove_constraint([self castedGObject], [constraint castedGObject]);
+	gtk_constraint_layout_remove_constraint((GtkConstraintLayout*)[self castedGObject], [constraint castedGObject]);
 }
 
 - (void)removeGuide:(OGTKConstraintGuide*)guide
 {
-	gtk_constraint_layout_remove_guide([self castedGObject], [guide castedGObject]);
+	gtk_constraint_layout_remove_guide((GtkConstraintLayout*)[self castedGObject], [guide castedGObject]);
 }
 
 

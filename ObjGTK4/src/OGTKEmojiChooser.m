@@ -10,6 +10,8 @@
 
 @implementation OGTKEmojiChooser
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_EMOJI_CHOOSER;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_EMOJI_CHOOSER);
+	return gObjectClass;
+}
+
 + (instancetype)emojiChooser
 {
-	GtkEmojiChooser* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_emoji_chooser_new(), GtkEmojiChooser, GtkEmojiChooser);
+	GtkEmojiChooser* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_emoji_chooser_new(), GTK_TYPE_EMOJI_CHOOSER, GtkEmojiChooser);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 - (GtkEmojiChooser*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEmojiChooser, GtkEmojiChooser);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_EMOJI_CHOOSER, GtkEmojiChooser);
 }
 
 

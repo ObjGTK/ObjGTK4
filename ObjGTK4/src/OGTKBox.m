@@ -8,6 +8,8 @@
 
 @implementation OGTKBox
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_BOX;
@@ -18,15 +20,21 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_BOX);
+	return gObjectClass;
+}
+
 + (instancetype)boxWithOrientation:(GtkOrientation)orientation spacing:(int)spacing
 {
-	GtkBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_box_new(orientation, spacing), GtkBox, GtkBox);
+	GtkBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_box_new(orientation, spacing), GTK_TYPE_BOX, GtkBox);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
-
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
 
 	OGTKBox* wrapperObject;
 	@try {
@@ -43,80 +51,80 @@
 
 - (GtkBox*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBox, GtkBox);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_BOX, GtkBox);
 }
 
 - (void)appendWithChild:(OGTKWidget*)child
 {
-	gtk_box_append([self castedGObject], [child castedGObject]);
+	gtk_box_append((GtkBox*)[self castedGObject], [child castedGObject]);
 }
 
 - (int)baselineChild
 {
-	int returnValue = (int)gtk_box_get_baseline_child([self castedGObject]);
+	int returnValue = (int)gtk_box_get_baseline_child((GtkBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkBaselinePosition)baselinePosition
 {
-	GtkBaselinePosition returnValue = (GtkBaselinePosition)gtk_box_get_baseline_position([self castedGObject]);
+	GtkBaselinePosition returnValue = (GtkBaselinePosition)gtk_box_get_baseline_position((GtkBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)homogeneous
 {
-	bool returnValue = (bool)gtk_box_get_homogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_box_get_homogeneous((GtkBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)spacing
 {
-	int returnValue = (int)gtk_box_get_spacing([self castedGObject]);
+	int returnValue = (int)gtk_box_get_spacing((GtkBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)insertChildAfter:(OGTKWidget*)child sibling:(OGTKWidget*)sibling
 {
-	gtk_box_insert_child_after([self castedGObject], [child castedGObject], [sibling castedGObject]);
+	gtk_box_insert_child_after((GtkBox*)[self castedGObject], [child castedGObject], [sibling castedGObject]);
 }
 
 - (void)prependWithChild:(OGTKWidget*)child
 {
-	gtk_box_prepend([self castedGObject], [child castedGObject]);
+	gtk_box_prepend((GtkBox*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)removeWithChild:(OGTKWidget*)child
 {
-	gtk_box_remove([self castedGObject], [child castedGObject]);
+	gtk_box_remove((GtkBox*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)reorderChildAfter:(OGTKWidget*)child sibling:(OGTKWidget*)sibling
 {
-	gtk_box_reorder_child_after([self castedGObject], [child castedGObject], [sibling castedGObject]);
+	gtk_box_reorder_child_after((GtkBox*)[self castedGObject], [child castedGObject], [sibling castedGObject]);
 }
 
 - (void)setBaselineChild:(int)child
 {
-	gtk_box_set_baseline_child([self castedGObject], child);
+	gtk_box_set_baseline_child((GtkBox*)[self castedGObject], child);
 }
 
 - (void)setBaselinePosition:(GtkBaselinePosition)position
 {
-	gtk_box_set_baseline_position([self castedGObject], position);
+	gtk_box_set_baseline_position((GtkBox*)[self castedGObject], position);
 }
 
 - (void)setHomogeneous:(bool)homogeneous
 {
-	gtk_box_set_homogeneous([self castedGObject], homogeneous);
+	gtk_box_set_homogeneous((GtkBox*)[self castedGObject], homogeneous);
 }
 
 - (void)setSpacing:(int)spacing
 {
-	gtk_box_set_spacing([self castedGObject], spacing);
+	gtk_box_set_spacing((GtkBox*)[self castedGObject], spacing);
 }
 
 

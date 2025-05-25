@@ -73,10 +73,11 @@
 }
 
 /**
- * Functions
+ * Functions and class methods
  */
 + (void)load;
 
++ (GTypeClass*)gObjectClass;
 
 /**
  * Gets a unique instance of `GtkRecentManager` that you can share

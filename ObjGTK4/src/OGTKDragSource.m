@@ -11,6 +11,8 @@
 
 @implementation OGTKDragSource
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_DRAG_SOURCE;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_DRAG_SOURCE);
+	return gObjectClass;
+}
+
 + (instancetype)dragSource
 {
-	GtkDragSource* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drag_source_new(), GtkDragSource, GtkDragSource);
+	GtkDragSource* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drag_source_new(), GTK_TYPE_DRAG_SOURCE, GtkDragSource);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,24 +54,24 @@
 
 - (GtkDragSource*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDragSource, GtkDragSource);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_DRAG_SOURCE, GtkDragSource);
 }
 
 - (void)dragCancel
 {
-	gtk_drag_source_drag_cancel([self castedGObject]);
+	gtk_drag_source_drag_cancel((GtkDragSource*)[self castedGObject]);
 }
 
 - (GdkDragAction)actions
 {
-	GdkDragAction returnValue = (GdkDragAction)gtk_drag_source_get_actions([self castedGObject]);
+	GdkDragAction returnValue = (GdkDragAction)gtk_drag_source_get_actions((GtkDragSource*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGdkContentProvider*)content
 {
-	GdkContentProvider* gobjectValue = gtk_drag_source_get_content([self castedGObject]);
+	GdkContentProvider* gobjectValue = gtk_drag_source_get_content((GtkDragSource*)[self castedGObject]);
 
 	OGdkContentProvider* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -68,7 +79,7 @@
 
 - (OGdkDrag*)drag
 {
-	GdkDrag* gobjectValue = gtk_drag_source_get_drag([self castedGObject]);
+	GdkDrag* gobjectValue = gtk_drag_source_get_drag((GtkDragSource*)[self castedGObject]);
 
 	OGdkDrag* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -76,17 +87,17 @@
 
 - (void)setActions:(GdkDragAction)actions
 {
-	gtk_drag_source_set_actions([self castedGObject], actions);
+	gtk_drag_source_set_actions((GtkDragSource*)[self castedGObject], actions);
 }
 
 - (void)setContent:(OGdkContentProvider*)content
 {
-	gtk_drag_source_set_content([self castedGObject], [content castedGObject]);
+	gtk_drag_source_set_content((GtkDragSource*)[self castedGObject], [content castedGObject]);
 }
 
 - (void)setIconWithPaintable:(GdkPaintable*)paintable hotX:(int)hotX hotY:(int)hotY
 {
-	gtk_drag_source_set_icon([self castedGObject], paintable, hotX, hotY);
+	gtk_drag_source_set_icon((GtkDragSource*)[self castedGObject], paintable, hotX, hotY);
 }
 
 

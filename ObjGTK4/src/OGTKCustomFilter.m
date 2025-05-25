@@ -8,6 +8,8 @@
 
 @implementation OGTKCustomFilter
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CUSTOM_FILTER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CUSTOM_FILTER);
+	return gObjectClass;
+}
+
 + (instancetype)customFilterWithMatchFunc:(GtkCustomFilterFunc)matchFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
 {
-	GtkCustomFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_custom_filter_new(matchFunc, userData, userDestroy), GtkCustomFilter, GtkCustomFilter);
+	GtkCustomFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_custom_filter_new(matchFunc, userData, userDestroy), GTK_TYPE_CUSTOM_FILTER, GtkCustomFilter);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkCustomFilter*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCustomFilter, GtkCustomFilter);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CUSTOM_FILTER, GtkCustomFilter);
 }
 
 - (void)setFilterFuncWithMatchFunc:(GtkCustomFilterFunc)matchFunc userData:(gpointer)userData userDestroy:(GDestroyNotify)userDestroy
 {
-	gtk_custom_filter_set_filter_func([self castedGObject], matchFunc, userData, userDestroy);
+	gtk_custom_filter_set_filter_func((GtkCustomFilter*)[self castedGObject], matchFunc, userData, userDestroy);
 }
 
 

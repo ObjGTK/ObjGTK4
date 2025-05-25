@@ -10,6 +10,8 @@
 
 @implementation OGTKWindowGroup
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_WINDOW_GROUP;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_WINDOW_GROUP);
+	return gObjectClass;
+}
+
 + (instancetype)windowGroup
 {
-	GtkWindowGroup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_group_new(), GtkWindowGroup, GtkWindowGroup);
+	GtkWindowGroup* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_group_new(), GTK_TYPE_WINDOW_GROUP, GtkWindowGroup);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,24 +53,24 @@
 
 - (GtkWindowGroup*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWindowGroup, GtkWindowGroup);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_WINDOW_GROUP, GtkWindowGroup);
 }
 
 - (void)addWindow:(OGTKWindow*)window
 {
-	gtk_window_group_add_window([self castedGObject], [window castedGObject]);
+	gtk_window_group_add_window((GtkWindowGroup*)[self castedGObject], [window castedGObject]);
 }
 
 - (GList*)listWindows
 {
-	GList* returnValue = (GList*)gtk_window_group_list_windows([self castedGObject]);
+	GList* returnValue = (GList*)gtk_window_group_list_windows((GtkWindowGroup*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)removeWindow:(OGTKWindow*)window
 {
-	gtk_window_group_remove_window([self castedGObject], [window castedGObject]);
+	gtk_window_group_remove_window((GtkWindowGroup*)[self castedGObject], [window castedGObject]);
 }
 
 

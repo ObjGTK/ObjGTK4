@@ -8,6 +8,8 @@
 
 @implementation OGTKSignalListItemFactory
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY);
+	return gObjectClass;
+}
+
 + (instancetype)signalListItemFactory
 {
-	GtkSignalListItemFactory* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_signal_list_item_factory_new(), GtkSignalListItemFactory, GtkSignalListItemFactory);
+	GtkSignalListItemFactory* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_signal_list_item_factory_new(), GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY, GtkSignalListItemFactory);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkSignalListItemFactory*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSignalListItemFactory, GtkSignalListItemFactory);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY, GtkSignalListItemFactory);
 }
 
 

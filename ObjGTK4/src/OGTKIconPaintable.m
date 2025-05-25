@@ -8,6 +8,8 @@
 
 @implementation OGTKIconPaintable
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_ICON_PAINTABLE;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_ICON_PAINTABLE);
+	return gObjectClass;
+}
+
 + (instancetype)iconPaintableForFile:(GFile*)file size:(int)size scale:(int)scale
 {
-	GtkIconPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_paintable_new_for_file(file, size, scale), GtkIconPaintable, GtkIconPaintable);
+	GtkIconPaintable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_icon_paintable_new_for_file(file, size, scale), GTK_TYPE_ICON_PAINTABLE, GtkIconPaintable);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,19 +51,19 @@
 
 - (GtkIconPaintable*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkIconPaintable, GtkIconPaintable);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_ICON_PAINTABLE, GtkIconPaintable);
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = (GFile*)gtk_icon_paintable_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_icon_paintable_get_file((GtkIconPaintable*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)iconName
 {
-	const char* gobjectValue = gtk_icon_paintable_get_icon_name([self castedGObject]);
+	const char* gobjectValue = gtk_icon_paintable_get_icon_name((GtkIconPaintable*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -60,7 +71,7 @@
 
 - (bool)isSymbolic
 {
-	bool returnValue = (bool)gtk_icon_paintable_is_symbolic([self castedGObject]);
+	bool returnValue = (bool)gtk_icon_paintable_is_symbolic((GtkIconPaintable*)[self castedGObject]);
 
 	return returnValue;
 }

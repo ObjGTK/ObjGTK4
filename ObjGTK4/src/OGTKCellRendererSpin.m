@@ -10,6 +10,8 @@
 
 @implementation OGTKCellRendererSpin
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER_SPIN;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_RENDERER_SPIN);
+	return gObjectClass;
+}
+
 + (instancetype)cellRendererSpin
 {
-	GtkCellRendererSpin* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_spin_new(), GtkCellRendererSpin, GtkCellRendererSpin);
+	GtkCellRendererSpin* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_spin_new(), GTK_TYPE_CELL_RENDERER_SPIN, GtkCellRendererSpin);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 - (GtkCellRendererSpin*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererSpin, GtkCellRendererSpin);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_RENDERER_SPIN, GtkCellRendererSpin);
 }
 
 

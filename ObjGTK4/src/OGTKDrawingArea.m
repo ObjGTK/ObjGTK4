@@ -8,6 +8,8 @@
 
 @implementation OGTKDrawingArea
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_DRAWING_AREA;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_DRAWING_AREA);
+	return gObjectClass;
+}
+
 + (instancetype)drawingArea
 {
-	GtkDrawingArea* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drawing_area_new(), GtkDrawingArea, GtkDrawingArea);
+	GtkDrawingArea* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_drawing_area_new(), GTK_TYPE_DRAWING_AREA, GtkDrawingArea);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,36 +54,36 @@
 
 - (GtkDrawingArea*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDrawingArea, GtkDrawingArea);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_DRAWING_AREA, GtkDrawingArea);
 }
 
 - (int)contentHeight
 {
-	int returnValue = (int)gtk_drawing_area_get_content_height([self castedGObject]);
+	int returnValue = (int)gtk_drawing_area_get_content_height((GtkDrawingArea*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)contentWidth
 {
-	int returnValue = (int)gtk_drawing_area_get_content_width([self castedGObject]);
+	int returnValue = (int)gtk_drawing_area_get_content_width((GtkDrawingArea*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setContentHeight:(int)height
 {
-	gtk_drawing_area_set_content_height([self castedGObject], height);
+	gtk_drawing_area_set_content_height((GtkDrawingArea*)[self castedGObject], height);
 }
 
 - (void)setContentWidth:(int)width
 {
-	gtk_drawing_area_set_content_width([self castedGObject], width);
+	gtk_drawing_area_set_content_width((GtkDrawingArea*)[self castedGObject], width);
 }
 
 - (void)setDrawFunc:(GtkDrawingAreaDrawFunc)drawFunc userData:(gpointer)userData destroy:(GDestroyNotify)destroy
 {
-	gtk_drawing_area_set_draw_func([self castedGObject], drawFunc, userData, destroy);
+	gtk_drawing_area_set_draw_func((GtkDrawingArea*)[self castedGObject], drawFunc, userData, destroy);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKCheckButton
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CHECK_BUTTON;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CHECK_BUTTON);
+	return gObjectClass;
+}
+
 + (instancetype)checkButton
 {
-	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new(), GtkCheckButton, GtkCheckButton);
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new(), GTK_TYPE_CHECK_BUTTON, GtkCheckButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 + (instancetype)checkButtonWithLabel:(OFString*)label
 {
-	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_label([label UTF8String]), GtkCheckButton, GtkCheckButton);
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_label([label UTF8String]), GTK_TYPE_CHECK_BUTTON, GtkCheckButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -66,7 +77,7 @@
 
 + (instancetype)checkButtonWithMnemonicWithLabel:(OFString*)label
 {
-	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_mnemonic([label UTF8String]), GtkCheckButton, GtkCheckButton);
+	GtkCheckButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_check_button_new_with_mnemonic([label UTF8String]), GTK_TYPE_CHECK_BUTTON, GtkCheckButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -89,19 +100,19 @@
 
 - (GtkCheckButton*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCheckButton, GtkCheckButton);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CHECK_BUTTON, GtkCheckButton);
 }
 
 - (bool)active
 {
-	bool returnValue = (bool)gtk_check_button_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_active((GtkCheckButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_check_button_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_check_button_get_child((GtkCheckButton*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -109,14 +120,14 @@
 
 - (bool)inconsistent
 {
-	bool returnValue = (bool)gtk_check_button_get_inconsistent([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_inconsistent((GtkCheckButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)label
 {
-	const char* gobjectValue = gtk_check_button_get_label([self castedGObject]);
+	const char* gobjectValue = gtk_check_button_get_label((GtkCheckButton*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -124,39 +135,39 @@
 
 - (bool)useUnderline
 {
-	bool returnValue = (bool)gtk_check_button_get_use_underline([self castedGObject]);
+	bool returnValue = (bool)gtk_check_button_get_use_underline((GtkCheckButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setActiveWithSetting:(bool)setting
 {
-	gtk_check_button_set_active([self castedGObject], setting);
+	gtk_check_button_set_active((GtkCheckButton*)[self castedGObject], setting);
 }
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_check_button_set_child([self castedGObject], [child castedGObject]);
+	gtk_check_button_set_child((GtkCheckButton*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setGroup:(OGTKCheckButton*)group
 {
-	gtk_check_button_set_group([self castedGObject], [group castedGObject]);
+	gtk_check_button_set_group((GtkCheckButton*)[self castedGObject], [group castedGObject]);
 }
 
 - (void)setInconsistent:(bool)inconsistent
 {
-	gtk_check_button_set_inconsistent([self castedGObject], inconsistent);
+	gtk_check_button_set_inconsistent((GtkCheckButton*)[self castedGObject], inconsistent);
 }
 
 - (void)setLabel:(OFString*)label
 {
-	gtk_check_button_set_label([self castedGObject], [label UTF8String]);
+	gtk_check_button_set_label((GtkCheckButton*)[self castedGObject], [label UTF8String]);
 }
 
 - (void)setUseUnderlineWithSetting:(bool)setting
 {
-	gtk_check_button_set_use_underline([self castedGObject], setting);
+	gtk_check_button_set_use_underline((GtkCheckButton*)[self castedGObject], setting);
 }
 
 

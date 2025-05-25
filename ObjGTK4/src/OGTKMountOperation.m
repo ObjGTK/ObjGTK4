@@ -11,6 +11,8 @@
 
 @implementation OGTKMountOperation
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_MOUNT_OPERATION;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_MOUNT_OPERATION);
+	return gObjectClass;
+}
+
 + (instancetype)mountOperationWithParent:(OGTKWindow*)parent
 {
-	GtkMountOperation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_mount_operation_new([parent castedGObject]), GtkMountOperation, GtkMountOperation);
+	GtkMountOperation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_mount_operation_new([parent castedGObject]), GTK_TYPE_MOUNT_OPERATION, GtkMountOperation);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkMountOperation*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMountOperation, GtkMountOperation);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_MOUNT_OPERATION, GtkMountOperation);
 }
 
 - (OGdkDisplay*)display
 {
-	GdkDisplay* gobjectValue = gtk_mount_operation_get_display([self castedGObject]);
+	GdkDisplay* gobjectValue = gtk_mount_operation_get_display((GtkMountOperation*)[self castedGObject]);
 
 	OGdkDisplay* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -56,7 +67,7 @@
 
 - (OGTKWindow*)parent
 {
-	GtkWindow* gobjectValue = gtk_mount_operation_get_parent([self castedGObject]);
+	GtkWindow* gobjectValue = gtk_mount_operation_get_parent((GtkMountOperation*)[self castedGObject]);
 
 	OGTKWindow* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -64,19 +75,19 @@
 
 - (bool)isShowing
 {
-	bool returnValue = (bool)gtk_mount_operation_is_showing([self castedGObject]);
+	bool returnValue = (bool)gtk_mount_operation_is_showing((GtkMountOperation*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setDisplay:(OGdkDisplay*)display
 {
-	gtk_mount_operation_set_display([self castedGObject], [display castedGObject]);
+	gtk_mount_operation_set_display((GtkMountOperation*)[self castedGObject], [display castedGObject]);
 }
 
 - (void)setParent:(OGTKWindow*)parent
 {
-	gtk_mount_operation_set_parent([self castedGObject], [parent castedGObject]);
+	gtk_mount_operation_set_parent((GtkMountOperation*)[self castedGObject], [parent castedGObject]);
 }
 
 

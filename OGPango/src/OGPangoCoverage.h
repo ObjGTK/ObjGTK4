@@ -25,14 +25,14 @@
 }
 
 /**
- * Functions
+ * Functions and class methods
  */
 + (void)load;
 
++ (GTypeClass*)gObjectClass;
 
 /**
- * Convert data generated from [method@Pango.Coverage.to_bytes]
- * back to a `PangoCoverage`.
+ * This returns %NULL
  *
  * @param bytes binary data
  *   representing a `PangoCoverage`

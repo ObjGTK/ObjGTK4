@@ -8,6 +8,8 @@
 
 @implementation OGTKNamedAction
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_NAMED_ACTION;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_NAMED_ACTION);
+	return gObjectClass;
+}
+
 + (instancetype)namedActionWithName:(OFString*)name
 {
-	GtkNamedAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_named_action_new([name UTF8String]), GtkNamedAction, GtkNamedAction);
+	GtkNamedAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_named_action_new([name UTF8String]), GTK_TYPE_NAMED_ACTION, GtkNamedAction);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkNamedAction*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkNamedAction, GtkNamedAction);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_NAMED_ACTION, GtkNamedAction);
 }
 
 - (OFString*)actionName
 {
-	const char* gobjectValue = gtk_named_action_get_action_name([self castedGObject]);
+	const char* gobjectValue = gtk_named_action_get_action_name((GtkNamedAction*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;

@@ -8,6 +8,8 @@
 
 @implementation OGTKFixed
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FIXED;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FIXED);
+	return gObjectClass;
+}
+
 + (instancetype)fixed
 {
-	GtkFixed* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_fixed_new(), GtkFixed, GtkFixed);
+	GtkFixed* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_fixed_new(), GTK_TYPE_FIXED, GtkFixed);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,39 +54,39 @@
 
 - (GtkFixed*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFixed, GtkFixed);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FIXED, GtkFixed);
 }
 
 - (void)childPositionWithWidget:(OGTKWidget*)widget x:(double*)x y:(double*)y
 {
-	gtk_fixed_get_child_position([self castedGObject], [widget castedGObject], x, y);
+	gtk_fixed_get_child_position((GtkFixed*)[self castedGObject], [widget castedGObject], x, y);
 }
 
 - (GskTransform*)childTransformWithWidget:(OGTKWidget*)widget
 {
-	GskTransform* returnValue = (GskTransform*)gtk_fixed_get_child_transform([self castedGObject], [widget castedGObject]);
+	GskTransform* returnValue = (GskTransform*)gtk_fixed_get_child_transform((GtkFixed*)[self castedGObject], [widget castedGObject]);
 
 	return returnValue;
 }
 
 - (void)moveWithWidget:(OGTKWidget*)widget x:(double)x y:(double)y
 {
-	gtk_fixed_move([self castedGObject], [widget castedGObject], x, y);
+	gtk_fixed_move((GtkFixed*)[self castedGObject], [widget castedGObject], x, y);
 }
 
 - (void)putWithWidget:(OGTKWidget*)widget x:(double)x y:(double)y
 {
-	gtk_fixed_put([self castedGObject], [widget castedGObject], x, y);
+	gtk_fixed_put((GtkFixed*)[self castedGObject], [widget castedGObject], x, y);
 }
 
 - (void)removeWithWidget:(OGTKWidget*)widget
 {
-	gtk_fixed_remove([self castedGObject], [widget castedGObject]);
+	gtk_fixed_remove((GtkFixed*)[self castedGObject], [widget castedGObject]);
 }
 
 - (void)setChildTransformWithWidget:(OGTKWidget*)widget transform:(GskTransform*)transform
 {
-	gtk_fixed_set_child_transform([self castedGObject], [widget castedGObject], transform);
+	gtk_fixed_set_child_transform((GtkFixed*)[self castedGObject], [widget castedGObject], transform);
 }
 
 

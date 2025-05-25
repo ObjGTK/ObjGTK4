@@ -8,6 +8,8 @@
 
 @implementation OGTKRecentManager
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_RECENT_MANAGER;
@@ -16,6 +18,15 @@
 		return;
 
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_RECENT_MANAGER);
+	return gObjectClass;
 }
 
 + (OGTKRecentManager*)default
@@ -28,7 +39,7 @@
 
 + (instancetype)recentManager
 {
-	GtkRecentManager* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_recent_manager_new(), GtkRecentManager, GtkRecentManager);
+	GtkRecentManager* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_recent_manager_new(), GTK_TYPE_RECENT_MANAGER, GtkRecentManager);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -48,33 +59,33 @@
 
 - (GtkRecentManager*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkRecentManager, GtkRecentManager);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_RECENT_MANAGER, GtkRecentManager);
 }
 
 - (bool)addFullWithUri:(OFString*)uri recentData:(const GtkRecentData*)recentData
 {
-	bool returnValue = (bool)gtk_recent_manager_add_full([self castedGObject], [uri UTF8String], recentData);
+	bool returnValue = (bool)gtk_recent_manager_add_full((GtkRecentManager*)[self castedGObject], [uri UTF8String], recentData);
 
 	return returnValue;
 }
 
 - (bool)addItemWithUri:(OFString*)uri
 {
-	bool returnValue = (bool)gtk_recent_manager_add_item([self castedGObject], [uri UTF8String]);
+	bool returnValue = (bool)gtk_recent_manager_add_item((GtkRecentManager*)[self castedGObject], [uri UTF8String]);
 
 	return returnValue;
 }
 
 - (GList*)items
 {
-	GList* returnValue = (GList*)gtk_recent_manager_get_items([self castedGObject]);
+	GList* returnValue = (GList*)gtk_recent_manager_get_items((GtkRecentManager*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasItemWithUri:(OFString*)uri
 {
-	bool returnValue = (bool)gtk_recent_manager_has_item([self castedGObject], [uri UTF8String]);
+	bool returnValue = (bool)gtk_recent_manager_has_item((GtkRecentManager*)[self castedGObject], [uri UTF8String]);
 
 	return returnValue;
 }
@@ -83,7 +94,7 @@
 {
 	GError* err = NULL;
 
-	GtkRecentInfo* returnValue = (GtkRecentInfo*)gtk_recent_manager_lookup_item([self castedGObject], [uri UTF8String], &err);
+	GtkRecentInfo* returnValue = (GtkRecentInfo*)gtk_recent_manager_lookup_item((GtkRecentManager*)[self castedGObject], [uri UTF8String], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -94,7 +105,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_recent_manager_move_item([self castedGObject], [uri UTF8String], [newUri UTF8String], &err);
+	bool returnValue = (bool)gtk_recent_manager_move_item((GtkRecentManager*)[self castedGObject], [uri UTF8String], [newUri UTF8String], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -105,7 +116,7 @@
 {
 	GError* err = NULL;
 
-	int returnValue = (int)gtk_recent_manager_purge_items([self castedGObject], &err);
+	int returnValue = (int)gtk_recent_manager_purge_items((GtkRecentManager*)[self castedGObject], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -116,7 +127,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gtk_recent_manager_remove_item([self castedGObject], [uri UTF8String], &err);
+	bool returnValue = (bool)gtk_recent_manager_remove_item((GtkRecentManager*)[self castedGObject], [uri UTF8String], &err);
 
 	[OGErrorException throwForError:err];
 

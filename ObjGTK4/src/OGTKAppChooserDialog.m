@@ -11,6 +11,8 @@
 
 @implementation OGTKAppChooserDialog
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_APP_CHOOSER_DIALOG;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_APP_CHOOSER_DIALOG);
+	return gObjectClass;
+}
+
 + (instancetype)appChooserDialogWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags file:(GFile*)file
 {
-	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new([parent castedGObject], flags, file), GtkAppChooserDialog, GtkAppChooserDialog);
+	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new([parent castedGObject], flags, file), GTK_TYPE_APP_CHOOSER_DIALOG, GtkAppChooserDialog);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -46,7 +57,7 @@
 
 + (instancetype)appChooserDialogForContentTypeWithParent:(OGTKWindow*)parent flags:(GtkDialogFlags)flags contentType:(OFString*)contentType
 {
-	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new_for_content_type([parent castedGObject], flags, [contentType UTF8String]), GtkAppChooserDialog, GtkAppChooserDialog);
+	GtkAppChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_app_chooser_dialog_new_for_content_type([parent castedGObject], flags, [contentType UTF8String]), GTK_TYPE_APP_CHOOSER_DIALOG, GtkAppChooserDialog);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -69,12 +80,12 @@
 
 - (GtkAppChooserDialog*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAppChooserDialog, GtkAppChooserDialog);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_APP_CHOOSER_DIALOG, GtkAppChooserDialog);
 }
 
 - (OFString*)heading
 {
-	const char* gobjectValue = gtk_app_chooser_dialog_get_heading([self castedGObject]);
+	const char* gobjectValue = gtk_app_chooser_dialog_get_heading((GtkAppChooserDialog*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -82,7 +93,7 @@
 
 - (OGTKWidget*)widget
 {
-	GtkWidget* gobjectValue = gtk_app_chooser_dialog_get_widget([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_app_chooser_dialog_get_widget((GtkAppChooserDialog*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -90,7 +101,7 @@
 
 - (void)setHeading:(OFString*)heading
 {
-	gtk_app_chooser_dialog_set_heading([self castedGObject], [heading UTF8String]);
+	gtk_app_chooser_dialog_set_heading((GtkAppChooserDialog*)[self castedGObject], [heading UTF8String]);
 }
 
 

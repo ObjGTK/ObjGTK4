@@ -8,6 +8,8 @@
 
 @implementation OGTKColorChooserWidget
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_COLOR_CHOOSER_WIDGET;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_COLOR_CHOOSER_WIDGET);
+	return gObjectClass;
+}
+
 + (instancetype)colorChooserWidget
 {
-	GtkColorChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_chooser_widget_new(), GtkColorChooserWidget, GtkColorChooserWidget);
+	GtkColorChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_chooser_widget_new(), GTK_TYPE_COLOR_CHOOSER_WIDGET, GtkColorChooserWidget);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 - (GtkColorChooserWidget*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColorChooserWidget, GtkColorChooserWidget);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_COLOR_CHOOSER_WIDGET, GtkColorChooserWidget);
 }
 
 

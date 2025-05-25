@@ -8,6 +8,8 @@
 
 @implementation OGTKCellRendererProgress
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER_PROGRESS;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_RENDERER_PROGRESS);
+	return gObjectClass;
+}
+
 + (instancetype)cellRendererProgress
 {
-	GtkCellRendererProgress* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_progress_new(), GtkCellRendererProgress, GtkCellRendererProgress);
+	GtkCellRendererProgress* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_progress_new(), GTK_TYPE_CELL_RENDERER_PROGRESS, GtkCellRendererProgress);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 - (GtkCellRendererProgress*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererProgress, GtkCellRendererProgress);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_RENDERER_PROGRESS, GtkCellRendererProgress);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKWindowControls
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_WINDOW_CONTROLS;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_WINDOW_CONTROLS);
+	return gObjectClass;
+}
+
 + (instancetype)windowControlsWithSide:(GtkPackType)side
 {
-	GtkWindowControls* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_controls_new(side), GtkWindowControls, GtkWindowControls);
+	GtkWindowControls* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_controls_new(side), GTK_TYPE_WINDOW_CONTROLS, GtkWindowControls);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkWindowControls*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWindowControls, GtkWindowControls);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_WINDOW_CONTROLS, GtkWindowControls);
 }
 
 - (OFString*)decorationLayout
 {
-	const char* gobjectValue = gtk_window_controls_get_decoration_layout([self castedGObject]);
+	const char* gobjectValue = gtk_window_controls_get_decoration_layout((GtkWindowControls*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -56,26 +67,26 @@
 
 - (bool)empty
 {
-	bool returnValue = (bool)gtk_window_controls_get_empty([self castedGObject]);
+	bool returnValue = (bool)gtk_window_controls_get_empty((GtkWindowControls*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkPackType)side
 {
-	GtkPackType returnValue = (GtkPackType)gtk_window_controls_get_side([self castedGObject]);
+	GtkPackType returnValue = (GtkPackType)gtk_window_controls_get_side((GtkWindowControls*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setDecorationLayout:(OFString*)layout
 {
-	gtk_window_controls_set_decoration_layout([self castedGObject], [layout UTF8String]);
+	gtk_window_controls_set_decoration_layout((GtkWindowControls*)[self castedGObject], [layout UTF8String]);
 }
 
 - (void)setSide:(GtkPackType)side
 {
-	gtk_window_controls_set_side([self castedGObject], side);
+	gtk_window_controls_set_side((GtkWindowControls*)[self castedGObject], side);
 }
 
 

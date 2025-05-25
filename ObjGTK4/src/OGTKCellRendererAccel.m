@@ -10,6 +10,8 @@
 
 @implementation OGTKCellRendererAccel
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER_ACCEL;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_RENDERER_ACCEL);
+	return gObjectClass;
+}
+
 + (instancetype)cellRendererAccel
 {
-	GtkCellRendererAccel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_accel_new(), GtkCellRendererAccel, GtkCellRendererAccel);
+	GtkCellRendererAccel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_accel_new(), GTK_TYPE_CELL_RENDERER_ACCEL, GtkCellRendererAccel);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 - (GtkCellRendererAccel*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererAccel, GtkCellRendererAccel);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_RENDERER_ACCEL, GtkCellRendererAccel);
 }
 
 

@@ -10,6 +10,8 @@
 
 @implementation OGTKColorDialogButton
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_COLOR_DIALOG_BUTTON;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_COLOR_DIALOG_BUTTON);
+	return gObjectClass;
+}
+
 + (instancetype)colorDialogButtonWithDialog:(OGTKColorDialog*)dialog
 {
-	GtkColorDialogButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_dialog_button_new([dialog castedGObject]), GtkColorDialogButton, GtkColorDialogButton);
+	GtkColorDialogButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_dialog_button_new([dialog castedGObject]), GTK_TYPE_COLOR_DIALOG_BUTTON, GtkColorDialogButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,12 +56,12 @@
 
 - (GtkColorDialogButton*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColorDialogButton, GtkColorDialogButton);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_COLOR_DIALOG_BUTTON, GtkColorDialogButton);
 }
 
 - (OGTKColorDialog*)dialog
 {
-	GtkColorDialog* gobjectValue = gtk_color_dialog_button_get_dialog([self castedGObject]);
+	GtkColorDialog* gobjectValue = gtk_color_dialog_button_get_dialog((GtkColorDialogButton*)[self castedGObject]);
 
 	OGTKColorDialog* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,19 +69,19 @@
 
 - (const GdkRGBA*)rgba
 {
-	const GdkRGBA* returnValue = (const GdkRGBA*)gtk_color_dialog_button_get_rgba([self castedGObject]);
+	const GdkRGBA* returnValue = (const GdkRGBA*)gtk_color_dialog_button_get_rgba((GtkColorDialogButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setDialog:(OGTKColorDialog*)dialog
 {
-	gtk_color_dialog_button_set_dialog([self castedGObject], [dialog castedGObject]);
+	gtk_color_dialog_button_set_dialog((GtkColorDialogButton*)[self castedGObject], [dialog castedGObject]);
 }
 
 - (void)setRgbaWithColor:(const GdkRGBA*)color
 {
-	gtk_color_dialog_button_set_rgba([self castedGObject], color);
+	gtk_color_dialog_button_set_rgba((GtkColorDialogButton*)[self castedGObject], color);
 }
 
 

@@ -10,6 +10,8 @@
 
 @implementation OGTKSpinButton
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SPIN_BUTTON;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SPIN_BUTTON);
+	return gObjectClass;
+}
+
 + (instancetype)spinButtonWithAdjustment:(OGTKAdjustment*)adjustment climbRate:(double)climbRate digits:(guint)digits
 {
-	GtkSpinButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spin_button_new([adjustment castedGObject], climbRate, digits), GtkSpinButton, GtkSpinButton);
+	GtkSpinButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spin_button_new([adjustment castedGObject], climbRate, digits), GTK_TYPE_SPIN_BUTTON, GtkSpinButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 + (instancetype)spinButtonWithRangeWithMin:(double)min max:(double)max step:(double)step
 {
-	GtkSpinButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spin_button_new_with_range(min, max, step), GtkSpinButton, GtkSpinButton);
+	GtkSpinButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spin_button_new_with_range(min, max, step), GTK_TYPE_SPIN_BUTTON, GtkSpinButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -68,24 +79,24 @@
 
 - (GtkSpinButton*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSpinButton, GtkSpinButton);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SPIN_BUTTON, GtkSpinButton);
 }
 
 - (void)configureWithAdjustment:(OGTKAdjustment*)adjustment climbRate:(double)climbRate digits:(guint)digits
 {
-	gtk_spin_button_configure([self castedGObject], [adjustment castedGObject], climbRate, digits);
+	gtk_spin_button_configure((GtkSpinButton*)[self castedGObject], [adjustment castedGObject], climbRate, digits);
 }
 
 - (bool)activatesDefault
 {
-	bool returnValue = (bool)gtk_spin_button_get_activates_default([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_activates_default((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKAdjustment*)adjustment
 {
-	GtkAdjustment* gobjectValue = gtk_spin_button_get_adjustment([self castedGObject]);
+	GtkAdjustment* gobjectValue = gtk_spin_button_get_adjustment((GtkSpinButton*)[self castedGObject]);
 
 	OGTKAdjustment* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -93,133 +104,133 @@
 
 - (double)climbRate
 {
-	double returnValue = (double)gtk_spin_button_get_climb_rate([self castedGObject]);
+	double returnValue = (double)gtk_spin_button_get_climb_rate((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)digits
 {
-	guint returnValue = (guint)gtk_spin_button_get_digits([self castedGObject]);
+	guint returnValue = (guint)gtk_spin_button_get_digits((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)incrementsWithStep:(double*)step page:(double*)page
 {
-	gtk_spin_button_get_increments([self castedGObject], step, page);
+	gtk_spin_button_get_increments((GtkSpinButton*)[self castedGObject], step, page);
 }
 
 - (bool)numeric
 {
-	bool returnValue = (bool)gtk_spin_button_get_numeric([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_numeric((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)rangeWithMin:(double*)min max:(double*)max
 {
-	gtk_spin_button_get_range([self castedGObject], min, max);
+	gtk_spin_button_get_range((GtkSpinButton*)[self castedGObject], min, max);
 }
 
 - (bool)snapToTicks
 {
-	bool returnValue = (bool)gtk_spin_button_get_snap_to_ticks([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_snap_to_ticks((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkSpinButtonUpdatePolicy)updatePolicy
 {
-	GtkSpinButtonUpdatePolicy returnValue = (GtkSpinButtonUpdatePolicy)gtk_spin_button_get_update_policy([self castedGObject]);
+	GtkSpinButtonUpdatePolicy returnValue = (GtkSpinButtonUpdatePolicy)gtk_spin_button_get_update_policy((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)value
 {
-	double returnValue = (double)gtk_spin_button_get_value([self castedGObject]);
+	double returnValue = (double)gtk_spin_button_get_value((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)valueAsInt
 {
-	int returnValue = (int)gtk_spin_button_get_value_as_int([self castedGObject]);
+	int returnValue = (int)gtk_spin_button_get_value_as_int((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)wrap
 {
-	bool returnValue = (bool)gtk_spin_button_get_wrap([self castedGObject]);
+	bool returnValue = (bool)gtk_spin_button_get_wrap((GtkSpinButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setActivatesDefault:(bool)activatesDefault
 {
-	gtk_spin_button_set_activates_default([self castedGObject], activatesDefault);
+	gtk_spin_button_set_activates_default((GtkSpinButton*)[self castedGObject], activatesDefault);
 }
 
 - (void)setAdjustment:(OGTKAdjustment*)adjustment
 {
-	gtk_spin_button_set_adjustment([self castedGObject], [adjustment castedGObject]);
+	gtk_spin_button_set_adjustment((GtkSpinButton*)[self castedGObject], [adjustment castedGObject]);
 }
 
 - (void)setClimbRate:(double)climbRate
 {
-	gtk_spin_button_set_climb_rate([self castedGObject], climbRate);
+	gtk_spin_button_set_climb_rate((GtkSpinButton*)[self castedGObject], climbRate);
 }
 
 - (void)setDigits:(guint)digits
 {
-	gtk_spin_button_set_digits([self castedGObject], digits);
+	gtk_spin_button_set_digits((GtkSpinButton*)[self castedGObject], digits);
 }
 
 - (void)setIncrementsWithStep:(double)step page:(double)page
 {
-	gtk_spin_button_set_increments([self castedGObject], step, page);
+	gtk_spin_button_set_increments((GtkSpinButton*)[self castedGObject], step, page);
 }
 
 - (void)setNumeric:(bool)numeric
 {
-	gtk_spin_button_set_numeric([self castedGObject], numeric);
+	gtk_spin_button_set_numeric((GtkSpinButton*)[self castedGObject], numeric);
 }
 
 - (void)setRangeWithMin:(double)min max:(double)max
 {
-	gtk_spin_button_set_range([self castedGObject], min, max);
+	gtk_spin_button_set_range((GtkSpinButton*)[self castedGObject], min, max);
 }
 
 - (void)setSnapToTicks:(bool)snapToTicks
 {
-	gtk_spin_button_set_snap_to_ticks([self castedGObject], snapToTicks);
+	gtk_spin_button_set_snap_to_ticks((GtkSpinButton*)[self castedGObject], snapToTicks);
 }
 
 - (void)setUpdatePolicy:(GtkSpinButtonUpdatePolicy)policy
 {
-	gtk_spin_button_set_update_policy([self castedGObject], policy);
+	gtk_spin_button_set_update_policy((GtkSpinButton*)[self castedGObject], policy);
 }
 
 - (void)setValue:(double)value
 {
-	gtk_spin_button_set_value([self castedGObject], value);
+	gtk_spin_button_set_value((GtkSpinButton*)[self castedGObject], value);
 }
 
 - (void)setWrap:(bool)wrap
 {
-	gtk_spin_button_set_wrap([self castedGObject], wrap);
+	gtk_spin_button_set_wrap((GtkSpinButton*)[self castedGObject], wrap);
 }
 
 - (void)spinWithDirection:(GtkSpinType)direction increment:(double)increment
 {
-	gtk_spin_button_spin([self castedGObject], direction, increment);
+	gtk_spin_button_spin((GtkSpinButton*)[self castedGObject], direction, increment);
 }
 
 - (void)update
 {
-	gtk_spin_button_update([self castedGObject]);
+	gtk_spin_button_update((GtkSpinButton*)[self castedGObject]);
 }
 
 

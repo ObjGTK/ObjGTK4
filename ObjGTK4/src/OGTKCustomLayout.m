@@ -8,6 +8,8 @@
 
 @implementation OGTKCustomLayout
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CUSTOM_LAYOUT;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CUSTOM_LAYOUT);
+	return gObjectClass;
+}
+
 + (instancetype)customLayoutWithRequestMode:(GtkCustomRequestModeFunc)requestMode measure:(GtkCustomMeasureFunc)measure allocate:(GtkCustomAllocateFunc)allocate
 {
-	GtkCustomLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_custom_layout_new(requestMode, measure, allocate), GtkCustomLayout, GtkCustomLayout);
+	GtkCustomLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_custom_layout_new(requestMode, measure, allocate), GTK_TYPE_CUSTOM_LAYOUT, GtkCustomLayout);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkCustomLayout*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCustomLayout, GtkCustomLayout);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CUSTOM_LAYOUT, GtkCustomLayout);
 }
 
 

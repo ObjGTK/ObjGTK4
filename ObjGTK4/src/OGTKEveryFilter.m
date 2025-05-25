@@ -8,6 +8,8 @@
 
 @implementation OGTKEveryFilter
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_EVERY_FILTER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_EVERY_FILTER);
+	return gObjectClass;
+}
+
 + (instancetype)everyFilter
 {
-	GtkEveryFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_every_filter_new(), GtkEveryFilter, GtkEveryFilter);
+	GtkEveryFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_every_filter_new(), GTK_TYPE_EVERY_FILTER, GtkEveryFilter);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkEveryFilter*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEveryFilter, GtkEveryFilter);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_EVERY_FILTER, GtkEveryFilter);
 }
 
 

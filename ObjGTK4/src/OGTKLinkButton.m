@@ -10,6 +10,8 @@
 
 @implementation OGTKLinkButton
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_LINK_BUTTON;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_LINK_BUTTON);
+	return gObjectClass;
+}
+
 + (instancetype)linkButtonWithUri:(OFString*)uri
 {
-	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new([uri UTF8String]), GtkLinkButton, GtkLinkButton);
+	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new([uri UTF8String]), GTK_TYPE_LINK_BUTTON, GtkLinkButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 + (instancetype)linkButtonWithLabelWithUri:(OFString*)uri label:(OFString*)label
 {
-	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new_with_label([uri UTF8String], [label UTF8String]), GtkLinkButton, GtkLinkButton);
+	GtkLinkButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_link_button_new_with_label([uri UTF8String], [label UTF8String]), GTK_TYPE_LINK_BUTTON, GtkLinkButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -68,12 +79,12 @@
 
 - (GtkLinkButton*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkLinkButton, GtkLinkButton);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_LINK_BUTTON, GtkLinkButton);
 }
 
 - (OFString*)uri
 {
-	const char* gobjectValue = gtk_link_button_get_uri([self castedGObject]);
+	const char* gobjectValue = gtk_link_button_get_uri((GtkLinkButton*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -81,19 +92,19 @@
 
 - (bool)visited
 {
-	bool returnValue = (bool)gtk_link_button_get_visited([self castedGObject]);
+	bool returnValue = (bool)gtk_link_button_get_visited((GtkLinkButton*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setUri:(OFString*)uri
 {
-	gtk_link_button_set_uri([self castedGObject], [uri UTF8String]);
+	gtk_link_button_set_uri((GtkLinkButton*)[self castedGObject], [uri UTF8String]);
 }
 
 - (void)setVisited:(bool)visited
 {
-	gtk_link_button_set_visited([self castedGObject], visited);
+	gtk_link_button_set_visited((GtkLinkButton*)[self castedGObject], visited);
 }
 
 

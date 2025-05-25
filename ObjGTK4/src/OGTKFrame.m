@@ -8,6 +8,8 @@
 
 @implementation OGTKFrame
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FRAME;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FRAME);
+	return gObjectClass;
+}
+
 + (instancetype)frameWithLabel:(OFString*)label
 {
-	GtkFrame* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_frame_new([label UTF8String]), GtkFrame, GtkFrame);
+	GtkFrame* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_frame_new([label UTF8String]), GTK_TYPE_FRAME, GtkFrame);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkFrame*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFrame, GtkFrame);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FRAME, GtkFrame);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_frame_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_frame_get_child((GtkFrame*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -56,7 +67,7 @@
 
 - (OFString*)label
 {
-	const char* gobjectValue = gtk_frame_get_label([self castedGObject]);
+	const char* gobjectValue = gtk_frame_get_label((GtkFrame*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -64,14 +75,14 @@
 
 - (float)labelAlign
 {
-	float returnValue = (float)gtk_frame_get_label_align([self castedGObject]);
+	float returnValue = (float)gtk_frame_get_label_align((GtkFrame*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)labelWidget
 {
-	GtkWidget* gobjectValue = gtk_frame_get_label_widget([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_frame_get_label_widget((GtkFrame*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -79,22 +90,22 @@
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_frame_set_child([self castedGObject], [child castedGObject]);
+	gtk_frame_set_child((GtkFrame*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setLabel:(OFString*)label
 {
-	gtk_frame_set_label([self castedGObject], [label UTF8String]);
+	gtk_frame_set_label((GtkFrame*)[self castedGObject], [label UTF8String]);
 }
 
 - (void)setLabelAlignWithXalign:(float)xalign
 {
-	gtk_frame_set_label_align([self castedGObject], xalign);
+	gtk_frame_set_label_align((GtkFrame*)[self castedGObject], xalign);
 }
 
 - (void)setLabelWidget:(OGTKWidget*)labelWidget
 {
-	gtk_frame_set_label_widget([self castedGObject], [labelWidget castedGObject]);
+	gtk_frame_set_label_widget((GtkFrame*)[self castedGObject], [labelWidget castedGObject]);
 }
 
 

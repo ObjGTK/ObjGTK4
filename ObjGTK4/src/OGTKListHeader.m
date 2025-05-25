@@ -10,6 +10,8 @@
 
 @implementation OGTKListHeader
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_LIST_HEADER;
@@ -20,14 +22,23 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_LIST_HEADER);
+	return gObjectClass;
+}
+
 - (GtkListHeader*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkListHeader, GtkListHeader);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_LIST_HEADER, GtkListHeader);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_list_header_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_list_header_get_child((GtkListHeader*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -35,35 +46,35 @@
 
 - (guint)end
 {
-	guint returnValue = (guint)gtk_list_header_get_end([self castedGObject]);
+	guint returnValue = (guint)gtk_list_header_get_end((GtkListHeader*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)item
 {
-	gpointer returnValue = (gpointer)gtk_list_header_get_item([self castedGObject]);
+	gpointer returnValue = (gpointer)gtk_list_header_get_item((GtkListHeader*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)nitems
 {
-	guint returnValue = (guint)gtk_list_header_get_n_items([self castedGObject]);
+	guint returnValue = (guint)gtk_list_header_get_n_items((GtkListHeader*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)start
 {
-	guint returnValue = (guint)gtk_list_header_get_start([self castedGObject]);
+	guint returnValue = (guint)gtk_list_header_get_start((GtkListHeader*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_list_header_set_child([self castedGObject], [child castedGObject]);
+	gtk_list_header_set_child((GtkListHeader*)[self castedGObject], [child castedGObject]);
 }
 
 

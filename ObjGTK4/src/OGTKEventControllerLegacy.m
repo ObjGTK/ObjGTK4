@@ -8,6 +8,8 @@
 
 @implementation OGTKEventControllerLegacy
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_EVENT_CONTROLLER_LEGACY;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_EVENT_CONTROLLER_LEGACY);
+	return gObjectClass;
+}
+
 + (instancetype)eventControllerLegacy
 {
-	GtkEventControllerLegacy* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_legacy_new(), GtkEventControllerLegacy, GtkEventControllerLegacy);
+	GtkEventControllerLegacy* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_legacy_new(), GTK_TYPE_EVENT_CONTROLLER_LEGACY, GtkEventControllerLegacy);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkEventControllerLegacy*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEventControllerLegacy, GtkEventControllerLegacy);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_EVENT_CONTROLLER_LEGACY, GtkEventControllerLegacy);
 }
 
 

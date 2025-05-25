@@ -11,6 +11,8 @@
 
 @implementation OGTKColorChooserDialog
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_COLOR_CHOOSER_DIALOG;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_COLOR_CHOOSER_DIALOG);
+	return gObjectClass;
+}
+
 + (instancetype)colorChooserDialogWithTitle:(OFString*)title parent:(OGTKWindow*)parent
 {
-	GtkColorChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_chooser_dialog_new([title UTF8String], [parent castedGObject]), GtkColorChooserDialog, GtkColorChooserDialog);
+	GtkColorChooserDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_color_chooser_dialog_new([title UTF8String], [parent castedGObject]), GTK_TYPE_COLOR_CHOOSER_DIALOG, GtkColorChooserDialog);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -46,7 +57,7 @@
 
 - (GtkColorChooserDialog*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkColorChooserDialog, GtkColorChooserDialog);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_COLOR_CHOOSER_DIALOG, GtkColorChooserDialog);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKMultiSorter
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_MULTI_SORTER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_MULTI_SORTER);
+	return gObjectClass;
+}
+
 + (instancetype)multiSorter
 {
-	GtkMultiSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_multi_sorter_new(), GtkMultiSorter, GtkMultiSorter);
+	GtkMultiSorter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_multi_sorter_new(), GTK_TYPE_MULTI_SORTER, GtkMultiSorter);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,17 +51,17 @@
 
 - (GtkMultiSorter*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkMultiSorter, GtkMultiSorter);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_MULTI_SORTER, GtkMultiSorter);
 }
 
 - (void)appendWithSorter:(OGTKSorter*)sorter
 {
-	gtk_multi_sorter_append([self castedGObject], [sorter castedGObject]);
+	gtk_multi_sorter_append((GtkMultiSorter*)[self castedGObject], [sorter castedGObject]);
 }
 
 - (void)removeWithPosition:(guint)position
 {
-	gtk_multi_sorter_remove([self castedGObject], position);
+	gtk_multi_sorter_remove((GtkMultiSorter*)[self castedGObject], position);
 }
 
 

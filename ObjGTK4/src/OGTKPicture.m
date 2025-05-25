@@ -10,6 +10,8 @@
 
 @implementation OGTKPicture
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_PICTURE;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_PICTURE);
+	return gObjectClass;
+}
+
 + (instancetype)picture
 {
-	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new(), GtkPicture, GtkPicture);
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new(), GTK_TYPE_PICTURE, GtkPicture);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 + (instancetype)pictureForFile:(GFile*)file
 {
-	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_file(file), GtkPicture, GtkPicture);
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_file(file), GTK_TYPE_PICTURE, GtkPicture);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -68,7 +79,7 @@
 
 + (instancetype)pictureForFilename:(OFString*)filename
 {
-	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_filename([filename UTF8String]), GtkPicture, GtkPicture);
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_filename([filename UTF8String]), GTK_TYPE_PICTURE, GtkPicture);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -91,7 +102,7 @@
 
 + (instancetype)pictureForPaintable:(GdkPaintable*)paintable
 {
-	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_paintable(paintable), GtkPicture, GtkPicture);
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_paintable(paintable), GTK_TYPE_PICTURE, GtkPicture);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -114,7 +125,7 @@
 
 + (instancetype)pictureForPixbuf:(OGdkPixbuf*)pixbuf
 {
-	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_pixbuf([pixbuf castedGObject]), GtkPicture, GtkPicture);
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_pixbuf([pixbuf castedGObject]), GTK_TYPE_PICTURE, GtkPicture);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -137,7 +148,7 @@
 
 + (instancetype)pictureForResourceWithResourcePath:(OFString*)resourcePath
 {
-	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_resource([resourcePath UTF8String]), GtkPicture, GtkPicture);
+	GtkPicture* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_picture_new_for_resource([resourcePath UTF8String]), GTK_TYPE_PICTURE, GtkPicture);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -160,12 +171,12 @@
 
 - (GtkPicture*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPicture, GtkPicture);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_PICTURE, GtkPicture);
 }
 
 - (OFString*)alternativeText
 {
-	const char* gobjectValue = gtk_picture_get_alternative_text([self castedGObject]);
+	const char* gobjectValue = gtk_picture_get_alternative_text((GtkPicture*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -173,82 +184,82 @@
 
 - (bool)canShrink
 {
-	bool returnValue = (bool)gtk_picture_get_can_shrink([self castedGObject]);
+	bool returnValue = (bool)gtk_picture_get_can_shrink((GtkPicture*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkContentFit)contentFit
 {
-	GtkContentFit returnValue = (GtkContentFit)gtk_picture_get_content_fit([self castedGObject]);
+	GtkContentFit returnValue = (GtkContentFit)gtk_picture_get_content_fit((GtkPicture*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = (GFile*)gtk_picture_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_picture_get_file((GtkPicture*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)keepAspectRatio
 {
-	bool returnValue = (bool)gtk_picture_get_keep_aspect_ratio([self castedGObject]);
+	bool returnValue = (bool)gtk_picture_get_keep_aspect_ratio((GtkPicture*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkPaintable*)paintable
 {
-	GdkPaintable* returnValue = (GdkPaintable*)gtk_picture_get_paintable([self castedGObject]);
+	GdkPaintable* returnValue = (GdkPaintable*)gtk_picture_get_paintable((GtkPicture*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setAlternativeText:(OFString*)alternativeText
 {
-	gtk_picture_set_alternative_text([self castedGObject], [alternativeText UTF8String]);
+	gtk_picture_set_alternative_text((GtkPicture*)[self castedGObject], [alternativeText UTF8String]);
 }
 
 - (void)setCanShrink:(bool)canShrink
 {
-	gtk_picture_set_can_shrink([self castedGObject], canShrink);
+	gtk_picture_set_can_shrink((GtkPicture*)[self castedGObject], canShrink);
 }
 
 - (void)setContentFit:(GtkContentFit)contentFit
 {
-	gtk_picture_set_content_fit([self castedGObject], contentFit);
+	gtk_picture_set_content_fit((GtkPicture*)[self castedGObject], contentFit);
 }
 
 - (void)setFile:(GFile*)file
 {
-	gtk_picture_set_file([self castedGObject], file);
+	gtk_picture_set_file((GtkPicture*)[self castedGObject], file);
 }
 
 - (void)setFilename:(OFString*)filename
 {
-	gtk_picture_set_filename([self castedGObject], [filename UTF8String]);
+	gtk_picture_set_filename((GtkPicture*)[self castedGObject], [filename UTF8String]);
 }
 
 - (void)setKeepAspectRatio:(bool)keepAspectRatio
 {
-	gtk_picture_set_keep_aspect_ratio([self castedGObject], keepAspectRatio);
+	gtk_picture_set_keep_aspect_ratio((GtkPicture*)[self castedGObject], keepAspectRatio);
 }
 
 - (void)setPaintable:(GdkPaintable*)paintable
 {
-	gtk_picture_set_paintable([self castedGObject], paintable);
+	gtk_picture_set_paintable((GtkPicture*)[self castedGObject], paintable);
 }
 
 - (void)setPixbuf:(OGdkPixbuf*)pixbuf
 {
-	gtk_picture_set_pixbuf([self castedGObject], [pixbuf castedGObject]);
+	gtk_picture_set_pixbuf((GtkPicture*)[self castedGObject], [pixbuf castedGObject]);
 }
 
 - (void)setResourceWithResourcePath:(OFString*)resourcePath
 {
-	gtk_picture_set_resource([self castedGObject], [resourcePath UTF8String]);
+	gtk_picture_set_resource((GtkPicture*)[self castedGObject], [resourcePath UTF8String]);
 }
 
 

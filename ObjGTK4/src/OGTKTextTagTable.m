@@ -10,6 +10,8 @@
 
 @implementation OGTKTextTagTable
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_TEXT_TAG_TABLE;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_TEXT_TAG_TABLE);
+	return gObjectClass;
+}
+
 + (instancetype)textTagTable
 {
-	GtkTextTagTable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_tag_table_new(), GtkTextTagTable, GtkTextTagTable);
+	GtkTextTagTable* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_tag_table_new(), GTK_TYPE_TEXT_TAG_TABLE, GtkTextTagTable);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,31 +53,31 @@
 
 - (GtkTextTagTable*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextTagTable, GtkTextTagTable);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_TEXT_TAG_TABLE, GtkTextTagTable);
 }
 
 - (bool)addWithTag:(OGTKTextTag*)tag
 {
-	bool returnValue = (bool)gtk_text_tag_table_add([self castedGObject], [tag castedGObject]);
+	bool returnValue = (bool)gtk_text_tag_table_add((GtkTextTagTable*)[self castedGObject], [tag castedGObject]);
 
 	return returnValue;
 }
 
 - (void)foreachWithFunc:(GtkTextTagTableForeach)func data:(gpointer)data
 {
-	gtk_text_tag_table_foreach([self castedGObject], func, data);
+	gtk_text_tag_table_foreach((GtkTextTagTable*)[self castedGObject], func, data);
 }
 
 - (int)size
 {
-	int returnValue = (int)gtk_text_tag_table_get_size([self castedGObject]);
+	int returnValue = (int)gtk_text_tag_table_get_size((GtkTextTagTable*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKTextTag*)lookupWithName:(OFString*)name
 {
-	GtkTextTag* gobjectValue = gtk_text_tag_table_lookup([self castedGObject], [name UTF8String]);
+	GtkTextTag* gobjectValue = gtk_text_tag_table_lookup((GtkTextTagTable*)[self castedGObject], [name UTF8String]);
 
 	OGTKTextTag* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -74,7 +85,7 @@
 
 - (void)removeWithTag:(OGTKTextTag*)tag
 {
-	gtk_text_tag_table_remove([self castedGObject], [tag castedGObject]);
+	gtk_text_tag_table_remove((GtkTextTagTable*)[self castedGObject], [tag castedGObject]);
 }
 
 

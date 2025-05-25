@@ -8,6 +8,8 @@
 
 @implementation OGTKNoSelection
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_NO_SELECTION;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_NO_SELECTION);
+	return gObjectClass;
+}
+
 + (instancetype)noSelectionWithModel:(GListModel*)model
 {
-	GtkNoSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_no_selection_new(model), GtkNoSelection, GtkNoSelection);
+	GtkNoSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_no_selection_new(model), GTK_TYPE_NO_SELECTION, GtkNoSelection);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,19 +51,19 @@
 
 - (GtkNoSelection*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkNoSelection, GtkNoSelection);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_NO_SELECTION, GtkNoSelection);
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = (GListModel*)gtk_no_selection_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_no_selection_get_model((GtkNoSelection*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setModel:(GListModel*)model
 {
-	gtk_no_selection_set_model([self castedGObject], model);
+	gtk_no_selection_set_model((GtkNoSelection*)[self castedGObject], model);
 }
 
 

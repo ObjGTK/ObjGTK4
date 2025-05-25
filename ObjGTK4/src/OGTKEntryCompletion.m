@@ -11,6 +11,8 @@
 
 @implementation OGTKEntryCompletion
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_ENTRY_COMPLETION;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_ENTRY_COMPLETION);
+	return gObjectClass;
+}
+
 + (instancetype)entryCompletion
 {
-	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new(), GtkEntryCompletion, GtkEntryCompletion);
+	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new(), GTK_TYPE_ENTRY_COMPLETION, GtkEntryCompletion);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 + (instancetype)entryCompletionWithArea:(OGTKCellArea*)area
 {
-	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new_with_area([area castedGObject]), GtkEntryCompletion, GtkEntryCompletion);
+	GtkEntryCompletion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_entry_completion_new_with_area([area castedGObject]), GTK_TYPE_ENTRY_COMPLETION, GtkEntryCompletion);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -63,17 +74,17 @@
 
 - (GtkEntryCompletion*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEntryCompletion, GtkEntryCompletion);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_ENTRY_COMPLETION, GtkEntryCompletion);
 }
 
 - (void)complete
 {
-	gtk_entry_completion_complete([self castedGObject]);
+	gtk_entry_completion_complete((GtkEntryCompletion*)[self castedGObject]);
 }
 
 - (OFString*)computePrefixWithKey:(OFString*)key
 {
-	char* gobjectValue = gtk_entry_completion_compute_prefix([self castedGObject], [key UTF8String]);
+	char* gobjectValue = gtk_entry_completion_compute_prefix((GtkEntryCompletion*)[self castedGObject], [key UTF8String]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;
@@ -81,7 +92,7 @@
 
 - (OFString*)completionPrefix
 {
-	const char* gobjectValue = gtk_entry_completion_get_completion_prefix([self castedGObject]);
+	const char* gobjectValue = gtk_entry_completion_get_completion_prefix((GtkEntryCompletion*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -89,7 +100,7 @@
 
 - (OGTKWidget*)entry
 {
-	GtkWidget* gobjectValue = gtk_entry_completion_get_entry([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_entry_completion_get_entry((GtkEntryCompletion*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -97,108 +108,108 @@
 
 - (bool)inlineCompletion
 {
-	bool returnValue = (bool)gtk_entry_completion_get_inline_completion([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_inline_completion((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)inlineSelection
 {
-	bool returnValue = (bool)gtk_entry_completion_get_inline_selection([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_inline_selection((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)minimumKeyLength
 {
-	int returnValue = (int)gtk_entry_completion_get_minimum_key_length([self castedGObject]);
+	int returnValue = (int)gtk_entry_completion_get_minimum_key_length((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeModel*)model
 {
-	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_entry_completion_get_model([self castedGObject]);
+	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_entry_completion_get_model((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)popupCompletion
 {
-	bool returnValue = (bool)gtk_entry_completion_get_popup_completion([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_popup_completion((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)popupSetWidth
 {
-	bool returnValue = (bool)gtk_entry_completion_get_popup_set_width([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_popup_set_width((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)popupSingleMatch
 {
-	bool returnValue = (bool)gtk_entry_completion_get_popup_single_match([self castedGObject]);
+	bool returnValue = (bool)gtk_entry_completion_get_popup_single_match((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)textColumn
 {
-	int returnValue = (int)gtk_entry_completion_get_text_column([self castedGObject]);
+	int returnValue = (int)gtk_entry_completion_get_text_column((GtkEntryCompletion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)insertPrefix
 {
-	gtk_entry_completion_insert_prefix([self castedGObject]);
+	gtk_entry_completion_insert_prefix((GtkEntryCompletion*)[self castedGObject]);
 }
 
 - (void)setInlineCompletion:(bool)inlineCompletion
 {
-	gtk_entry_completion_set_inline_completion([self castedGObject], inlineCompletion);
+	gtk_entry_completion_set_inline_completion((GtkEntryCompletion*)[self castedGObject], inlineCompletion);
 }
 
 - (void)setInlineSelection:(bool)inlineSelection
 {
-	gtk_entry_completion_set_inline_selection([self castedGObject], inlineSelection);
+	gtk_entry_completion_set_inline_selection((GtkEntryCompletion*)[self castedGObject], inlineSelection);
 }
 
 - (void)setMatchFunc:(GtkEntryCompletionMatchFunc)func funcData:(gpointer)funcData funcNotify:(GDestroyNotify)funcNotify
 {
-	gtk_entry_completion_set_match_func([self castedGObject], func, funcData, funcNotify);
+	gtk_entry_completion_set_match_func((GtkEntryCompletion*)[self castedGObject], func, funcData, funcNotify);
 }
 
 - (void)setMinimumKeyLength:(int)length
 {
-	gtk_entry_completion_set_minimum_key_length([self castedGObject], length);
+	gtk_entry_completion_set_minimum_key_length((GtkEntryCompletion*)[self castedGObject], length);
 }
 
 - (void)setModel:(GtkTreeModel*)model
 {
-	gtk_entry_completion_set_model([self castedGObject], model);
+	gtk_entry_completion_set_model((GtkEntryCompletion*)[self castedGObject], model);
 }
 
 - (void)setPopupCompletion:(bool)popupCompletion
 {
-	gtk_entry_completion_set_popup_completion([self castedGObject], popupCompletion);
+	gtk_entry_completion_set_popup_completion((GtkEntryCompletion*)[self castedGObject], popupCompletion);
 }
 
 - (void)setPopupSetWidth:(bool)popupSetWidth
 {
-	gtk_entry_completion_set_popup_set_width([self castedGObject], popupSetWidth);
+	gtk_entry_completion_set_popup_set_width((GtkEntryCompletion*)[self castedGObject], popupSetWidth);
 }
 
 - (void)setPopupSingleMatch:(bool)popupSingleMatch
 {
-	gtk_entry_completion_set_popup_single_match([self castedGObject], popupSingleMatch);
+	gtk_entry_completion_set_popup_single_match((GtkEntryCompletion*)[self castedGObject], popupSingleMatch);
 }
 
 - (void)setTextColumn:(int)column
 {
-	gtk_entry_completion_set_text_column([self castedGObject], column);
+	gtk_entry_completion_set_text_column((GtkEntryCompletion*)[self castedGObject], column);
 }
 
 

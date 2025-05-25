@@ -8,6 +8,8 @@
 
 @implementation OGTKEventControllerFocus
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_EVENT_CONTROLLER_FOCUS;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_EVENT_CONTROLLER_FOCUS);
+	return gObjectClass;
+}
+
 + (instancetype)eventControllerFocus
 {
-	GtkEventControllerFocus* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_focus_new(), GtkEventControllerFocus, GtkEventControllerFocus);
+	GtkEventControllerFocus* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_focus_new(), GTK_TYPE_EVENT_CONTROLLER_FOCUS, GtkEventControllerFocus);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,19 +51,19 @@
 
 - (GtkEventControllerFocus*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEventControllerFocus, GtkEventControllerFocus);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_EVENT_CONTROLLER_FOCUS, GtkEventControllerFocus);
 }
 
 - (bool)containsFocus
 {
-	bool returnValue = (bool)gtk_event_controller_focus_contains_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_event_controller_focus_contains_focus((GtkEventControllerFocus*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isFocus
 {
-	bool returnValue = (bool)gtk_event_controller_focus_is_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_event_controller_focus_is_focus((GtkEventControllerFocus*)[self castedGObject]);
 
 	return returnValue;
 }

@@ -10,6 +10,8 @@
 
 @implementation OGTKStyleContext
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_STYLE_CONTEXT;
@@ -18,6 +20,15 @@
 		return;
 
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_STYLE_CONTEXT);
+	return gObjectClass;
 }
 
 + (void)addProviderForDisplay:(OGdkDisplay*)display provider:(GtkStyleProvider*)provider priority:(guint)priority
@@ -32,32 +43,32 @@
 
 - (GtkStyleContext*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStyleContext, GtkStyleContext);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_STYLE_CONTEXT, GtkStyleContext);
 }
 
 - (void)addClassWithClassName:(OFString*)className
 {
-	gtk_style_context_add_class([self castedGObject], [className UTF8String]);
+	gtk_style_context_add_class((GtkStyleContext*)[self castedGObject], [className UTF8String]);
 }
 
 - (void)addProvider:(GtkStyleProvider*)provider priority:(guint)priority
 {
-	gtk_style_context_add_provider([self castedGObject], provider, priority);
+	gtk_style_context_add_provider((GtkStyleContext*)[self castedGObject], provider, priority);
 }
 
 - (void)borderWithBorder:(GtkBorder*)border
 {
-	gtk_style_context_get_border([self castedGObject], border);
+	gtk_style_context_get_border((GtkStyleContext*)[self castedGObject], border);
 }
 
 - (void)colorWithColor:(GdkRGBA*)color
 {
-	gtk_style_context_get_color([self castedGObject], color);
+	gtk_style_context_get_color((GtkStyleContext*)[self castedGObject], color);
 }
 
 - (OGdkDisplay*)display
 {
-	GdkDisplay* gobjectValue = gtk_style_context_get_display([self castedGObject]);
+	GdkDisplay* gobjectValue = gtk_style_context_get_display((GtkStyleContext*)[self castedGObject]);
 
 	OGdkDisplay* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -65,80 +76,80 @@
 
 - (void)marginWithMargin:(GtkBorder*)margin
 {
-	gtk_style_context_get_margin([self castedGObject], margin);
+	gtk_style_context_get_margin((GtkStyleContext*)[self castedGObject], margin);
 }
 
 - (void)paddingWithPadding:(GtkBorder*)padding
 {
-	gtk_style_context_get_padding([self castedGObject], padding);
+	gtk_style_context_get_padding((GtkStyleContext*)[self castedGObject], padding);
 }
 
 - (int)scale
 {
-	int returnValue = (int)gtk_style_context_get_scale([self castedGObject]);
+	int returnValue = (int)gtk_style_context_get_scale((GtkStyleContext*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStateFlags)state
 {
-	GtkStateFlags returnValue = (GtkStateFlags)gtk_style_context_get_state([self castedGObject]);
+	GtkStateFlags returnValue = (GtkStateFlags)gtk_style_context_get_state((GtkStyleContext*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)hasClassWithClassName:(OFString*)className
 {
-	bool returnValue = (bool)gtk_style_context_has_class([self castedGObject], [className UTF8String]);
+	bool returnValue = (bool)gtk_style_context_has_class((GtkStyleContext*)[self castedGObject], [className UTF8String]);
 
 	return returnValue;
 }
 
 - (bool)lookupColorWithColorName:(OFString*)colorName color:(GdkRGBA*)color
 {
-	bool returnValue = (bool)gtk_style_context_lookup_color([self castedGObject], [colorName UTF8String], color);
+	bool returnValue = (bool)gtk_style_context_lookup_color((GtkStyleContext*)[self castedGObject], [colorName UTF8String], color);
 
 	return returnValue;
 }
 
 - (void)removeClassWithClassName:(OFString*)className
 {
-	gtk_style_context_remove_class([self castedGObject], [className UTF8String]);
+	gtk_style_context_remove_class((GtkStyleContext*)[self castedGObject], [className UTF8String]);
 }
 
 - (void)removeProvider:(GtkStyleProvider*)provider
 {
-	gtk_style_context_remove_provider([self castedGObject], provider);
+	gtk_style_context_remove_provider((GtkStyleContext*)[self castedGObject], provider);
 }
 
 - (void)restore
 {
-	gtk_style_context_restore([self castedGObject]);
+	gtk_style_context_restore((GtkStyleContext*)[self castedGObject]);
 }
 
 - (void)save
 {
-	gtk_style_context_save([self castedGObject]);
+	gtk_style_context_save((GtkStyleContext*)[self castedGObject]);
 }
 
 - (void)setDisplay:(OGdkDisplay*)display
 {
-	gtk_style_context_set_display([self castedGObject], [display castedGObject]);
+	gtk_style_context_set_display((GtkStyleContext*)[self castedGObject], [display castedGObject]);
 }
 
 - (void)setScale:(int)scale
 {
-	gtk_style_context_set_scale([self castedGObject], scale);
+	gtk_style_context_set_scale((GtkStyleContext*)[self castedGObject], scale);
 }
 
 - (void)setStateWithFlags:(GtkStateFlags)flags
 {
-	gtk_style_context_set_state([self castedGObject], flags);
+	gtk_style_context_set_state((GtkStyleContext*)[self castedGObject], flags);
 }
 
 - (OFString*)toStringWithFlags:(GtkStyleContextPrintFlags)flags
 {
-	char* gobjectValue = gtk_style_context_to_string([self castedGObject], flags);
+	char* gobjectValue = gtk_style_context_to_string((GtkStyleContext*)[self castedGObject], flags);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:true] : nil);
 	return returnValue;

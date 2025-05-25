@@ -10,6 +10,8 @@
 
 @implementation OGTKDragIcon
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_DRAG_ICON;
@@ -18,6 +20,15 @@
 		return;
 
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_DRAG_ICON);
+	return gObjectClass;
 }
 
 + (OGTKWidget*)createWidgetForValue:(const GValue*)value
@@ -45,12 +56,12 @@
 
 - (GtkDragIcon*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDragIcon, GtkDragIcon);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_DRAG_ICON, GtkDragIcon);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_drag_icon_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_drag_icon_get_child((GtkDragIcon*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,7 +69,7 @@
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_drag_icon_set_child([self castedGObject], [child castedGObject]);
+	gtk_drag_icon_set_child((GtkDragIcon*)[self castedGObject], [child castedGObject]);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKSearchEntry
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SEARCH_ENTRY;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SEARCH_ENTRY);
+	return gObjectClass;
+}
+
 + (instancetype)searchEntry
 {
-	GtkSearchEntry* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_search_entry_new(), GtkSearchEntry, GtkSearchEntry);
+	GtkSearchEntry* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_search_entry_new(), GTK_TYPE_SEARCH_ENTRY, GtkSearchEntry);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,26 +54,26 @@
 
 - (GtkSearchEntry*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSearchEntry, GtkSearchEntry);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SEARCH_ENTRY, GtkSearchEntry);
 }
 
 - (GtkInputHints)inputHints
 {
-	GtkInputHints returnValue = (GtkInputHints)gtk_search_entry_get_input_hints([self castedGObject]);
+	GtkInputHints returnValue = (GtkInputHints)gtk_search_entry_get_input_hints((GtkSearchEntry*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkInputPurpose)inputPurpose
 {
-	GtkInputPurpose returnValue = (GtkInputPurpose)gtk_search_entry_get_input_purpose([self castedGObject]);
+	GtkInputPurpose returnValue = (GtkInputPurpose)gtk_search_entry_get_input_purpose((GtkSearchEntry*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)keyCaptureWidget
 {
-	GtkWidget* gobjectValue = gtk_search_entry_get_key_capture_widget([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_search_entry_get_key_capture_widget((GtkSearchEntry*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -70,7 +81,7 @@
 
 - (OFString*)placeholderText
 {
-	const char* gobjectValue = gtk_search_entry_get_placeholder_text([self castedGObject]);
+	const char* gobjectValue = gtk_search_entry_get_placeholder_text((GtkSearchEntry*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -78,34 +89,34 @@
 
 - (guint)searchDelay
 {
-	guint returnValue = (guint)gtk_search_entry_get_search_delay([self castedGObject]);
+	guint returnValue = (guint)gtk_search_entry_get_search_delay((GtkSearchEntry*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setInputHints:(GtkInputHints)hints
 {
-	gtk_search_entry_set_input_hints([self castedGObject], hints);
+	gtk_search_entry_set_input_hints((GtkSearchEntry*)[self castedGObject], hints);
 }
 
 - (void)setInputPurpose:(GtkInputPurpose)purpose
 {
-	gtk_search_entry_set_input_purpose([self castedGObject], purpose);
+	gtk_search_entry_set_input_purpose((GtkSearchEntry*)[self castedGObject], purpose);
 }
 
 - (void)setKeyCaptureWidget:(OGTKWidget*)widget
 {
-	gtk_search_entry_set_key_capture_widget([self castedGObject], [widget castedGObject]);
+	gtk_search_entry_set_key_capture_widget((GtkSearchEntry*)[self castedGObject], [widget castedGObject]);
 }
 
 - (void)setPlaceholderText:(OFString*)text
 {
-	gtk_search_entry_set_placeholder_text([self castedGObject], [text UTF8String]);
+	gtk_search_entry_set_placeholder_text((GtkSearchEntry*)[self castedGObject], [text UTF8String]);
 }
 
 - (void)setSearchDelay:(guint)delay
 {
-	gtk_search_entry_set_search_delay([self castedGObject], delay);
+	gtk_search_entry_set_search_delay((GtkSearchEntry*)[self castedGObject], delay);
 }
 
 

@@ -10,6 +10,8 @@
 
 @implementation OGTKScrollbar
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SCROLLBAR;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SCROLLBAR);
+	return gObjectClass;
+}
+
 + (instancetype)scrollbarWithOrientation:(GtkOrientation)orientation adjustment:(OGTKAdjustment*)adjustment
 {
-	GtkScrollbar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_scrollbar_new(orientation, [adjustment castedGObject]), GtkScrollbar, GtkScrollbar);
+	GtkScrollbar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_scrollbar_new(orientation, [adjustment castedGObject]), GTK_TYPE_SCROLLBAR, GtkScrollbar);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,12 +56,12 @@
 
 - (GtkScrollbar*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkScrollbar, GtkScrollbar);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SCROLLBAR, GtkScrollbar);
 }
 
 - (OGTKAdjustment*)adjustment
 {
-	GtkAdjustment* gobjectValue = gtk_scrollbar_get_adjustment([self castedGObject]);
+	GtkAdjustment* gobjectValue = gtk_scrollbar_get_adjustment((GtkScrollbar*)[self castedGObject]);
 
 	OGTKAdjustment* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,7 +69,7 @@
 
 - (void)setAdjustment:(OGTKAdjustment*)adjustment
 {
-	gtk_scrollbar_set_adjustment([self castedGObject], [adjustment castedGObject]);
+	gtk_scrollbar_set_adjustment((GtkScrollbar*)[self castedGObject], [adjustment castedGObject]);
 }
 
 

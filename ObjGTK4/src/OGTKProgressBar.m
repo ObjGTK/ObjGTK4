@@ -8,6 +8,8 @@
 
 @implementation OGTKProgressBar
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_PROGRESS_BAR;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_PROGRESS_BAR);
+	return gObjectClass;
+}
+
 + (instancetype)progressBar
 {
-	GtkProgressBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_progress_bar_new(), GtkProgressBar, GtkProgressBar);
+	GtkProgressBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_progress_bar_new(), GTK_TYPE_PROGRESS_BAR, GtkProgressBar);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,47 +54,47 @@
 
 - (GtkProgressBar*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkProgressBar, GtkProgressBar);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_PROGRESS_BAR, GtkProgressBar);
 }
 
 - (PangoEllipsizeMode)ellipsize
 {
-	PangoEllipsizeMode returnValue = (PangoEllipsizeMode)gtk_progress_bar_get_ellipsize([self castedGObject]);
+	PangoEllipsizeMode returnValue = (PangoEllipsizeMode)gtk_progress_bar_get_ellipsize((GtkProgressBar*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)fraction
 {
-	double returnValue = (double)gtk_progress_bar_get_fraction([self castedGObject]);
+	double returnValue = (double)gtk_progress_bar_get_fraction((GtkProgressBar*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)inverted
 {
-	bool returnValue = (bool)gtk_progress_bar_get_inverted([self castedGObject]);
+	bool returnValue = (bool)gtk_progress_bar_get_inverted((GtkProgressBar*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (double)pulseStep
 {
-	double returnValue = (double)gtk_progress_bar_get_pulse_step([self castedGObject]);
+	double returnValue = (double)gtk_progress_bar_get_pulse_step((GtkProgressBar*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)showText
 {
-	bool returnValue = (bool)gtk_progress_bar_get_show_text([self castedGObject]);
+	bool returnValue = (bool)gtk_progress_bar_get_show_text((GtkProgressBar*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)text
 {
-	const char* gobjectValue = gtk_progress_bar_get_text([self castedGObject]);
+	const char* gobjectValue = gtk_progress_bar_get_text((GtkProgressBar*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -91,37 +102,37 @@
 
 - (void)pulse
 {
-	gtk_progress_bar_pulse([self castedGObject]);
+	gtk_progress_bar_pulse((GtkProgressBar*)[self castedGObject]);
 }
 
 - (void)setEllipsizeWithMode:(PangoEllipsizeMode)mode
 {
-	gtk_progress_bar_set_ellipsize([self castedGObject], mode);
+	gtk_progress_bar_set_ellipsize((GtkProgressBar*)[self castedGObject], mode);
 }
 
 - (void)setFraction:(double)fraction
 {
-	gtk_progress_bar_set_fraction([self castedGObject], fraction);
+	gtk_progress_bar_set_fraction((GtkProgressBar*)[self castedGObject], fraction);
 }
 
 - (void)setInverted:(bool)inverted
 {
-	gtk_progress_bar_set_inverted([self castedGObject], inverted);
+	gtk_progress_bar_set_inverted((GtkProgressBar*)[self castedGObject], inverted);
 }
 
 - (void)setPulseStepWithFraction:(double)fraction
 {
-	gtk_progress_bar_set_pulse_step([self castedGObject], fraction);
+	gtk_progress_bar_set_pulse_step((GtkProgressBar*)[self castedGObject], fraction);
 }
 
 - (void)setShowText:(bool)showText
 {
-	gtk_progress_bar_set_show_text([self castedGObject], showText);
+	gtk_progress_bar_set_show_text((GtkProgressBar*)[self castedGObject], showText);
 }
 
 - (void)setText:(OFString*)text
 {
-	gtk_progress_bar_set_text([self castedGObject], [text UTF8String]);
+	gtk_progress_bar_set_text((GtkProgressBar*)[self castedGObject], [text UTF8String]);
 }
 
 

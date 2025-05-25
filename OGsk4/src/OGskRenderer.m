@@ -12,6 +12,8 @@
 
 @implementation OGskRenderer
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GSK_TYPE_RENDERER;
@@ -22,9 +24,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GSK_TYPE_RENDERER);
+	return gObjectClass;
+}
+
 + (instancetype)rendererForSurface:(OGdkSurface*)surface
 {
-	GskRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_renderer_new_for_surface([surface castedGObject]), GskRenderer, GskRenderer);
+	GskRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_renderer_new_for_surface([surface castedGObject]), GSK_TYPE_RENDERER, GskRenderer);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -44,12 +55,12 @@
 
 - (GskRenderer*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GskRenderer, GskRenderer);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GSK_TYPE_RENDERER, GskRenderer);
 }
 
 - (OGdkSurface*)surface
 {
-	GdkSurface* gobjectValue = gsk_renderer_get_surface([self castedGObject]);
+	GdkSurface* gobjectValue = gsk_renderer_get_surface((GskRenderer*)[self castedGObject]);
 
 	OGdkSurface* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -57,7 +68,7 @@
 
 - (bool)isRealized
 {
-	bool returnValue = (bool)gsk_renderer_is_realized([self castedGObject]);
+	bool returnValue = (bool)gsk_renderer_is_realized((GskRenderer*)[self castedGObject]);
 
 	return returnValue;
 }
@@ -66,7 +77,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gsk_renderer_realize([self castedGObject], [surface castedGObject], &err);
+	bool returnValue = (bool)gsk_renderer_realize((GskRenderer*)[self castedGObject], [surface castedGObject], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -77,7 +88,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gsk_renderer_realize_for_display([self castedGObject], [display castedGObject], &err);
+	bool returnValue = (bool)gsk_renderer_realize_for_display((GskRenderer*)[self castedGObject], [display castedGObject], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -86,12 +97,12 @@
 
 - (void)renderWithRoot:(GskRenderNode*)root region:(const cairo_region_t*)region
 {
-	gsk_renderer_render([self castedGObject], root, region);
+	gsk_renderer_render((GskRenderer*)[self castedGObject], root, region);
 }
 
 - (OGdkTexture*)renderTextureWithRoot:(GskRenderNode*)root viewport:(const graphene_rect_t*)viewport
 {
-	GdkTexture* gobjectValue = gsk_renderer_render_texture([self castedGObject], root, viewport);
+	GdkTexture* gobjectValue = gsk_renderer_render_texture((GskRenderer*)[self castedGObject], root, viewport);
 
 	OGdkTexture* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
@@ -101,7 +112,7 @@
 
 - (void)unrealize
 {
-	gsk_renderer_unrealize([self castedGObject]);
+	gsk_renderer_unrealize((GskRenderer*)[self castedGObject]);
 }
 
 

@@ -10,6 +10,8 @@
 
 @implementation OGTKViewport
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_VIEWPORT;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_VIEWPORT);
+	return gObjectClass;
+}
+
 + (instancetype)viewportWithHadjustment:(OGTKAdjustment*)hadjustment vadjustment:(OGTKAdjustment*)vadjustment
 {
-	GtkViewport* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_viewport_new([hadjustment castedGObject], [vadjustment castedGObject]), GtkViewport, GtkViewport);
+	GtkViewport* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_viewport_new([hadjustment castedGObject], [vadjustment castedGObject]), GTK_TYPE_VIEWPORT, GtkViewport);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,12 +56,12 @@
 
 - (GtkViewport*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkViewport, GtkViewport);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_VIEWPORT, GtkViewport);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_viewport_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_viewport_get_child((GtkViewport*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,24 +69,24 @@
 
 - (bool)scrollToFocus
 {
-	bool returnValue = (bool)gtk_viewport_get_scroll_to_focus([self castedGObject]);
+	bool returnValue = (bool)gtk_viewport_get_scroll_to_focus((GtkViewport*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)scrollToWithDescendant:(OGTKWidget*)descendant scroll:(GtkScrollInfo*)scroll
 {
-	gtk_viewport_scroll_to([self castedGObject], [descendant castedGObject], scroll);
+	gtk_viewport_scroll_to((GtkViewport*)[self castedGObject], [descendant castedGObject], scroll);
 }
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_viewport_set_child([self castedGObject], [child castedGObject]);
+	gtk_viewport_set_child((GtkViewport*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setScrollToFocus:(bool)scrollToFocus
 {
-	gtk_viewport_set_scroll_to_focus([self castedGObject], scrollToFocus);
+	gtk_viewport_set_scroll_to_focus((GtkViewport*)[self castedGObject], scrollToFocus);
 }
 
 

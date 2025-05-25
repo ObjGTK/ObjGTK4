@@ -10,6 +10,8 @@
 
 @implementation OGTKCellAreaBox
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_AREA_BOX;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_AREA_BOX);
+	return gObjectClass;
+}
+
 + (instancetype)cellAreaBox
 {
-	GtkCellAreaBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_area_box_new(), GtkCellAreaBox, GtkCellAreaBox);
+	GtkCellAreaBox* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_area_box_new(), GTK_TYPE_CELL_AREA_BOX, GtkCellAreaBox);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,29 +56,29 @@
 
 - (GtkCellAreaBox*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellAreaBox, GtkCellAreaBox);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_AREA_BOX, GtkCellAreaBox);
 }
 
 - (int)spacing
 {
-	int returnValue = (int)gtk_cell_area_box_get_spacing([self castedGObject]);
+	int returnValue = (int)gtk_cell_area_box_get_spacing((GtkCellAreaBox*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)packEndWithRenderer:(OGTKCellRenderer*)renderer expand:(bool)expand align:(bool)align fixed:(bool)fixed
 {
-	gtk_cell_area_box_pack_end([self castedGObject], [renderer castedGObject], expand, align, fixed);
+	gtk_cell_area_box_pack_end((GtkCellAreaBox*)[self castedGObject], [renderer castedGObject], expand, align, fixed);
 }
 
 - (void)packStartWithRenderer:(OGTKCellRenderer*)renderer expand:(bool)expand align:(bool)align fixed:(bool)fixed
 {
-	gtk_cell_area_box_pack_start([self castedGObject], [renderer castedGObject], expand, align, fixed);
+	gtk_cell_area_box_pack_start((GtkCellAreaBox*)[self castedGObject], [renderer castedGObject], expand, align, fixed);
 }
 
 - (void)setSpacing:(int)spacing
 {
-	gtk_cell_area_box_set_spacing([self castedGObject], spacing);
+	gtk_cell_area_box_set_spacing((GtkCellAreaBox*)[self castedGObject], spacing);
 }
 
 

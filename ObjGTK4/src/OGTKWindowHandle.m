@@ -8,6 +8,8 @@
 
 @implementation OGTKWindowHandle
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_WINDOW_HANDLE;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_WINDOW_HANDLE);
+	return gObjectClass;
+}
+
 + (instancetype)windowHandle
 {
-	GtkWindowHandle* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_handle_new(), GtkWindowHandle, GtkWindowHandle);
+	GtkWindowHandle* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_window_handle_new(), GTK_TYPE_WINDOW_HANDLE, GtkWindowHandle);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkWindowHandle*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkWindowHandle, GtkWindowHandle);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_WINDOW_HANDLE, GtkWindowHandle);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_window_handle_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_window_handle_get_child((GtkWindowHandle*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -56,7 +67,7 @@
 
 - (void)setChild:(OGTKWidget*)child
 {
-	gtk_window_handle_set_child([self castedGObject], [child castedGObject]);
+	gtk_window_handle_set_child((GtkWindowHandle*)[self castedGObject], [child castedGObject]);
 }
 
 

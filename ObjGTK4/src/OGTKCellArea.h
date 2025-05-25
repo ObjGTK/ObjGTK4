@@ -334,6 +334,38 @@
 
 }
 
+/**
+ * Functions and class methods
+ */
++ (void)load;
+
++ (GTypeClass*)gObjectClass;
+
+/**
+ * Finds a cell property of a cell area class by name.
+ *
+ * @param propertyName the name of the child property to find
+ * @return the `GParamSpec` of the child property
+ */
++ (GParamSpec*)findCellPropertyWithPropertyName:(OFString*)propertyName;
+
+/**
+ * Installs a cell property on a cell area class.
+ *
+ * @param propertyId the id for the property
+ * @param pspec the `GParamSpec` for the property
+ */
++ (void)installCellPropertyWithPropertyId:(guint)propertyId pspec:(GParamSpec*)pspec;
+
+/**
+ * Returns all cell properties of a cell area class.
+ *
+ * @param nproperties location to return the number of cell properties found
+ * @return a newly
+ *     allocated %NULL-terminated array of `GParamSpec`*.  The array
+ *     must be freed with g_free().
+ */
++ (GParamSpec**)listCellPropertiesWithNproperties:(guint*)nproperties;
 
 /**
  * Methods

@@ -8,6 +8,8 @@
 
 @implementation OGTKFileChooserWidget
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FILE_CHOOSER_WIDGET;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FILE_CHOOSER_WIDGET);
+	return gObjectClass;
+}
+
 + (instancetype)fileChooserWidgetWithAction:(GtkFileChooserAction)action
 {
-	GtkFileChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_chooser_widget_new(action), GtkFileChooserWidget, GtkFileChooserWidget);
+	GtkFileChooserWidget* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_chooser_widget_new(action), GTK_TYPE_FILE_CHOOSER_WIDGET, GtkFileChooserWidget);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 - (GtkFileChooserWidget*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFileChooserWidget, GtkFileChooserWidget);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FILE_CHOOSER_WIDGET, GtkFileChooserWidget);
 }
 
 

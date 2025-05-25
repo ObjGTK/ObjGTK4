@@ -10,6 +10,8 @@
 
 @implementation OGTKAssistantPage
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_ASSISTANT_PAGE;
@@ -20,14 +22,23 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_ASSISTANT_PAGE);
+	return gObjectClass;
+}
+
 - (GtkAssistantPage*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAssistantPage, GtkAssistantPage);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_ASSISTANT_PAGE, GtkAssistantPage);
 }
 
 - (OGTKWidget*)child
 {
-	GtkWidget* gobjectValue = gtk_assistant_page_get_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_assistant_page_get_child((GtkAssistantPage*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;

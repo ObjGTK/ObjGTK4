@@ -8,6 +8,8 @@
 
 @implementation OGTKGestureZoom
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_GESTURE_ZOOM;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_GESTURE_ZOOM);
+	return gObjectClass;
+}
+
 + (instancetype)gestureZoom
 {
-	GtkGestureZoom* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_zoom_new(), GtkGestureZoom, GtkGestureZoom);
+	GtkGestureZoom* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_zoom_new(), GTK_TYPE_GESTURE_ZOOM, GtkGestureZoom);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkGestureZoom*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureZoom, GtkGestureZoom);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_GESTURE_ZOOM, GtkGestureZoom);
 }
 
 - (double)scaleDelta
 {
-	double returnValue = (double)gtk_gesture_zoom_get_scale_delta([self castedGObject]);
+	double returnValue = (double)gtk_gesture_zoom_get_scale_delta((GtkGestureZoom*)[self castedGObject]);
 
 	return returnValue;
 }

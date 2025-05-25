@@ -56,6 +56,12 @@
 
 }
 
+/**
+ * Functions and class methods
+ */
++ (void)load;
+
++ (GTypeClass*)gObjectClass;
 
 /**
  * Constructors

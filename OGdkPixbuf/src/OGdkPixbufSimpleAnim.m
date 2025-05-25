@@ -10,6 +10,8 @@
 
 @implementation OGdkPixbufSimpleAnim
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GDK_TYPE_PIXBUF_SIMPLE_ANIM;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GDK_TYPE_PIXBUF_SIMPLE_ANIM);
+	return gObjectClass;
+}
+
 + (instancetype)pixbufSimpleAnimWithWidth:(gint)width height:(gint)height rate:(gfloat)rate
 {
-	GdkPixbufSimpleAnim* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_simple_anim_new(width, height, rate), GdkPixbufSimpleAnim, GdkPixbufSimpleAnim);
+	GdkPixbufSimpleAnim* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_simple_anim_new(width, height, rate), GDK_TYPE_PIXBUF_SIMPLE_ANIM, GdkPixbufSimpleAnim);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,24 +53,24 @@
 
 - (GdkPixbufSimpleAnim*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkPixbufSimpleAnim, GdkPixbufSimpleAnim);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GDK_TYPE_PIXBUF_SIMPLE_ANIM, GdkPixbufSimpleAnim);
 }
 
 - (void)addFrameWithPixbuf:(OGdkPixbuf*)pixbuf
 {
-	gdk_pixbuf_simple_anim_add_frame([self castedGObject], [pixbuf castedGObject]);
+	gdk_pixbuf_simple_anim_add_frame((GdkPixbufSimpleAnim*)[self castedGObject], [pixbuf castedGObject]);
 }
 
 - (bool)loop
 {
-	bool returnValue = (bool)gdk_pixbuf_simple_anim_get_loop([self castedGObject]);
+	bool returnValue = (bool)gdk_pixbuf_simple_anim_get_loop((GdkPixbufSimpleAnim*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setLoop:(bool)loop
 {
-	gdk_pixbuf_simple_anim_set_loop([self castedGObject], loop);
+	gdk_pixbuf_simple_anim_set_loop((GdkPixbufSimpleAnim*)[self castedGObject], loop);
 }
 
 

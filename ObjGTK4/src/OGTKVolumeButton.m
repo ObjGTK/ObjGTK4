@@ -10,6 +10,8 @@
 
 @implementation OGTKVolumeButton
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_VOLUME_BUTTON;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_VOLUME_BUTTON);
+	return gObjectClass;
+}
+
 + (instancetype)volumeButton
 {
-	GtkVolumeButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_volume_button_new(), GtkVolumeButton, GtkVolumeButton);
+	GtkVolumeButton* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_volume_button_new(), GTK_TYPE_VOLUME_BUTTON, GtkVolumeButton);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 - (GtkVolumeButton*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkVolumeButton, GtkVolumeButton);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_VOLUME_BUTTON, GtkVolumeButton);
 }
 
 

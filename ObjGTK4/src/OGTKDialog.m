@@ -10,6 +10,8 @@
 
 @implementation OGTKDialog
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_DIALOG;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_DIALOG);
+	return gObjectClass;
+}
+
 + (instancetype)dialog
 {
-	GtkDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_dialog_new(), GtkDialog, GtkDialog);
+	GtkDialog* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_dialog_new(), GTK_TYPE_DIALOG, GtkDialog);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,17 +56,17 @@
 
 - (GtkDialog*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDialog, GtkDialog);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_DIALOG, GtkDialog);
 }
 
 - (void)addActionWidgetWithChild:(OGTKWidget*)child responseId:(int)responseId
 {
-	gtk_dialog_add_action_widget([self castedGObject], [child castedGObject], responseId);
+	gtk_dialog_add_action_widget((GtkDialog*)[self castedGObject], [child castedGObject], responseId);
 }
 
 - (OGTKWidget*)addButtonWithButtonText:(OFString*)buttonText responseId:(int)responseId
 {
-	GtkWidget* gobjectValue = gtk_dialog_add_button([self castedGObject], [buttonText UTF8String], responseId);
+	GtkWidget* gobjectValue = gtk_dialog_add_button((GtkDialog*)[self castedGObject], [buttonText UTF8String], responseId);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -63,7 +74,7 @@
 
 - (OGTKWidget*)contentArea
 {
-	GtkWidget* gobjectValue = gtk_dialog_get_content_area([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_dialog_get_content_area((GtkDialog*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -71,7 +82,7 @@
 
 - (OGTKWidget*)headerBar
 {
-	GtkWidget* gobjectValue = gtk_dialog_get_header_bar([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_dialog_get_header_bar((GtkDialog*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -79,14 +90,14 @@
 
 - (int)responseForWidget:(OGTKWidget*)widget
 {
-	int returnValue = (int)gtk_dialog_get_response_for_widget([self castedGObject], [widget castedGObject]);
+	int returnValue = (int)gtk_dialog_get_response_for_widget((GtkDialog*)[self castedGObject], [widget castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)widgetForResponseWithResponseId:(int)responseId
 {
-	GtkWidget* gobjectValue = gtk_dialog_get_widget_for_response([self castedGObject], responseId);
+	GtkWidget* gobjectValue = gtk_dialog_get_widget_for_response((GtkDialog*)[self castedGObject], responseId);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -94,17 +105,17 @@
 
 - (void)responseWithResponseId:(int)responseId
 {
-	gtk_dialog_response([self castedGObject], responseId);
+	gtk_dialog_response((GtkDialog*)[self castedGObject], responseId);
 }
 
 - (void)setDefaultResponseWithResponseId:(int)responseId
 {
-	gtk_dialog_set_default_response([self castedGObject], responseId);
+	gtk_dialog_set_default_response((GtkDialog*)[self castedGObject], responseId);
 }
 
 - (void)setResponseSensitiveWithResponseId:(int)responseId setting:(bool)setting
 {
-	gtk_dialog_set_response_sensitive([self castedGObject], responseId, setting);
+	gtk_dialog_set_response_sensitive((GtkDialog*)[self castedGObject], responseId, setting);
 }
 
 

@@ -11,6 +11,8 @@
 
 @implementation OGdkPixbufLoader
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GDK_TYPE_PIXBUF_LOADER;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GDK_TYPE_PIXBUF_LOADER);
+	return gObjectClass;
+}
+
 + (instancetype)pixbufLoader
 {
-	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new(), GdkPixbufLoader, GdkPixbufLoader);
+	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new(), GDK_TYPE_PIXBUF_LOADER, GdkPixbufLoader);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 {
 	GError* err = NULL;
 
-	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new_with_mime_type([mimeType UTF8String], &err), GdkPixbufLoader, GdkPixbufLoader);
+	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new_with_mime_type([mimeType UTF8String], &err), GDK_TYPE_PIXBUF_LOADER, GdkPixbufLoader);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -69,7 +80,7 @@
 {
 	GError* err = NULL;
 
-	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new_with_type([imageType UTF8String], &err), GdkPixbufLoader, GdkPixbufLoader);
+	GdkPixbufLoader* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_loader_new_with_type([imageType UTF8String], &err), GDK_TYPE_PIXBUF_LOADER, GdkPixbufLoader);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -91,14 +102,14 @@
 
 - (GdkPixbufLoader*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkPixbufLoader, GdkPixbufLoader);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GDK_TYPE_PIXBUF_LOADER, GdkPixbufLoader);
 }
 
 - (bool)close
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gdk_pixbuf_loader_close([self castedGObject], &err);
+	bool returnValue = (bool)gdk_pixbuf_loader_close((GdkPixbufLoader*)[self castedGObject], &err);
 
 	[OGErrorException throwForError:err];
 
@@ -107,7 +118,7 @@
 
 - (OGdkPixbufAnimation*)animation
 {
-	GdkPixbufAnimation* gobjectValue = gdk_pixbuf_loader_get_animation([self castedGObject]);
+	GdkPixbufAnimation* gobjectValue = gdk_pixbuf_loader_get_animation((GdkPixbufLoader*)[self castedGObject]);
 
 	OGdkPixbufAnimation* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -115,14 +126,14 @@
 
 - (GdkPixbufFormat*)format
 {
-	GdkPixbufFormat* returnValue = (GdkPixbufFormat*)gdk_pixbuf_loader_get_format([self castedGObject]);
+	GdkPixbufFormat* returnValue = (GdkPixbufFormat*)gdk_pixbuf_loader_get_format((GdkPixbufLoader*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGdkPixbuf*)pixbuf
 {
-	GdkPixbuf* gobjectValue = gdk_pixbuf_loader_get_pixbuf([self castedGObject]);
+	GdkPixbuf* gobjectValue = gdk_pixbuf_loader_get_pixbuf((GdkPixbufLoader*)[self castedGObject]);
 
 	OGdkPixbuf* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -130,14 +141,14 @@
 
 - (void)setSizeWithWidth:(int)width height:(int)height
 {
-	gdk_pixbuf_loader_set_size([self castedGObject], width, height);
+	gdk_pixbuf_loader_set_size((GdkPixbufLoader*)[self castedGObject], width, height);
 }
 
 - (bool)writeWithBuf:(const guchar*)buf count:(gsize)count
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gdk_pixbuf_loader_write([self castedGObject], buf, count, &err);
+	bool returnValue = (bool)gdk_pixbuf_loader_write((GdkPixbufLoader*)[self castedGObject], buf, count, &err);
 
 	[OGErrorException throwForError:err];
 
@@ -148,7 +159,7 @@
 {
 	GError* err = NULL;
 
-	bool returnValue = (bool)gdk_pixbuf_loader_write_bytes([self castedGObject], buffer, &err);
+	bool returnValue = (bool)gdk_pixbuf_loader_write_bytes((GdkPixbufLoader*)[self castedGObject], buffer, &err);
 
 	[OGErrorException throwForError:err];
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKHeaderBar
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_HEADER_BAR;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_HEADER_BAR);
+	return gObjectClass;
+}
+
 + (instancetype)headerBar
 {
-	GtkHeaderBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_header_bar_new(), GtkHeaderBar, GtkHeaderBar);
+	GtkHeaderBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_header_bar_new(), GTK_TYPE_HEADER_BAR, GtkHeaderBar);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkHeaderBar*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkHeaderBar, GtkHeaderBar);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_HEADER_BAR, GtkHeaderBar);
 }
 
 - (OFString*)decorationLayout
 {
-	const char* gobjectValue = gtk_header_bar_get_decoration_layout([self castedGObject]);
+	const char* gobjectValue = gtk_header_bar_get_decoration_layout((GtkHeaderBar*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -56,14 +67,14 @@
 
 - (bool)showTitleButtons
 {
-	bool returnValue = (bool)gtk_header_bar_get_show_title_buttons([self castedGObject]);
+	bool returnValue = (bool)gtk_header_bar_get_show_title_buttons((GtkHeaderBar*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)titleWidget
 {
-	GtkWidget* gobjectValue = gtk_header_bar_get_title_widget([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_header_bar_get_title_widget((GtkHeaderBar*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -71,32 +82,32 @@
 
 - (void)packEndWithChild:(OGTKWidget*)child
 {
-	gtk_header_bar_pack_end([self castedGObject], [child castedGObject]);
+	gtk_header_bar_pack_end((GtkHeaderBar*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)packStartWithChild:(OGTKWidget*)child
 {
-	gtk_header_bar_pack_start([self castedGObject], [child castedGObject]);
+	gtk_header_bar_pack_start((GtkHeaderBar*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)removeWithChild:(OGTKWidget*)child
 {
-	gtk_header_bar_remove([self castedGObject], [child castedGObject]);
+	gtk_header_bar_remove((GtkHeaderBar*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setDecorationLayout:(OFString*)layout
 {
-	gtk_header_bar_set_decoration_layout([self castedGObject], [layout UTF8String]);
+	gtk_header_bar_set_decoration_layout((GtkHeaderBar*)[self castedGObject], [layout UTF8String]);
 }
 
 - (void)setShowTitleButtonsWithSetting:(bool)setting
 {
-	gtk_header_bar_set_show_title_buttons([self castedGObject], setting);
+	gtk_header_bar_set_show_title_buttons((GtkHeaderBar*)[self castedGObject], setting);
 }
 
 - (void)setTitleWidget:(OGTKWidget*)titleWidget
 {
-	gtk_header_bar_set_title_widget([self castedGObject], [titleWidget castedGObject]);
+	gtk_header_bar_set_title_widget((GtkHeaderBar*)[self castedGObject], [titleWidget castedGObject]);
 }
 
 

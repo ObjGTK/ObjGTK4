@@ -8,6 +8,8 @@
 
 @implementation OGTKBuilderCScope
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_BUILDER_CSCOPE;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_BUILDER_CSCOPE);
+	return gObjectClass;
+}
+
 + (instancetype)builderCScope
 {
-	GtkBuilderCScope* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_cscope_new(), GtkBuilderCScope, GtkBuilderCScope);
+	GtkBuilderCScope* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_builder_cscope_new(), GTK_TYPE_BUILDER_CSCOPE, GtkBuilderCScope);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,17 +51,17 @@
 
 - (GtkBuilderCScope*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkBuilderCScope, GtkBuilderCScope);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_BUILDER_CSCOPE, GtkBuilderCScope);
 }
 
 - (void)addCallbackSymbolWithCallbackName:(OFString*)callbackName callbackSymbol:(GCallback)callbackSymbol
 {
-	gtk_builder_cscope_add_callback_symbol([self castedGObject], [callbackName UTF8String], callbackSymbol);
+	gtk_builder_cscope_add_callback_symbol((GtkBuilderCScope*)[self castedGObject], [callbackName UTF8String], callbackSymbol);
 }
 
 - (GCallback)lookupCallbackSymbolWithCallbackName:(OFString*)callbackName
 {
-	GCallback returnValue = (GCallback)gtk_builder_cscope_lookup_callback_symbol([self castedGObject], [callbackName UTF8String]);
+	GCallback returnValue = (GCallback)gtk_builder_cscope_lookup_callback_symbol((GtkBuilderCScope*)[self castedGObject], [callbackName UTF8String]);
 
 	return returnValue;
 }

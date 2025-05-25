@@ -8,6 +8,8 @@
 
 @implementation OGTKFileFilter
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FILE_FILTER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FILE_FILTER);
+	return gObjectClass;
+}
+
 + (instancetype)fileFilter
 {
-	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new(), GtkFileFilter, GtkFileFilter);
+	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new(), GTK_TYPE_FILE_FILTER, GtkFileFilter);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 + (instancetype)fileFilterFromGvariant:(GVariant*)variant
 {
-	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new_from_gvariant(variant), GtkFileFilter, GtkFileFilter);
+	GtkFileFilter* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_file_filter_new_from_gvariant(variant), GTK_TYPE_FILE_FILTER, GtkFileFilter);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -60,39 +71,39 @@
 
 - (GtkFileFilter*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFileFilter, GtkFileFilter);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FILE_FILTER, GtkFileFilter);
 }
 
 - (void)addMimeType:(OFString*)mimeType
 {
-	gtk_file_filter_add_mime_type([self castedGObject], [mimeType UTF8String]);
+	gtk_file_filter_add_mime_type((GtkFileFilter*)[self castedGObject], [mimeType UTF8String]);
 }
 
 - (void)addPattern:(OFString*)pattern
 {
-	gtk_file_filter_add_pattern([self castedGObject], [pattern UTF8String]);
+	gtk_file_filter_add_pattern((GtkFileFilter*)[self castedGObject], [pattern UTF8String]);
 }
 
 - (void)addPixbufFormats
 {
-	gtk_file_filter_add_pixbuf_formats([self castedGObject]);
+	gtk_file_filter_add_pixbuf_formats((GtkFileFilter*)[self castedGObject]);
 }
 
 - (void)addSuffix:(OFString*)suffix
 {
-	gtk_file_filter_add_suffix([self castedGObject], [suffix UTF8String]);
+	gtk_file_filter_add_suffix((GtkFileFilter*)[self castedGObject], [suffix UTF8String]);
 }
 
 - (const char**)attributes
 {
-	const char** returnValue = (const char**)gtk_file_filter_get_attributes([self castedGObject]);
+	const char** returnValue = (const char**)gtk_file_filter_get_attributes((GtkFileFilter*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)name
 {
-	const char* gobjectValue = gtk_file_filter_get_name([self castedGObject]);
+	const char* gobjectValue = gtk_file_filter_get_name((GtkFileFilter*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -100,12 +111,12 @@
 
 - (void)setName:(OFString*)name
 {
-	gtk_file_filter_set_name([self castedGObject], [name UTF8String]);
+	gtk_file_filter_set_name((GtkFileFilter*)[self castedGObject], [name UTF8String]);
 }
 
 - (GVariant*)toGvariant
 {
-	GVariant* returnValue = (GVariant*)gtk_file_filter_to_gvariant([self castedGObject]);
+	GVariant* returnValue = (GVariant*)gtk_file_filter_to_gvariant((GtkFileFilter*)[self castedGObject]);
 
 	return returnValue;
 }

@@ -8,6 +8,8 @@
 
 @implementation OGTKTreeModelSort
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_TREE_MODEL_SORT;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_TREE_MODEL_SORT);
+	return gObjectClass;
+}
+
 + (instancetype)treeModelSortWithModelWithChildModel:(GtkTreeModel*)childModel
 {
-	GtkTreeModelSort* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_model_sort_new_with_model(childModel), GtkTreeModelSort, GtkTreeModelSort);
+	GtkTreeModelSort* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_tree_model_sort_new_with_model(childModel), GTK_TYPE_TREE_MODEL_SORT, GtkTreeModelSort);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,57 +51,57 @@
 
 - (GtkTreeModelSort*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTreeModelSort, GtkTreeModelSort);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_TREE_MODEL_SORT, GtkTreeModelSort);
 }
 
 - (void)clearCache
 {
-	gtk_tree_model_sort_clear_cache([self castedGObject]);
+	gtk_tree_model_sort_clear_cache((GtkTreeModelSort*)[self castedGObject]);
 }
 
 - (bool)convertChildIterToIterWithSortIter:(GtkTreeIter*)sortIter childIter:(GtkTreeIter*)childIter
 {
-	bool returnValue = (bool)gtk_tree_model_sort_convert_child_iter_to_iter([self castedGObject], sortIter, childIter);
+	bool returnValue = (bool)gtk_tree_model_sort_convert_child_iter_to_iter((GtkTreeModelSort*)[self castedGObject], sortIter, childIter);
 
 	return returnValue;
 }
 
 - (GtkTreePath*)convertChildPathToPath:(GtkTreePath*)childPath
 {
-	GtkTreePath* returnValue = (GtkTreePath*)gtk_tree_model_sort_convert_child_path_to_path([self castedGObject], childPath);
+	GtkTreePath* returnValue = (GtkTreePath*)gtk_tree_model_sort_convert_child_path_to_path((GtkTreeModelSort*)[self castedGObject], childPath);
 
 	return returnValue;
 }
 
 - (void)convertIterToChildIter:(GtkTreeIter*)childIter sortedIter:(GtkTreeIter*)sortedIter
 {
-	gtk_tree_model_sort_convert_iter_to_child_iter([self castedGObject], childIter, sortedIter);
+	gtk_tree_model_sort_convert_iter_to_child_iter((GtkTreeModelSort*)[self castedGObject], childIter, sortedIter);
 }
 
 - (GtkTreePath*)convertPathToChildPathWithSortedPath:(GtkTreePath*)sortedPath
 {
-	GtkTreePath* returnValue = (GtkTreePath*)gtk_tree_model_sort_convert_path_to_child_path([self castedGObject], sortedPath);
+	GtkTreePath* returnValue = (GtkTreePath*)gtk_tree_model_sort_convert_path_to_child_path((GtkTreeModelSort*)[self castedGObject], sortedPath);
 
 	return returnValue;
 }
 
 - (GtkTreeModel*)model
 {
-	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_tree_model_sort_get_model([self castedGObject]);
+	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_tree_model_sort_get_model((GtkTreeModelSort*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)iterIsValidWithIter:(GtkTreeIter*)iter
 {
-	bool returnValue = (bool)gtk_tree_model_sort_iter_is_valid([self castedGObject], iter);
+	bool returnValue = (bool)gtk_tree_model_sort_iter_is_valid((GtkTreeModelSort*)[self castedGObject], iter);
 
 	return returnValue;
 }
 
 - (void)resetDefaultSortFunc
 {
-	gtk_tree_model_sort_reset_default_sort_func([self castedGObject]);
+	gtk_tree_model_sort_reset_default_sort_func((GtkTreeModelSort*)[self castedGObject]);
 }
 
 

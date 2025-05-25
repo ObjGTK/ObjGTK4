@@ -8,6 +8,8 @@
 
 @implementation OGTKShortcutLabel
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SHORTCUT_LABEL;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SHORTCUT_LABEL);
+	return gObjectClass;
+}
+
 + (instancetype)shortcutLabelWithAccelerator:(OFString*)accelerator
 {
-	GtkShortcutLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_label_new([accelerator UTF8String]), GtkShortcutLabel, GtkShortcutLabel);
+	GtkShortcutLabel* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_label_new([accelerator UTF8String]), GTK_TYPE_SHORTCUT_LABEL, GtkShortcutLabel);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkShortcutLabel*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkShortcutLabel, GtkShortcutLabel);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SHORTCUT_LABEL, GtkShortcutLabel);
 }
 
 - (OFString*)accelerator
 {
-	const char* gobjectValue = gtk_shortcut_label_get_accelerator([self castedGObject]);
+	const char* gobjectValue = gtk_shortcut_label_get_accelerator((GtkShortcutLabel*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -56,7 +67,7 @@
 
 - (OFString*)disabledText
 {
-	const char* gobjectValue = gtk_shortcut_label_get_disabled_text([self castedGObject]);
+	const char* gobjectValue = gtk_shortcut_label_get_disabled_text((GtkShortcutLabel*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -64,12 +75,12 @@
 
 - (void)setAccelerator:(OFString*)accelerator
 {
-	gtk_shortcut_label_set_accelerator([self castedGObject], [accelerator UTF8String]);
+	gtk_shortcut_label_set_accelerator((GtkShortcutLabel*)[self castedGObject], [accelerator UTF8String]);
 }
 
 - (void)setDisabledText:(OFString*)disabledText
 {
-	gtk_shortcut_label_set_disabled_text([self castedGObject], [disabledText UTF8String]);
+	gtk_shortcut_label_set_disabled_text((GtkShortcutLabel*)[self castedGObject], [disabledText UTF8String]);
 }
 
 

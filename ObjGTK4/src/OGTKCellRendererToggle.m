@@ -8,6 +8,8 @@
 
 @implementation OGTKCellRendererToggle
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER_TOGGLE;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_RENDERER_TOGGLE);
+	return gObjectClass;
+}
+
 + (instancetype)cellRendererToggle
 {
-	GtkCellRendererToggle* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_toggle_new(), GtkCellRendererToggle, GtkCellRendererToggle);
+	GtkCellRendererToggle* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_toggle_new(), GTK_TYPE_CELL_RENDERER_TOGGLE, GtkCellRendererToggle);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,43 +54,43 @@
 
 - (GtkCellRendererToggle*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererToggle, GtkCellRendererToggle);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_RENDERER_TOGGLE, GtkCellRendererToggle);
 }
 
 - (bool)activatable
 {
-	bool returnValue = (bool)gtk_cell_renderer_toggle_get_activatable([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_toggle_get_activatable((GtkCellRendererToggle*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)active
 {
-	bool returnValue = (bool)gtk_cell_renderer_toggle_get_active([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_toggle_get_active((GtkCellRendererToggle*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)radio
 {
-	bool returnValue = (bool)gtk_cell_renderer_toggle_get_radio([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_renderer_toggle_get_radio((GtkCellRendererToggle*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setActivatableWithSetting:(bool)setting
 {
-	gtk_cell_renderer_toggle_set_activatable([self castedGObject], setting);
+	gtk_cell_renderer_toggle_set_activatable((GtkCellRendererToggle*)[self castedGObject], setting);
 }
 
 - (void)setActiveWithSetting:(bool)setting
 {
-	gtk_cell_renderer_toggle_set_active([self castedGObject], setting);
+	gtk_cell_renderer_toggle_set_active((GtkCellRendererToggle*)[self castedGObject], setting);
 }
 
 - (void)setRadio:(bool)radio
 {
-	gtk_cell_renderer_toggle_set_radio([self castedGObject], radio);
+	gtk_cell_renderer_toggle_set_radio((GtkCellRendererToggle*)[self castedGObject], radio);
 }
 
 

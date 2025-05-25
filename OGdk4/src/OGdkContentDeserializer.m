@@ -11,6 +11,8 @@
 
 @implementation OGdkContentDeserializer
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GDK_TYPE_CONTENT_DESERIALIZER;
@@ -21,14 +23,23 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GDK_TYPE_CONTENT_DESERIALIZER);
+	return gObjectClass;
+}
+
 - (GdkContentDeserializer*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkContentDeserializer, GdkContentDeserializer);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GDK_TYPE_CONTENT_DESERIALIZER, GdkContentDeserializer);
 }
 
 - (OGCancellable*)cancellable
 {
-	GCancellable* gobjectValue = gdk_content_deserializer_get_cancellable([self castedGObject]);
+	GCancellable* gobjectValue = gdk_content_deserializer_get_cancellable((GdkContentDeserializer*)[self castedGObject]);
 
 	OGCancellable* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -36,14 +47,14 @@
 
 - (GType)gtype
 {
-	GType returnValue = (GType)gdk_content_deserializer_get_gtype([self castedGObject]);
+	GType returnValue = (GType)gdk_content_deserializer_get_gtype((GdkContentDeserializer*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGInputStream*)inputStream
 {
-	GInputStream* gobjectValue = gdk_content_deserializer_get_input_stream([self castedGObject]);
+	GInputStream* gobjectValue = gdk_content_deserializer_get_input_stream((GdkContentDeserializer*)[self castedGObject]);
 
 	OGInputStream* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -51,7 +62,7 @@
 
 - (OFString*)mimeType
 {
-	const char* gobjectValue = gdk_content_deserializer_get_mime_type([self castedGObject]);
+	const char* gobjectValue = gdk_content_deserializer_get_mime_type((GdkContentDeserializer*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -59,45 +70,45 @@
 
 - (int)priority
 {
-	int returnValue = (int)gdk_content_deserializer_get_priority([self castedGObject]);
+	int returnValue = (int)gdk_content_deserializer_get_priority((GdkContentDeserializer*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)taskData
 {
-	gpointer returnValue = (gpointer)gdk_content_deserializer_get_task_data([self castedGObject]);
+	gpointer returnValue = (gpointer)gdk_content_deserializer_get_task_data((GdkContentDeserializer*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)userData
 {
-	gpointer returnValue = (gpointer)gdk_content_deserializer_get_user_data([self castedGObject]);
+	gpointer returnValue = (gpointer)gdk_content_deserializer_get_user_data((GdkContentDeserializer*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GValue*)value
 {
-	GValue* returnValue = (GValue*)gdk_content_deserializer_get_value([self castedGObject]);
+	GValue* returnValue = (GValue*)gdk_content_deserializer_get_value((GdkContentDeserializer*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)returnError:(GError*)error
 {
-	gdk_content_deserializer_return_error([self castedGObject], error);
+	gdk_content_deserializer_return_error((GdkContentDeserializer*)[self castedGObject], error);
 }
 
 - (void)returnSuccess
 {
-	gdk_content_deserializer_return_success([self castedGObject]);
+	gdk_content_deserializer_return_success((GdkContentDeserializer*)[self castedGObject]);
 }
 
 - (void)setTaskData:(gpointer)data notify:(GDestroyNotify)notify
 {
-	gdk_content_deserializer_set_task_data([self castedGObject], data, notify);
+	gdk_content_deserializer_set_task_data((GdkContentDeserializer*)[self castedGObject], data, notify);
 }
 
 

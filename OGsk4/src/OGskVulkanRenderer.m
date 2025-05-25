@@ -10,6 +10,8 @@
 
 @implementation OGskVulkanRenderer
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GSK_TYPE_VULKAN_RENDERER;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GSK_TYPE_VULKAN_RENDERER);
+	return gObjectClass;
+}
+
 + (instancetype)vulkanRenderer
 {
-	GskVulkanRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_vulkan_renderer_new(), GskVulkanRenderer, GskVulkanRenderer);
+	GskVulkanRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_vulkan_renderer_new(), GSK_TYPE_VULKAN_RENDERER, GskVulkanRenderer);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,7 +53,7 @@
 
 - (GskVulkanRenderer*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GskVulkanRenderer, GskVulkanRenderer);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GSK_TYPE_VULKAN_RENDERER, GskVulkanRenderer);
 }
 
 

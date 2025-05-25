@@ -8,6 +8,8 @@
 
 @implementation OGTKStringList
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_STRING_LIST;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_STRING_LIST);
+	return gObjectClass;
+}
+
 + (instancetype)stringListWithStrings:(const char* const*)strings
 {
-	GtkStringList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_list_new(strings), GtkStringList, GtkStringList);
+	GtkStringList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_string_list_new(strings), GTK_TYPE_STRING_LIST, GtkStringList);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,17 +51,17 @@
 
 - (GtkStringList*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStringList, GtkStringList);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_STRING_LIST, GtkStringList);
 }
 
 - (void)appendWithString:(OFString*)string
 {
-	gtk_string_list_append([self castedGObject], [string UTF8String]);
+	gtk_string_list_append((GtkStringList*)[self castedGObject], [string UTF8String]);
 }
 
 - (OFString*)stringWithPosition:(guint)position
 {
-	const char* gobjectValue = gtk_string_list_get_string([self castedGObject], position);
+	const char* gobjectValue = gtk_string_list_get_string((GtkStringList*)[self castedGObject], position);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -58,17 +69,17 @@
 
 - (void)removeWithPosition:(guint)position
 {
-	gtk_string_list_remove([self castedGObject], position);
+	gtk_string_list_remove((GtkStringList*)[self castedGObject], position);
 }
 
 - (void)spliceWithPosition:(guint)position nremovals:(guint)nremovals additions:(const char* const*)additions
 {
-	gtk_string_list_splice([self castedGObject], position, nremovals, additions);
+	gtk_string_list_splice((GtkStringList*)[self castedGObject], position, nremovals, additions);
 }
 
 - (void)takeWithString:(OFString*)string
 {
-	gtk_string_list_take([self castedGObject], g_strdup([string UTF8String]));
+	gtk_string_list_take((GtkStringList*)[self castedGObject], g_strdup([string UTF8String]));
 }
 
 

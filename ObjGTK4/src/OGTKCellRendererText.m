@@ -8,6 +8,8 @@
 
 @implementation OGTKCellRendererText
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER_TEXT;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_RENDERER_TEXT);
+	return gObjectClass;
+}
+
 + (instancetype)cellRendererText
 {
-	GtkCellRendererText* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_text_new(), GtkCellRendererText, GtkCellRendererText);
+	GtkCellRendererText* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_text_new(), GTK_TYPE_CELL_RENDERER_TEXT, GtkCellRendererText);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkCellRendererText*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererText, GtkCellRendererText);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_RENDERER_TEXT, GtkCellRendererText);
 }
 
 - (void)setFixedHeightFromFontWithNumberOfRows:(int)numberOfRows
 {
-	gtk_cell_renderer_text_set_fixed_height_from_font([self castedGObject], numberOfRows);
+	gtk_cell_renderer_text_set_fixed_height_from_font((GtkCellRendererText*)[self castedGObject], numberOfRows);
 }
 
 

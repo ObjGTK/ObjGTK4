@@ -10,6 +10,8 @@
 
 @implementation OGPangoFontsetSimple
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = PANGO_TYPE_FONTSET_SIMPLE;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(PANGO_TYPE_FONTSET_SIMPLE);
+	return gObjectClass;
+}
+
 + (instancetype)fontsetSimpleWithLanguage:(PangoLanguage*)language
 {
-	PangoFontsetSimple* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_fontset_simple_new(language), PangoFontsetSimple, PangoFontsetSimple);
+	PangoFontsetSimple* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_fontset_simple_new(language), PANGO_TYPE_FONTSET_SIMPLE, PangoFontsetSimple);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,17 +53,17 @@
 
 - (PangoFontsetSimple*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoFontsetSimple, PangoFontsetSimple);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PANGO_TYPE_FONTSET_SIMPLE, PangoFontsetSimple);
 }
 
 - (void)appendWithFont:(OGPangoFont*)font
 {
-	pango_fontset_simple_append([self castedGObject], [font castedGObject]);
+	pango_fontset_simple_append((PangoFontsetSimple*)[self castedGObject], [font castedGObject]);
 }
 
 - (int)size
 {
-	int returnValue = (int)pango_fontset_simple_size([self castedGObject]);
+	int returnValue = (int)pango_fontset_simple_size((PangoFontsetSimple*)[self castedGObject]);
 
 	return returnValue;
 }

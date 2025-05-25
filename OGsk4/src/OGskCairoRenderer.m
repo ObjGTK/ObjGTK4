@@ -10,6 +10,8 @@
 
 @implementation OGskCairoRenderer
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GSK_TYPE_CAIRO_RENDERER;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GSK_TYPE_CAIRO_RENDERER);
+	return gObjectClass;
+}
+
 + (instancetype)cairoRenderer
 {
-	GskCairoRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_cairo_renderer_new(), GskCairoRenderer, GskCairoRenderer);
+	GskCairoRenderer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gsk_cairo_renderer_new(), GSK_TYPE_CAIRO_RENDERER, GskCairoRenderer);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,7 +53,7 @@
 
 - (GskCairoRenderer*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GskCairoRenderer, GskCairoRenderer);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GSK_TYPE_CAIRO_RENDERER, GskCairoRenderer);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKSeparator
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SEPARATOR;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SEPARATOR);
+	return gObjectClass;
+}
+
 + (instancetype)separatorWithOrientation:(GtkOrientation)orientation
 {
-	GtkSeparator* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_separator_new(orientation), GtkSeparator, GtkSeparator);
+	GtkSeparator* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_separator_new(orientation), GTK_TYPE_SEPARATOR, GtkSeparator);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,7 +54,7 @@
 
 - (GtkSeparator*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSeparator, GtkSeparator);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SEPARATOR, GtkSeparator);
 }
 
 

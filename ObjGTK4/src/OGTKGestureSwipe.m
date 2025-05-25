@@ -10,6 +10,8 @@
 
 @implementation OGTKGestureSwipe
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_GESTURE_SWIPE;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_GESTURE_SWIPE);
+	return gObjectClass;
+}
+
 + (instancetype)gestureSwipe
 {
-	GtkGestureSwipe* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_swipe_new(), GtkGestureSwipe, GtkGestureSwipe);
+	GtkGestureSwipe* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_gesture_swipe_new(), GTK_TYPE_GESTURE_SWIPE, GtkGestureSwipe);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,12 +53,12 @@
 
 - (GtkGestureSwipe*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkGestureSwipe, GtkGestureSwipe);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_GESTURE_SWIPE, GtkGestureSwipe);
 }
 
 - (bool)velocityWithVelocityX:(double*)velocityX velocityY:(double*)velocityY
 {
-	bool returnValue = (bool)gtk_gesture_swipe_get_velocity([self castedGObject], velocityX, velocityY);
+	bool returnValue = (bool)gtk_gesture_swipe_get_velocity((GtkGestureSwipe*)[self castedGObject], velocityX, velocityY);
 
 	return returnValue;
 }

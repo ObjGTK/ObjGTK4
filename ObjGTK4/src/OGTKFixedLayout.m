@@ -8,6 +8,8 @@
 
 @implementation OGTKFixedLayout
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_FIXED_LAYOUT;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_FIXED_LAYOUT);
+	return gObjectClass;
+}
+
 + (instancetype)fixedLayout
 {
-	GtkFixedLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_fixed_layout_new(), GtkFixedLayout, GtkFixedLayout);
+	GtkFixedLayout* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_fixed_layout_new(), GTK_TYPE_FIXED_LAYOUT, GtkFixedLayout);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkFixedLayout*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkFixedLayout, GtkFixedLayout);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_FIXED_LAYOUT, GtkFixedLayout);
 }
 
 

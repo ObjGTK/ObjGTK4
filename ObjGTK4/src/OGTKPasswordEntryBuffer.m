@@ -8,6 +8,8 @@
 
 @implementation OGTKPasswordEntryBuffer
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_PASSWORD_ENTRY_BUFFER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_PASSWORD_ENTRY_BUFFER);
+	return gObjectClass;
+}
+
 + (instancetype)passwordEntryBuffer
 {
-	GtkPasswordEntryBuffer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_password_entry_buffer_new(), GtkPasswordEntryBuffer, GtkPasswordEntryBuffer);
+	GtkPasswordEntryBuffer* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_password_entry_buffer_new(), GTK_TYPE_PASSWORD_ENTRY_BUFFER, GtkPasswordEntryBuffer);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,7 +51,7 @@
 
 - (GtkPasswordEntryBuffer*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPasswordEntryBuffer, GtkPasswordEntryBuffer);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_PASSWORD_ENTRY_BUFFER, GtkPasswordEntryBuffer);
 }
 
 

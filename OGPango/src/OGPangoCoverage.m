@@ -8,6 +8,8 @@
 
 @implementation OGPangoCoverage
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = pango_coverage_get_type();
@@ -16,6 +18,15 @@
 		return;
 
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(pango_coverage_get_type());
+	return gObjectClass;
 }
 
 + (OGPangoCoverage*)fromBytes:(guchar*)bytes nbytes:(int)nbytes
@@ -30,7 +41,7 @@
 
 + (instancetype)coverage
 {
-	PangoCoverage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_coverage_new(), PangoCoverage, PangoCoverage);
+	PangoCoverage* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(pango_coverage_new(), pango_coverage_get_type(), PangoCoverage);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -50,12 +61,12 @@
 
 - (PangoCoverage*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], PangoCoverage, PangoCoverage);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], pango_coverage_get_type(), PangoCoverage);
 }
 
 - (OGPangoCoverage*)copy
 {
-	PangoCoverage* gobjectValue = pango_coverage_copy([self castedGObject]);
+	PangoCoverage* gobjectValue = pango_coverage_copy((PangoCoverage*)[self castedGObject]);
 
 	OGPangoCoverage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
@@ -65,24 +76,24 @@
 
 - (PangoCoverageLevel)getWithIndex:(int)index
 {
-	PangoCoverageLevel returnValue = (PangoCoverageLevel)pango_coverage_get([self castedGObject], index);
+	PangoCoverageLevel returnValue = (PangoCoverageLevel)pango_coverage_get((PangoCoverage*)[self castedGObject], index);
 
 	return returnValue;
 }
 
 - (void)maxWithOther:(OGPangoCoverage*)other
 {
-	pango_coverage_max([self castedGObject], [other castedGObject]);
+	pango_coverage_max((PangoCoverage*)[self castedGObject], [other castedGObject]);
 }
 
 - (void)setWithIndex:(int)index level:(PangoCoverageLevel)level
 {
-	pango_coverage_set([self castedGObject], index, level);
+	pango_coverage_set((PangoCoverage*)[self castedGObject], index, level);
 }
 
 - (void)toBytes:(guchar**)bytes nbytes:(int*)nbytes
 {
-	pango_coverage_to_bytes([self castedGObject], bytes, nbytes);
+	pango_coverage_to_bytes((PangoCoverage*)[self castedGObject], bytes, nbytes);
 }
 
 

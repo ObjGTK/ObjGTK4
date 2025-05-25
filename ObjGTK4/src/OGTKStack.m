@@ -10,6 +10,8 @@
 
 @implementation OGTKStack
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_STACK;
@@ -20,15 +22,21 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_STACK);
+	return gObjectClass;
+}
+
 + (instancetype)stack
 {
-	GtkStack* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_stack_new(), GtkStack, GtkStack);
+	GtkStack* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_stack_new(), GTK_TYPE_STACK, GtkStack);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
-
-	// Class is derived from GInitiallyUnowned, so this reference is floating. Own it:
-	g_object_ref_sink(gobjectValue);
 
 	OGTKStack* wrapperObject;
 	@try {
@@ -45,12 +53,12 @@
 
 - (GtkStack*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStack, GtkStack);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_STACK, GtkStack);
 }
 
 - (OGTKStackPage*)addChild:(OGTKWidget*)child
 {
-	GtkStackPage* gobjectValue = gtk_stack_add_child([self castedGObject], [child castedGObject]);
+	GtkStackPage* gobjectValue = gtk_stack_add_child((GtkStack*)[self castedGObject], [child castedGObject]);
 
 	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -58,7 +66,7 @@
 
 - (OGTKStackPage*)addNamedWithChild:(OGTKWidget*)child name:(OFString*)name
 {
-	GtkStackPage* gobjectValue = gtk_stack_add_named([self castedGObject], [child castedGObject], [name UTF8String]);
+	GtkStackPage* gobjectValue = gtk_stack_add_named((GtkStack*)[self castedGObject], [child castedGObject], [name UTF8String]);
 
 	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -66,7 +74,7 @@
 
 - (OGTKStackPage*)addTitledWithChild:(OGTKWidget*)child name:(OFString*)name title:(OFString*)title
 {
-	GtkStackPage* gobjectValue = gtk_stack_add_titled([self castedGObject], [child castedGObject], [name UTF8String], [title UTF8String]);
+	GtkStackPage* gobjectValue = gtk_stack_add_titled((GtkStack*)[self castedGObject], [child castedGObject], [name UTF8String], [title UTF8String]);
 
 	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -74,7 +82,7 @@
 
 - (OGTKWidget*)childByName:(OFString*)name
 {
-	GtkWidget* gobjectValue = gtk_stack_get_child_by_name([self castedGObject], [name UTF8String]);
+	GtkWidget* gobjectValue = gtk_stack_get_child_by_name((GtkStack*)[self castedGObject], [name UTF8String]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -82,21 +90,21 @@
 
 - (bool)hhomogeneous
 {
-	bool returnValue = (bool)gtk_stack_get_hhomogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_hhomogeneous((GtkStack*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)interpolateSize
 {
-	bool returnValue = (bool)gtk_stack_get_interpolate_size([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_interpolate_size((GtkStack*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKStackPage*)pageWithChild:(OGTKWidget*)child
 {
-	GtkStackPage* gobjectValue = gtk_stack_get_page([self castedGObject], [child castedGObject]);
+	GtkStackPage* gobjectValue = gtk_stack_get_page((GtkStack*)[self castedGObject], [child castedGObject]);
 
 	OGTKStackPage* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -104,42 +112,42 @@
 
 - (GtkSelectionModel*)pages
 {
-	GtkSelectionModel* returnValue = (GtkSelectionModel*)gtk_stack_get_pages([self castedGObject]);
+	GtkSelectionModel* returnValue = (GtkSelectionModel*)gtk_stack_get_pages((GtkStack*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)transitionDuration
 {
-	guint returnValue = (guint)gtk_stack_get_transition_duration([self castedGObject]);
+	guint returnValue = (guint)gtk_stack_get_transition_duration((GtkStack*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)transitionRunning
 {
-	bool returnValue = (bool)gtk_stack_get_transition_running([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_transition_running((GtkStack*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkStackTransitionType)transitionType
 {
-	GtkStackTransitionType returnValue = (GtkStackTransitionType)gtk_stack_get_transition_type([self castedGObject]);
+	GtkStackTransitionType returnValue = (GtkStackTransitionType)gtk_stack_get_transition_type((GtkStack*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)vhomogeneous
 {
-	bool returnValue = (bool)gtk_stack_get_vhomogeneous([self castedGObject]);
+	bool returnValue = (bool)gtk_stack_get_vhomogeneous((GtkStack*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGTKWidget*)visibleChild
 {
-	GtkWidget* gobjectValue = gtk_stack_get_visible_child([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_stack_get_visible_child((GtkStack*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -147,7 +155,7 @@
 
 - (OFString*)visibleChildName
 {
-	const char* gobjectValue = gtk_stack_get_visible_child_name([self castedGObject]);
+	const char* gobjectValue = gtk_stack_get_visible_child_name((GtkStack*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -155,47 +163,47 @@
 
 - (void)removeWithChild:(OGTKWidget*)child
 {
-	gtk_stack_remove([self castedGObject], [child castedGObject]);
+	gtk_stack_remove((GtkStack*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setHhomogeneous:(bool)hhomogeneous
 {
-	gtk_stack_set_hhomogeneous([self castedGObject], hhomogeneous);
+	gtk_stack_set_hhomogeneous((GtkStack*)[self castedGObject], hhomogeneous);
 }
 
 - (void)setInterpolateSize:(bool)interpolateSize
 {
-	gtk_stack_set_interpolate_size([self castedGObject], interpolateSize);
+	gtk_stack_set_interpolate_size((GtkStack*)[self castedGObject], interpolateSize);
 }
 
 - (void)setTransitionDuration:(guint)duration
 {
-	gtk_stack_set_transition_duration([self castedGObject], duration);
+	gtk_stack_set_transition_duration((GtkStack*)[self castedGObject], duration);
 }
 
 - (void)setTransitionType:(GtkStackTransitionType)transition
 {
-	gtk_stack_set_transition_type([self castedGObject], transition);
+	gtk_stack_set_transition_type((GtkStack*)[self castedGObject], transition);
 }
 
 - (void)setVhomogeneous:(bool)vhomogeneous
 {
-	gtk_stack_set_vhomogeneous([self castedGObject], vhomogeneous);
+	gtk_stack_set_vhomogeneous((GtkStack*)[self castedGObject], vhomogeneous);
 }
 
 - (void)setVisibleChild:(OGTKWidget*)child
 {
-	gtk_stack_set_visible_child([self castedGObject], [child castedGObject]);
+	gtk_stack_set_visible_child((GtkStack*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setVisibleChildFullWithName:(OFString*)name transition:(GtkStackTransitionType)transition
 {
-	gtk_stack_set_visible_child_full([self castedGObject], [name UTF8String], transition);
+	gtk_stack_set_visible_child_full((GtkStack*)[self castedGObject], [name UTF8String], transition);
 }
 
 - (void)setVisibleChildName:(OFString*)name
 {
-	gtk_stack_set_visible_child_name([self castedGObject], [name UTF8String]);
+	gtk_stack_set_visible_child_name((GtkStack*)[self castedGObject], [name UTF8String]);
 }
 
 

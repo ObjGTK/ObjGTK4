@@ -8,6 +8,8 @@
 
 @implementation OGTKAlternativeTrigger
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_ALTERNATIVE_TRIGGER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_ALTERNATIVE_TRIGGER);
+	return gObjectClass;
+}
+
 + (instancetype)alternativeTriggerWithFirst:(OGTKShortcutTrigger*)first second:(OGTKShortcutTrigger*)second
 {
-	GtkAlternativeTrigger* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_alternative_trigger_new([first castedGObject], [second castedGObject]), GtkAlternativeTrigger, GtkAlternativeTrigger);
+	GtkAlternativeTrigger* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_alternative_trigger_new([first castedGObject], [second castedGObject]), GTK_TYPE_ALTERNATIVE_TRIGGER, GtkAlternativeTrigger);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkAlternativeTrigger*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkAlternativeTrigger, GtkAlternativeTrigger);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_ALTERNATIVE_TRIGGER, GtkAlternativeTrigger);
 }
 
 - (OGTKShortcutTrigger*)first
 {
-	GtkShortcutTrigger* gobjectValue = gtk_alternative_trigger_get_first([self castedGObject]);
+	GtkShortcutTrigger* gobjectValue = gtk_alternative_trigger_get_first((GtkAlternativeTrigger*)[self castedGObject]);
 
 	OGTKShortcutTrigger* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -53,7 +64,7 @@
 
 - (OGTKShortcutTrigger*)second
 {
-	GtkShortcutTrigger* gobjectValue = gtk_alternative_trigger_get_second([self castedGObject]);
+	GtkShortcutTrigger* gobjectValue = gtk_alternative_trigger_get_second((GtkAlternativeTrigger*)[self castedGObject]);
 
 	OGTKShortcutTrigger* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;

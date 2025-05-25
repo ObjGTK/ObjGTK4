@@ -13,6 +13,8 @@
 
 @implementation OGdkDevice
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GDK_TYPE_DEVICE;
@@ -23,21 +25,30 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GDK_TYPE_DEVICE);
+	return gObjectClass;
+}
+
 - (GdkDevice*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkDevice, GdkDevice);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GDK_TYPE_DEVICE, GdkDevice);
 }
 
 - (bool)capsLockState
 {
-	bool returnValue = (bool)gdk_device_get_caps_lock_state([self castedGObject]);
+	bool returnValue = (bool)gdk_device_get_caps_lock_state((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGdkDeviceTool*)deviceTool
 {
-	GdkDeviceTool* gobjectValue = gdk_device_get_device_tool([self castedGObject]);
+	GdkDeviceTool* gobjectValue = gdk_device_get_device_tool((GdkDevice*)[self castedGObject]);
 
 	OGdkDeviceTool* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -45,14 +56,14 @@
 
 - (PangoDirection)direction
 {
-	PangoDirection returnValue = (PangoDirection)gdk_device_get_direction([self castedGObject]);
+	PangoDirection returnValue = (PangoDirection)gdk_device_get_direction((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGdkDisplay*)display
 {
-	GdkDisplay* gobjectValue = gdk_device_get_display([self castedGObject]);
+	GdkDisplay* gobjectValue = gdk_device_get_display((GdkDevice*)[self castedGObject]);
 
 	OGdkDisplay* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -60,21 +71,21 @@
 
 - (bool)hasCursor
 {
-	bool returnValue = (bool)gdk_device_get_has_cursor([self castedGObject]);
+	bool returnValue = (bool)gdk_device_get_has_cursor((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkModifierType)modifierState
 {
-	GdkModifierType returnValue = (GdkModifierType)gdk_device_get_modifier_state([self castedGObject]);
+	GdkModifierType returnValue = (GdkModifierType)gdk_device_get_modifier_state((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)name
 {
-	const char* gobjectValue = gdk_device_get_name([self castedGObject]);
+	const char* gobjectValue = gdk_device_get_name((GdkDevice*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -82,21 +93,21 @@
 
 - (bool)numLockState
 {
-	bool returnValue = (bool)gdk_device_get_num_lock_state([self castedGObject]);
+	bool returnValue = (bool)gdk_device_get_num_lock_state((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)numTouches
 {
-	guint returnValue = (guint)gdk_device_get_num_touches([self castedGObject]);
+	guint returnValue = (guint)gdk_device_get_num_touches((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)productId
 {
-	const char* gobjectValue = gdk_device_get_product_id([self castedGObject]);
+	const char* gobjectValue = gdk_device_get_product_id((GdkDevice*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -104,14 +115,14 @@
 
 - (bool)scrollLockState
 {
-	bool returnValue = (bool)gdk_device_get_scroll_lock_state([self castedGObject]);
+	bool returnValue = (bool)gdk_device_get_scroll_lock_state((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGdkSeat*)seat
 {
-	GdkSeat* gobjectValue = gdk_device_get_seat([self castedGObject]);
+	GdkSeat* gobjectValue = gdk_device_get_seat((GdkDevice*)[self castedGObject]);
 
 	OGdkSeat* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -119,14 +130,14 @@
 
 - (GdkInputSource)source
 {
-	GdkInputSource returnValue = (GdkInputSource)gdk_device_get_source([self castedGObject]);
+	GdkInputSource returnValue = (GdkInputSource)gdk_device_get_source((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGdkSurface*)surfaceAtPositionWithWinX:(double*)winX winY:(double*)winY
 {
-	GdkSurface* gobjectValue = gdk_device_get_surface_at_position([self castedGObject], winX, winY);
+	GdkSurface* gobjectValue = gdk_device_get_surface_at_position((GdkDevice*)[self castedGObject], winX, winY);
 
 	OGdkSurface* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -134,14 +145,14 @@
 
 - (guint32)timestamp
 {
-	guint32 returnValue = (guint32)gdk_device_get_timestamp([self castedGObject]);
+	guint32 returnValue = (guint32)gdk_device_get_timestamp((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OFString*)vendorId
 {
-	const char* gobjectValue = gdk_device_get_vendor_id([self castedGObject]);
+	const char* gobjectValue = gdk_device_get_vendor_id((GdkDevice*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -149,7 +160,7 @@
 
 - (bool)hasBidiLayouts
 {
-	bool returnValue = (bool)gdk_device_has_bidi_layouts([self castedGObject]);
+	bool returnValue = (bool)gdk_device_has_bidi_layouts((GdkDevice*)[self castedGObject]);
 
 	return returnValue;
 }

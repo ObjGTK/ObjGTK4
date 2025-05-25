@@ -8,6 +8,8 @@
 
 @implementation OGTKSorter
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SORTER;
@@ -18,26 +20,35 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SORTER);
+	return gObjectClass;
+}
+
 - (GtkSorter*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSorter, GtkSorter);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SORTER, GtkSorter);
 }
 
 - (void)changedWithChange:(GtkSorterChange)change
 {
-	gtk_sorter_changed([self castedGObject], change);
+	gtk_sorter_changed((GtkSorter*)[self castedGObject], change);
 }
 
 - (GtkOrdering)compareWithItem1:(gpointer)item1 item2:(gpointer)item2
 {
-	GtkOrdering returnValue = (GtkOrdering)gtk_sorter_compare([self castedGObject], item1, item2);
+	GtkOrdering returnValue = (GtkOrdering)gtk_sorter_compare((GtkSorter*)[self castedGObject], item1, item2);
 
 	return returnValue;
 }
 
 - (GtkSorterOrder)order
 {
-	GtkSorterOrder returnValue = (GtkSorterOrder)gtk_sorter_get_order([self castedGObject]);
+	GtkSorterOrder returnValue = (GtkSorterOrder)gtk_sorter_get_order((GtkSorter*)[self castedGObject]);
 
 	return returnValue;
 }

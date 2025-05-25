@@ -12,6 +12,8 @@
 
 @implementation OGTKCellView
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_VIEW;
@@ -22,9 +24,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_VIEW);
+	return gObjectClass;
+}
+
 + (instancetype)cellView
 {
-	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new(), GtkCellView, GtkCellView);
+	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new(), GTK_TYPE_CELL_VIEW, GtkCellView);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -47,7 +58,7 @@
 
 + (instancetype)cellViewWithContextWithArea:(OGTKCellArea*)area context:(OGTKCellAreaContext*)context
 {
-	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_context([area castedGObject], [context castedGObject]), GtkCellView, GtkCellView);
+	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_context([area castedGObject], [context castedGObject]), GTK_TYPE_CELL_VIEW, GtkCellView);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -70,7 +81,7 @@
 
 + (instancetype)cellViewWithMarkup:(OFString*)markup
 {
-	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_markup([markup UTF8String]), GtkCellView, GtkCellView);
+	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_markup([markup UTF8String]), GTK_TYPE_CELL_VIEW, GtkCellView);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -93,7 +104,7 @@
 
 + (instancetype)cellViewWithText:(OFString*)text
 {
-	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_text([text UTF8String]), GtkCellView, GtkCellView);
+	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_text([text UTF8String]), GTK_TYPE_CELL_VIEW, GtkCellView);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -116,7 +127,7 @@
 
 + (instancetype)cellViewWithTexture:(OGdkTexture*)texture
 {
-	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_texture([texture castedGObject]), GtkCellView, GtkCellView);
+	GtkCellView* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_view_new_with_texture([texture castedGObject]), GTK_TYPE_CELL_VIEW, GtkCellView);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -139,55 +150,55 @@
 
 - (GtkCellView*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellView, GtkCellView);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_VIEW, GtkCellView);
 }
 
 - (GtkTreePath*)displayedRow
 {
-	GtkTreePath* returnValue = (GtkTreePath*)gtk_cell_view_get_displayed_row([self castedGObject]);
+	GtkTreePath* returnValue = (GtkTreePath*)gtk_cell_view_get_displayed_row((GtkCellView*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)drawSensitive
 {
-	bool returnValue = (bool)gtk_cell_view_get_draw_sensitive([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_view_get_draw_sensitive((GtkCellView*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)fitModel
 {
-	bool returnValue = (bool)gtk_cell_view_get_fit_model([self castedGObject]);
+	bool returnValue = (bool)gtk_cell_view_get_fit_model((GtkCellView*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkTreeModel*)model
 {
-	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_cell_view_get_model([self castedGObject]);
+	GtkTreeModel* returnValue = (GtkTreeModel*)gtk_cell_view_get_model((GtkCellView*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setDisplayedRowWithPath:(GtkTreePath*)path
 {
-	gtk_cell_view_set_displayed_row([self castedGObject], path);
+	gtk_cell_view_set_displayed_row((GtkCellView*)[self castedGObject], path);
 }
 
 - (void)setDrawSensitive:(bool)drawSensitive
 {
-	gtk_cell_view_set_draw_sensitive([self castedGObject], drawSensitive);
+	gtk_cell_view_set_draw_sensitive((GtkCellView*)[self castedGObject], drawSensitive);
 }
 
 - (void)setFitModel:(bool)fitModel
 {
-	gtk_cell_view_set_fit_model([self castedGObject], fitModel);
+	gtk_cell_view_set_fit_model((GtkCellView*)[self castedGObject], fitModel);
 }
 
 - (void)setModel:(GtkTreeModel*)model
 {
-	gtk_cell_view_set_model([self castedGObject], model);
+	gtk_cell_view_set_model((GtkCellView*)[self castedGObject], model);
 }
 
 

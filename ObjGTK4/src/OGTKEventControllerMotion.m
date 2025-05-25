@@ -8,6 +8,8 @@
 
 @implementation OGTKEventControllerMotion
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_EVENT_CONTROLLER_MOTION;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_EVENT_CONTROLLER_MOTION);
+	return gObjectClass;
+}
+
 + (instancetype)eventControllerMotion
 {
-	GtkEventControllerMotion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_motion_new(), GtkEventControllerMotion, GtkEventControllerMotion);
+	GtkEventControllerMotion* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_motion_new(), GTK_TYPE_EVENT_CONTROLLER_MOTION, GtkEventControllerMotion);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,19 +51,19 @@
 
 - (GtkEventControllerMotion*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEventControllerMotion, GtkEventControllerMotion);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_EVENT_CONTROLLER_MOTION, GtkEventControllerMotion);
 }
 
 - (bool)containsPointer
 {
-	bool returnValue = (bool)gtk_event_controller_motion_contains_pointer([self castedGObject]);
+	bool returnValue = (bool)gtk_event_controller_motion_contains_pointer((GtkEventControllerMotion*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isPointer
 {
-	bool returnValue = (bool)gtk_event_controller_motion_is_pointer([self castedGObject]);
+	bool returnValue = (bool)gtk_event_controller_motion_is_pointer((GtkEventControllerMotion*)[self castedGObject]);
 
 	return returnValue;
 }

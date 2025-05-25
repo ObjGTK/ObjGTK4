@@ -8,6 +8,8 @@
 
 @implementation OGTKSpinner
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SPINNER;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SPINNER);
+	return gObjectClass;
+}
+
 + (instancetype)spinner
 {
-	GtkSpinner* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spinner_new(), GtkSpinner, GtkSpinner);
+	GtkSpinner* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_spinner_new(), GTK_TYPE_SPINNER, GtkSpinner);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,29 +54,29 @@
 
 - (GtkSpinner*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSpinner, GtkSpinner);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SPINNER, GtkSpinner);
 }
 
 - (bool)spinning
 {
-	bool returnValue = (bool)gtk_spinner_get_spinning([self castedGObject]);
+	bool returnValue = (bool)gtk_spinner_get_spinning((GtkSpinner*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setSpinning:(bool)spinning
 {
-	gtk_spinner_set_spinning([self castedGObject], spinning);
+	gtk_spinner_set_spinning((GtkSpinner*)[self castedGObject], spinning);
 }
 
 - (void)start
 {
-	gtk_spinner_start([self castedGObject]);
+	gtk_spinner_start((GtkSpinner*)[self castedGObject]);
 }
 
 - (void)stop
 {
-	gtk_spinner_stop([self castedGObject]);
+	gtk_spinner_stop((GtkSpinner*)[self castedGObject]);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKSignalAction
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SIGNAL_ACTION;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SIGNAL_ACTION);
+	return gObjectClass;
+}
+
 + (instancetype)signalActionWithSignalName:(OFString*)signalName
 {
-	GtkSignalAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_signal_action_new([signalName UTF8String]), GtkSignalAction, GtkSignalAction);
+	GtkSignalAction* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_signal_action_new([signalName UTF8String]), GTK_TYPE_SIGNAL_ACTION, GtkSignalAction);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkSignalAction*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSignalAction, GtkSignalAction);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SIGNAL_ACTION, GtkSignalAction);
 }
 
 - (OFString*)signalName
 {
-	const char* gobjectValue = gtk_signal_action_get_signal_name([self castedGObject]);
+	const char* gobjectValue = gtk_signal_action_get_signal_name((GtkSignalAction*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;

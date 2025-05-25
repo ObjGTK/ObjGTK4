@@ -10,6 +10,8 @@
 
 @implementation OGTKCellRendererCombo
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_CELL_RENDERER_COMBO;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_CELL_RENDERER_COMBO);
+	return gObjectClass;
+}
+
 + (instancetype)cellRendererCombo
 {
-	GtkCellRendererCombo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_combo_new(), GtkCellRendererCombo, GtkCellRendererCombo);
+	GtkCellRendererCombo* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_cell_renderer_combo_new(), GTK_TYPE_CELL_RENDERER_COMBO, GtkCellRendererCombo);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -45,7 +56,7 @@
 
 - (GtkCellRendererCombo*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkCellRendererCombo, GtkCellRendererCombo);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_CELL_RENDERER_COMBO, GtkCellRendererCombo);
 }
 
 

@@ -10,6 +10,8 @@
 
 @implementation OGTKTextChildAnchor
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_TEXT_CHILD_ANCHOR;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_TEXT_CHILD_ANCHOR);
+	return gObjectClass;
+}
+
 + (instancetype)textChildAnchor
 {
-	GtkTextChildAnchor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_child_anchor_new(), GtkTextChildAnchor, GtkTextChildAnchor);
+	GtkTextChildAnchor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_child_anchor_new(), GTK_TYPE_TEXT_CHILD_ANCHOR, GtkTextChildAnchor);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,7 +53,7 @@
 
 + (instancetype)textChildAnchorWithReplacementWithCharacter:(OFString*)character
 {
-	GtkTextChildAnchor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_child_anchor_new_with_replacement([character UTF8String]), GtkTextChildAnchor, GtkTextChildAnchor);
+	GtkTextChildAnchor* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_text_child_anchor_new_with_replacement([character UTF8String]), GTK_TYPE_TEXT_CHILD_ANCHOR, GtkTextChildAnchor);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -62,19 +73,19 @@
 
 - (GtkTextChildAnchor*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkTextChildAnchor, GtkTextChildAnchor);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_TEXT_CHILD_ANCHOR, GtkTextChildAnchor);
 }
 
 - (bool)deleted
 {
-	bool returnValue = (bool)gtk_text_child_anchor_get_deleted([self castedGObject]);
+	bool returnValue = (bool)gtk_text_child_anchor_get_deleted((GtkTextChildAnchor*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkWidget**)widgetsWithOutLen:(guint*)outLen
 {
-	GtkWidget** returnValue = (GtkWidget**)gtk_text_child_anchor_get_widgets([self castedGObject], outLen);
+	GtkWidget** returnValue = (GtkWidget**)gtk_text_child_anchor_get_widgets((GtkTextChildAnchor*)[self castedGObject], outLen);
 
 	return returnValue;
 }

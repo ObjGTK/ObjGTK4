@@ -10,6 +10,8 @@
 
 @implementation OGTKShortcutController
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SHORTCUT_CONTROLLER;
@@ -20,9 +22,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SHORTCUT_CONTROLLER);
+	return gObjectClass;
+}
+
 + (instancetype)shortcutController
 {
-	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new(), GtkShortcutController, GtkShortcutController);
+	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new(), GTK_TYPE_SHORTCUT_CONTROLLER, GtkShortcutController);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -42,7 +53,7 @@
 
 + (instancetype)shortcutControllerForModel:(GListModel*)model
 {
-	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new_for_model(model), GtkShortcutController, GtkShortcutController);
+	GtkShortcutController* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_shortcut_controller_new_for_model(model), GTK_TYPE_SHORTCUT_CONTROLLER, GtkShortcutController);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -62,41 +73,41 @@
 
 - (GtkShortcutController*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkShortcutController, GtkShortcutController);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SHORTCUT_CONTROLLER, GtkShortcutController);
 }
 
 - (void)addShortcut:(OGTKShortcut*)shortcut
 {
-	gtk_shortcut_controller_add_shortcut([self castedGObject], [shortcut castedGObject]);
+	gtk_shortcut_controller_add_shortcut((GtkShortcutController*)[self castedGObject], [shortcut castedGObject]);
 }
 
 - (GdkModifierType)mnemonicsModifiers
 {
-	GdkModifierType returnValue = (GdkModifierType)gtk_shortcut_controller_get_mnemonics_modifiers([self castedGObject]);
+	GdkModifierType returnValue = (GdkModifierType)gtk_shortcut_controller_get_mnemonics_modifiers((GtkShortcutController*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GtkShortcutScope)scope
 {
-	GtkShortcutScope returnValue = (GtkShortcutScope)gtk_shortcut_controller_get_scope([self castedGObject]);
+	GtkShortcutScope returnValue = (GtkShortcutScope)gtk_shortcut_controller_get_scope((GtkShortcutController*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)removeShortcut:(OGTKShortcut*)shortcut
 {
-	gtk_shortcut_controller_remove_shortcut([self castedGObject], [shortcut castedGObject]);
+	gtk_shortcut_controller_remove_shortcut((GtkShortcutController*)[self castedGObject], [shortcut castedGObject]);
 }
 
 - (void)setMnemonicsModifiers:(GdkModifierType)modifiers
 {
-	gtk_shortcut_controller_set_mnemonics_modifiers([self castedGObject], modifiers);
+	gtk_shortcut_controller_set_mnemonics_modifiers((GtkShortcutController*)[self castedGObject], modifiers);
 }
 
 - (void)setScope:(GtkShortcutScope)scope
 {
-	gtk_shortcut_controller_set_scope([self castedGObject], scope);
+	gtk_shortcut_controller_set_scope((GtkShortcutController*)[self castedGObject], scope);
 }
 
 

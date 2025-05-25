@@ -8,6 +8,8 @@
 
 @implementation OGTKActionBar
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_ACTION_BAR;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_ACTION_BAR);
+	return gObjectClass;
+}
+
 + (instancetype)actionBar
 {
-	GtkActionBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_action_bar_new(), GtkActionBar, GtkActionBar);
+	GtkActionBar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_action_bar_new(), GTK_TYPE_ACTION_BAR, GtkActionBar);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,12 +54,12 @@
 
 - (GtkActionBar*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkActionBar, GtkActionBar);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_ACTION_BAR, GtkActionBar);
 }
 
 - (OGTKWidget*)centerWidget
 {
-	GtkWidget* gobjectValue = gtk_action_bar_get_center_widget([self castedGObject]);
+	GtkWidget* gobjectValue = gtk_action_bar_get_center_widget((GtkActionBar*)[self castedGObject]);
 
 	OGTKWidget* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -56,34 +67,34 @@
 
 - (bool)revealed
 {
-	bool returnValue = (bool)gtk_action_bar_get_revealed([self castedGObject]);
+	bool returnValue = (bool)gtk_action_bar_get_revealed((GtkActionBar*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)packEndWithChild:(OGTKWidget*)child
 {
-	gtk_action_bar_pack_end([self castedGObject], [child castedGObject]);
+	gtk_action_bar_pack_end((GtkActionBar*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)packStartWithChild:(OGTKWidget*)child
 {
-	gtk_action_bar_pack_start([self castedGObject], [child castedGObject]);
+	gtk_action_bar_pack_start((GtkActionBar*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)removeWithChild:(OGTKWidget*)child
 {
-	gtk_action_bar_remove([self castedGObject], [child castedGObject]);
+	gtk_action_bar_remove((GtkActionBar*)[self castedGObject], [child castedGObject]);
 }
 
 - (void)setCenterWidget:(OGTKWidget*)centerWidget
 {
-	gtk_action_bar_set_center_widget([self castedGObject], [centerWidget castedGObject]);
+	gtk_action_bar_set_center_widget((GtkActionBar*)[self castedGObject], [centerWidget castedGObject]);
 }
 
 - (void)setRevealed:(bool)revealed
 {
-	gtk_action_bar_set_revealed([self castedGObject], revealed);
+	gtk_action_bar_set_revealed((GtkActionBar*)[self castedGObject], revealed);
 }
 
 

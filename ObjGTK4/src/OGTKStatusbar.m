@@ -8,6 +8,8 @@
 
 @implementation OGTKStatusbar
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_STATUSBAR;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_STATUSBAR);
+	return gObjectClass;
+}
+
 + (instancetype)statusbar
 {
-	GtkStatusbar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_statusbar_new(), GtkStatusbar, GtkStatusbar);
+	GtkStatusbar* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_statusbar_new(), GTK_TYPE_STATUSBAR, GtkStatusbar);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -43,36 +54,36 @@
 
 - (GtkStatusbar*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkStatusbar, GtkStatusbar);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_STATUSBAR, GtkStatusbar);
 }
 
 - (guint)contextIdWithContextDescription:(OFString*)contextDescription
 {
-	guint returnValue = (guint)gtk_statusbar_get_context_id([self castedGObject], [contextDescription UTF8String]);
+	guint returnValue = (guint)gtk_statusbar_get_context_id((GtkStatusbar*)[self castedGObject], [contextDescription UTF8String]);
 
 	return returnValue;
 }
 
 - (void)popWithContextId:(guint)contextId
 {
-	gtk_statusbar_pop([self castedGObject], contextId);
+	gtk_statusbar_pop((GtkStatusbar*)[self castedGObject], contextId);
 }
 
 - (guint)pushWithContextId:(guint)contextId text:(OFString*)text
 {
-	guint returnValue = (guint)gtk_statusbar_push([self castedGObject], contextId, [text UTF8String]);
+	guint returnValue = (guint)gtk_statusbar_push((GtkStatusbar*)[self castedGObject], contextId, [text UTF8String]);
 
 	return returnValue;
 }
 
 - (void)removeWithContextId:(guint)contextId messageId:(guint)messageId
 {
-	gtk_statusbar_remove([self castedGObject], contextId, messageId);
+	gtk_statusbar_remove((GtkStatusbar*)[self castedGObject], contextId, messageId);
 }
 
 - (void)removeAllWithContextId:(guint)contextId
 {
-	gtk_statusbar_remove_all([self castedGObject], contextId);
+	gtk_statusbar_remove_all((GtkStatusbar*)[self castedGObject], contextId);
 }
 
 

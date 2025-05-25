@@ -13,6 +13,8 @@
 
 @implementation OGdkPixbufAnimation
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GDK_TYPE_PIXBUF_ANIMATION;
@@ -21,6 +23,15 @@
 		return;
 
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
+}
+
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GDK_TYPE_PIXBUF_ANIMATION);
+	return gObjectClass;
 }
 
 + (void)newFromStreamAsync:(OGInputStream*)stream cancellable:(OGCancellable*)cancellable callback:(GAsyncReadyCallback)callback userData:(gpointer)userData
@@ -32,7 +43,7 @@
 {
 	GError* err = NULL;
 
-	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_file([filename UTF8String], &err), GdkPixbufAnimation, GdkPixbufAnimation);
+	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_file([filename UTF8String], &err), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimation);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -56,7 +67,7 @@
 {
 	GError* err = NULL;
 
-	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_resource([resourcePath UTF8String], &err), GdkPixbufAnimation, GdkPixbufAnimation);
+	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_resource([resourcePath UTF8String], &err), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimation);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -80,7 +91,7 @@
 {
 	GError* err = NULL;
 
-	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_stream([stream castedGObject], [cancellable castedGObject], &err), GdkPixbufAnimation, GdkPixbufAnimation);
+	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_stream([stream castedGObject], [cancellable castedGObject], &err), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimation);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -104,7 +115,7 @@
 {
 	GError* err = NULL;
 
-	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_stream_finish(asyncResult, &err), GdkPixbufAnimation, GdkPixbufAnimation);
+	GdkPixbufAnimation* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gdk_pixbuf_animation_new_from_stream_finish(asyncResult, &err), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimation);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -126,19 +137,19 @@
 
 - (GdkPixbufAnimation*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GdkPixbufAnimation, GdkPixbufAnimation);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimation);
 }
 
 - (int)height
 {
-	int returnValue = (int)gdk_pixbuf_animation_get_height([self castedGObject]);
+	int returnValue = (int)gdk_pixbuf_animation_get_height((GdkPixbufAnimation*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGdkPixbufAnimationIter*)iterWithStartTime:(const GTimeVal*)startTime
 {
-	GdkPixbufAnimationIter* gobjectValue = gdk_pixbuf_animation_get_iter([self castedGObject], startTime);
+	GdkPixbufAnimationIter* gobjectValue = gdk_pixbuf_animation_get_iter((GdkPixbufAnimation*)[self castedGObject], startTime);
 
 	OGdkPixbufAnimationIter* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	g_object_unref(gobjectValue);
@@ -148,7 +159,7 @@
 
 - (OGdkPixbuf*)staticImage
 {
-	GdkPixbuf* gobjectValue = gdk_pixbuf_animation_get_static_image([self castedGObject]);
+	GdkPixbuf* gobjectValue = gdk_pixbuf_animation_get_static_image((GdkPixbufAnimation*)[self castedGObject]);
 
 	OGdkPixbuf* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -156,14 +167,14 @@
 
 - (int)width
 {
-	int returnValue = (int)gdk_pixbuf_animation_get_width([self castedGObject]);
+	int returnValue = (int)gdk_pixbuf_animation_get_width((GdkPixbufAnimation*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isStaticImage
 {
-	bool returnValue = (bool)gdk_pixbuf_animation_is_static_image([self castedGObject]);
+	bool returnValue = (bool)gdk_pixbuf_animation_is_static_image((GdkPixbufAnimation*)[self castedGObject]);
 
 	return returnValue;
 }

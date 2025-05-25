@@ -11,6 +11,8 @@
 
 @implementation OGTKPopoverMenu
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_POPOVER_MENU;
@@ -21,9 +23,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_POPOVER_MENU);
+	return gObjectClass;
+}
+
 + (instancetype)popoverMenuFromModel:(OGMenuModel*)model
 {
-	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model([model castedGObject]), GtkPopoverMenu, GtkPopoverMenu);
+	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model([model castedGObject]), GTK_TYPE_POPOVER_MENU, GtkPopoverMenu);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -46,7 +57,7 @@
 
 + (instancetype)popoverMenuFromModelFull:(OGMenuModel*)model flags:(GtkPopoverMenuFlags)flags
 {
-	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model_full([model castedGObject], flags), GtkPopoverMenu, GtkPopoverMenu);
+	GtkPopoverMenu* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_popover_menu_new_from_model_full([model castedGObject], flags), GTK_TYPE_POPOVER_MENU, GtkPopoverMenu);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -69,26 +80,26 @@
 
 - (GtkPopoverMenu*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkPopoverMenu, GtkPopoverMenu);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_POPOVER_MENU, GtkPopoverMenu);
 }
 
 - (bool)addChild:(OGTKWidget*)child identifier:(OFString*)identifier
 {
-	bool returnValue = (bool)gtk_popover_menu_add_child([self castedGObject], [child castedGObject], [identifier UTF8String]);
+	bool returnValue = (bool)gtk_popover_menu_add_child((GtkPopoverMenu*)[self castedGObject], [child castedGObject], [identifier UTF8String]);
 
 	return returnValue;
 }
 
 - (GtkPopoverMenuFlags)flags
 {
-	GtkPopoverMenuFlags returnValue = (GtkPopoverMenuFlags)gtk_popover_menu_get_flags([self castedGObject]);
+	GtkPopoverMenuFlags returnValue = (GtkPopoverMenuFlags)gtk_popover_menu_get_flags((GtkPopoverMenu*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (OGMenuModel*)menuModel
 {
-	GMenuModel* gobjectValue = gtk_popover_menu_get_menu_model([self castedGObject]);
+	GMenuModel* gobjectValue = gtk_popover_menu_get_menu_model((GtkPopoverMenu*)[self castedGObject]);
 
 	OGMenuModel* returnValue = OGWrapperClassAndObjectForGObject(gobjectValue);
 	return returnValue;
@@ -96,19 +107,19 @@
 
 - (bool)removeChild:(OGTKWidget*)child
 {
-	bool returnValue = (bool)gtk_popover_menu_remove_child([self castedGObject], [child castedGObject]);
+	bool returnValue = (bool)gtk_popover_menu_remove_child((GtkPopoverMenu*)[self castedGObject], [child castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setFlags:(GtkPopoverMenuFlags)flags
 {
-	gtk_popover_menu_set_flags([self castedGObject], flags);
+	gtk_popover_menu_set_flags((GtkPopoverMenu*)[self castedGObject], flags);
 }
 
 - (void)setMenuModel:(OGMenuModel*)model
 {
-	gtk_popover_menu_set_menu_model([self castedGObject], [model castedGObject]);
+	gtk_popover_menu_set_menu_model((GtkPopoverMenu*)[self castedGObject], [model castedGObject]);
 }
 
 

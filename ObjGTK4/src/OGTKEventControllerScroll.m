@@ -8,6 +8,8 @@
 
 @implementation OGTKEventControllerScroll
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_EVENT_CONTROLLER_SCROLL;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_EVENT_CONTROLLER_SCROLL);
+	return gObjectClass;
+}
+
 + (instancetype)eventControllerScrollWithFlags:(GtkEventControllerScrollFlags)flags
 {
-	GtkEventControllerScroll* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_scroll_new(flags), GtkEventControllerScroll, GtkEventControllerScroll);
+	GtkEventControllerScroll* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_event_controller_scroll_new(flags), GTK_TYPE_EVENT_CONTROLLER_SCROLL, GtkEventControllerScroll);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,26 +51,26 @@
 
 - (GtkEventControllerScroll*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkEventControllerScroll, GtkEventControllerScroll);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_EVENT_CONTROLLER_SCROLL, GtkEventControllerScroll);
 }
 
 - (GtkEventControllerScrollFlags)flags
 {
-	GtkEventControllerScrollFlags returnValue = (GtkEventControllerScrollFlags)gtk_event_controller_scroll_get_flags([self castedGObject]);
+	GtkEventControllerScrollFlags returnValue = (GtkEventControllerScrollFlags)gtk_event_controller_scroll_get_flags((GtkEventControllerScroll*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GdkScrollUnit)unit
 {
-	GdkScrollUnit returnValue = (GdkScrollUnit)gtk_event_controller_scroll_get_unit([self castedGObject]);
+	GdkScrollUnit returnValue = (GdkScrollUnit)gtk_event_controller_scroll_get_unit((GtkEventControllerScroll*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setFlags:(GtkEventControllerScrollFlags)flags
 {
-	gtk_event_controller_scroll_set_flags([self castedGObject], flags);
+	gtk_event_controller_scroll_set_flags((GtkEventControllerScroll*)[self castedGObject], flags);
 }
 
 

@@ -8,6 +8,8 @@
 
 @implementation OGTKSingleSelection
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_SINGLE_SELECTION;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_SINGLE_SELECTION);
+	return gObjectClass;
+}
+
 + (instancetype)singleSelectionWithModel:(GListModel*)model
 {
-	GtkSingleSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_single_selection_new(model), GtkSingleSelection, GtkSingleSelection);
+	GtkSingleSelection* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_single_selection_new(model), GTK_TYPE_SINGLE_SELECTION, GtkSingleSelection);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,62 +51,62 @@
 
 - (GtkSingleSelection*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkSingleSelection, GtkSingleSelection);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_SINGLE_SELECTION, GtkSingleSelection);
 }
 
 - (bool)autoselect
 {
-	bool returnValue = (bool)gtk_single_selection_get_autoselect([self castedGObject]);
+	bool returnValue = (bool)gtk_single_selection_get_autoselect((GtkSingleSelection*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)canUnselect
 {
-	bool returnValue = (bool)gtk_single_selection_get_can_unselect([self castedGObject]);
+	bool returnValue = (bool)gtk_single_selection_get_can_unselect((GtkSingleSelection*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GListModel*)model
 {
-	GListModel* returnValue = (GListModel*)gtk_single_selection_get_model([self castedGObject]);
+	GListModel* returnValue = (GListModel*)gtk_single_selection_get_model((GtkSingleSelection*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (guint)selected
 {
-	guint returnValue = (guint)gtk_single_selection_get_selected([self castedGObject]);
+	guint returnValue = (guint)gtk_single_selection_get_selected((GtkSingleSelection*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (gpointer)selectedItem
 {
-	gpointer returnValue = (gpointer)gtk_single_selection_get_selected_item([self castedGObject]);
+	gpointer returnValue = (gpointer)gtk_single_selection_get_selected_item((GtkSingleSelection*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setAutoselect:(bool)autoselect
 {
-	gtk_single_selection_set_autoselect([self castedGObject], autoselect);
+	gtk_single_selection_set_autoselect((GtkSingleSelection*)[self castedGObject], autoselect);
 }
 
 - (void)setCanUnselect:(bool)canUnselect
 {
-	gtk_single_selection_set_can_unselect([self castedGObject], canUnselect);
+	gtk_single_selection_set_can_unselect((GtkSingleSelection*)[self castedGObject], canUnselect);
 }
 
 - (void)setModel:(GListModel*)model
 {
-	gtk_single_selection_set_model([self castedGObject], model);
+	gtk_single_selection_set_model((GtkSingleSelection*)[self castedGObject], model);
 }
 
 - (void)setSelectedWithPosition:(guint)position
 {
-	gtk_single_selection_set_selected([self castedGObject], position);
+	gtk_single_selection_set_selected((GtkSingleSelection*)[self castedGObject], position);
 }
 
 

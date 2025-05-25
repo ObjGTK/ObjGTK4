@@ -8,6 +8,8 @@
 
 @implementation OGTKDirectoryList
 
+static GTypeClass *gObjectClass = NULL;
+
 + (void)load
 {
 	GType gtypeToAssociate = GTK_TYPE_DIRECTORY_LIST;
@@ -18,9 +20,18 @@
 	g_type_set_qdata(gtypeToAssociate, [super wrapperQuark], [self class]);
 }
 
++ (GTypeClass*)gObjectClass
+{
+	if(gObjectClass != NULL)
+		return gObjectClass;
+
+	gObjectClass = g_type_class_ref(GTK_TYPE_DIRECTORY_LIST);
+	return gObjectClass;
+}
+
 + (instancetype)directoryListWithAttributes:(OFString*)attributes file:(GFile*)file
 {
-	GtkDirectoryList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_directory_list_new([attributes UTF8String], file), GtkDirectoryList, GtkDirectoryList);
+	GtkDirectoryList* gobjectValue = G_TYPE_CHECK_INSTANCE_CAST(gtk_directory_list_new([attributes UTF8String], file), GTK_TYPE_DIRECTORY_LIST, GtkDirectoryList);
 
 	if OF_UNLIKELY(!gobjectValue)
 		@throw [OGObjectGObjectToWrapCreationFailedException exception];
@@ -40,12 +51,12 @@
 
 - (GtkDirectoryList*)castedGObject
 {
-	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GtkDirectoryList, GtkDirectoryList);
+	return G_TYPE_CHECK_INSTANCE_CAST([self gObject], GTK_TYPE_DIRECTORY_LIST, GtkDirectoryList);
 }
 
 - (OFString*)attributes
 {
-	const char* gobjectValue = gtk_directory_list_get_attributes([self castedGObject]);
+	const char* gobjectValue = gtk_directory_list_get_attributes((GtkDirectoryList*)[self castedGObject]);
 
 	OFString* returnValue = ((gobjectValue != NULL) ? [OFString stringWithUTF8StringNoCopy:(char * _Nonnull)gobjectValue freeWhenDone:false] : nil);
 	return returnValue;
@@ -53,57 +64,57 @@
 
 - (const GError*)error
 {
-	const GError* returnValue = (const GError*)gtk_directory_list_get_error([self castedGObject]);
+	const GError* returnValue = (const GError*)gtk_directory_list_get_error((GtkDirectoryList*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (GFile*)file
 {
-	GFile* returnValue = (GFile*)gtk_directory_list_get_file([self castedGObject]);
+	GFile* returnValue = (GFile*)gtk_directory_list_get_file((GtkDirectoryList*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (int)ioPriority
 {
-	int returnValue = (int)gtk_directory_list_get_io_priority([self castedGObject]);
+	int returnValue = (int)gtk_directory_list_get_io_priority((GtkDirectoryList*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)monitored
 {
-	bool returnValue = (bool)gtk_directory_list_get_monitored([self castedGObject]);
+	bool returnValue = (bool)gtk_directory_list_get_monitored((GtkDirectoryList*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (bool)isLoading
 {
-	bool returnValue = (bool)gtk_directory_list_is_loading([self castedGObject]);
+	bool returnValue = (bool)gtk_directory_list_is_loading((GtkDirectoryList*)[self castedGObject]);
 
 	return returnValue;
 }
 
 - (void)setAttributes:(OFString*)attributes
 {
-	gtk_directory_list_set_attributes([self castedGObject], [attributes UTF8String]);
+	gtk_directory_list_set_attributes((GtkDirectoryList*)[self castedGObject], [attributes UTF8String]);
 }
 
 - (void)setFile:(GFile*)file
 {
-	gtk_directory_list_set_file([self castedGObject], file);
+	gtk_directory_list_set_file((GtkDirectoryList*)[self castedGObject], file);
 }
 
 - (void)setIoPriority:(int)ioPriority
 {
-	gtk_directory_list_set_io_priority([self castedGObject], ioPriority);
+	gtk_directory_list_set_io_priority((GtkDirectoryList*)[self castedGObject], ioPriority);
 }
 
 - (void)setMonitored:(bool)monitored
 {
-	gtk_directory_list_set_monitored([self castedGObject], monitored);
+	gtk_directory_list_set_monitored((GtkDirectoryList*)[self castedGObject], monitored);
 }
 
 
